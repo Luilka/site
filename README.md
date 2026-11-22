@@ -1,36 +1,71 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Luilka
 
-## Getting Started
+Site du studio produit Luilka, construit avec Nexy, React et Tailwind CSS.
 
-First, run the development server:
+## Versions figees
+
+| Composant | Version |
+|-----------|---------|
+| Python | 3.13.15 |
+| Node | 26.13.1 (LTS) |
+| Nexy | 2.8.0 |
+| React | 19.3.1 |
+| Tailwind CSS | 4.3.5 |
+| Motion | 14.14.0 |
+| Lucide | 1.77.0 |
+| Vite | 7.3.8 |
+
+Les versions sont exactes dans `pyproject.toml` et `package.json`. Les lockfiles `uv.lock` et `package-lock.json` sont committes.
+
+## Demarrage
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+uv sync
+npm ci
+uv run nx dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Le site repond sur http://localhost:3000.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Commandes de qualite
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+uv run ruff check .
+uv run ruff format --check .
+uv run mypy
+uv run pytest
+npm test
+uv run nx test --client
+uv run nx build
+```
 
-## Learn More
+La CI execute les memes commandes dans `.github/workflows/ci.yml`.
 
-To learn more about Next.js, take a look at the following resources:
+## Structure
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```text
+src/routes/                    pages React, un fichier par URL
+src/components/ui/             atomes: bouton, badge, carte, champ, lien, conteneur
+src/components/patterns/       composants de marque et d'interface
+src/components/templates/      sections de page composees pour les pages
+src/content/                   navigation partagee et dictionnaires francais et anglais
+src/globale.css                unique feuille de style, tokens et classes @apply
+src/contexts/                  etat de la langue
+src/brand/                     contenu de marque injecte par le conteneur Nexy
+src/actions/                   actions serveur
+tests/                         tests Python
+tests/client/                  tests Vitest
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Liens
 
-## Deploy on Vercel
+Tous les liens passent par `src/components/ui/link.tsx`, un adaptateur autour du composant `Link` de Nexy. Il ajoute le curseur de pointeur et garde les props d'ancrage HTML.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Le fichier `src/types/nexy-client.d.ts` donne une signature TypeScript propre au composant `Link` genere. La correspondance dans `tsconfig.client.json` ne concerne que la verification des types. A l'execution, Vite utilise le `Link` de Nexy.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Regles de travail
+
+TDD, SOLID et KISS. Un test ecrit avant le code, une assertion par test, une classe par intention.
+L'experience de la personne qui visite le site passe avant la notation technique.
+Aucun emoji et aucun caractere que l'on ne tape pas au clavier dans le code, l'interface, les logs ou les messages.
+Les skills Nexy sont dans `.agents/skills/` et `.claude/skills/`.

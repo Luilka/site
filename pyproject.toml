@@ -1,0 +1,41 @@
+[project]
+name = "luilka"
+version = "0.1.0"
+description = "Luilka studio product website"
+requires-python = ">=3.13,<3.14"
+dependencies = [
+    "nexy==2.8.0",
+]
+
+[dependency-groups]
+dev = [
+    "mypy==1.19.1",
+    "pyyaml==6.0.4",
+    "pytest==9.2.0",
+    "pytest-cov==7.1.0",
+    "ruff==0.17.6",
+    "types-pyyaml==6.0.12.20261122",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "--strict-markers"
+
+[tool.mypy]
+strict = true
+files = ["src", "tests"]
+python_version = "3.13"
+
+[[tool.mypy.overrides]]
+module = ["__nexy__.*"]
+ignore_errors = true
+
+[tool.ruff]
+line-length = 100
+target-version = "py313"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "S"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*.py" = ["S101"]

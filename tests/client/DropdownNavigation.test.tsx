@@ -1,0 +1,48 @@
+import { fireEvent, render, screen } from "@testing-library/react";
+import { describe, expect, it } from "vitest";
+
+import SiteHeader from "@/components/patterns/site-header.tsx";
+import { LanguageProvider } from "@/contexts/LanguageContext.tsx";
+
+function renderHeader() {
+  return render(
+    <LanguageProvider>
+      <SiteHeader />
+    </LanguageProvider>,
+  );
+}
+
+function expanded(name: RegExp) {
+  return screen.getByRole("link", { name }).getAttribute("aria-expanded");
+}
+
+describe("site header dropdown navigation", () => {
+  it("keeps one panel open when the pointer moves between triggers", () => {
+    renderHeader();
+    const nav = screen.getByRole("navigation", { name: /Navigation principale/ });
+    fireEvent.mouseEnter(screen.getByRole("link", { name: /Services/ }).parentElement!);
+    expect(expanded(/Services/)).toBe("true");
+    fireEvent.mouseEnter(screen.getByRole("link", { name: /Products/ }).parentElement!);
+    expect(expanded(/Services/)).toBe("false");
+    expect(expanded(/Products/)).toBe("true");
+    fireEvent.mouseLeave(nav);
+    expect(expanded(/Products/)).toBe("false");
+  });
+
+  it("uses an animated panel that closes on Escape", () => {
+    renderHeader();
+    const trigger = screen.getByRole("link", { name: /Services/ });
+    fireEvent.focus(trigger);
+    const panel = trigger.parentElement?.querySelector(".dropdown-panel");
+    expect(panel?.className).toContain("is-open");
+    fireEvent.keyDown(trigger, { key: "Escape" });
+    expect(expanded(/Services/)).toBe("false");
+  });
+
+  it("sticks the header to the top with utility classes", () => {
+    const { container } = renderHeader();
+    const header = container.querySelector("header");
+    expect(header?.className).toContain("sticky top-0");
+    expect(header?.className).toContain("bg-white/90");
+  });
+});
