@@ -61,7 +61,7 @@ def test_dropdown_image_fills_its_container_height() -> None:
     media = re.search(r"(?ms)^    \.dropdown-media \{(.*?)^    \}", css)
     assert media is not None
     assert "h-full" in media.group(1)
-    assert "w-40" in media.group(1)
+    assert "w-120" in media.group(1)
     assert "aspect-square" not in media.group(1)
     assert "height: 10rem;" not in media.group(1)
     image = re.search(r"(?ms)^      img \{(.*?)^      \}", media.group(1))
@@ -69,9 +69,9 @@ def test_dropdown_image_fills_its_container_height() -> None:
     assert "@apply h-full w-full;" in image.group(1)
 
 
-def test_dropdown_items_use_a_row_layout() -> None:
+def test_dropdown_items_stack_in_a_column() -> None:
     css = (SRC / "globale.css").read_text(encoding="utf-8")
-    assert re.search(r"\.dropdown-item\s*\{\s*@apply flex", css) is not None
+    assert re.search(r"\.dropdown-item\s*\{\s*@apply flex flex-col", css) is not None
 
 
 def test_dropdown_items_have_separators() -> None:

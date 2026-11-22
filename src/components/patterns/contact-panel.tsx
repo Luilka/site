@@ -2,7 +2,7 @@ import { CalendarDays } from "lucide-react";
 
 import { buttonClasses } from "@/components/ui/button.tsx";
 import Container from "@/components/ui/container.tsx";
-import { useContent } from "@/content/useContent.ts";
+import { useContent } from "@/i18n";
 
 type ContactPanelProps = {
   id?: string;

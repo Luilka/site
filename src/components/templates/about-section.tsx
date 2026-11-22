@@ -3,7 +3,7 @@ import { ArrowUpRight } from "lucide-react";
 import { buttonClasses } from "@/components/ui/button.tsx";
 import Container from "@/components/ui/container.tsx";
 import AppLink from "@/components/ui/link.tsx";
-import type { SectionAction } from "@/content/site.ts";
+import type { SectionAction } from "@/i18n";
 
 type AboutSectionProps = {
   id?: string;

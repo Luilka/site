@@ -2,14 +2,9 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 
 import SiteHeader from "@/components/patterns/site-header.tsx";
-import { LanguageProvider } from "@/contexts/LanguageContext.tsx";
 
 function openServices() {
-  render(
-    <LanguageProvider>
-      <SiteHeader />
-    </LanguageProvider>,
-  );
+  render(<SiteHeader />);
   const trigger = screen.getByRole("link", { name: /Services/ });
   fireEvent.mouseEnter(trigger.parentElement!);
   return {

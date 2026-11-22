@@ -2,14 +2,9 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 
 import SiteHeader from "@/components/patterns/site-header.tsx";
-import { LanguageProvider } from "@/contexts/LanguageContext.tsx";
 
 function renderHeader() {
-  return render(
-    <LanguageProvider>
-      <SiteHeader />
-    </LanguageProvider>,
-  );
+  return render(<SiteHeader />);
 }
 
 function expanded(name: RegExp) {
@@ -43,6 +38,6 @@ describe("site header dropdown navigation", () => {
     const { container } = renderHeader();
     const header = container.querySelector("header");
     expect(header?.className).toContain("sticky top-0");
-    expect(header?.className).toContain("bg-white/90");
+    expect(header?.className).toContain("bg-white/60");
   });
 });

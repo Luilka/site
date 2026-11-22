@@ -5,8 +5,8 @@ import BrandMark from "@/components/patterns/brand-mark.tsx";
 import LanguageToggle from "@/components/patterns/language-toggle.tsx";
 import NavDropdown from "@/components/patterns/nav-dropdown.tsx";
 import AppLink from "@/components/ui/link.tsx";
-import { navigation } from "@/content/site.ts";
-import { useContent } from "@/content/useContent.ts";
+import { navigation } from "@/i18n";
+import { useContent } from "@/i18n";
 
 export default function SiteHeader() {
   const content = useContent();
@@ -20,7 +20,7 @@ export default function SiteHeader() {
   }
 
   return (
-    <header className="sticky top-0 z-[13] border-[0.04375rem] border-[#dee0e3] bg-white/90 backdrop-blur-[10px]">
+    <header className="sticky top-0 z-[13] border-[0.04375rem] border-[#dee0e3] bg-white/60 backdrop-blur">
       <div className="nav mx-auto flex h-[4.4375rem] w-full max-w-[80rem] flex-row items-center justify-between gap-8 px-6 lg:px-10">
         <BrandMark />
         <nav

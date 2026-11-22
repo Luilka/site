@@ -3,15 +3,18 @@ import type { ReactNode } from "react";
 import IconSprite from "@/components/patterns/icon-sprite.tsx";
 import SiteFooter from "@/components/patterns/site-footer.tsx";
 import SiteHeader from "@/components/patterns/site-header.tsx";
-import { LanguageProvider } from "@/contexts/LanguageContext.tsx";
+import { useLanguageRedirect, useUrlLanguage } from "@/i18n";
 
 type RootLayoutProps = {
   children: ReactNode;
 };
 
 export default function RootLayout({ children }: RootLayoutProps) {
+  const language = useUrlLanguage();
+  useLanguageRedirect();
+
   return (
-    <html lang="fr">
+    <html lang={language}>
       <head>
         <meta charSet="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -23,12 +26,10 @@ export default function RootLayout({ children }: RootLayoutProps) {
         />
       </head>
       <body>
-        <LanguageProvider>
-          <IconSprite />
-          <SiteHeader />
-          <main>{children}</main>
-          <SiteFooter />
-        </LanguageProvider>
+        <IconSprite />
+        <SiteHeader />
+        <main>{children}</main>
+        <SiteFooter />
       </body>
     </html>
   );

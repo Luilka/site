@@ -1,26 +1,33 @@
 import { fireEvent, render, screen } from "@testing-library/react";
-import { describe, expect, it } from "vitest";
+import { afterEach, describe, expect, it } from "vitest";
 
 import SiteHeader from "@/components/patterns/site-header.tsx";
-import { LanguageProvider } from "@/contexts/LanguageContext.tsx";
-import About from "@/routes/about.tsx";
+import About from "@/routes/[lang]/about.tsx";
 
-function renderApp() {
+function renderApp(pathname = "/fr/about") {
+  (globalThis as Record<string, unknown>).__NEXY_LOCATION__ = {
+    pathname,
+    search: "",
+    hash: "",
+    params: {},
+  };
   return render(
-    <LanguageProvider>
+    <>
       <SiteHeader />
       <About />
-    </LanguageProvider>,
+    </>,
   );
 }
 
+afterEach(() => {
+  delete (globalThis as Record<string, unknown>).__NEXY_LOCATION__;
+});
+
 describe("bilingual header", () => {
-  it("starts in French and switches the page copy to English", () => {
+  it("reads French from the URL and links to the same page in English", () => {
     renderApp();
     expect(screen.getByRole("heading", { level: 1, name: /Une communauté qui fait grandir le code/ })).toBeTruthy();
-    fireEvent.click(screen.getByRole("button", { name: /FR/ }));
-    expect(screen.getByRole("button", { name: /EN/ })).toBeTruthy();
-    expect(screen.getByRole("heading", { level: 1, name: /A community that grows code/ })).toBeTruthy();
+    expect(screen.getByRole("link", { name: "Passer en anglais" }).getAttribute("href")).toBe("/en/about");
   });
 
   it("opens a dropdown on hover and closes it on leave", () => {

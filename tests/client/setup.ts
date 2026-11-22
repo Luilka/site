@@ -1,5 +1,14 @@
 import { cleanup } from "@testing-library/react";
-import { afterEach, vi } from "vitest";
+import { afterEach, beforeEach, vi } from "vitest";
+
+beforeEach(() => {
+  (globalThis as Record<string, unknown>).__NEXY_LOCATION__ = {
+    pathname: "/fr",
+    search: "",
+    hash: "",
+    params: {},
+  };
+});
 
 afterEach(() => {
   cleanup();

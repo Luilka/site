@@ -1,8 +1,8 @@
 import SectionHeading from "@/components/patterns/section-heading.tsx";
 import WorkCard from "@/components/patterns/work-card.tsx";
 import Container from "@/components/ui/container.tsx";
-import type { SectionAction } from "@/content/site.ts";
-import { useContent } from "@/content/useContent.ts";
+import type { SectionAction } from "@/i18n";
+import { useContent } from "@/i18n";
 
 type WorksSectionProps = {
   id?: string;

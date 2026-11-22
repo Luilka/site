@@ -37,6 +37,6 @@ describe("design system atoms", () => {
 
   it("renders internal links as semantic anchors", () => {
     render(<AppLink href="/about">A propos</AppLink>);
-    expect(screen.getByRole("link", { name: "A propos" }).getAttribute("href")).toBe("/about");
+    expect(screen.getByRole("link", { name: "A propos" }).getAttribute("href")).toBe("/fr/about");
   });
 });

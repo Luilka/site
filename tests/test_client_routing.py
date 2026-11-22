@@ -11,7 +11,7 @@ def test_configuration_enables_client_routing() -> None:
 
 
 def test_home_route_is_a_react_file() -> None:
-    assert (ROUTES / "index.tsx").is_file()
+    assert (ROUTES / "[lang]" / "index.tsx").is_file()
 
 
 def test_root_layout_is_a_react_file() -> None:
@@ -20,4 +20,11 @@ def test_root_layout_is_a_react_file() -> None:
 
 def test_every_page_has_a_react_route() -> None:
     for name in PAGE_NAMES:
-        assert (ROUTES / f"{name}.tsx").is_file(), name
+        assert (ROUTES / "[lang]" / f"{name}.tsx").is_file(), name
+
+
+def test_root_url_has_a_client_route() -> None:
+    assert (ROUTES / "index.tsx").is_file()
+    assert not (ROUTES / "index.py").exists()
+    for name in PAGE_NAMES:
+        assert not (ROUTES / f"{name}.tsx").exists(), name

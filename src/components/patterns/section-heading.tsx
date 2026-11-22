@@ -2,7 +2,7 @@ import { ArrowUpRight } from "lucide-react";
 
 import AppLink from "@/components/ui/link.tsx";
 import { buttonClasses } from "@/components/ui/button.tsx";
-import type { SectionAction } from "@/content/site.ts";
+import type { SectionAction } from "@/i18n";
 
 type SectionHeadingProps = {
   title: string;

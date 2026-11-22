@@ -1,18 +1,18 @@
 import { ChevronDown } from "lucide-react";
 
-import { useLanguage } from "@/contexts/LanguageContext.tsx";
+import AppLink from "@/components/ui/link.tsx";
+import { useContent } from "@/i18n";
+import { useLanguage } from "@/i18n";
+import { usePagePathname } from "@/i18n";
 
 export default function LanguageToggle() {
-  const { language, setLanguage } = useLanguage();
+  const { language } = useLanguage();
+  const content = useContent();
+  const page = usePagePathname();
   const nextLanguage = language === "fr" ? "en" : "fr";
 
   return (
-    <button
-      type="button"
-      className="lang cursor-pointer"
-      aria-label={`Changer la langue, actuellement ${language.toUpperCase()}`}
-      onClick={() => setLanguage(nextLanguage)}
-    >
+    <AppLink className="lang" href={page} language={nextLanguage} aria-label={content.switchLanguage}>
       <span className="flag" aria-hidden="true">
         <i />
         <i />
@@ -20,6 +20,6 @@ export default function LanguageToggle() {
       </span>
       {language.toUpperCase()}
       <ChevronDown size={14} strokeWidth={2.5} aria-hidden="true" />
-    </button>
+    </AppLink>
   );
 }

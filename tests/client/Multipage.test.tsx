@@ -2,13 +2,13 @@ import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 
 import SiteHeader from "@/components/patterns/site-header.tsx";
-import About from "@/routes/about.tsx";
-import Blog from "@/routes/blog.tsx";
-import Contact from "@/routes/contact.tsx";
-import Job from "@/routes/job.tsx";
-import Products from "@/routes/products.tsx";
-import Services from "@/routes/services.tsx";
-import Works from "@/routes/works.tsx";
+import About from "@/routes/[lang]/about.tsx";
+import Blog from "@/routes/[lang]/blog.tsx";
+import Contact from "@/routes/[lang]/contact.tsx";
+import Job from "@/routes/[lang]/job.tsx";
+import Products from "@/routes/[lang]/products.tsx";
+import Services from "@/routes/[lang]/services.tsx";
+import Works from "@/routes/[lang]/works.tsx";
 
 const pages = [
   { name: "about", element: <About />, heading: /Une communauté qui fait grandir le code/ },
@@ -30,12 +30,12 @@ describe("multipage site", () => {
   it("links the reference navigation to real pages", () => {
     render(<SiteHeader />);
     const expected: Array<[string, string]> = [
-      ["About", "/about"],
-      ["Services", "/services"],
-      ["Products", "/products"],
-      ["Works", "/works"],
-      ["Blog", "/blog"],
-      ["Job", "/job"],
+      ["About", "/fr/about"],
+      ["Services", "/fr/services"],
+      ["Products", "/fr/products"],
+      ["Works", "/fr/works"],
+      ["Blog", "/fr/blog"],
+      ["Job", "/fr/job"],
     ];
     for (const [label, href] of expected) {
       expect(screen.getByRole("link", { name: label }).getAttribute("href")).toBe(href);
@@ -44,6 +44,6 @@ describe("multipage site", () => {
 
   it("keeps the contact action on every page through the layout", () => {
     render(<SiteHeader />);
-    expect(screen.getByRole("link", { name: /Contact us/ }).getAttribute("href")).toBe("/contact");
+    expect(screen.getByRole("link", { name: /Contact us/ }).getAttribute("href")).toBe("/fr/contact");
   });
 });

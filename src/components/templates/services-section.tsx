@@ -1,8 +1,8 @@
 import SectionHeading from "@/components/patterns/section-heading.tsx";
 import ServiceCard from "@/components/patterns/service-card.tsx";
 import Container from "@/components/ui/container.tsx";
-import type { SectionAction } from "@/content/site.ts";
-import { useContent } from "@/content/useContent.ts";
+import type { SectionAction } from "@/i18n";
+import { useContent } from "@/i18n";
 
 type ServicesSectionProps = {
   id?: string;

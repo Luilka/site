@@ -1,19 +1,19 @@
 import ContactPanel from "@/components/patterns/contact-panel.tsx";
 import PageHero from "@/components/patterns/page-hero.tsx";
-import WorksSection from "@/components/templates/works-section.tsx";
-import { useContent } from "@/content/useContent.ts";
+import ProductsSection from "@/components/templates/products-section.tsx";
+import { useContent } from "@/i18n";
 
-export default function Works() {
+export default function Products() {
   const content = useContent();
-  const intro = content.pages.works;
+  const intro = content.pages.products;
 
   return (
     <>
       <PageHero {...intro} />
-      <WorksSection
+      <ProductsSection
         title={intro.title}
         description={content.section}
-        action={{ label: content.discover, href: "/blog" }}
+        action={{ label: content.discover, href: "/works" }}
       />
       <ContactPanel />
     </>

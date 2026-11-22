@@ -1,3 +1,4 @@
+import path from 'node:path'
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
@@ -9,6 +10,11 @@ export default defineConfig({
     tailwindcss(),
     react(),
   ],
+  resolve: {
+    alias: {
+      '@nexy/client': path.resolve(process.cwd(), '__nexy__/src/client.ts'),
+    },
+  },
   customLogger: nexy.log(),
   build :{
     rollupOptions: {

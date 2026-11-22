@@ -99,6 +99,7 @@ export type Dictionary = {
   section: string;
   quote: string;
   discover: string;
+  switchLanguage: string;
   home: HomeCopy;
   sectionTitles: SectionTitles;
   about: readonly string[];
@@ -261,6 +262,7 @@ const fr: Dictionary = {
     "Nous proposons une gamme complète de solutions numériques pour répondre à vos besoins spécifiques.",
   quote: "J'ai besoin d'un devis",
   discover: "Découvrir plus",
+  switchLanguage: "Passer en anglais",
   home: {
     badge: "Transformation",
     prefix: "Agence de",
@@ -403,6 +405,7 @@ const en: Dictionary = {
   section: "We offer a full range of digital solutions to answer your specific needs.",
   quote: "I need a quote",
   discover: "Learn more",
+  switchLanguage: "Switch to French",
   home: {
     badge: "Transformation",
     prefix: "Creative",

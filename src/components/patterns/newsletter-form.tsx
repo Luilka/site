@@ -3,7 +3,7 @@ import { ArrowUpRight } from "lucide-react";
 
 import Button from "@/components/ui/button.tsx";
 import Input from "@/components/ui/input.tsx";
-import { useContent } from "@/content/useContent.ts";
+import { useContent } from "@/i18n";
 
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 

@@ -4,7 +4,7 @@ import HeroAccent from "@/components/patterns/hero-accent.tsx";
 import Badge from "@/components/ui/badge.tsx";
 import { buttonClasses } from "@/components/ui/button.tsx";
 import Container from "@/components/ui/container.tsx";
-import { useContent } from "@/content/useContent.ts";
+import { useContent } from "@/i18n";
 
 export default function HeroSection() {
   const content = useContent();

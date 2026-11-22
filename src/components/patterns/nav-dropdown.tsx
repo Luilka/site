@@ -2,7 +2,7 @@ import { useEffect, useState, type FocusEvent, type KeyboardEvent } from "react"
 import { ChevronDown } from "lucide-react";
 
 import AppLink from "@/components/ui/link.tsx";
-import type { Dropdown, PageHref } from "@/content/site.ts";
+import type { Dropdown, PageHref } from "@/i18n";
 
 type NavDropdownProps = {
   id: string;

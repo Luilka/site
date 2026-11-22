@@ -11,4 +11,6 @@ export type LinkProps = Omit<AnchorHTMLAttributes<HTMLAnchorElement>, "href"> & 
   exact?: boolean;
 };
 
-export const Link: ForwardRefExoticComponent<LinkProps & RefAttributes<HTMLAnchorElement>>;
+export declare const Link: ForwardRefExoticComponent<LinkProps & RefAttributes<HTMLAnchorElement>>;
+
+export declare function usePathname(): string;

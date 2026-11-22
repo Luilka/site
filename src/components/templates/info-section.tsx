@@ -1,7 +1,7 @@
 import InfoCard from "@/components/patterns/info-card.tsx";
 import SectionHeading from "@/components/patterns/section-heading.tsx";
 import Container from "@/components/ui/container.tsx";
-import type { InfoCard as InfoCardData } from "@/content/site.ts";
+import type { InfoCard as InfoCardData } from "@/i18n";
 
 type InfoSectionProps = {
   title: string;

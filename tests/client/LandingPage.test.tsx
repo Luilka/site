@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 
-import Home from "@/routes/index.tsx";
+import Home from "@/routes/[lang]/index.tsx";
 
 describe("landing page", () => {
   it("renders one main heading with the reference promise", () => {

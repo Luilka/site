@@ -1,6 +1,6 @@
 import StepCard from "@/components/patterns/step-card.tsx";
 import Container from "@/components/ui/container.tsx";
-import { useContent } from "@/content/useContent.ts";
+import { useContent } from "@/i18n";
 
 type ProcessSectionProps = {
   id?: string;

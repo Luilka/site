@@ -61,7 +61,7 @@ def test_client_links_go_through_one_nexy_adapter() -> None:
 
 
 def test_landing_page_composes_section_templates() -> None:
-    landing = (SRC / "routes" / "index.tsx").read_text(encoding="utf-8")
+    landing = (SRC / "routes" / "[lang]" / "index.tsx").read_text(encoding="utf-8")
     for name in (
         "HeroSection",
         "AboutSection",

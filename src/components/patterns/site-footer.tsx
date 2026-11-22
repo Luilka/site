@@ -4,7 +4,7 @@ import BrandMark from "@/components/patterns/brand-mark.tsx";
 import NewsletterForm from "@/components/patterns/newsletter-form.tsx";
 import Container from "@/components/ui/container.tsx";
 import AppLink from "@/components/ui/link.tsx";
-import { useContent } from "@/content/useContent.ts";
+import { useContent } from "@/i18n";
 
 export default function SiteFooter() {
   const content = useContent();

@@ -19,7 +19,8 @@ def test_home_route_is_registered() -> None:
 
 def test_root_layout_declares_the_french_document() -> None:
     layout = (ROOT / "src" / "routes" / "layout.tsx").read_text(encoding="utf-8")
-    assert 'lang="fr"' in layout
+    assert "lang={language}" in layout
+    assert "useUrlLanguage" in layout
     assert "<title>Luilka</title>" in layout
     assert "family=Inter:wght@400;500;600;700&display=swap" in layout
 
@@ -86,6 +87,6 @@ def test_header_is_sticky_and_uses_utility_classes() -> None:
     )
     assert "sticky top-0" in header
     assert "z-[13]" in header
-    assert "bg-white/90" in header
-    assert "backdrop-blur-[10px]" in header
+    assert "bg-white/60" in header
+    assert "backdrop-blur" in header
     assert "max-w-[80rem]" in header
