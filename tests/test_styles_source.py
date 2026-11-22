@@ -41,18 +41,32 @@ def test_stylesheet_has_no_duplicate_rules() -> None:
 
 def test_dropdown_panel_fits_its_content() -> None:
     css = (SRC / "globale.css").read_text(encoding="utf-8")
-    assert re.search(r"\.dropdown-panel\s*\{\s*@apply [^;]*h-fit", css) is not None
-    assert re.search(r"\.dropdown-panel\s*\{\s*@apply [^;]*w-fit", css) is not None
-    assert "max-width: 34rem;" in css
-    assert re.search(r"(?m)^\s+width: 34rem;\s*$", css) is None
+    panel = re.search(r"(?ms)^  \.dropdown-panel \{(.*?)^  \}", css)
+    assert panel is not None
+    assert "h-fit" in panel.group(1)
+    assert "w-fit" in panel.group(1)
+    assert "max-width" not in panel.group(1)
 
 
-def test_dropdown_image_column_is_a_smaller_square() -> None:
+def test_dropdown_panel_uses_flex() -> None:
     css = (SRC / "globale.css").read_text(encoding="utf-8")
-    assert "grid-template-columns: 10rem 1fr;" in css
-    assert re.search(r"\.dropdown-media\s*\{\s*@apply [^;]*aspect-square", css) is not None
-    assert re.search(r"\.dropdown-media\s*\{\s*@apply [^;]*h-full", css) is not None
-    assert "height: 10rem;" in css
+    panel = re.search(r"(?ms)^  \.dropdown-panel \{(.*?)^  \}", css)
+    assert panel is not None
+    assert re.search(r"\.dropdown-panel\s*\{\s*@apply [^;]*flex", css) is not None
+    assert "grid-template-columns" not in panel.group(1)
+
+
+def test_dropdown_image_fills_its_container_height() -> None:
+    css = (SRC / "globale.css").read_text(encoding="utf-8")
+    media = re.search(r"(?ms)^    \.dropdown-media \{(.*?)^    \}", css)
+    assert media is not None
+    assert "h-full" in media.group(1)
+    assert "w-40" in media.group(1)
+    assert "aspect-square" not in media.group(1)
+    assert "height: 10rem;" not in media.group(1)
+    image = re.search(r"(?ms)^      img \{(.*?)^      \}", media.group(1))
+    assert image is not None
+    assert "@apply h-full w-full;" in image.group(1)
 
 
 def test_dropdown_items_use_a_row_layout() -> None:
