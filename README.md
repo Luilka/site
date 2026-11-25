@@ -79,6 +79,10 @@ L'experience de la personne qui visite le site passe avant la notation technique
 Aucun emoji et aucun caractere que l'on ne tape pas au clavier dans le code, l'interface, les logs ou les messages.
 Les skills Nexy sont dans `.agents/skills/` et `.claude/skills/`.
 
+## Documentation
+
+L'index est dans [docs/README.md](docs/README.md). Les regles pour les agents sont dans [AGENTS.md](AGENTS.md). `npm run check:docs` verifie la typographie, les liens, l'index, les ADR et la numerotation.
+
 ## Regles de code
 
 - Une fonction ou un composant tient en 10 lignes au plus, signature et accolades comprises (ESLint `max-lines-per-function`).

@@ -1,6 +1,9 @@
-# Audit de la page d accueil
+# Audit de la page d'accueil
 
-Date : 23 novembre 2026. Perimetre : `src/routes/[lang]/index.tsx` et ses composants.
+**Statut** : audit du 23 novembre 2026, mis à jour le 26 novembre 2026
+**Documents liés** : [principes de design](design-principles.md), [registre des décisions](../Product/decisions.md)
+
+Perimetre : `src/routes/[lang]/index.tsx` et ses composants.
 
 ## Cadre
 
@@ -71,15 +74,15 @@ Non touche : le rendu CSR et le `overflow-y-hidden` de `main`. Ils sont document
 - Succes : confirmation de la newsletter et ouverture du courriel pour le devis.
 - Contenu long : noms de projets qui reviennent a la ligne, trois cartes produits, quatre cartes d etapes.
 
-## Etats de page ajoutes
+## Etats de page
 
-Les trois etats suivent la convention de fichiers spéciaux de Nexy, a la racine de `src/routes` : `notfound.tsx`, `errors.tsx` et `loading.tsx`. Nexy les reconnait par leur nom, les retire du manifeste de routes et utilise `notfound.tsx` pour les vraies reponses HTTP 404 et `errors.tsx` pour les erreurs serveur. Le texte est ecrit en francais et en anglais.
+Les trois etats suivent la convention de fichiers speciaux de Nexy, a la racine de `src/routes` : `notfound.tsx`, `errors.tsx` et `loading.tsx`. Le texte est ecrit en francais et en anglais.
 
-- 404 : `src/routes/notfound.tsx`. Une adresse inconnue repond avec le code HTTP 404 et affiche le code, le titre, une phrase et un lien vers l accueil. Apercu : `/fr/une-page-inexistante`, `/en/missing-page`.
-- Erreur : `src/routes/errors.tsx`. Le serveur l'utilise pour les erreurs 500 ; cote client, `FeedbackBoundary` dans le layout branche `ErrorBoundary` sur ce meme fichier. Le bouton `Réessayer` remonte le composant. Apercu : `/fr/erreurs`, `/en/erreurs`, avec le bouton `Provoquer une erreur`.
-- Chargement : `src/routes/loading.tsx`. Le layout l'affiche pendant `useTransition()` et l'etat est annonce via `role="status"`. Apercu : `/fr/chargement`, `/en/chargement`.
+- 404 : `src/routes/notfound.tsx`. Une adresse inconnue repond avec le code HTTP 404 et affiche le code, le titre, une phrase et un lien vers l accueil.
+- Erreur : `src/routes/errors.tsx`. Le serveur l utilise pour les erreurs 500 ; cote client, `FeedbackBoundary` branche `ErrorBoundary` sur ce meme fichier. Le bouton `Réessayer` remonte le composant.
+- Chargement : `src/routes/loading.tsx`, annonce par `role="status"`.
 
-En mode CSR React, Nexy n'auto-branche pas ces fichiers cote client : le layout contient le seul point de branchement, qui importe directement `errors.tsx` et `loading.tsx`.
+Les pages d apercu `/fr/chargement` et `/fr/erreurs` ont ete retirees. Les trois etats restent couverts par `tests/client/FeedbackStates.test.tsx`, y compris la reprise apres une erreur de rendu.
 
 ## Fiches dynamiques et routes inconnues
 
@@ -87,7 +90,7 @@ Les fiches vivent dans la structure de dossiers Nexy : `src/routes/[lang]/blog/[
 
 `src/routes/[lang]/dependencies.py` verifie la langue et le slug avec `notFound()` de Nexy. Une adresse comme `/about`, `/fr/work/inconnu` ou `/en/blog/inconnu` repond donc avec un vrai code HTTP 404 et affiche `notfound.tsx`. Cote client, les memes verifications rendent le panneau 404 au lieu de l accueil.
 
-Les types partages et les modeles dynamiques sont dans `src/types/` : `site.ts`, `detail.ts` et un index. Les slugs ont une seule source, `src/content/details.json`, lue par le serveur et par le client. `tsconfig.json`, `tsconfig.client.json` et `vitest.config.ts` couvrent le glob `**/*.*.{ts,tsx}` ; Vitest exclut les dependances et les fichiers generes.
+Les types partages et les modeles dynamiques sont dans `src/shared/types/` : `site.ts`, `detail.ts` et un index. Les slugs ont une seule source, `src/content/details.json`, lue par le serveur et par le client. `tsconfig.json` et `tsconfig.client.json` couvrent le glob `**/*.*.{ts,tsx}`. Vitest ne lance que `tests/client/**/*.test.{ts,tsx}`.
 
 ## Resume
 
@@ -96,6 +99,12 @@ Qui:        Responsable produit ou marketing en visite rapide, souvent sur telep
 Travail:    Comprendre le studio de design, voir des preuves, contacter Luilka.
 Structure:  Hero, a propos, etapes, services, produits, realisations, contact.
 Etats:      404, erreur de rendu avec retry, chargement CSR, email invalide, confirmation newsletter.
-Apercus:    /fr/une-page-inexistante, /fr/erreurs, /fr/chargement et leurs equivalents /en.
 Retranche:  Texte de developpement, phrases repetees, lecture des bandeaux decoratifs.
 ```
+
+## Mise a jour du 26 novembre 2026
+
+- Le libelle `Navigation principale` vient maintenant du dictionnaire : `Main navigation` sur la page anglaise.
+- Le formulaire de la newsletter affiche de nouveau son message, avec `role="alert"` pour une adresse invalide et `role="status"` pour une adresse valide.
+- Le code est range selon l'[architecture](../Technique/architecture.md) : `shared/` pour le reutilisable, `sections/` a la place de `templates/`.
+- Question ouverte : le libelle `Contact us` reste en anglais sur la page francaise (Q-002 du registre).
