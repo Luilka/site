@@ -3,7 +3,7 @@
   "compilerOptions": {
     "paths": {
       "@/*": ["./src/*"],
-      "@nexy/client": ["./src/types/nexy-client.d.ts"],
+      "@nexy/client": ["./src/shared/types/nexy-client.d.ts"],
       "@nexy/*": ["./__nexy__/src/*"]
     }
   },

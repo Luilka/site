@@ -1,6 +1,6 @@
 import type { ButtonHTMLAttributes } from "react";
 
-import { cn } from "@/lib/cn.ts";
+import { cn } from "@/shared/lib/cn.ts";
 
 export type ButtonVariant = "primary" | "outline" | "dark";
 

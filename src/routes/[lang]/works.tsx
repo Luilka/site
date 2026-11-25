@@ -1,21 +1,12 @@
-import ContactPanel from "@/components/patterns/contact-panel.tsx";
-import PageHero from "@/components/patterns/page-hero.tsx";
-import WorksSection from "@/components/templates/works-section.tsx";
-import { useContent } from "@/i18n";
+import PageFrame from "@/components/patterns/page-frame.tsx";
+import WorksSection from "@/components/sections/(home)/works-section.tsx";
+import { useContent } from "@/shared/i18n";
 
 export default function Works() {
-  const content = useContent();
-  const intro = content.pages.works;
-
+  const { pages, section, discover } = useContent();
   return (
-    <>
-      <PageHero {...intro} />
-      <WorksSection
-        title={intro.title}
-        description={content.section}
-        action={{ label: content.discover, href: "/blog" }}
-      />
-      <ContactPanel />
-    </>
+    <PageFrame page="works">
+      <WorksSection title={pages.works.title} description={section} action={{ label: discover, href: "/blog" }} />
+    </PageFrame>
   );
 }

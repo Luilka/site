@@ -2,8 +2,6 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import { afterEach, describe, expect, it, vi } from "vitest";
 
 import FeedbackBoundary from "@/components/patterns/feedback-boundary.tsx";
-import LoadingPreview from "@/routes/[lang]/chargement.tsx";
-import ErrorPreview from "@/routes/[lang]/erreurs.tsx";
 import Errors from "@/routes/errors.tsx";
 import Loading from "@/routes/loading.tsx";
 import NotFound from "@/routes/notfound.tsx";
@@ -55,23 +53,16 @@ describe("feedback states", () => {
   });
 
   it("recovers from a rendering error through the feedback boundary", () => {
-    setPathname("/fr/erreurs");
-    render(
-      <FeedbackBoundary>
-        <ErrorPreview />
-      </FeedbackBoundary>,
-    );
-    fireEvent.click(screen.getByRole("button", { name: "Provoquer une erreur" }));
-    expect(
-      screen.getByRole("heading", { level: 1, name: "Cette page n'a pas pu s'afficher" }),
-    ).toBeTruthy();
+    setPathname("/fr");
+    let broken = true;
+    function Bomb() {
+      if (broken) throw new Error("boom");
+      return <p>Page restored</p>;
+    }
+    vi.spyOn(console, "error").mockImplementation(() => undefined);
+    render(<FeedbackBoundary><Bomb /></FeedbackBoundary>);
+    broken = false;
     fireEvent.click(screen.getByRole("button", { name: "Réessayer" }));
-    expect(screen.getByRole("button", { name: "Provoquer une erreur" })).toBeTruthy();
-  });
-
-  it("exposes a preview page for the loading state", () => {
-    setPathname("/fr/chargement");
-    render(<LoadingPreview />);
-    expect(screen.getByRole("status").textContent).toContain("Chargement en cours");
+    expect(screen.getByText("Page restored")).toBeTruthy();
   });
 });

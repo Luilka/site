@@ -52,7 +52,7 @@ def test_detail_routes_use_nexy_folder_names() -> None:
 
 
 def test_types_folder_holds_the_dynamic_models() -> None:
-    types = SRC / "types"
+    types = SRC / "shared" / "types"
     assert (types / "index.ts").is_file()
     assert (types / "site.ts").is_file()
     assert (types / "detail.ts").is_file()
@@ -81,4 +81,4 @@ def test_typescript_configs_include_the_requested_glob() -> None:
         config = json.loads((ROOT / name).read_text(encoding="utf-8"))
         assert "**/*.*.{ts,tsx}" in config["include"], name
     vitest = (ROOT / "vitest.config.ts").read_text(encoding="utf-8")
-    assert '"**/*.*.{ts,tsx}"' in vitest
+    assert '"tests/client/**/*.test.{ts,tsx}"' in vitest

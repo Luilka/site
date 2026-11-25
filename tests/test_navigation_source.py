@@ -32,12 +32,14 @@ def test_python_navigation_reads_the_shared_source() -> None:
 
 
 def test_typescript_navigation_reads_the_shared_source() -> None:
-    source = (SRC / "i18n" / "dictionaries.ts").read_text(encoding="utf-8")
+    source = (SRC / "shared" / "i18n" / "dictionaries.ts").read_text(encoding="utf-8")
     assert 'from "@/content/navigation.json"' in source
     assert "Services !" not in source
 
 
 def test_header_selects_dropdowns_from_menu_data() -> None:
-    source = (SRC / "components" / "patterns" / "site-header.tsx").read_text(encoding="utf-8")
+    source = (SRC / "components" / "layout" / "navigation" / "nav-entry.tsx").read_text(
+        encoding="utf-8"
+    )
     assert "item.menu" in source
     assert 'includes("!")' not in source

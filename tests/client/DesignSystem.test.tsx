@@ -1,13 +1,13 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 
-import Badge from "@/components/ui/badge.tsx";
-import Button from "@/components/ui/button.tsx";
-import Card from "@/components/ui/card.tsx";
-import Container from "@/components/ui/container.tsx";
-import Input from "@/components/ui/input.tsx";
-import AppLink from "@/components/ui/link.tsx";
-import { cn } from "@/lib/cn.ts";
+import Badge from "@/shared/ui/badge.tsx";
+import Button from "@/shared/ui/button.tsx";
+import Card from "@/shared/ui/card.tsx";
+import Container from "@/shared/ui/container.tsx";
+import Input from "@/shared/ui/input.tsx";
+import AppLink from "@/shared/ui/link.tsx";
+import { cn } from "@/shared/lib/cn.ts";
 
 describe("design system atoms", () => {
   it("joins class names without empty values", () => {

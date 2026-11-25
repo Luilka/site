@@ -1,7 +1,7 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import { afterEach, describe, expect, it } from "vitest";
 
-import SiteHeader from "@/components/patterns/site-header.tsx";
+import Header from "@/components/layout/header";
 import About from "@/routes/[lang]/about.tsx";
 
 function renderApp(pathname = "/fr/about") {
@@ -13,7 +13,7 @@ function renderApp(pathname = "/fr/about") {
   };
   return render(
     <>
-      <SiteHeader />
+      <Header />
       <About />
     </>,
   );

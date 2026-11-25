@@ -1,16 +1,13 @@
-import Container from "@/components/ui/container.tsx";
-import { useContent } from "@/i18n";
+import StateCopy from "@/components/patterns/state-copy.tsx";
+import StatePanel from "@/components/patterns/state-panel.tsx";
+import { useContent } from "@/shared/i18n";
 
 export default function Loading() {
   const copy = useContent().states.loading;
-
   return (
-    <section className="state-panel" role="status" aria-live="polite">
-      <Container>
-        <span className="state-progress" aria-hidden="true" />
-        <h1>{copy.title}</h1>
-        <p className="state-text">{copy.description}</p>
-      </Container>
-    </section>
+    <StatePanel role="status" aria-live="polite">
+      <span className="state-progress" aria-hidden="true" />
+      <StateCopy title={copy.title} description={copy.description} />
+    </StatePanel>
   );
 }

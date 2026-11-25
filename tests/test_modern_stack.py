@@ -12,21 +12,25 @@ def page_route(name: str) -> Path:
 
 
 def test_newsletter_uses_the_react_19_action_state() -> None:
-    source = (SRC / "components" / "patterns" / "newsletter-form.tsx").read_text(encoding="utf-8")
+    source = (SRC / "shared" / "hooks" / "use-newsletter.ts").read_text(encoding="utf-8")
     assert "useActionState" in source
-    assert "action={" in source
+    form = (SRC / "components" / "layout" / "newsletter-form.tsx").read_text(encoding="utf-8")
+    assert "action={" in form
 
 
 def test_every_inner_page_uses_the_shared_page_hero() -> None:
     for name in PAGES:
         source = page_route(name).read_text(encoding="utf-8")
-        assert "PageHero" in source, name
+        assert "PageHero" in source or "PageFrame" in source, name
 
 
 def test_contact_panel_is_shared_by_landing_and_contact_page() -> None:
     landing = (SRC / "routes" / "[lang]" / "index.tsx").read_text(encoding="utf-8")
     contact = (SRC / "routes" / "[lang]" / "contact.tsx").read_text(encoding="utf-8")
-    assert "ContactPanel" in landing
+    home = SRC / "components" / "sections" / "(home)"
+    sections = "".join(path.read_text(encoding="utf-8") for path in home.glob("home-*.tsx"))
+    assert "HomeProof" in landing
+    assert "ContactPanel" in sections
     assert "ContactPanel" in contact
 
 
@@ -44,7 +48,7 @@ def test_lucide_is_pinned() -> None:
 
 
 def test_step_card_uses_the_reference_padding() -> None:
-    source = (SRC / "components" / "patterns" / "step-card.tsx").read_text(encoding="utf-8")
+    source = (SRC / "components" / "cards" / "step-text.tsx").read_text(encoding="utf-8")
     assert 'className="t p-8"' in source
 
 
@@ -59,16 +63,18 @@ def test_layout_does_not_redirect_unprefixed_urls() -> None:
 
 
 def test_header_uses_reusable_dropdown_items() -> None:
-    header = (SRC / "components" / "patterns" / "site-header.tsx").read_text(encoding="utf-8")
-    assert "NavDropdown" in header
+    entry = (SRC / "components" / "layout" / "navigation" / "nav-entry.tsx").read_text(
+        encoding="utf-8"
+    )
+    assert "NavDropdown" in entry
 
 
 def test_content_has_french_and_english_dictionaries() -> None:
-    content = (SRC / "i18n" / "dictionaries.ts").read_text(encoding="utf-8")
+    content = (SRC / "shared" / "i18n" / "dictionaries.ts").read_text(encoding="utf-8")
     assert '"fr"' in content
     assert '"en"' in content
 
 
 def test_ci_runs_on_the_three_branches() -> None:
     workflow = (ROOT / ".github" / "workflows" / "ci.yml").read_text(encoding="utf-8")
-    assert all(name in workflow for name in ("developp", "staging", "main"))
+    assert all(name in workflow for name in ("develop", "staging", "main"))

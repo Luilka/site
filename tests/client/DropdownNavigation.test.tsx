@@ -1,10 +1,10 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 
-import SiteHeader from "@/components/patterns/site-header.tsx";
+import Header from "@/components/layout/header";
 
 function renderHeader() {
-  return render(<SiteHeader />);
+  return render(<Header />);
 }
 
 function expanded(name: RegExp) {

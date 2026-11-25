@@ -1,14 +1,14 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 
-import SiteHeader from "@/components/patterns/site-header.tsx";
+import Header from "@/components/layout/header";
 import About from "@/routes/[lang]/about.tsx";
 import Blog from "@/routes/[lang]/blog/index.tsx";
 import Contact from "@/routes/[lang]/contact.tsx";
-import Job from "@/routes/[lang]/job.tsx";
 import Products from "@/routes/[lang]/products/index.tsx";
 import Services from "@/routes/[lang]/services/index.tsx";
-import Works from "@/routes/[lang]/works.tsx";
+import Job from "@/routes/[lang]/job";
+import Works from "@/routes/[lang]/works";
 
 const pages = [
   { name: "about", element: <About />, heading: /Un studio de design centré sur l'utilisateur/ },
@@ -28,7 +28,7 @@ describe("multipage site", () => {
   });
 
   it("links the reference navigation to real pages", () => {
-    render(<SiteHeader />);
+    render(<Header />);
     const expected: Array<[string, string]> = [
       ["About", "/fr/about"],
       ["Services", "/fr/services"],
@@ -43,7 +43,7 @@ describe("multipage site", () => {
   });
 
   it("keeps the contact action on every page through the layout", () => {
-    render(<SiteHeader />);
+    render(<Header />);
     expect(screen.getByRole("link", { name: /Contact us/ }).getAttribute("href")).toBe("/fr/contact");
   });
 });

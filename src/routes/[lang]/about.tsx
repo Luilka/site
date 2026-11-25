@@ -1,19 +1,14 @@
-import ContactPanel from "@/components/patterns/contact-panel.tsx";
-import PageHero from "@/components/patterns/page-hero.tsx";
-import AboutSection from "@/components/templates/about-section.tsx";
-import ProcessSection from "@/components/templates/process-section.tsx";
-import { useContent } from "@/i18n";
+import PageFrame from "@/components/patterns/page-frame.tsx";
+import AboutSection from "@/components/sections/(home)/about-section.tsx";
+import ProcessSection from "@/components/sections/(home)/process-section.tsx";
+import { useContent } from "@/shared/i18n";
 
 export default function About() {
-  const content = useContent();
-  const intro = content.pages.about;
-
+  const { about, pages } = useContent();
   return (
-    <>
-      <PageHero {...intro} />
-      <AboutSection title={intro.title} paragraphs={content.about} />
+    <PageFrame page="about">
+      <AboutSection title={pages.about.title} paragraphs={about} />
       <ProcessSection />
-      <ContactPanel />
-    </>
+    </PageFrame>
   );
 }

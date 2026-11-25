@@ -1,5 +1,6 @@
-import Container from "@/components/ui/container.tsx";
-import { useContent } from "@/i18n";
+import StateCopy from "@/components/patterns/state-copy.tsx";
+import StatePanel from "@/components/patterns/state-panel.tsx";
+import { useContent } from "@/shared/i18n";
 
 type ErrorsProps = {
   reset?: () => void;
@@ -7,16 +8,10 @@ type ErrorsProps = {
 
 export default function Errors({ reset }: ErrorsProps) {
   const copy = useContent().states.error;
-
   return (
-    <section className="state-panel">
-      <Container>
-        <h1>{copy.title}</h1>
-        <p className="state-text">{copy.description}</p>
-        <button className="btn btn-dark state-action" type="button" onClick={reset}>
-          {copy.action}
-        </button>
-      </Container>
-    </section>
+    <StatePanel>
+      <StateCopy title={copy.title} description={copy.description} />
+      <button className="btn btn-dark state-action" type="button" onClick={reset}>{copy.action}</button>
+    </StatePanel>
   );
 }

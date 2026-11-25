@@ -11,7 +11,6 @@ DETAILS: dict[str, list[str]] = json.loads(DETAILS_FILE.read_text(encoding="utf-
 
 
 def validate_language(request: Request) -> None:
-    print("espoir")
     language = request.path_params.get("lang")
     if language not in SUPPORTED_LANGUAGES:
         notFound(f"Unknown language: {language}")

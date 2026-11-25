@@ -1,8 +1,8 @@
 import { render, screen } from "@testing-library/react";
 import { afterEach, describe, expect, it, vi } from "vitest";
 
-import SiteHeader from "@/components/patterns/site-header.tsx";
-import { languageFromPathname, localizedHref, pageFromPathname } from "@/i18n";
+import Header from "@/components/layout/header";
+import { languageFromPathname, localizedHref, pageFromPathname } from "@/shared/i18n";
 import About from "@/routes/[lang]/about.tsx";
 import Home from "@/routes/[lang]/index.tsx";
 import RootHome from "@/routes/index.tsx";
@@ -84,7 +84,7 @@ describe("language in the URL", () => {
 
   it("points the language switch at the same page in the other language", () => {
     setPathname("/fr/about");
-    render(<SiteHeader />);
+    render(<Header />);
     expect(screen.getByRole("link", { name: "Passer en anglais" }).getAttribute("href")).toBe("/en/about");
   });
 

@@ -1,14 +1,14 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 
-import IconSprite from "@/components/patterns/icon-sprite.tsx";
+import IconSprite from "@/components/layout/icon-sprite.tsx";
 import ProcessBand from "@/components/patterns/process-band.tsx";
-import ProductCard from "@/components/patterns/product-card.tsx";
-import ServiceCard from "@/components/patterns/service-card.tsx";
-import SiteFooter from "@/components/patterns/site-footer.tsx";
-import SiteHeader from "@/components/patterns/site-header.tsx";
-import StepCard from "@/components/patterns/step-card.tsx";
-import WorkCard from "@/components/patterns/work-card.tsx";
+import ProductCard from "@/components/cards/product-card.tsx";
+import ServiceCard from "@/components/cards/service-card.tsx";
+import Footer from "@/components/layout/footer";
+import Header from "@/components/layout/header";
+import StepCard from "@/components/cards/step-card";
+import WorkCard from "@/components/cards/work-card.tsx";
 
 describe("landing components", () => {
   it("defines the reference icons", () => {
@@ -26,7 +26,7 @@ describe("landing components", () => {
   });
 
   it("renders every reference navigation label", () => {
-    render(<SiteHeader />);
+    render(<Header />);
     expect(screen.getByText("Job")).toBeTruthy();
   });
 
@@ -41,22 +41,22 @@ describe("landing components", () => {
   });
 
   it("renders a service", () => {
-    render(<ServiceCard title="Design" description="Texte" />);
+    render(<ServiceCard slug="service" title="Design" description="Texte" />);
     expect(screen.getByText("Design")).toBeTruthy();
   });
 
   it("renders a product", () => {
-    render(<ProductCard name="Tala" description="Texte" />);
+    render(<ProductCard slug="product" name="Tala" description="Texte" />);
     expect(screen.getByText("Tala")).toBeTruthy();
   });
 
   it("renders a case study", () => {
-    render(<WorkCard name="Yano" />);
+    render(<WorkCard slug="work" name="Yano" />);
     expect(screen.getByText("Yano")).toBeTruthy();
   });
 
   it("renders the copyright line", () => {
-    render(<SiteFooter />);
+    render(<Footer />);
     expect(screen.getByText(/Tous droits réservés à Luilka/)).toBeTruthy();
   });
 });

@@ -1,6 +1,7 @@
-import { useState, type ReactNode } from "react";
+import type { ReactNode } from "react";
 
-import { ErrorBoundary } from "@/components/ui/link.tsx";
+import { useRetry } from "@/shared/hooks/use-retry.ts";
+import { ErrorBoundary } from "@/shared/ui/link.tsx";
 import Errors from "@/routes/errors.tsx";
 
 type FeedbackBoundaryProps = {
@@ -8,20 +9,9 @@ type FeedbackBoundaryProps = {
 };
 
 export default function FeedbackBoundary({ children }: FeedbackBoundaryProps) {
-  const [attempt, setAttempt] = useState(0);
-
+  const { attempt, retry } = useRetry();
   return (
-    <ErrorBoundary
-      key={attempt}
-      fallback={(_error, reset) => (
-        <Errors
-          reset={() => {
-            reset();
-            setAttempt((value) => value + 1);
-          }}
-        />
-      )}
-    >
+    <ErrorBoundary key={attempt} fallback={(_error, reset) => <Errors reset={() => retry(reset)} />}>
       {children}
     </ErrorBoundary>
   );

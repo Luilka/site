@@ -1,5 +1,5 @@
-import Badge from "@/components/ui/badge.tsx";
-import Container from "@/components/ui/container.tsx";
+import PageHeroText from "@/components/patterns/page-hero-text.tsx";
+import Container from "@/shared/ui/container.tsx";
 
 type PageHeroProps = {
   eyebrow: string;
@@ -7,14 +7,10 @@ type PageHeroProps = {
   description: string;
 };
 
-export default function PageHero({ eyebrow, title, description }: PageHeroProps) {
+export default function PageHero(props: PageHeroProps) {
   return (
     <section className="page-hero">
-      <Container>
-        <Badge>{eyebrow}</Badge>
-        <h1>{title}</h1>
-        <p>{description}</p>
-      </Container>
+      <Container><PageHeroText {...props} /></Container>
     </section>
   );
 }

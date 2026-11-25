@@ -1,7 +1,7 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import { afterEach, describe, expect, it } from "vitest";
 
-import SiteHeader from "@/components/patterns/site-header.tsx";
+import Header from "@/components/layout/header";
 
 function openServices(pathname = "/fr") {
   (globalThis as Record<string, unknown>).__NEXY_LOCATION__ = {
@@ -10,7 +10,7 @@ function openServices(pathname = "/fr") {
     hash: "",
     params: {},
   };
-  render(<SiteHeader />);
+  render(<Header />);
   const trigger = screen.getByRole("link", { name: /Services/ });
   fireEvent.mouseEnter(trigger.parentElement!);
   return {
@@ -39,20 +39,20 @@ describe("header mega menu design", () => {
 
   it("names the four short services in French", () => {
     const { panel } = openServices();
-    const titles = Array.from(panel.querySelectorAll(".mega-card h3")).map((node) => node.textContent);
+    const titles = Array.from(panel.querySelectorAll(".mega-card h3"), (node) => node.textContent);
     expect(titles).toEqual(["UX Design", "UI design", "Software", "COM"]);
   });
 
   it("names the four short services in English", () => {
     const { panel } = openServices("/en");
-    const titles = Array.from(panel.querySelectorAll(".mega-card h3")).map((node) => node.textContent);
+    const titles = Array.from(panel.querySelectorAll(".mega-card h3"), (node) => node.textContent);
     expect(titles).toEqual(["UX Design", "UI design", "Software", "COM"]);
   });
 
   it("gives each card its own image", () => {
     const { panel } = openServices();
     const sources = new Set(
-      Array.from(panel.querySelectorAll(".mega-card img")).map((image) => image.getAttribute("src") ?? ""),
+      Array.from(panel.querySelectorAll(".mega-card img"), (image) => image.getAttribute("src") ?? ""),
     );
     expect(sources.size).toBe(4);
   });

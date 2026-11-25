@@ -1,17 +1,12 @@
-import ContactPanel from "@/components/patterns/contact-panel.tsx";
-import PageHero from "@/components/patterns/page-hero.tsx";
-import ServicesSection from "@/components/templates/services-section.tsx";
-import { useContent } from "@/i18n";
+import PageFrame from "@/components/patterns/page-frame.tsx";
+import ServicesSection from "@/components/sections/(home)/services-section.tsx";
+import { useContent } from "@/shared/i18n";
 
 export default function Services() {
-  const content = useContent();
-  const intro = content.pages.services;
-
+  const { pages, section } = useContent();
   return (
-    <>
-      <PageHero {...intro} />
-      <ServicesSection title={intro.title} description={content.section} />
-      <ContactPanel />
-    </>
+    <PageFrame page="services">
+      <ServicesSection title={pages.services.title} description={section} />
+    </PageFrame>
   );
 }

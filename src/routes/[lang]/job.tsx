@@ -1,17 +1,12 @@
-import ContactPanel from "@/components/patterns/contact-panel.tsx";
-import PageHero from "@/components/patterns/page-hero.tsx";
-import InfoSection from "@/components/templates/info-section.tsx";
-import { useContent } from "@/i18n";
+import PageFrame from "@/components/patterns/page-frame.tsx";
+import InfoSection from "@/components/sections/(home)/info-section.tsx";
+import { useContent } from "@/shared/i18n";
 
 export default function Job() {
-  const content = useContent();
-  const intro = content.pages.job;
-
+  const { pages, section, jobs } = useContent();
   return (
-    <>
-      <PageHero {...intro} />
-      <InfoSection title={intro.title} description={content.section} items={content.jobs} />
-      <ContactPanel />
-    </>
+    <PageFrame page="job">
+      <InfoSection title={pages.job.title} description={section} items={jobs} />
+    </PageFrame>
   );
 }

@@ -2,7 +2,7 @@ import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 
 import ProcessBand from "@/components/patterns/process-band.tsx";
-import WorkCard from "@/components/patterns/work-card.tsx";
+import WorkCard from "@/components/cards/work-card.tsx";
 import Home from "@/routes/[lang]/index.tsx";
 
 describe("design-first home content", () => {
@@ -113,7 +113,7 @@ describe("design-first home content", () => {
   });
 
   it("uses a heading for the name of a case study", () => {
-    render(<WorkCard name="Yano" />);
+    render(<WorkCard slug="work" name="Yano" />);
     expect(screen.getByRole("heading", { level: 3, name: "Yano" })).toBeTruthy();
   });
 });

@@ -20,7 +20,7 @@ def test_every_page_has_a_prefixed_route() -> None:
 def test_prefixed_routes_hold_the_real_pages() -> None:
     for name in PAGE_NAMES:
         source = page_route(name).read_text(encoding="utf-8")
-        assert "PageHero" in source, name
+        assert "PageHero" in source or "PageFrame" in source, name
         assert "export { default }" not in source, name
 
 
@@ -30,7 +30,7 @@ def test_no_page_is_duplicated_outside_the_prefixed_routes() -> None:
 
 
 def test_the_language_hook_does_not_redirect_unprefixed_urls() -> None:
-    source = (ROOT / "src" / "i18n" / "language.ts").read_text(encoding="utf-8")
+    source = (ROOT / "src" / "shared" / "i18n" / "use-language.ts").read_text(encoding="utf-8")
     assert "legacyRedirectTarget" not in source
     assert "window.location.replace" not in source
 

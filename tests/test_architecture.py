@@ -3,11 +3,22 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 SRC = ROOT / "src"
 COMPONENTS = SRC / "components"
+SHARED = SRC / "shared"
 
 
-def test_design_system_folders_are_separated_by_intention() -> None:
-    for folder in ("ui", "patterns", "templates"):
+def test_shared_folders_are_separated_by_intention() -> None:
+    for folder in ("ui", "hooks", "lib", "i18n", "types"):
+        assert (SHARED / folder).is_dir(), folder
+
+
+def test_component_folders_are_separated_by_intention() -> None:
+    for folder in ("layout", "cards", "patterns", "sections"):
         assert (COMPONENTS / folder).is_dir(), folder
+
+
+def test_templates_became_sections() -> None:
+    assert not (COMPONENTS / "templates").exists()
+    assert not (COMPONENTS / "ui").exists()
 
 
 def test_atoms_use_short_lowercase_file_names() -> None:
@@ -18,34 +29,51 @@ def test_atoms_use_short_lowercase_file_names() -> None:
         "container.tsx",
         "input.tsx",
         "link.tsx",
+        "icon-tile.tsx",
+        "motion-box.tsx",
     )
     for name in expected:
-        assert (COMPONENTS / "ui" / name).is_file(), name
+        assert (SHARED / "ui" / name).is_file(), name
 
 
-def test_macros_and_templates_use_complete_component_names() -> None:
-    expected_patterns = (
-        "site-header.tsx",
-        "site-footer.tsx",
-        "brand-mark.tsx",
-        "language-toggle.tsx",
-        "nav-dropdown.tsx",
-        "contact-panel.tsx",
-        "newsletter-form.tsx",
-    )
-    expected_templates = (
-        "hero-section.tsx",
-        "about-section.tsx",
-        "process-section.tsx",
-        "services-section.tsx",
-        "products-section.tsx",
-        "works-section.tsx",
-        "info-section.tsx",
-    )
-    for name in expected_patterns:
-        assert (COMPONENTS / "patterns" / name).is_file(), name
-    for name in expected_templates:
-        assert (COMPONENTS / "templates" / name).is_file(), name
+def test_layout_patterns_and_cards_use_complete_component_names() -> None:
+    expected = {
+        "layout": (
+            "header.tsx",
+            "footer.tsx",
+            "brand-mark.tsx",
+            "language-toggle.tsx",
+            "newsletter-form.tsx",
+        ),
+        "patterns": ("contact-panel.tsx", "page-hero.tsx", "page-frame.tsx", "process-band.tsx"),
+        "cards": (
+            "product-card.tsx",
+            "service-card.tsx",
+            "work-card.tsx",
+            "step-card.tsx",
+            "info-card.tsx",
+        ),
+    }
+    for folder, names in expected.items():
+        for name in names:
+            assert (COMPONENTS / folder / name).is_file(), name
+
+
+def test_home_sections_are_named_after_their_intention() -> None:
+    expected = ("hero", "about", "process", "services", "products", "works", "info")
+    for name in expected:
+        assert (COMPONENTS / "sections" / "(home)" / f"{name}-section.tsx").is_file(), name
+
+
+def test_no_component_imports_from_a_removed_folder() -> None:
+    sources = list(SRC.rglob("*.ts")) + list(SRC.rglob("*.tsx"))
+    removed = ("@/components/ui/", "@/components/templates/", '"@/i18n', '"@/lib/', '"@/types"')
+    offenders = [
+        str(path.relative_to(ROOT))
+        for path in sources
+        if any(name in path.read_text(encoding="utf-8") for name in removed)
+    ]
+    assert offenders == []
 
 
 def test_client_links_go_through_one_nexy_adapter() -> None:
@@ -56,18 +84,33 @@ def test_client_links_go_through_one_nexy_adapter() -> None:
         if "@nexy/client" in path.read_text(encoding="utf-8")
     ]
     assert offenders == []
-    adapter = (COMPONENTS / "ui" / "link.tsx").read_text(encoding="utf-8")
+    adapter = (SHARED / "ui" / "link.tsx").read_text(encoding="utf-8")
     assert 'from "@nexy/client"' in adapter
 
 
-def test_landing_page_composes_section_templates() -> None:
+def test_landing_page_composes_the_home_sections() -> None:
     landing = (SRC / "routes" / "[lang]" / "index.tsx").read_text(encoding="utf-8")
+    for name in ("HomeStory", "HomeOffer", "HomeProof"):
+        assert name in landing, name
+
+
+def test_home_sections_compose_the_page_sections() -> None:
+    home = COMPONENTS / "sections" / "(home)"
+    text = "".join(path.read_text(encoding="utf-8") for path in home.glob("home-*-section.tsx"))
     for name in (
         "HeroSection",
-        "AboutSection",
         "ProcessSection",
         "ServicesSection",
         "ProductsSection",
         "WorksSection",
     ):
-        assert name in landing, name
+        assert name in text, name
+
+
+def test_tsx_files_hold_one_component_each() -> None:
+    offenders = [
+        str(path.relative_to(ROOT))
+        for path in COMPONENTS.rglob("*.tsx")
+        if path.read_text(encoding="utf-8").count("export default function") != 1
+    ]
+    assert offenders == []

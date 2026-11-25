@@ -413,8 +413,7 @@ textarea {
 }
 
 .logo svg {
-  width: var(--text-lg);
-  height: var(--text-lg);
+  @apply size-6 stroke-4; 
 }
 
 .header-surface {
@@ -901,7 +900,8 @@ footer {
 .news form {
   @apply flex gap-1.5;
   border: 1px solid var(--border-ui);
-  border-radius: 10px;
+  border-radius: 13px;
+  
   padding: 4px;
 }
 
@@ -919,8 +919,7 @@ footer {
   background: var(--night);
   color: var(--paper);
   border: 0;
-  border-radius: 7px;
-  min-height: 2.75rem;
+  border-radius: 10px;
   padding: 9px 14px;
   font-size: var(--text-sm);
 }
