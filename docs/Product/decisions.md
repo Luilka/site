@@ -26,7 +26,7 @@
 |---|---|---|---|
 | Q-001 | Faut-il servir le contenu rendu côté serveur pour le référencement et la lecture sans JavaScript ? | Le HTML initial ne contient que l'en-tête et le pied de page | à trancher |
 | Q-002 | Le libellé de l'action de contact de l'en-tête reste « Contact us » sur la page française. Faut-il le traduire ? | Texte repris tel quel dans le dictionnaire le 26 novembre 2026 | à trancher |
-| Q-003 | Le `<title>` du document est fixe. Faut-il le localiser et le varier par page ? | `src/components/layout/document-head.layout.tsx` | à trancher |
+| Q-003 | Le `<title>` du document est fixe. Faut-il le localiser et le varier par page ? | `src/components/layout/document.layout.tsx` | à trancher |
 | Q-004 | Quel outil de mesure d'usage, sans identifiant permanent de visiteur, alimente les mesures `SITE`, `PERF` et `SEO` ? | 15 mesures de `kpi.md` sont à instrumenter | à trancher |
 
 ## Historique

@@ -1,7 +1,6 @@
 import type { ReactNode } from "react";
 
-import DocumentBody from "@/components/layout/document-body.layout.tsx";
-import DocumentHead from "@/components/layout/document-head.layout.tsx";
+import Document from "@/components/layout/document.layout.tsx";
 import { useUrlLanguage } from "@/shared/i18n";
 
 type RootLayoutProps = {
@@ -9,11 +8,5 @@ type RootLayoutProps = {
 };
 
 export default function RootLayout({ children }: RootLayoutProps) {
-  const language = useUrlLanguage();
-  return (
-    <html lang={language}>
-      <DocumentHead />
-      <DocumentBody>{children}</DocumentBody>
-    </html>
-  );
+  return <Document language={useUrlLanguage()}>{children}</Document>;
 }

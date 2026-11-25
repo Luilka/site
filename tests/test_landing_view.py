@@ -17,24 +17,20 @@ def test_home_route_is_registered() -> None:
     assert TestClient(app).get("/").status_code == 200
 
 
+DOCUMENT = ROOT / "src" / "components" / "layout" / "document.layout.tsx"
+
+
 def test_root_layout_declares_the_french_document() -> None:
     layout = (ROOT / "src" / "routes" / "layout.tsx").read_text(encoding="utf-8")
-    assert "lang={language}" in layout
     assert "useUrlLanguage" in layout
-    head = (ROOT / "src" / "components" / "layout" / "document-head.layout.tsx").read_text(
-        encoding="utf-8"
-    )
-    fonts = (ROOT / "src" / "components" / "layout" / "font-links.layout.tsx").read_text(
-        encoding="utf-8"
-    )
-    assert "<title>Luilka | Design agency</title>" in head
-    assert "family=Inter:wght@400;500;600;700&display=swap" in fonts
+    document = DOCUMENT.read_text(encoding="utf-8")
+    assert "lang={language}" in document
+    assert "<title>Luilka | Design agency</title>" in document
+    assert "family=Inter:wght@400;500;600;700&display=swap" in document
 
 
 def test_root_layout_renders_the_reference_chrome() -> None:
-    body = (ROOT / "src" / "components" / "layout" / "document-body.layout.tsx").read_text(
-        encoding="utf-8"
-    )
+    body = DOCUMENT.read_text(encoding="utf-8")
     assert all(name in body for name in ("IconSprite", "Header", "Footer", "<main>"))
 
 
