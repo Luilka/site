@@ -5,6 +5,9 @@ import { useLanguage } from "@/i18n";
 import { cn } from "@/lib/cn.ts";
 import { localizedHref } from "@/i18n";
 
+export { ErrorBoundary, useTransition } from "@nexy/client";
+export type { ErrorBoundaryProps, Href, TransitionState } from "@nexy/client";
+
 type AppLinkProps = Omit<LinkProps, "href"> & {
   href: Href;
   language?: Language;
