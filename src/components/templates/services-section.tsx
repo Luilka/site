@@ -21,7 +21,8 @@ export default function ServicesSection({ id, title, description, action }: Serv
         <div className="svc-grid">
           {content.services.map((service) => (
             <ServiceCard
-              key={service.title}
+              key={service.slug}
+              slug={service.slug}
               title={service.title}
               description={service.description}
               shape={service.shape}
