@@ -42,10 +42,10 @@ describe("design consistency", () => {
   it("gives each service a distinct design icon", () => {
     const { container } = render(
       <>
-        <ServiceCard title="Design" description="a" />
-        <ServiceCard title="Software" description="b" />
-        <ServiceCard title="Maintenance" description="c" />
-        <ServiceCard title="Devops" description="d" />
+        <ServiceCard title="UX Design" description="a" />
+        <ServiceCard title="UI design" description="b" />
+        <ServiceCard title="Software" description="c" />
+        <ServiceCard title="COM" description="d" />
       </>,
     );
     expect(new Set(iconClasses(container, ".svc .ico svg")).size).toBe(4);
@@ -62,15 +62,22 @@ describe("design consistency", () => {
     expect(new Set(iconClasses(container, ".prod .mini svg")).size).toBe(3);
   });
 
+  it("uses a readable project icon beside the work name", () => {
+    const { container } = render(<WorkCard name="Yano" />);
+    const icon = container.querySelector(".work .who .mini svg");
+    expect(icon?.getAttribute("width")).toBe("22");
+  });
+
   it("gives each case study a distinct design icon", () => {
     const { container } = render(
       <>
         <WorkCard name="Yano" />
         <WorkCard name="Vox Congo" />
-        <WorkCard name="AyLen" />
+        <WorkCard name="Mitemo" />
+        <WorkCard name="Privatis Capital Invest" />
       </>,
     );
-    expect(new Set(iconClasses(container, ".work .mini svg")).size).toBe(3);
+    expect(new Set(iconClasses(container, ".work .mini svg")).size).toBe(4);
   });
 
   it("keeps only the supplied fingerprint in the sprite", () => {
