@@ -30,4 +30,4 @@ Le bouton de devis ouvre un courriel. Il est l'action unique du hero et de la se
 
 ## Liens
 
-[Registre des décisions](decisions.md), [architecture](../Technique/architecture.md).
+[Registre des décisions](decisions.md), [KPI](kpi.md), [architecture](../Technique/architecture.md).

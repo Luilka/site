@@ -14,6 +14,7 @@
 | Types client | `npm run typecheck` | `tsc` sur `tsconfig.client.json` | Check client types |
 | Lint client | `npm run lint` | ESLint, dont 10 lignes par fonction | Check client lint |
 | Style client | `npm run check:style` | Aucun commentaire sauf JSDoc, un `.map()` par TSX | Check client code style |
+| KPI | `npm run check:kpi` | Sections, 19 identifiants, forme des lignes, cibles sourcées | Check KPI sheet |
 | Documentation | `npm run check:docs` | Typographie, liens, index, ADR, notes, numérotation | Check documentation |
 | Tests Python | `uv run pytest` | Routes, structure, contenu | Run Python tests |
 | Tests client | `npm test` | Composants et hooks | Run client tests |
@@ -25,9 +26,10 @@
 
 - `scripts/check_code_style.py`, testé par `tests/test_check_code_style.py`.
 - `scripts/check_docs.py`, testé par `tests/test_check_docs.py`.
+- `scripts/check_kpi.py`, testé par `tests/test_check_kpi.py`.
 
 Un script est nommé clairement, idempotent et exécutable sans contexte humain. Il affiche ce qu'il a vérifié et chaque échec sur une ligne.
 
 ## Avant une pull request
 
-Rejouer dans l'ordre : `uv run nx check`, `npm run lint`, `npm run typecheck`, `npm run check:style`, `npm run check:docs`, `uv run nx test`, `uv run nx build`. Citer ce que chaque commande affiche, échecs compris.
+Rejouer dans l'ordre : `uv run nx check`, `npm run lint`, `npm run typecheck`, `npm run check:style`, `npm run check:docs`, `npm run check:kpi`, `uv run nx test`, `uv run nx build`. Citer ce que chaque commande affiche, échecs compris.

@@ -81,7 +81,7 @@ Les skills Nexy sont dans `.agents/skills/` et `.claude/skills/`.
 
 ## Documentation
 
-L'index est dans [docs/README.md](docs/README.md). Les regles pour les agents sont dans [AGENTS.md](AGENTS.md). `npm run check:docs` verifie la typographie, les liens, l'index, les ADR et la numerotation.
+L'index est dans [docs/README.md](docs/README.md). Les regles pour les agents sont dans [AGENTS.md](AGENTS.md). `npm run check:docs` verifie la typographie, les liens, l'index, les ADR et la numerotation. Les KPI sont dans [docs/Product/kpi.md](docs/Product/kpi.md), controles par `npm run check:kpi`.
 
 ## Regles de code
 

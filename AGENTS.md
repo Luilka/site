@@ -13,6 +13,7 @@ Luilka est le site vitrine d'un studio de design. C'est un projet Nexy : routage
 - Le site sert une visite rapide, souvent sur téléphone. Il montre ce que Luilka dessine, des preuves, puis un contact.
 - Aucun élément d'interface n'est ajouté pour décorer. Chaque élément répond à un besoin de la visite ou à une exigence d'accessibilité. Sinon il est retiré.
 - Aucun chiffre n'est écrit sans source. Aucun lien n'est fictif.
+- Aucune cible de KPI n'est inventée : elle est « À nommer » ou cite sa règle. Aucune donnée d'usage n'est collectée avant la décision Q-004.
 
 ## 2. Sources de vérité
 
@@ -21,6 +22,7 @@ Luilka est le site vitrine d'un studio de design. C'est un projet Nexy : routage
 | `docs/README.md` | Index de la documentation et règles de mise à jour |
 | `docs/Product/vision.md` | Pourquoi le site existe |
 | `docs/Product/decisions.md` | Registre canonique des décisions et des questions ouvertes |
+| `docs/Product/kpi.md` | Définition des KPI : formule, source, propriétaire, cible |
 | `docs/Technique/architecture.md` | Structure du code et responsabilités des dossiers |
 | `docs/Technique/controles.md` | Contrôles locaux et étapes de la CI |
 | `docs/Technique/README.md` | Modèle d'ADR unique et liste des ADR |
@@ -32,7 +34,7 @@ Ordre de prévalence en cas de divergence : `docs/Product/decisions.md`, puis l'
 
 ## 3. Décisions opposables et questions ouvertes
 
-Décisions retenues : D-001 à D-009. Questions ouvertes : Q-001, Q-002 et Q-003.
+Décisions retenues : D-001 à D-010. Questions ouvertes : Q-001, Q-002, Q-003 et Q-004.
 
 Aucune question ouverte n'entre dans le code avant son inscription au registre avec date, motif, propriétaire et source. Toute demande qui contredit une décision retenue impose une réouverture écrite : nouvelle preuve, date, décision remplacée, documents touchés. Aucune modification silencieuse.
 
@@ -45,7 +47,7 @@ Aucune question ouverte n'entre dans le code avant son inscription au registre a
 | Style | Tailwind CSS 4.3.5, tokens dans `src/globale.css` | Un outil de style est un détail, jamais une source de style |
 | Mouvement et icônes | Motion 14.14.0, Lucide 1.77.0 | `prefers-reduced-motion` respecté |
 | Tests | pytest, Vitest 5.1.1, Testing Library | Un test par comportement |
-| Contrôles | ESLint 10.15.0, `scripts/check_code_style.py`, `scripts/check_docs.py` | Rejoués en CI |
+| Contrôles | ESLint 10.15.0, `scripts/check_code_style.py`, `scripts/check_docs.py`, `scripts/check_kpi.py` | Rejoués en CI |
 
 Les versions sont exactes. Les lockfiles sont commités. Aucune dépendance en `latest`, `canary`, `beta` ou `rc`.
 
@@ -104,6 +106,7 @@ Lancer les commandes dans l'environnement virtuel `.venv`, ou avec `uv run`, par
 | `npm run typecheck` | `tsc` sur `tsconfig.client.json` |
 | `npm run check:style` | Commentaires et appels `.map()` |
 | `npm run check:docs` | Typographie, liens, index, ADR, notes |
+| `npm run check:kpi` | Sections, identifiants et cibles de `docs/Product/kpi.md` |
 | `npm test` | Vitest |
 
 La CI rejoue les mêmes contrôles sur `main`, `staging`, `develop` et chaque pull request. Toute vérification déterministe devient un script dans `scripts/` puis une étape de la CI.
