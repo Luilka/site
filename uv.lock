@@ -249,7 +249,7 @@ dev = [
 ]
 
 [package.metadata]
-requires-dist = [{ name = "nexy", specifier = ">=2.11.0" }]
+requires-dist = [{ name = "nexy", specifier = ">=2.11.2" }]
 
 [package.metadata.requires-dev]
 dev = [
@@ -354,7 +354,7 @@ wheels = [
 
 [[package]]
 name = "nexy"
-version = "2.11.0"
+version = "2.11.2"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "fastapi" },
@@ -374,9 +374,9 @@ dependencies = [
     { name = "watchfiles" },
     { name = "websockets" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/1b/00/cb01805ac3d4ab071ea72ba51f6da42d2b26bab4cea88b95490ff521b7e7/nexy-2.11.0.tar.gz", hash = "sha256:5654171f9118022ab86b29f02ea509712c7681bcac9eaafade1a7575417e5597", size = 459213, upload-time = "2026-11-24T20:09:32.703Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/8f/6f/7ada32e5b7b5dbc4db53689d74fcb96d1baab6d1268cc92cb5a7d9c351f7/nexy-2.11.2.tar.gz", hash = "sha256:37c053dd17bb7449b7e124a7bb776216ff08eeed837f03505d6bac8cc43ef3fc", size = 463064, upload-time = "2026-11-25T11:51:38.289Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/d0/b1/2b3801e874b3c6b16c81a29e5ce85b8a87f8d8949ad804352f5ea9c96ee3/nexy-2.11.0-py3-none-any.whl", hash = "sha256:ed7a257168c4f90ee84182bef197d831ff7ea2cd964a836395e54bad7958a58a", size = 715403, upload-time = "2026-11-24T20:09:31.253Z" },
+    { url = "https://files.pythonhosted.org/packages/ec/b5/77180bb09e0d3a1597f0ed5d396d3bfe8d26f887e84fb49a9f6145f9d17c/nexy-2.11.2-py3-none-any.whl", hash = "sha256:097ab44ea1daffddca846198378fd6c0649571f08446084c24a9979dbb95eee1", size = 719831, upload-time = "2026-11-25T11:51:36.782Z" },
 ]
 
 [[package]]
@@ -580,16 +580,16 @@ wheels = [
 
 [[package]]
 name = "scalar-fastapi"
-version = "1.11.0"
+version = "1.11.1"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "fastapi" },
     { name = "pydantic" },
     { name = "typing-extensions" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/41/47/ca6dfe5ef24ac944f0d5650e2b021d7dc7bfc8c091c930ac305215dcee43/scalar_fastapi-1.11.0.tar.gz", hash = "sha256:156b185b23dac8ddd893db01d9bdef47f1dca45053ecec7caf55322eea37b5bd", size = 11712, upload-time = "2026-11-22T22:43:15.854Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/d3/76/717ab44197a10db21a7b3e2cd7bae427fd000178840e09d52dd1f515b2e7/scalar_fastapi-1.11.1.tar.gz", hash = "sha256:354fb864bc997c61e2e5a01e6c8a8bbc44e983e4e3b9d2a3272c29da835ad1db", size = 11802, upload-time = "2026-11-25T11:37:06.251Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/e2/38/abf4c72f8977c05c4358c8a0e763687d1f852282111e4b0d4159cde644cd/scalar_fastapi-1.11.0-py3-none-any.whl", hash = "sha256:97d2fb6153ef4dc8d8f55ec081a8a65c948c5aac7eebda6eab64cf42f28930e9", size = 8924, upload-time = "2026-11-22T22:43:14.919Z" },
+    { url = "https://files.pythonhosted.org/packages/e6/c2/685e18c90af113c0b01dcba42baff6bc6c4f3311f9be2641319135f7d7e8/scalar_fastapi-1.11.1-py3-none-any.whl", hash = "sha256:0beedab471f4e209078b184fb6de5e3c70e24be9d5648551f13a42ad5112927f", size = 8948, upload-time = "2026-11-25T11:37:05.249Z" },
 ]
 
 [[package]]
