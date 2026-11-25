@@ -86,7 +86,7 @@ L'index est dans [docs/README.md](docs/README.md). Les regles pour les agents so
 ## Regles de code
 
 - Une fonction ou un composant tient en 10 lignes au plus, signature et accolades comprises (ESLint `max-lines-per-function`).
-- Un fichier TSX ne contient qu'un composant et que du rendu. La logique va dans un hook de `src/shared/hooks/` ou une fonction de `src/shared/utils/`.
+- Un fichier TSX regroupe les composants d'une même intention et ne contient que du rendu. La logique va dans un hook de `src/shared/hooks/` ou une fonction de `src/shared/utils/`.
 - Un seul appel a `.map()` par fichier TSX.
 - Aucun commentaire, sauf un bloc JSDoc `/** ... */`. `scripts/check_code_style.py` le controle.
 - Ce qui sert a plusieurs endroits vit dans `src/shared/`. Une seule copie.

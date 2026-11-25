@@ -28,7 +28,7 @@ Retenir la deuxième option.
 
 - ESLint applique `max-lines-per-function` à 10, lignes vides et commentaires non comptés, signature et accolades comprises, et `no-inline-comments`.
 - `scripts/check_code_style.py` refuse tout commentaire autre qu'un bloc `/** ... */` et tout fichier TSX avec plus d'un appel `.map(`.
-- Un fichier TSX contient un composant et du rendu. L'état et les événements viennent d'un hook.
+- Un fichier TSX contient les composants d'une même intention, avec du rendu seulement, et un seul `.map()`. Un composant utilisé par un seul parent vit dans le fichier du parent. L'état et les événements viennent d'un hook.
 
 Historique : proposée et retenue le 26 novembre 2026.
 
