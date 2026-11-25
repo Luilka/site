@@ -5,7 +5,7 @@ from src.brand.content import BrandService
 
 def test_brand_service_provides_the_tagline() -> None:
     service = Container.resolve(BrandService)
-    assert service.tagline() == "Design maîtrisé. Ingénierie d'échelle."
+    assert service.tagline() == "Design maîtrisé. Produits clairs. Impact mesurable."
 
 
 def test_brand_service_provides_the_navigation_order() -> None:
