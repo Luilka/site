@@ -12,22 +12,26 @@ describe("landing page", () => {
 
   it("uses the reference section classes", () => {
     const { container } = render(<Home />);
-    for (const name of ["hero-grid", "marquee", "steps-grid", "prod-grid", "work-grid"]) {
+    for (const name of ["hero-grid", "steps-grid", "prod-grid", "work-grid", "bg-gray-300"]) {
       expect(container.querySelector(`.${name}`)).not.toBeNull();
     }
   });
 
-  it("shows the four process stages with the reference copy", () => {
+  it("shows the four design steps with their own copy", () => {
     render(<Home />);
-    for (const label of ["Cadrage", "Conception", "Developpement", "Maintenance"]) {
+    for (const label of ["Cadrage", "Direction visuelle", "Design d'interface", "Livraison"]) {
       expect(screen.getAllByText(label).length).toBeGreaterThan(0);
     }
-    expect(screen.getAllByText(/PossaCode a déjà accompagné plus de 300 développeurs/)).toHaveLength(4);
+    expect(
+      screen.getAllByText(
+        "Nous clarifions le problème, les personnes concernées et ce que le produit doit accomplir.",
+      ),
+    ).toHaveLength(1);
   });
 
-  it("shows the reference services", () => {
+  it("shows the four design services", () => {
     render(<Home />);
-    for (const label of ["Design", "Software", "Maintenance", "Devops"]) {
+    for (const label of ["UX Design", "UI design", "Software", "COM"]) {
       expect(screen.getAllByText(label).length).toBeGreaterThan(0);
     }
   });
@@ -35,16 +39,32 @@ describe("landing page", () => {
   it("shows the three products", () => {
     render(<Home />);
     for (const label of ["Tala", "Vuga", "Pro"]) {
-      expect(screen.getByText(label)).toBeTruthy();
+      expect(screen.getAllByText(label).length).toBeGreaterThan(0);
     }
   });
 
-  it("shows the four case studies", () => {
+  it("shows the four case studies with their subtitles", () => {
     render(<Home />);
-    for (const label of ["Yano", "Vox Congo", "AyLen"]) {
+    for (const label of ["Yano", "Vox Congo", "Mitemo", "Privatis Capital Invest"]) {
       expect(screen.getAllByText(label).length).toBeGreaterThan(0);
     }
-    expect(screen.getAllByText("Cas d'étude")).toHaveLength(4);
+    for (const subtitle of [
+      "UX Design: mobile App",
+      "UX Design & UI design : Mobile App",
+      "Full Projet & all Service",
+      "Rebranding, et Design système , charte graphique",
+    ]) {
+      expect(screen.getAllByText(subtitle).length).toBeGreaterThan(0);
+    }
+    expect(screen.queryByText("AyLen")).toBeNull();
+    expect(screen.getAllByText("Voir le projet")).toHaveLength(4);
+  });
+
+  it("limits the home page to four works and three products", () => {
+    const { container } = render(<Home />);
+    expect(container.querySelectorAll(".work")).toHaveLength(4);
+    expect(container.querySelectorAll(".prod")).toHaveLength(3);
+    expect(container.querySelectorAll(".work .who p")).toHaveLength(0);
   });
 
   it("offers two quote actions", () => {
@@ -54,7 +74,7 @@ describe("landing page", () => {
 
   it("keeps the contact section", () => {
     render(<Home />);
-    expect(screen.getByText(/Ne grandissez plus seul\./)).toBeTruthy();
+    expect(screen.getByText(/Donnons forme/)).toBeTruthy();
   });
 
   it("exposes the reference section anchors", () => {
