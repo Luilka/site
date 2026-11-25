@@ -7,6 +7,6 @@
       "@nexy/*": ["./__nexy__/src/*"]
     }
   },
-  "include": ["src", "tests/client", "vitest.config.ts"],
+  "include": ["src", "tests/client", "vitest.config.ts", "**/*.*.{ts,tsx}"],
   "exclude": ["__nexy__", "node_modules"]
 }
