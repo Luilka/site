@@ -1,7 +1,6 @@
 import { CalendarDays } from "lucide-react";
 
 import HeroAccent from "@/components/patterns/hero-accent.tsx";
-import Badge from "@/components/ui/badge.tsx";
 import { buttonClasses } from "@/components/ui/button.tsx";
 import Container from "@/components/ui/container.tsx";
 import { useContent } from "@/i18n";
@@ -13,7 +12,6 @@ export default function HeroSection() {
     <section className="hero">
       <Container className="hero-grid">
         <div>
-          <Badge>{content.home.badge}</Badge>
           <h1>
             {content.home.prefix} <span className="b">{content.home.design}</span>{" "}
             {content.home.middle} <span className="p">{content.home.brand}</span>
