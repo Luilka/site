@@ -3,7 +3,7 @@ name: CI
 on:
   push:
     branches:
-      - developp
+      - develop
       - staging
       - main
   pull_request:
@@ -45,6 +45,12 @@ jobs:
 
       - name: Check client types
         run: npx tsc --noEmit -p tsconfig.client.json
+
+      - name: Check client lint
+        run: npm run lint
+
+      - name: Check client code style
+        run: npm run check:style
 
       - name: Run Python tests
         run: uv run pytest
