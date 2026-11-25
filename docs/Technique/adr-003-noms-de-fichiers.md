@@ -1,6 +1,6 @@
-# ADR 003 : noms de fichiers sans point
+# ADR 003 : noms de fichiers
 
-Décision retenue : les noms de fichiers de composants utilisent des tirets, par exemple `info-card.tsx` et `hero-section.tsx`.
+Décision retenue : tout fichier `.ts` et `.tsx` est écrit en minuscules, mots reliés par des tirets, sans point. Exemples : `info-card.tsx`, `hero-section.tsx`, `use-retry.ts`, `shared-lib.test.ts`.
 
 ## Titre
 
@@ -27,14 +27,28 @@ Une première version de la refonte nommait les fichiers `info.card.tsx` et `her
 
 ## Décision
 
-Retenir les tirets. Le rôle se lit dans le suffixe : `-card`, `-section`. Vitest ne lance que `tests/client/**/*.test.{ts,tsx}`.
+Retenir les tirets, avec une seule règle pour tous les fichiers `.ts` et `.tsx` de `src/` et de `tests/`.
+
+| Type de fichier | Règle | Exemples |
+|---|---|---|
+| Composant (`.tsx`) | Le rôle se lit dans le suffixe : `-card`, `-section`, `-panel`. Il exporte un seul composant | `product-card.tsx`, `hero-section.tsx` |
+| Hook (`.ts`) | Préfixe `use-`. Dans `shared/hooks/`, le préfixe est obligatoire | `use-open-menu.ts` |
+| Fonction pure (`.ts`) | Un nom qui dit le traitement ou la donnée | `validate-email.ts`, `detail-href.ts` |
+| Type (`.ts`) | Le sujet | `detail.ts`, `site.ts` |
+| Test | Le sujet, puis `.test` | `newsletter-form.test.tsx`, `shared-lib.test.ts` |
+| Déclaration | Le sujet, puis `.d` | `nexy-client.d.ts` |
+| Segment de route | Imposé par Nexy : `[lang]`, `[slug].tsx`, `(home)` | `[slug].tsx` |
+| Fichier de config à la racine | Imposé par l'outil | `vite.config.ts` |
+
+Vitest ne lance que `tests/client/**/*.test.{ts,tsx}`. Les fichiers Python restent en `snake_case`, règle de Python.
 
 Historique : proposée et retenue le 26 novembre 2026.
 
 ## Conséquences
 
 - `tests/test_architecture.py` vérifie les noms attendus des atomes, des cartes et des sections d'accueil.
-- Tout nouveau composant porte un nom en tirets. Un nom avec un point est refusé en revue.
+- `scripts/check_code_style.py` refuse tout nom hors de cette règle, et tout fichier de `hooks/` sans préfixe `use-`. Les fichiers de test du client, en PascalCase jusqu'au 26 novembre 2026, ont été renommés.
+- Tout nouveau fichier porte un nom en tirets. Un nom avec un point ou des majuscules est refusé par le contrôle.
 - `__nexy__/` reste généré. Si des fichiers périmés y traînent, on les supprime avant de reconstruire.
 
 ## Propriétaire

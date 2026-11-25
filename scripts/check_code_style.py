@@ -1,8 +1,10 @@
 """Checks the client source style rules that ESLint cannot express.
 
-Rules: no comment except a JSDoc block, and one `.map(` call per TSX file.
+Rules: no comment except a JSDoc block, one `.map(` call per TSX file, and one file naming
+scheme for every `.ts` and `.tsx` file.
 """
 
+import re
 import sys
 from dataclasses import dataclass, field
 from pathlib import Path
@@ -10,6 +12,8 @@ from pathlib import Path
 SOURCE_SUFFIXES = {".ts", ".tsx"}
 IGNORED_PARTS = {".git", ".venv", "node_modules", "__nexy__", "dist", "tmp"}
 QUOTES = ("'", '"', "`")
+FILE_NAME = re.compile(r"^[a-z0-9]+(-[a-z0-9]+)*(\.test|\.d)?\.tsx?$")
+ROUTE_NAME = re.compile(r"^\[[a-z]+\]\.tsx$")
 
 
 @dataclass
@@ -67,6 +71,19 @@ def check_text(text: str, filename: str) -> list[str]:
     return comment_failures(text, filename) + map_failures(text, filename)
 
 
+def name_failures(relative: Path) -> list[str]:
+    """Names at the repository root are set by tools, such as vite.config.ts."""
+    name = relative.name
+    failures: list[str] = []
+    if len(relative.parts) == 1:
+        return failures
+    if not FILE_NAME.match(name) and not ROUTE_NAME.match(name):
+        failures.append(f"{relative}: file name must be lowercase words joined by hyphens")
+    if "hooks" in relative.parts[:-1] and not name.startswith("use-"):
+        failures.append(f"{relative}: a file in a hooks folder must start with use-")
+    return failures
+
+
 def source_files(root: Path) -> list[Path]:
     return [
         path
@@ -82,6 +99,7 @@ def run_checks(root: Path) -> Report:
     for path in source_files(root):
         text = path.read_text(encoding="utf-8", errors="replace")
         report.failures += check_text(text, str(path.relative_to(root)))
+        report.failures += name_failures(path.relative_to(root))
         report.files += 1
     return report
 

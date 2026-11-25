@@ -68,7 +68,7 @@ Chaque principe a un énoncé, un contre-exemple et un lien vers sa source. Un �
 
 **Contre-exemple.** Un menu qui ne s'ouvre qu'à la souris, ou dont le focus reste piégé.
 
-**Lien.** `src/shared/hooks/use-dismiss.ts`, `tests/client/DropdownNavigation.test.tsx`.
+**Lien.** `src/shared/hooks/use-dismiss.ts`, `tests/client/dropdown-navigation.test.tsx`.
 
 ## 9. Des cibles lisibles, un contraste tenu
 
@@ -84,7 +84,7 @@ Chaque principe a un énoncé, un contre-exemple et un lien vers sa source. Un �
 
 **Contre-exemple.** Un formulaire qui n'affiche rien quand l'adresse est invalide.
 
-**Lien.** `tests/client/FeedbackStates.test.tsx`, `tests/client/NewsletterForm.test.tsx`.
+**Lien.** `tests/client/feedback-states.test.tsx`, `tests/client/newsletter-form.test.tsx`.
 
 ## 11. Des tokens, pas des valeurs
 

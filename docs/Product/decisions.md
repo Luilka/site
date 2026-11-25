@@ -13,7 +13,7 @@
 | D-003 | Le site garde le rendu client (`useCSR = True`). Le HTML servi est une coquille et le contenu arrive après hydratation. | 23 novembre 2026 | @Espoir-Loem | [audit](../UX/audit-accueil.md), Q-001 |
 | D-004 | Le code réutilisable vit dans `src/shared/`. Les composants sont rangés dans `layout`, `cards`, `patterns` et `sections`. | 26 novembre 2026 | @Espoir-Loem | [ADR 001](../Technique/adr-001-dossier-shared.md) |
 | D-005 | Une fonction ou un composant tient en 10 lignes. Aucune logique dans un fichier TSX. Un seul `.map()` par fichier TSX. Aucun commentaire sauf JSDoc. | 26 novembre 2026 | @Espoir-Loem | [ADR 002](../Technique/adr-002-regles-de-code.md) |
-| D-006 | Les noms de fichiers de composants utilisent des tirets, jamais de points. | 26 novembre 2026 | @Espoir-Loem | [ADR 003](../Technique/adr-003-noms-de-fichiers.md) |
+| D-006 | Tous les fichiers `.ts` et `.tsx` sont en minuscules avec des tirets, sans point, y compris les tests. Un hook commence par `use-`. | 26 novembre 2026 | @Espoir-Loem | [ADR 003](../Technique/adr-003-noms-de-fichiers.md) |
 | D-007 | Les anciens « templates » s'appellent « sections ». | 26 novembre 2026 | @Espoir-Loem | [ADR 001](../Technique/adr-001-dossier-shared.md) |
 | D-008 | La documentation suit les critères du dépôt Pro : classement par métier, index complet, modèle d'ADR unique, notes datées, contrôle par script. | 26 novembre 2026 | @Espoir-Loem | [mémoire](../../memoires/2026-11-26-structure-shared.md) |
 | D-009 | Luilka se présente comme un studio de design qui conçoit, écrit et construit. Chaque service peut être commandé seul. | 23 novembre 2026 | @Espoir-Loem | [vision](vision.md) |

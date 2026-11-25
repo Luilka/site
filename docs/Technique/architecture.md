@@ -51,4 +51,4 @@ Les dépendances vont dans un seul sens : `routes` vers `sections`, puis `cards`
 
 ## Limites connues
 
-Le HTML servi est une coquille et le contenu arrive après hydratation (D-003, Q-001). Les pages d'aperçu du chargement et de l'erreur ont été retirées. Les états restent couverts par `tests/client/FeedbackStates.test.tsx`.
+Le HTML servi est une coquille et le contenu arrive après hydratation (D-003, Q-001). Les pages d'aperçu du chargement et de l'erreur ont été retirées. Les états restent couverts par `tests/client/feedback-states.test.tsx`.

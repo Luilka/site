@@ -67,7 +67,7 @@ Les versions sont exactes. Les lockfiles sont commités. Aucune dépendance en `
 - Aucune logique dans les fichiers TSX : un composant ne fait que du rendu. La logique va dans un hook de `src/shared/hooks/` ou une fonction de `src/shared/lib/`.
 - Un seul composant par fichier TSX, nommé comme le fichier. Un seul appel à `.map()` par fichier TSX.
 - Aucun commentaire, sauf un bloc de documentation `/** ... */` sur une fonction exportée. `scripts/check_code_style.py` le contrôle.
-- Les noms de fichiers de composants utilisent des tirets, jamais de points : Nexy en tire un nom de fonction Python (D-006).
+- Tous les fichiers `.ts` et `.tsx` sont en minuscules, mots reliés par des tirets, sans point : `info-card.tsx`, `use-retry.ts`, `shared-lib.test.ts`. Nexy tire un nom de fonction Python du nom du fichier (D-006). Un hook commence par `use-`.
 - La réutilisation prime. La deuxième copie est un signal, la troisième est un défaut. Le code partagé va dans `src/shared/` (D-004).
 - React idiomatique : état dans `useState` et `useReducer`, effets dans `useEffect`, jamais de script DOM écrit à la main. Charger `nexy-react` pour tout fichier `.tsx`.
 - Tous les liens passent par `src/shared/ui/link.tsx`, l'adaptateur autour du `Link` de Nexy.

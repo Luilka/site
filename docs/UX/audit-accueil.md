@@ -82,7 +82,7 @@ Les trois etats suivent la convention de fichiers speciaux de Nexy, a la racine 
 - Erreur : `src/routes/errors.tsx`. Le serveur l utilise pour les erreurs 500 ; cote client, `FeedbackBoundary` branche `ErrorBoundary` sur ce meme fichier. Le bouton `Réessayer` remonte le composant.
 - Chargement : `src/routes/loading.tsx`, annonce par `role="status"`.
 
-Les pages d apercu `/fr/chargement` et `/fr/erreurs` ont ete retirees. Les trois etats restent couverts par `tests/client/FeedbackStates.test.tsx`, y compris la reprise apres une erreur de rendu.
+Les pages d apercu `/fr/chargement` et `/fr/erreurs` ont ete retirees. Les trois etats restent couverts par `tests/client/feedback-states.test.tsx`, y compris la reprise apres une erreur de rendu.
 
 ## Fiches dynamiques et routes inconnues
 
