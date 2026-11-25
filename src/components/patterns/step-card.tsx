@@ -9,7 +9,7 @@ type StepCardProps = {
 export default function StepCard({ number, title, description }: StepCardProps) {
   return (
     <Card className="step">
-      <div className="t p-px">
+      <div className="t p-8">
         <h3>{title}</h3>
         <p>{description}</p>
       </div>
