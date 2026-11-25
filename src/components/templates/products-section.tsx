@@ -20,7 +20,12 @@ export default function ProductsSection({ id, title, description, action }: Prod
         <SectionHeading title={title} description={description} action={action} />
         <div className="prod-grid">
           {content.products.map((product) => (
-            <ProductCard key={product.name} name={product.name} description={content.product} />
+            <ProductCard
+              key={product.slug}
+              slug={product.slug}
+              name={product.name}
+              description={product.description}
+            />
           ))}
         </div>
       </Container>
