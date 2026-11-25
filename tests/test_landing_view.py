@@ -50,7 +50,7 @@ def test_reference_class_names_are_defined() -> None:
         name in css
         for name in (
             ".nav",
-            ".marquee",
+            ".prod",
             ".hero-grid",
             ".steps-grid",
             ".prod-grid",
@@ -58,6 +58,19 @@ def test_reference_class_names_are_defined() -> None:
             ".btn-outline",
         )
     )
+
+
+def test_steps_and_about_sections_have_a_small_shared_gap() -> None:
+    css = (ROOT / "src" / "globale.css").read_text(encoding="utf-8")
+    steps = css_rule(css, ".steps")
+    about = css_rule(css, ".about")
+    steps_padding = re.search(r"padding:\s*\d+px\s+0\s+(\d+)px", steps)
+    about_padding = re.search(r"padding:\s*(\d+)px\s+0\s+\d+px", about)
+    assert steps_padding is not None
+    assert about_padding is not None
+    steps_bottom = int(steps_padding.group(1))
+    about_top = int(about_padding.group(1))
+    assert steps_bottom + about_top <= 40
 
 
 def test_header_typography_follows_readable_sizes() -> None:
@@ -87,6 +100,5 @@ def test_header_is_sticky_and_uses_utility_classes() -> None:
     )
     assert "sticky top-0" in header
     assert "z-[13]" in header
-    assert "bg-white/60" in header
-    assert "backdrop-blur" in header
     assert "max-w-[80rem]" in header
+    assert 'className="header-surface bg-white/80 backdrop-blur"' in header
