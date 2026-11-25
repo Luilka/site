@@ -19,9 +19,10 @@ export default function WorksSection({ id, title, description, action }: WorksSe
       <Container>
         <SectionHeading title={title} description={description} action={action} />
         <div className="work-grid">
-          {content.works.map((work, index) => (
+          {content.works.map((work) => (
             <WorkCard
-              key={`${work.name}-${index}`}
+              key={work.slug}
+              slug={work.slug}
               name={work.name}
               kind={work.kind}
               caseLabel={work.caseLabel}
