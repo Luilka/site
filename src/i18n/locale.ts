@@ -2,16 +2,8 @@ import { usePathname, type Href } from "@nexy/client";
 
 import type { Language, PageHref } from "./dictionaries.ts";
 
-function isLanguageSegment(segment: string | undefined): segment is Language {
-  return segment === "fr" || segment === "en";
-}
-
-export function clientLanguage(): Language {
-  if (typeof navigator === "undefined") {
-    return "fr";
-  }
-  const languages = navigator.languages?.length ? navigator.languages : [navigator.language];
-  return languages.some((lang) => lang.toLowerCase().startsWith("en")) ? "en" : "fr";
+export function isSupportedLanguage(value: string | undefined): value is Language {
+  return value === "fr" || value === "en";
 }
 
 export function languageFromPathname(pathname: string): Language {
@@ -21,7 +13,7 @@ export function languageFromPathname(pathname: string): Language {
 
 export function pageFromPathname(pathname: string): PageHref | "/" {
   const firstSegment = pathname.split("/")[1];
-  if (!isLanguageSegment(firstSegment)) {
+  if (!isSupportedLanguage(firstSegment)) {
     return pathname as PageHref | "/";
   }
   const page = pathname.slice(firstSegment.length + 1);
@@ -42,19 +34,4 @@ export function useUrlLanguage(): Language {
 
 export function usePagePathname(): PageHref | "/" {
   return pageFromPathname(usePathname());
-}
-
-export function useCurrentPathname(): string {
-  return usePathname();
-}
-
-export function hasLanguagePrefix(pathname: string): boolean {
-  return isLanguageSegment(pathname.split("/")[1]);
-}
-
-export function legacyRedirectTarget(pathname: string, language: Language): string | null {
-  if (hasLanguagePrefix(pathname)) {
-    return null;
-  }
-  return pathname === "/" ? `/${language}` : `/${language}${pathname}`;
 }
