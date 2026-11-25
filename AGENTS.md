@@ -34,7 +34,7 @@ Ordre de prévalence en cas de divergence : `docs/Product/decisions.md`, puis l'
 
 ## 3. Décisions opposables et questions ouvertes
 
-Décisions retenues : D-001 à D-010. Questions ouvertes : Q-001, Q-002, Q-003 et Q-004.
+Décisions retenues : D-001 à D-011. Questions ouvertes : Q-001, Q-002, Q-003 et Q-004.
 
 Aucune question ouverte n'entre dans le code avant son inscription au registre avec date, motif, propriétaire et source. Toute demande qui contredit une décision retenue impose une réouverture écrite : nouvelle preuve, date, décision remplacée, documents touchés. Aucune modification silencieuse.
 
@@ -68,6 +68,7 @@ Les versions sont exactes. Les lockfiles sont commités. Aucune dépendance en `
 - Un seul composant par fichier TSX, nommé comme le fichier. Un seul appel à `.map()` par fichier TSX.
 - Aucun commentaire, sauf un bloc de documentation `/** ... */` sur une fonction exportée. `scripts/check_code_style.py` le contrôle.
 - Tout fichier `.ts` et `.tsx` de `src/` s'écrit `<nom>.<dossier>`, le dossier au singulier : `product.card.tsx`, `hero.section.tsx`, `use-retry.hook.ts`, `validate-email.util.ts` (D-006, ADR 003). Un hook commence par `use-`. Les tests s'écrivent `<nom>.test.ts(x)`, les fichiers Python en `snake_case`.
+- Le nombre de fichiers vient de la limite de 10 lignes : un composant qui dépasse se découpe en petits fichiers voisins. Avant d'en créer un, chercher l'existant (`CollectionSection`, `CardGrid`, `PageFrame`). Un fichier qui ne fait que transmettre ses props à un seul parent est fusionné.
 - La réutilisation prime. La deuxième copie est un signal, la troisième est un défaut. Le code partagé va dans `src/shared/` (D-004).
 - React idiomatique : état dans `useState` et `useReducer`, effets dans `useEffect`, jamais de script DOM écrit à la main. Charger `nexy-react` pour tout fichier `.tsx`.
 - Tous les liens passent par `src/shared/ui/link.ui.tsx`, l'adaptateur autour du `Link` de Nexy.
@@ -80,7 +81,7 @@ Les versions sont exactes. Les lockfiles sont commités. Aucune dépendance en `
 src/routes/                 pages, un fichier par URL
 src/shared/ui/              atomes : bouton, badge, carte, champ, lien, conteneur
 src/shared/hooks/           logique réutilisable
-src/shared/utils/             fonctions pures, TypeScript et Python
+src/shared/utils/           fonctions pures, TypeScript et Python
 src/shared/i18n/            dictionnaires, langue, contenu
 src/shared/types/           types partagés
 src/components/layout/      en-tête, navigation, pied de page, document
