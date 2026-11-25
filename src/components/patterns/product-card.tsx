@@ -1,16 +1,17 @@
 import { ArrowUpRight } from "lucide-react";
 
 import CardIcon from "@/components/patterns/card-icon.tsx";
-import Card from "@/components/ui/card.tsx";
+import AppLink, { type Href } from "@/components/ui/link.tsx";
 
 type ProductCardProps = {
+  slug: string;
   name: string;
   description: string;
 };
 
-export default function ProductCard({ name, description }: ProductCardProps) {
+export default function ProductCard({ slug, name, description }: ProductCardProps) {
   return (
-    <Card className="prod">
+    <AppLink className="card prod" href={`/products/${slug}` as Href}>
       <ArrowUpRight className="arrow" size={12} strokeWidth={1.5} aria-hidden="true" />
       <div className="top">
         <div className="mini">
@@ -25,6 +26,6 @@ export default function ProductCard({ name, description }: ProductCardProps) {
       <div className="ph2">
         <CardIcon name={name} size={70} strokeWidth={1.5} />
       </div>
-    </Card>
+    </AppLink>
   );
 }
