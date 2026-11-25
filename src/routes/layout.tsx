@@ -1,9 +1,12 @@
 import type { ReactNode } from "react";
 
+import FeedbackBoundary from "@/components/patterns/feedback-boundary.tsx";
 import IconSprite from "@/components/patterns/icon-sprite.tsx";
 import SiteFooter from "@/components/patterns/site-footer.tsx";
 import SiteHeader from "@/components/patterns/site-header.tsx";
-import { useLanguageRedirect, useUrlLanguage } from "@/i18n";
+import { useTransition } from "@/components/ui/link.tsx";
+import { useUrlLanguage } from "@/i18n";
+import Loading from "./loading.tsx";
 
 type RootLayoutProps = {
   children: ReactNode;
@@ -11,7 +14,6 @@ type RootLayoutProps = {
 
 export default function RootLayout({ children }: RootLayoutProps) {
   const language = useUrlLanguage();
-  useLanguageRedirect();
 
   return (
     <html lang={language}>
@@ -28,7 +30,9 @@ export default function RootLayout({ children }: RootLayoutProps) {
       <body>
         <IconSprite />
         <SiteHeader />
-        <main>{children}</main>
+        <main>
+          {children}
+        </main>
         <SiteFooter />
       </body>
     </html>
