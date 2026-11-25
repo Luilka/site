@@ -42,7 +42,6 @@ def test_layout_patterns_and_cards_use_complete_component_names() -> None:
             "header.layout.tsx",
             "footer.layout.tsx",
             "brand-mark.layout.tsx",
-            "language-toggle.layout.tsx",
             "newsletter-form.layout.tsx",
         ),
         "patterns": (
@@ -118,7 +117,7 @@ def test_python_shared_code_lives_beside_the_typescript_utils() -> None:
     assert (SHARED / "__init__.py").is_file()
 
 
-def test_tsx_files_hold_one_component_each() -> None:
+def test_tsx_files_export_one_default_component() -> None:
     offenders = [
         str(path.relative_to(ROOT))
         for path in COMPONENTS.rglob("*.tsx")

@@ -1,5 +1,18 @@
-import StepText from "@/components/cards/step-text.card.tsx";
 import Card from "@/shared/ui/card.ui.tsx";
+
+type StepTextProps = {
+  title: string;
+  description: string;
+};
+
+function StepText({ title, description }: StepTextProps) {
+  return (
+    <div className="t p-8">
+      <h3>{title}</h3>
+      <p>{description}</p>
+    </div>
+  );
+}
 
 type StepCardProps = {
   number: string;

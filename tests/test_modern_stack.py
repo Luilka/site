@@ -50,7 +50,7 @@ def test_lucide_is_pinned() -> None:
 
 
 def test_step_card_uses_the_reference_padding() -> None:
-    source = (SRC / "components" / "cards" / "step-text.card.tsx").read_text(encoding="utf-8")
+    source = (SRC / "components" / "cards" / "step.card.tsx").read_text(encoding="utf-8")
     assert 'className="t p-8"' in source
 
 

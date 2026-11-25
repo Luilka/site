@@ -1,6 +1,45 @@
 import BrandMark from "@/components/layout/brand-mark.layout.tsx";
-import HeaderActions from "@/components/layout/header-actions.layout.tsx";
 import MainNavigation from "@/components/layout/navigation/main-navigation.layout.tsx";
+import { ChevronDown, CalendarDays } from "lucide-react";
+import { useLanguageSwitch, useContent } from "@/shared/i18n";
+import AppLink from "@/shared/ui/link.ui.tsx";
+
+function ContactLink() {
+  const { contactAction } = useContent();
+  return (
+    <AppLink className="btn-outline bg-transparent! border-gray-400!" href="/contact">
+      {contactAction}<CalendarDays size={14} strokeWidth={1.8} aria-hidden="true" />
+    </AppLink>
+  );
+}
+
+function FlagMark() {
+  return (
+    <span className="flag" aria-hidden="true">
+      <i />
+      <i />
+      <i />
+    </span>
+  );
+}
+
+function LanguageToggle() {
+  const { language, next, label, page } = useLanguageSwitch();
+  return (
+    <AppLink className="lang" href={page} language={next} aria-label={label}>
+      <FlagMark />{language.toUpperCase()}<ChevronDown size={14} strokeWidth={2.5} aria-hidden="true" />
+    </AppLink>
+  );
+}
+
+function HeaderActions() {
+  return (
+    <div className="nav-right">
+      <LanguageToggle />
+      <ContactLink />
+    </div>
+  );
+}
 
 export default function Header() {
   return (

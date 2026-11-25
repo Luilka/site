@@ -1,6 +1,22 @@
-import InfoCardBody from "@/components/cards/info-card-body.card.tsx";
 import AppLink, { type Href } from "@/shared/ui/link.ui.tsx";
 import Card from "@/shared/ui/card.ui.tsx";
+import Badge from "@/shared/ui/badge.ui.tsx";
+
+type InfoCardBodyProps = {
+  title: string;
+  meta: string;
+  description: string;
+};
+
+function InfoCardBody({ title, meta, description }: InfoCardBodyProps) {
+  return (
+    <>
+      <Badge>{meta}</Badge>
+      <h3>{title}</h3>
+      <p>{description}</p>
+    </>
+  );
+}
 
 type InfoCardProps = {
   title: string;

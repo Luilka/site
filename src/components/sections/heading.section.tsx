@@ -1,6 +1,19 @@
 import ActionLink from "@/components/patterns/action-link.pattern.tsx";
-import HeadingText from "@/components/sections/heading-text.section.tsx";
 import type { SectionAction } from "@/shared/i18n";
+
+type HeadingTextProps = {
+  title: string;
+  description?: string;
+};
+
+function HeadingText({ title, description }: HeadingTextProps) {
+  return (
+    <div>
+      <h2 className="sec">{title}</h2>
+      {description ? <p className="sec-p">{description}</p> : null}
+    </div>
+  );
+}
 
 type SectionHeadingProps = {
   title: string;
