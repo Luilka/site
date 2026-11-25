@@ -37,6 +37,10 @@ def test_ci_checks_the_client_code_style() -> None:
     assert "npm run check:style" in commands()
 
 
+def test_ci_checks_the_documentation() -> None:
+    assert "npm run check:docs" in commands()
+
+
 def test_ci_runs_python_tests() -> None:
     assert "pytest" in commands()
 

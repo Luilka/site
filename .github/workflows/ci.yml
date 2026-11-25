@@ -52,6 +52,9 @@ jobs:
       - name: Check client code style
         run: npm run check:style
 
+      - name: Check documentation
+        run: npm run check:docs
+
       - name: Run Python tests
         run: uv run pytest
 
