@@ -6,6 +6,11 @@ SRC = ROOT / "src"
 PAGES = ("about", "blog", "contact", "job", "products", "services", "works")
 
 
+def page_route(name: str) -> Path:
+    nested = SRC / "routes" / "[lang]" / name / "index.tsx"
+    return nested if nested.is_file() else SRC / "routes" / "[lang]" / f"{name}.tsx"
+
+
 def test_newsletter_uses_the_react_19_action_state() -> None:
     source = (SRC / "components" / "patterns" / "newsletter-form.tsx").read_text(encoding="utf-8")
     assert "useActionState" in source
@@ -14,7 +19,7 @@ def test_newsletter_uses_the_react_19_action_state() -> None:
 
 def test_every_inner_page_uses_the_shared_page_hero() -> None:
     for name in PAGES:
-        source = (SRC / "routes" / "[lang]" / f"{name}.tsx").read_text(encoding="utf-8")
+        source = page_route(name).read_text(encoding="utf-8")
         assert "PageHero" in source, name
 
 
@@ -38,9 +43,9 @@ def test_lucide_is_pinned() -> None:
     assert package["dependencies"]["lucide-react"] == "1.77.0"
 
 
-def test_step_card_uses_one_pixel_padding() -> None:
+def test_step_card_uses_the_reference_padding() -> None:
     source = (SRC / "components" / "patterns" / "step-card.tsx").read_text(encoding="utf-8")
-    assert 'className="t p-px"' in source
+    assert 'className="t p-8"' in source
 
 
 def test_ui_icons_come_from_lucide() -> None:
@@ -48,9 +53,9 @@ def test_ui_icons_come_from_lucide() -> None:
     assert any('from "lucide-react"' in source.read_text(encoding="utf-8") for source in sources)
 
 
-def test_layout_redirects_unprefixed_urls_on_the_client() -> None:
+def test_layout_does_not_redirect_unprefixed_urls() -> None:
     layout = (SRC / "routes" / "layout.tsx").read_text(encoding="utf-8")
-    assert "useLanguageRedirect" in layout
+    assert "useLanguageRedirect" not in layout
 
 
 def test_header_uses_reusable_dropdown_items() -> None:
