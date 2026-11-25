@@ -22,5 +22,12 @@
       "@nexy/*": ["./__nexy__/src/*"]
     }
   },
-  "include": ["src", "tests/client", "vite.config.ts", "vitest.config.ts", "__nexy__/src"]
+  "include": [
+    "src",
+    "tests/client",
+    "vite.config.ts",
+    "vitest.config.ts",
+    "__nexy__/src",
+    "**/*.*.{ts,tsx}"
+  ]
 }
