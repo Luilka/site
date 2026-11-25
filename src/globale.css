@@ -413,7 +413,8 @@ textarea {
 }
 
 .logo svg {
-  @apply size-6 stroke-4; 
+  @apply size-6;
+  fill: currentColor;
 }
 
 .header-surface {
@@ -631,10 +632,7 @@ textarea {
 .about-img svg {
   width: 140px;
   height: 140px;
-  stroke: #2a2a30;
-  fill: none;
-  stroke-width: 5;
-  stroke-linecap: round;
+  fill: #2a2a30;
 }
 
 .about-txt {
