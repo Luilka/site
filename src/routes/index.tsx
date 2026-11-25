@@ -1,3 +1,1 @@
-export default function RootRedirect() {
-  return null;
-}
+export { default } from "./[lang]/index.tsx";
