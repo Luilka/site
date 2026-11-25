@@ -20,7 +20,8 @@ export default function SiteHeader() {
   }
 
   return (
-    <header className="sticky top-0 z-[13] border-[0.04375rem] border-[#dee0e3] bg-white/60 backdrop-blur">
+    <header className="sticky top-0 z-[13] border-[0.04375rem] border-[#dee0e3]">
+      <div className="header-surface bg-white/80 backdrop-blur" aria-hidden="true" />
       <div className="nav mx-auto flex h-[4.4375rem] w-full max-w-[80rem] flex-row items-center justify-between gap-8 px-6 lg:px-10">
         <BrandMark />
         <nav
