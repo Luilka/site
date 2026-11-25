@@ -35,7 +35,7 @@ export default function NewsletterForm() {
           {content.footer.emailLabel}
         </label>
         <Input id={id} name="email" type="email" placeholder="pixi@domaine.com" autoComplete="email" />
-        <Button type="submit" disabled={pending}>
+        <Button type="submit" disabled={pending} className="h-8!">
           {content.footer.subscribe}
           <ArrowUpRight size={9} strokeWidth={2} aria-hidden="true" />
         </Button>
