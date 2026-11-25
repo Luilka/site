@@ -1,7 +1,7 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import { afterEach, describe, expect, it } from "vitest";
 
-import Header from "@/components/layout/header";
+import Header from "@/components/layout/header.layout.tsx";
 import About from "@/routes/[lang]/about.tsx";
 
 function renderApp(pathname = "/fr/about") {

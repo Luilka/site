@@ -1,10 +1,10 @@
 import { describe, expect, it } from "vitest";
 
-import { findDetail, isKnownDetailSlug } from "@/content/detail-models.ts";
-import { detailHref } from "@/shared/lib/detail-href.ts";
-import { infoHref } from "@/shared/lib/info-href.ts";
-import { newsletterState } from "@/shared/lib/newsletter-state.ts";
-import { isValidEmail } from "@/shared/lib/validate-email.ts";
+import { findDetail, isKnownDetailSlug } from "@/content/detail-models.content.ts";
+import { detailHref } from "@/shared/utils/detail-href.util.ts";
+import { infoHref } from "@/shared/utils/info-href.util.ts";
+import { newsletterState } from "@/shared/utils/newsletter-state.util.ts";
+import { isValidEmail } from "@/shared/utils/validate-email.util.ts";
 
 const copy = { invalid: "Invalid", valid: "Valid" };
 

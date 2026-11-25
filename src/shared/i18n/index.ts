@@ -1,6 +1,6 @@
-export * from "./dictionaries.ts";
-export * from "./locale.ts";
-export { useLanguage } from "./use-language.ts";
-export { useContent } from "./use-content.ts";
-export { useLanguageSwitch } from "./use-language-switch.ts";
-export { useLocalizedHref } from "./use-localized-href.ts";
+export * from "./dictionaries.i18n.ts";
+export * from "./locale.i18n.ts";
+export { useLanguage } from "./use-language.i18n.ts";
+export { useContent } from "./use-content.i18n.ts";
+export { useLanguageSwitch } from "./use-language-switch.i18n.ts";
+export { useLocalizedHref } from "./use-localized-href.i18n.ts";

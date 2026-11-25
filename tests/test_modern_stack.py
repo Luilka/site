@@ -12,9 +12,11 @@ def page_route(name: str) -> Path:
 
 
 def test_newsletter_uses_the_react_19_action_state() -> None:
-    source = (SRC / "shared" / "hooks" / "use-newsletter.ts").read_text(encoding="utf-8")
+    source = (SRC / "shared" / "hooks" / "use-newsletter.hook.ts").read_text(encoding="utf-8")
     assert "useActionState" in source
-    form = (SRC / "components" / "layout" / "newsletter-form.tsx").read_text(encoding="utf-8")
+    form = (SRC / "components" / "layout" / "newsletter-form.layout.tsx").read_text(
+        encoding="utf-8"
+    )
     assert "action={" in form
 
 
@@ -48,7 +50,7 @@ def test_lucide_is_pinned() -> None:
 
 
 def test_step_card_uses_the_reference_padding() -> None:
-    source = (SRC / "components" / "cards" / "step-text.tsx").read_text(encoding="utf-8")
+    source = (SRC / "components" / "cards" / "step-text.card.tsx").read_text(encoding="utf-8")
     assert 'className="t p-8"' in source
 
 
@@ -63,14 +65,14 @@ def test_layout_does_not_redirect_unprefixed_urls() -> None:
 
 
 def test_header_uses_reusable_dropdown_items() -> None:
-    entry = (SRC / "components" / "layout" / "navigation" / "nav-entry.tsx").read_text(
+    entry = (SRC / "components" / "layout" / "navigation" / "nav-entry.layout.tsx").read_text(
         encoding="utf-8"
     )
     assert "NavDropdown" in entry
 
 
 def test_content_has_french_and_english_dictionaries() -> None:
-    content = (SRC / "shared" / "i18n" / "dictionaries.ts").read_text(encoding="utf-8")
+    content = (SRC / "shared" / "i18n" / "dictionaries.i18n.ts").read_text(encoding="utf-8")
     assert '"fr"' in content
     assert '"en"' in content
 

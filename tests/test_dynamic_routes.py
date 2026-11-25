@@ -54,8 +54,8 @@ def test_detail_routes_use_nexy_folder_names() -> None:
 def test_types_folder_holds_the_dynamic_models() -> None:
     types = SRC / "shared" / "types"
     assert (types / "index.ts").is_file()
-    assert (types / "site.ts").is_file()
-    assert (types / "detail.ts").is_file()
+    assert (types / "site.type.ts").is_file()
+    assert (types / "detail.type.ts").is_file()
     index = (types / "index.ts").read_text(encoding="utf-8")
     assert "DetailModel" in index
     assert "DetailRouteProps" in index
@@ -63,7 +63,9 @@ def test_types_folder_holds_the_dynamic_models() -> None:
 
 def test_server_validation_uses_the_shared_slug_source() -> None:
     source = (SRC / "routes" / "[lang]" / "dependencies.py").read_text(encoding="utf-8")
-    assert "details.json" in source
+    shared = (SRC / "shared" / "utils" / "detail_slugs.py").read_text(encoding="utf-8")
+    assert "src.shared.utils.detail_slugs" in source
+    assert "details.json" in shared
     assert "notFound" in source
 
 

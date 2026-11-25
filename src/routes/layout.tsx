@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 
-import DocumentBody from "@/components/layout/document-body.tsx";
-import DocumentHead from "@/components/layout/document-head.tsx";
+import DocumentBody from "@/components/layout/document-body.layout.tsx";
+import DocumentHead from "@/components/layout/document-head.layout.tsx";
 import { useUrlLanguage } from "@/shared/i18n";
 
 type RootLayoutProps = {

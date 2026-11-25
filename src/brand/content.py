@@ -1,10 +1,8 @@
-import json
-from pathlib import Path
 from typing import Protocol
 
 from nexy.decorators import Injectable
 
-NAVIGATION_FILE = Path(__file__).resolve().parents[1] / "content" / "navigation.json"
+from src.shared.utils.content_files import read_json
 
 
 class BrandContent(Protocol):
@@ -19,5 +17,5 @@ class BrandService:
         return "Design maîtrisé. Produits clairs. Impact mesurable."
 
     def navigation(self) -> tuple[tuple[str, str], ...]:
-        items: list[dict[str, str]] = json.loads(NAVIGATION_FILE.read_text(encoding="utf-8"))
+        items: list[dict[str, str]] = read_json("navigation.json")
         return tuple((item["label"], item["href"]) for item in items)

@@ -1,5 +1,5 @@
-import PageFrame from "@/components/patterns/page-frame.tsx";
-import InfoSection from "@/components/sections/(home)/info-section.tsx";
+import PageFrame from "@/components/patterns/page-frame.pattern.tsx";
+import InfoSection from "@/components/sections/(home)/info.section.tsx";
 import { useContent } from "@/shared/i18n";
 
 export default function Job() {

@@ -7,7 +7,7 @@ SHARED = SRC / "shared"
 
 
 def test_shared_folders_are_separated_by_intention() -> None:
-    for folder in ("ui", "hooks", "lib", "i18n", "types"):
+    for folder in ("ui", "hooks", "utils", "i18n", "types"):
         assert (SHARED / folder).is_dir(), folder
 
 
@@ -23,14 +23,14 @@ def test_templates_became_sections() -> None:
 
 def test_atoms_use_short_lowercase_file_names() -> None:
     expected = (
-        "badge.tsx",
-        "button.tsx",
-        "card.tsx",
-        "container.tsx",
-        "input.tsx",
-        "link.tsx",
-        "icon-tile.tsx",
-        "motion-box.tsx",
+        "badge.ui.tsx",
+        "button.ui.tsx",
+        "card.ui.tsx",
+        "container.ui.tsx",
+        "input.ui.tsx",
+        "link.ui.tsx",
+        "icon-tile.ui.tsx",
+        "motion-box.ui.tsx",
     )
     for name in expected:
         assert (SHARED / "ui" / name).is_file(), name
@@ -39,19 +39,24 @@ def test_atoms_use_short_lowercase_file_names() -> None:
 def test_layout_patterns_and_cards_use_complete_component_names() -> None:
     expected = {
         "layout": (
-            "header.tsx",
-            "footer.tsx",
-            "brand-mark.tsx",
-            "language-toggle.tsx",
-            "newsletter-form.tsx",
+            "header.layout.tsx",
+            "footer.layout.tsx",
+            "brand-mark.layout.tsx",
+            "language-toggle.layout.tsx",
+            "newsletter-form.layout.tsx",
         ),
-        "patterns": ("contact-panel.tsx", "page-hero.tsx", "page-frame.tsx", "process-band.tsx"),
+        "patterns": (
+            "contact-panel.pattern.tsx",
+            "page-hero.pattern.tsx",
+            "page-frame.pattern.tsx",
+            "process-band.pattern.tsx",
+        ),
         "cards": (
-            "product-card.tsx",
-            "service-card.tsx",
-            "work-card.tsx",
-            "step-card.tsx",
-            "info-card.tsx",
+            "product.card.tsx",
+            "service.card.tsx",
+            "work.card.tsx",
+            "step.card.tsx",
+            "info.card.tsx",
         ),
     }
     for folder, names in expected.items():
@@ -62,7 +67,7 @@ def test_layout_patterns_and_cards_use_complete_component_names() -> None:
 def test_home_sections_are_named_after_their_intention() -> None:
     expected = ("hero", "about", "process", "services", "products", "works", "info")
     for name in expected:
-        assert (COMPONENTS / "sections" / "(home)" / f"{name}-section.tsx").is_file(), name
+        assert (COMPONENTS / "sections" / "(home)" / f"{name}.section.tsx").is_file(), name
 
 
 def test_no_component_imports_from_a_removed_folder() -> None:
@@ -77,14 +82,14 @@ def test_no_component_imports_from_a_removed_folder() -> None:
 
 
 def test_client_links_go_through_one_nexy_adapter() -> None:
-    sources = [path for path in SRC.rglob("*.tsx") if path.name != "link.tsx"]
+    sources = [path for path in SRC.rglob("*.tsx") if path.name != "link.ui.tsx"]
     offenders = [
         str(path.relative_to(ROOT))
         for path in sources
         if "@nexy/client" in path.read_text(encoding="utf-8")
     ]
     assert offenders == []
-    adapter = (SHARED / "ui" / "link.tsx").read_text(encoding="utf-8")
+    adapter = (SHARED / "ui" / "link.ui.tsx").read_text(encoding="utf-8")
     assert 'from "@nexy/client"' in adapter
 
 
@@ -96,7 +101,7 @@ def test_landing_page_composes_the_home_sections() -> None:
 
 def test_home_sections_compose_the_page_sections() -> None:
     home = COMPONENTS / "sections" / "(home)"
-    text = "".join(path.read_text(encoding="utf-8") for path in home.glob("home-*-section.tsx"))
+    text = "".join(path.read_text(encoding="utf-8") for path in home.glob("home-*.section.tsx"))
     for name in (
         "HeroSection",
         "ProcessSection",
@@ -105,6 +110,12 @@ def test_home_sections_compose_the_page_sections() -> None:
         "WorksSection",
     ):
         assert name in text, name
+
+
+def test_python_shared_code_lives_beside_the_typescript_utils() -> None:
+    for name in ("content_files.py", "languages.py", "detail_slugs.py"):
+        assert (SHARED / "utils" / name).is_file(), name
+    assert (SHARED / "__init__.py").is_file()
 
 
 def test_tsx_files_hold_one_component_each() -> None:

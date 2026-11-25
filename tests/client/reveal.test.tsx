@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 
-import Reveal from "@/components/patterns/reveal.tsx";
+import Reveal from "@/components/patterns/reveal.pattern.tsx";
 
 import { setReducedMotion } from "./setup";
 

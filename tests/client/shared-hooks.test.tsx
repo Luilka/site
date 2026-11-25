@@ -2,9 +2,9 @@ import { act, renderHook } from "@testing-library/react";
 import type { FocusEvent, KeyboardEvent } from "react";
 import { describe, expect, it, vi } from "vitest";
 
-import { useDismiss } from "@/shared/hooks/use-dismiss.ts";
-import { useOpenMenu } from "@/shared/hooks/use-open-menu.ts";
-import { useRetry } from "@/shared/hooks/use-retry.ts";
+import { useDismiss } from "@/shared/hooks/use-dismiss.hook.ts";
+import { useOpenMenu } from "@/shared/hooks/use-open-menu.hook.ts";
+import { useRetry } from "@/shared/hooks/use-retry.hook.ts";
 
 function blurEvent(inside: boolean): FocusEvent<HTMLElement> {
   const target = document.createElement("div");

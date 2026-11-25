@@ -43,33 +43,60 @@ def test_several_map_calls_are_allowed_in_ts() -> None:
     assert style.check_text("a.map(f); b.map(g);", "a.ts") == []
 
 
-def test_lowercase_hyphenated_names_are_accepted() -> None:
+def test_names_follow_the_folder_they_live_in() -> None:
+    accepted = (
+        "src/components/cards/product.card.tsx",
+        "src/components/sections/(home)/hero.section.tsx",
+        "src/components/layout/navigation/nav-entry.layout.tsx",
+        "src/components/patterns/page-frame.pattern.tsx",
+        "src/shared/ui/button.ui.tsx",
+        "src/shared/hooks/use-retry.hook.ts",
+        "src/shared/utils/validate-email.util.ts",
+        "src/shared/i18n/dictionaries.i18n.ts",
+        "src/shared/types/detail.type.ts",
+        "src/content/detail-models.content.ts",
+    )
+    for name in accepted:
+        assert style.name_failures(Path(name)) == [], name
+
+
+def test_a_name_without_its_folder_suffix_is_refused() -> None:
+    failures = style.name_failures(Path("src/components/cards/product-card.tsx"))
+    assert failures == [
+        "src/components/cards/product-card.tsx: file name must be <name>.card.ts(x)"
+    ]
+
+
+def test_a_name_with_the_suffix_of_another_folder_is_refused() -> None:
+    assert len(style.name_failures(Path("src/components/cards/product.section.tsx"))) == 1
+
+
+def test_barrels_and_declarations_are_accepted() -> None:
+    assert style.name_failures(Path("src/shared/i18n/index.ts")) == []
+    assert style.name_failures(Path("src/shared/types/nexy-client.d.ts")) == []
+
+
+def test_routes_and_tests_keep_plain_names() -> None:
     for name in (
-        "card.tsx",
-        "info-card.tsx",
-        "use-retry.ts",
-        "shared-lib.test.ts",
-        "nexy-client.d.ts",
+        "src/routes/layout.tsx",
+        "src/routes/[lang]/[slug].tsx",
+        "tests/client/shared-lib.test.ts",
     ):
-        assert style.name_failures(Path("src") / name) == []
+        assert style.name_failures(Path(name)) == [], name
+
+
+def test_other_name_styles_are_refused() -> None:
+    for name in ("src/routes/InfoCard.tsx", "src/routes/info_card.tsx", "src/routes/useRetry.ts"):
+        assert len(style.name_failures(Path(name))) == 1, name
 
 
 def test_tool_config_files_at_the_root_are_accepted() -> None:
     assert style.name_failures(Path("vitest.config.ts")) == []
 
 
-def test_route_segment_names_are_accepted() -> None:
-    assert style.name_failures(Path("src/routes/[lang]/[slug].tsx")) == []
-
-
-def test_other_name_styles_are_refused() -> None:
-    for name in ("InfoCard.tsx", "info_card.tsx", "info.card.tsx", "useRetry.ts"):
-        assert len(style.name_failures(Path("src") / name)) == 1, name
-
-
 def test_a_hook_file_must_start_with_use() -> None:
-    assert style.name_failures(Path("src/shared/hooks/retry.ts")) == [
-        "src/shared/hooks/retry.ts: a file in a hooks folder must start with use-"
+    assert style.name_failures(Path("src/shared/hooks/retry.hook.ts")) == [
+        "src/shared/hooks/retry.hook.ts: a file in a hooks folder must start with use-"
     ]
 
 

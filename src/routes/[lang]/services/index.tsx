@@ -1,5 +1,5 @@
-import PageFrame from "@/components/patterns/page-frame.tsx";
-import ServicesSection from "@/components/sections/(home)/services-section.tsx";
+import PageFrame from "@/components/patterns/page-frame.pattern.tsx";
+import ServicesSection from "@/components/sections/(home)/services.section.tsx";
 import { useContent } from "@/shared/i18n";
 
 export default function Services() {

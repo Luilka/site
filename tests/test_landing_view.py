@@ -21,16 +21,18 @@ def test_root_layout_declares_the_french_document() -> None:
     layout = (ROOT / "src" / "routes" / "layout.tsx").read_text(encoding="utf-8")
     assert "lang={language}" in layout
     assert "useUrlLanguage" in layout
-    head = (ROOT / "src" / "components" / "layout" / "document-head.tsx").read_text(
+    head = (ROOT / "src" / "components" / "layout" / "document-head.layout.tsx").read_text(
         encoding="utf-8"
     )
-    fonts = (ROOT / "src" / "components" / "layout" / "font-links.tsx").read_text(encoding="utf-8")
+    fonts = (ROOT / "src" / "components" / "layout" / "font-links.layout.tsx").read_text(
+        encoding="utf-8"
+    )
     assert "<title>Luilka | Design agency</title>" in head
     assert "family=Inter:wght@400;500;600;700&display=swap" in fonts
 
 
 def test_root_layout_renders_the_reference_chrome() -> None:
-    body = (ROOT / "src" / "components" / "layout" / "document-body.tsx").read_text(
+    body = (ROOT / "src" / "components" / "layout" / "document-body.layout.tsx").read_text(
         encoding="utf-8"
     )
     assert all(name in body for name in ("IconSprite", "Header", "Footer", "<main>"))
@@ -90,7 +92,9 @@ def test_header_typography_follows_readable_sizes() -> None:
 
 def test_header_groups_logo_and_navigation_together() -> None:
     css = (ROOT / "src" / "globale.css").read_text(encoding="utf-8")
-    header = (ROOT / "src" / "components" / "layout" / "header.tsx").read_text(encoding="utf-8")
+    header = (ROOT / "src" / "components" / "layout" / "header.layout.tsx").read_text(
+        encoding="utf-8"
+    )
     assert "justify-between" in header
     assert "gap-8" in header
     assert "margin-left: 0" in css_rule(css, ".nav-links")
@@ -98,7 +102,9 @@ def test_header_groups_logo_and_navigation_together() -> None:
 
 
 def test_header_is_sticky_and_uses_utility_classes() -> None:
-    header = (ROOT / "src" / "components" / "layout" / "header.tsx").read_text(encoding="utf-8")
+    header = (ROOT / "src" / "components" / "layout" / "header.layout.tsx").read_text(
+        encoding="utf-8"
+    )
     assert "sticky top-0" in header
     assert "z-13" in header
     assert "max-w-7xl" in header

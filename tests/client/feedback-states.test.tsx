@@ -1,7 +1,7 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import { afterEach, describe, expect, it, vi } from "vitest";
 
-import FeedbackBoundary from "@/components/patterns/feedback-boundary.tsx";
+import FeedbackBoundary from "@/components/patterns/feedback-boundary.pattern.tsx";
 import Errors from "@/routes/errors.tsx";
 import Loading from "@/routes/loading.tsx";
 import NotFound from "@/routes/notfound.tsx";

@@ -1,7 +1,7 @@
 """Checks the client source style rules that ESLint cannot express.
 
-Rules: no comment except a JSDoc block, one `.map(` call per TSX file, and one file naming
-scheme for every `.ts` and `.tsx` file.
+Rules: no comment except a JSDoc block, one `.map(` call per TSX file, and the file naming
+scheme <name>.<folder>.ts(x) for every `.ts` and `.tsx` file of src.
 """
 
 import re
@@ -12,8 +12,20 @@ from pathlib import Path
 SOURCE_SUFFIXES = {".ts", ".tsx"}
 IGNORED_PARTS = {".git", ".venv", "node_modules", "__nexy__", "dist", "tmp"}
 QUOTES = ("'", '"', "`")
-FILE_NAME = re.compile(r"^[a-z0-9]+(-[a-z0-9]+)*(\.test|\.d)?\.tsx?$")
+WORDS = r"[a-z0-9]+(-[a-z0-9]+)*"
+PLAIN_NAME = re.compile(rf"^{WORDS}(\.test|\.d)?\.tsx?$")
 ROUTE_NAME = re.compile(r"^\[[a-z]+\]\.tsx$")
+FOLDER_KINDS = {
+    "cards": "card",
+    "layout": "layout",
+    "patterns": "pattern",
+    "sections": "section",
+    "ui": "ui",
+    "hooks": "hook",
+    "utils": "util",
+    "i18n": "i18n",
+    "types": "type",
+}
 
 
 @dataclass
@@ -71,15 +83,36 @@ def check_text(text: str, filename: str) -> list[str]:
     return comment_failures(text, filename) + map_failures(text, filename)
 
 
+def folder_kind(relative: Path) -> str | None:
+    parts = relative.parts
+    if parts[0] != "src" or len(parts) < 3:
+        return None
+    if parts[1] == "content":
+        return "content"
+    if parts[1] in ("components", "shared") and len(parts) > 3:
+        return FOLDER_KINDS.get(parts[2])
+    return None
+
+
+def name_matches(relative: Path, kind: str | None) -> bool:
+    name = relative.name
+    if kind is None:
+        return bool(PLAIN_NAME.match(name) or ROUTE_NAME.match(name))
+    if name == "index.ts" or re.match(rf"^{WORDS}\.d\.ts$", name):
+        return True
+    return bool(re.match(rf"^{WORDS}\.{kind}\.tsx?$", name))
+
+
 def name_failures(relative: Path) -> list[str]:
     """Names at the repository root are set by tools, such as vite.config.ts."""
-    name = relative.name
-    failures: list[str] = []
     if len(relative.parts) == 1:
-        return failures
-    if not FILE_NAME.match(name) and not ROUTE_NAME.match(name):
-        failures.append(f"{relative}: file name must be lowercase words joined by hyphens")
-    if "hooks" in relative.parts[:-1] and not name.startswith("use-"):
+        return []
+    kind = folder_kind(relative)
+    failures: list[str] = []
+    if not name_matches(relative, kind):
+        expected = f"<name>.{kind}.ts(x)" if kind else "lowercase words joined by hyphens"
+        failures.append(f"{relative}: file name must be {expected}")
+    if "hooks" in relative.parts[:-1] and not relative.name.startswith("use-"):
         failures.append(f"{relative}: a file in a hooks folder must start with use-")
     return failures
 

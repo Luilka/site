@@ -1,18 +1,13 @@
-import json
-from pathlib import Path
-
 from fastapi import Request
 from nexy import notFound
 
-DETAILS_FILE = Path(__file__).resolve().parents[2] / "content" / "details.json"
-SUPPORTED_LANGUAGES = frozenset({"fr", "en"})
-DETAIL_KINDS = frozenset({"blog", "work", "products", "services"})
-DETAILS: dict[str, list[str]] = json.loads(DETAILS_FILE.read_text(encoding="utf-8"))
+from src.shared.utils.detail_slugs import DETAIL_KINDS, is_known_detail
+from src.shared.utils.languages import is_supported_language
 
 
 def validate_language(request: Request) -> None:
     language = request.path_params.get("lang")
-    if language not in SUPPORTED_LANGUAGES:
+    if not is_supported_language(language):
         notFound(f"Unknown language: {language}")
 
 
@@ -21,7 +16,7 @@ def validate_detail_slug(request: Request) -> None:
     if len(segments) != 3 or segments[1] not in DETAIL_KINDS:
         return
     kind, slug = segments[1], segments[2]
-    if slug not in DETAILS.get(kind, []):
+    if not is_known_detail(kind, slug):
         notFound(f"Unknown {kind} slug: {slug}")
 
 
