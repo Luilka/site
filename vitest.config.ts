@@ -11,7 +11,16 @@ export default defineConfig({
   test: {
     environment: "jsdom",
     globals: true,
-    include: ["tests/client/**/*.test.tsx"],
+    include: ["**/*.*.{ts,tsx}"],
+    exclude: [
+      "**/node_modules/**",
+      "**/dist/**",
+      "**/.venv/**",
+      "**/__nexy__/**",
+      "**/*.d.ts",
+      "vite.config.ts",
+      "vitest.config.ts",
+    ],
     setupFiles: ["./tests/client/setup.ts"],
   },
 });
