@@ -121,7 +121,7 @@ La CI rejoue les mêmes contrôles sur `main`, `staging`, `develop` et chaque pu
 ## 10. Design et contenu
 
 - Les principes de `docs/UX/design-principles.md` sont opposables en revue.
-- Aucun emoji. Les icônes sont de vrais SVG, décoratives avec `aria-hidden="true"` ou nommées.
+- Aucun emoji. Les icônes d'interface viennent de Lucide, décoratives avec `aria-hidden="true"` ou nommées. Le logo est le symbole `finger` du sprite (`src/components/layout/finger-symbol.layout.tsx`), le SVG plein fourni par le studio.
 - Texte simple, en minuscules sauf la première lettre, avec des verbes clairs : « Enregistrer », pas « Soumettre ». Une action garde le même nom partout.
 - Une erreur dit ce qui s'est passé et ce qu'il faut faire. Elle ne s'excuse pas.
 - Une page, une tâche. Les URL, titres, libellés et intertitres s'accordent.

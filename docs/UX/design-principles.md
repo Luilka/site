@@ -86,7 +86,15 @@ Chaque principe a un énoncé, un contre-exemple et un lien vers sa source. Un �
 
 **Lien.** `tests/client/feedback-states.test.tsx`, `tests/client/newsletter-form.test.tsx`.
 
-## 11. Des tokens, pas des valeurs
+## 11. Des icônes qui servent
+
+**Énoncé.** Une icône d'interface vient de Lucide et accompagne un texte, une action ou un état : flèche de retour, coche ou alerte d'un message, séparateur d'étapes. Le logo est le SVG plein fourni par le studio, défini une seule fois dans le sprite du document. Une icône décorative porte `aria-hidden="true"`. Une icône seule, comme le courriel du pied de page, a un nom accessible.
+
+**Contre-exemple.** Un vélo pour séparer les étapes d'un processus, ou trois icônes de réseaux sociaux qui ne mènent nulle part.
+
+**Lien.** `src/components/layout/finger-symbol.layout.tsx`, `tests/client/icons.test.tsx`, AGENTS.md section 10.
+
+## 12. Des tokens, pas des valeurs
 
 **Énoncé.** Les couleurs, tailles et espaces viennent des tokens de `src/globale.css`. Tailwind est un détail d'implémentation, jamais la source du style.
 
