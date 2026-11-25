@@ -55,6 +55,9 @@ jobs:
       - name: Check documentation
         run: npm run check:docs
 
+      - name: Check KPI sheet
+        run: npm run check:kpi
+
       - name: Run Python tests
         run: uv run pytest
 

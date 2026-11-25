@@ -41,6 +41,10 @@ def test_ci_checks_the_documentation() -> None:
     assert "npm run check:docs" in commands()
 
 
+def test_ci_checks_the_kpi_sheet() -> None:
+    assert "npm run check:kpi" in commands()
+
+
 def test_ci_runs_python_tests() -> None:
     assert "pytest" in commands()
 

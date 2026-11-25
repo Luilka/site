@@ -14,7 +14,8 @@
     "lint": "eslint .",
     "typecheck": "tsc --noEmit -p tsconfig.client.json",
     "check:style": "python3 scripts/check_code_style.py",
-    "check:docs": "python3 scripts/check_docs.py"
+    "check:docs": "python3 scripts/check_docs.py",
+    "check:kpi": "python3 scripts/check_kpi.py"
   },
   "dependencies": {
     "lucide-react": "1.77.0",
