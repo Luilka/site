@@ -3,15 +3,15 @@ import { describe, expect, it } from "vitest";
 
 import SiteHeader from "@/components/patterns/site-header.tsx";
 import About from "@/routes/[lang]/about.tsx";
-import Blog from "@/routes/[lang]/blog.tsx";
+import Blog from "@/routes/[lang]/blog/index.tsx";
 import Contact from "@/routes/[lang]/contact.tsx";
 import Job from "@/routes/[lang]/job.tsx";
-import Products from "@/routes/[lang]/products.tsx";
-import Services from "@/routes/[lang]/services.tsx";
+import Products from "@/routes/[lang]/products/index.tsx";
+import Services from "@/routes/[lang]/services/index.tsx";
 import Works from "@/routes/[lang]/works.tsx";
 
 const pages = [
-  { name: "about", element: <About />, heading: /Une communauté qui fait grandir le code/ },
+  { name: "about", element: <About />, heading: /Un studio de design centré sur l'utilisateur/ },
   { name: "blog", element: <Blog />, heading: /Le journal de Luilka/ },
   { name: "contact", element: <Contact />, heading: /Parlons de votre projet/ },
   { name: "job", element: <Job />, heading: /Rejoignez l'équipe/ },
