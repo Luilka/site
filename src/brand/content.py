@@ -16,7 +16,7 @@ class BrandContent(Protocol):
 @Injectable()
 class BrandService:
     def tagline(self) -> str:
-        return "Design maîtrisé. Ingénierie d'échelle."
+        return "Design maîtrisé. Produits clairs. Impact mesurable."
 
     def navigation(self) -> tuple[tuple[str, str], ...]:
         items: list[dict[str, str]] = json.loads(NAVIGATION_FILE.read_text(encoding="utf-8"))
