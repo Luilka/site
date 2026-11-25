@@ -4,7 +4,7 @@ version = "0.1.0"
 description = "Luilka studio product website"
 requires-python = ">=3.13,<3.14"
 dependencies = [
-    "nexy==2.8.0",
+    "nexy>=2.11.0",
 ]
 
 [dependency-groups]
@@ -25,6 +25,7 @@ addopts = "--strict-markers"
 strict = true
 files = ["src", "tests"]
 python_version = "3.13"
+exclude = ["\\[lang\\]"]
 
 [[tool.mypy.overrides]]
 module = ["__nexy__.*"]
