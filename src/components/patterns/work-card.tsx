@@ -1,27 +1,33 @@
 import { ArrowUpRight } from "lucide-react";
 
 import CardIcon from "@/components/patterns/card-icon.tsx";
-import Card from "@/components/ui/card.tsx";
+import AppLink, { type Href } from "@/components/ui/link.tsx";
 
 type WorkCardProps = {
+  slug: string;
   name: string;
   kind?: string;
   caseLabel?: string;
 };
 
-export default function WorkCard({ name, kind = "Particulier", caseLabel = "Cas d'étude" }: WorkCardProps) {
+export default function WorkCard({
+  slug,
+  name,
+  kind = "Particulier",
+  caseLabel = "Cas d'étude",
+}: WorkCardProps) {
   return (
-    <Card className="work">
+    <AppLink className="card work" href={`/work/${slug}` as Href}>
       <div className="ph2">
         <CardIcon name={name} size={70} strokeWidth={1.5} />
       </div>
       <div className="info">
         <div className="who">
           <div className="mini">
-            <CardIcon name={name} size={14} />
+            <CardIcon name={name} size={22} />
           </div>
           <div>
-            <b>{name}</b>
+            <h3>{name}</h3>
             <span>{kind}</span>
           </div>
         </div>
@@ -30,6 +36,6 @@ export default function WorkCard({ name, kind = "Particulier", caseLabel = "Cas 
           <ArrowUpRight size={8} strokeWidth={1.5} aria-hidden="true" />
         </span>
       </div>
-    </Card>
+    </AppLink>
   );
 }
