@@ -50,8 +50,9 @@
 }
 
 @layer base {
-  * {
+  *, *::before, *::after {
     @apply box-border m-0 p-0;
+    corner-shape: squircle;
   }
 
   html {
@@ -139,14 +140,11 @@ textarea {
     transform: rotate(180deg);
   }
 
-  .dropdown-panel {
-    @apply absolute left-0 z-20 flex h-fit w-fit;
-    top: 100%;
-    gap: 1rem;
-    padding: 0.75rem;
-    border: 1px solid color-mix(in srgb, var(--text) 12%, var(--paper));
-    border-radius: 1rem;
-    background: var(--paper);
+  .mega-panel {
+    @apply fixed left-0 right-0 z-12 bg-white/80 backdrop-blur;
+    top: 4.4375rem;
+    border-top: 1px solid var(--border-ui);
+    border-bottom: 1px solid var(--border-ui);
     box-shadow: 0 18px 40px rgb(0 0 0 / 12%);
     opacity: 0;
     visibility: hidden;
@@ -161,9 +159,55 @@ textarea {
       pointer-events: auto;
     }
 
-    .dropdown-media {
-      @apply h-full w-120 overflow-hidden;
-      /* border-radius: 0.2rem; */
+    .mega-inner {
+      @apply flex items-stretch gap-8;
+      padding-top: 1.5rem;
+      padding-bottom: 1.75rem;
+    }
+
+    .mega-content {
+      @apply min-w-0 flex-1;
+    }
+
+    .mega-head {
+      @apply mb-5;
+    }
+
+    .mega-eyebrow {
+      @apply block uppercase;
+      font-size: var(--text-xs);
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      color: var(--blue);
+    }
+
+    .mega-title {
+      margin: 0.25rem 0 0;
+      font-size: var(--text-xl);
+      font-weight: 600;
+      line-height: 1.2;
+    }
+
+    .mega-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+      gap: 1rem;
+    }
+
+    .mega-card {
+      @apply flex flex-col;
+      color: var(--text);
+      text-decoration: none;
+
+      &:hover .mega-card-title {
+        color: var(--blue);
+      }
+    }
+
+    .mega-media {
+      @apply mb-3 overflow-hidden;
+      height: 12rem;
+      border-radius: 0.75rem;
       background: var(--bg-soft);
 
       img {
@@ -172,39 +216,61 @@ textarea {
       }
     }
 
-    .dropdown-list {
-      @apply grid content-start;
-      gap: 0;
-    }
-
-    .dropdown-item {
-      @apply flex flex-col items-start gap-3 ;
-      padding: 0.5rem 0.625rem;
-      transition: background-color 160ms ease;
-
-      &:hover {
-        background: var(--bg-soft);
-      }
-    }
-
-    .dropdown-item + .dropdown-item {
-      border-top: 1px solid var(--border-ui);
-    }
-
-    .dropdown-label {
-      @apply shrink-0;
-      min-width: 5rem;
-      font-size: var(--text-sm);
+    .mega-card-eyebrow {
+      @apply uppercase;
+      font-size: var(--text-xs);
       font-weight: 600;
-      color: var(--text);
+      letter-spacing: 0.06em;
+      color: var(--muted);
     }
 
-    .dropdown-description {
-      @apply min-w-0;
+    .mega-card-title {
+      margin: 0.15rem 0 0.35rem;
+      font-size: var(--text-base);
+      font-weight: 600;
+      line-height: 1.25;
+    }
+
+    .mega-card-description {
+      @apply m-0;
       font-size: var(--text-xs);
       color: var(--muted);
       line-height: 1.45;
     }
+
+    .mega-card-action {
+      @apply mt-2 inline-flex items-center gap-1;
+      font-size: var(--text-xs);
+      font-weight: 600;
+      color: var(--blue);
+    }
+
+    .mega-aside {
+      @apply flex w-56 shrink-0 flex-col;
+      border-left: 1px solid var(--border-ui);
+      padding-left: 1.75rem;
+
+      h3 {
+        @apply m-0 pb-2;
+        font-size: var(--text-sm);
+        font-weight: 600;
+      }
+
+      a {
+        @apply block py-2;
+        font-size: var(--text-sm);
+        color: var(--text);
+        text-decoration: none;
+
+        &:hover {
+          color: var(--blue);
+        }
+      }
+    }
+  }
+
+  .mega-aside a + a {
+    border-top: 1px solid var(--border-ui);
   }
 
   .page-hero {
@@ -257,8 +323,85 @@ textarea {
     @apply min-w-0;
   }
 
+  .state-panel {
+    @apply flex flex-col items-center justify-center;
+    min-height: 26rem;
+    padding: clamp(3rem, 8vw, 6rem) 1.5rem;
+    text-align: center;
+
+    h1 {
+      @apply m-0;
+      max-width: 34rem;
+      font-size: var(--text-3xl);
+      line-height: 1.15;
+    }
+
+    .state-code {
+      @apply mb-4 block;
+      font-size: clamp(4rem, 12vw, 7rem);
+      font-weight: 700;
+      line-height: 1;
+      color: var(--blue);
+    }
+
+    .state-text {
+      @apply mx-auto mt-4 mb-8;
+      max-width: 32rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .state-progress {
+      @apply block;
+      width: 3rem;
+      height: 0.25rem;
+      margin-bottom: 1.5rem;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--blue), var(--accent-purple));
+      animation: state-pulse 1.2s ease-in-out infinite;
+    }
+  }
+
+  .state-preview {
+    padding: clamp(3rem, 7vw, 5rem) 0;
+
+    h1 {
+      @apply m-0;
+      font-size: var(--text-3xl);
+    }
+
+    p {
+      @apply mt-4;
+      max-width: 38rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .state-action {
+      @apply mt-8;
+    }
+  }
+
   .field {
     font: inherit;
+  }
+}
+
+@keyframes state-pulse {
+  0%,
+  100% {
+    opacity: 0.35;
+    transform: scaleX(0.7);
+  }
+  50% {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .state-progress {
+    animation: none;
   }
 }
 
@@ -274,8 +417,14 @@ textarea {
   height: var(--text-lg);
 }
 
+.header-surface {
+  @apply absolute inset-0 bg-white/80 backdrop-blur;
+  z-index: -1;
+}
+
 .nav-links {
   @apply row-center;
+  align-self: stretch;
   gap: 0.5rem;
   font-size: var(--text-base);
   font-weight: 500;
@@ -359,8 +508,8 @@ textarea {
 
 .hero-grid {
   @apply grid items-center;
-  grid-template-columns: 1fr 440px;
-  gap: 60px;
+  grid-template-columns: 1fr 540px;
+  gap: 6px;
 }
 
 .badge {
@@ -418,50 +567,12 @@ textarea {
   background: linear-gradient(160deg, rgb(255 255 255 / 18%), transparent 40%);
 }
 
-.marquee {
-  @apply flex items-center;
-  position: relative;
-  background: var(--blue);
-  color: var(--paper);
-  height: 78px;
-  margin: 30px 0;
-}
 
-.marquee::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: -14px;
-  height: 14px;
-  background: var(--gray);
-  clip-path: polygon(0 100%, 100% 0, 100% 100%);
-}
 
-.marquee::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: -14px;
-  height: 14px;
-  background: var(--gray);
-  clip-path: polygon(0 0, 0 100%, 100% 0);
-}
 
-.marquee-in {
-  @apply flex w-full items-center justify-between;
-  padding: 0 64px;
-  font-size: 18px;
-  font-weight: 500;
-}
-
-.marquee svg {
-  opacity: 0.55;
-}
 
 .steps {
-  padding: 70px 0 40px;
+  padding: 70px 0 20px;
 }
 
 .steps-grid {
@@ -472,7 +583,7 @@ textarea {
   @apply flex flex-col;
   background: var(--gray);
   border-radius: 18px;
-  padding: 12px;
+  padding: 4px;
 }
 
 .step h3 {
@@ -502,7 +613,7 @@ textarea {
 }
 
 .about {
-  padding: 20px 0 90px;
+  padding: 12px 0 90px;
 }
 
 .about-grid {
@@ -688,7 +799,14 @@ h2.sec {
   @apply flex items-center gap-2;
 }
 
-.work .who b {
+.work .who .mini {
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+}
+
+.work .who h3 {
+  margin: 0;
   font-size: var(--text-sm);
   font-weight: 600;
   display: block;
@@ -853,11 +971,6 @@ footer {
     grid-template-columns: 1fr 1fr;
   }
 
-  .marquee-in {
-    overflow: hidden;
-    gap: 30px;
-    padding: 0 24px;
-  }
 
   .hero h1 {
     font-size: var(--text-2xl);
@@ -883,7 +996,7 @@ footer {
     scroll-behavior: auto;
   }
 
-  .dropdown-panel {
+  .mega-panel {
     transition: none;
   }
 }
