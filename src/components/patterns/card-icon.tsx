@@ -1,28 +1,27 @@
 import {
   Boxes,
-  Code2,
   Grid2X2,
   ImageIcon,
   Layers3,
+  MessageSquare,
   PenTool,
-  Server,
   ShieldCheck,
   Sparkles,
-  Wrench,
   type LucideIcon,
 } from "lucide-react";
 
 const ICONS: Record<string, LucideIcon> = {
-  Design: PenTool,
-  Software: Code2,
-  Maintenance: Wrench,
-  Devops: Server,
+  "UX Design": PenTool,
+  "UI design": Sparkles,
+  Software: Boxes,
+  COM: MessageSquare,
   Tala: Boxes,
   Vuga: Layers3,
   Pro: ShieldCheck,
   Yano: ImageIcon,
   "Vox Congo": Grid2X2,
-  AyLen: Sparkles,
+  Mitemo: Boxes,
+  "Privatis Capital Invest": Layers3,
 };
 
 type CardIconProps = {
