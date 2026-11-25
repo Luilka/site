@@ -28,16 +28,19 @@ describe("site header dropdown navigation", () => {
     renderHeader();
     const trigger = screen.getByRole("link", { name: /Services/ });
     fireEvent.focus(trigger);
-    const panel = trigger.parentElement?.querySelector(".dropdown-panel");
+    const panel = trigger.parentElement?.querySelector(".mega-panel");
     expect(panel?.className).toContain("is-open");
     fireEvent.keyDown(trigger, { key: "Escape" });
     expect(expanded(/Services/)).toBe("false");
   });
 
-  it("sticks the header to the top with utility classes", () => {
+  it("keeps the blurred surface out of the panel's backdrop root", () => {
     const { container } = renderHeader();
     const header = container.querySelector("header");
+    const surface = header?.querySelector(".header-surface");
     expect(header?.className).toContain("sticky top-0");
-    expect(header?.className).toContain("bg-white/60");
+    expect(header?.className).not.toContain("backdrop-blur");
+    expect(surface?.className).toContain("bg-white/80");
+    expect(surface?.className).toContain("backdrop-blur");
   });
 });
