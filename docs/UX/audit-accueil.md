@@ -90,7 +90,7 @@ Les fiches vivent dans la structure de dossiers Nexy : `src/routes/[lang]/blog/[
 
 `src/routes/[lang]/dependencies.py` verifie la langue et le slug avec `notFound()` de Nexy. Une adresse comme `/about`, `/fr/work/inconnu` ou `/en/blog/inconnu` repond donc avec un vrai code HTTP 404 et affiche `notfound.tsx`. Cote client, les memes verifications rendent le panneau 404 au lieu de l accueil.
 
-Les types partages et les modeles dynamiques sont dans `src/shared/types/` : `site.ts`, `detail.ts` et un index. Les slugs ont une seule source, `src/content/details.json`, lue par le serveur et par le client. `tsconfig.json` et `tsconfig.client.json` couvrent le glob `**/*.*.{ts,tsx}`. Vitest ne lance que `tests/client/**/*.test.{ts,tsx}`.
+Les types partages et les modeles dynamiques sont dans `src/shared/types/` : `site.type.ts`, `detail.type.ts` et un index. Les slugs ont une seule source, `src/content/details.json`, lue par le serveur et par le client. `tsconfig.json` et `tsconfig.client.json` couvrent le glob `**/*.*.{ts,tsx}`. Vitest ne lance que `tests/client/**/*.test.{ts,tsx}`.
 
 ## Resume
 

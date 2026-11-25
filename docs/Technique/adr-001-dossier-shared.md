@@ -26,17 +26,19 @@ Avant le 26 novembre 2026, `src/components/` mélangeait des atomes (`ui/`), des
 
 Retenir la troisième option.
 
-- `src/shared/` contient `ui`, `hooks`, `lib`, `i18n` et `types`. Il n'importe aucun composant de `components/`.
+- `src/shared/` contient `ui`, `hooks`, `utils`, `i18n` et `types`. Il n'importe aucun composant de `components/`.
+- Le Python partagé vit dans les mêmes dossiers que le TypeScript. `src/shared/utils/` contient `content_files.py` (lecture des JSON de `src/content/`), `languages.py` et `detail_slugs.py`, que le serveur utilise pour valider la langue et les slugs. Le code Python écrit à la main s'importe par `src.shared.utils...`.
+- `utils` est le seul dossier d'utilitaires (D-011) : fonctions pures sans état. Il n'y a ni `lib/` ni `misc/`.
 - `src/components/` contient `layout`, `cards`, `patterns` et `sections`.
 - `templates/` devient `sections/`, y compris `(home)/` pour l'accueil.
-- Les trois collections de l'accueil partagent `collection-section.tsx`.
+- Les trois collections de l'accueil partagent `collection.section.tsx`.
 
 Historique : proposée et retenue le 26 novembre 2026.
 
 ## Conséquences
 
 - Les imports utilisent `@/shared/...` et `@/components/...`. Les anciens chemins `@/components/ui`, `@/i18n`, `@/lib` et `@/types` n'existent plus. `tests/test_architecture.py` vérifie qu'aucun import n'y renvoie.
-- Une logique réutilisable se crée dans `shared/hooks` ou `shared/lib`, avec son test dans `tests/client/`.
+- Une logique réutilisable se crée dans `shared/hooks` ou `shared/utils`, avec son test dans `tests/client/`.
 - Un nouveau composant se range par intention : bloc d'une page dans `sections`, élément répété dans `cards`, bloc multi-pages dans `patterns`, cadre du document dans `layout`.
 
 ## Propriétaire

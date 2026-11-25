@@ -60,7 +60,7 @@ Chaque principe a un énoncé, un contre-exemple et un lien vers sa source. Un �
 
 **Contre-exemple.** Une animation en boucle sur un bandeau, ou un contenu masqué tant que l'animation n'a pas fini.
 
-**Lien.** `src/shared/ui/motion-box.tsx`, WCAG 2.2 critère 2.3.3.
+**Lien.** `src/shared/ui/motion-box.ui.tsx`, WCAG 2.2 critère 2.3.3.
 
 ## 8. Un menu qui se lit au clavier
 
@@ -68,7 +68,7 @@ Chaque principe a un énoncé, un contre-exemple et un lien vers sa source. Un �
 
 **Contre-exemple.** Un menu qui ne s'ouvre qu'à la souris, ou dont le focus reste piégé.
 
-**Lien.** `src/shared/hooks/use-dismiss.ts`, `tests/client/dropdown-navigation.test.tsx`.
+**Lien.** `src/shared/hooks/use-dismiss.hook.ts`, `tests/client/dropdown-navigation.test.tsx`.
 
 ## 9. Des cibles lisibles, un contraste tenu
 

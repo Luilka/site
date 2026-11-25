@@ -61,16 +61,16 @@ Les versions sont exactes. Les lockfiles sont commités. Aucune dépendance en `
 ## 6. Règles d'écriture du code
 
 - TDD. Le test et le code sont dans le même commit logique.
-- Une fonction fait un traitement, une classe porte une intention, un dossier regroupe des intentions voisines. Jamais de dossier `utils/` ou `misc/`.
+- Une fonction fait un traitement, une classe porte une intention, un dossier regroupe des intentions voisines. `src/shared/utils/` est le seul dossier d'utilitaires (D-011), jamais de `lib/` ni de `misc/`.
 - SOLID et KISS sont opposables en revue. Aucune abstraction pour un cas qui n'existe pas.
 - Aucune fonction, méthode ou composant ne dépasse 10 lignes, signature et accolades comprises. Le seuil est appliqué par ESLint (`max-lines-per-function`).
-- Aucune logique dans les fichiers TSX : un composant ne fait que du rendu. La logique va dans un hook de `src/shared/hooks/` ou une fonction de `src/shared/lib/`.
+- Aucune logique dans les fichiers TSX : un composant ne fait que du rendu. La logique va dans un hook de `src/shared/hooks/` ou une fonction de `src/shared/utils/`.
 - Un seul composant par fichier TSX, nommé comme le fichier. Un seul appel à `.map()` par fichier TSX.
 - Aucun commentaire, sauf un bloc de documentation `/** ... */` sur une fonction exportée. `scripts/check_code_style.py` le contrôle.
-- Tous les fichiers `.ts` et `.tsx` sont en minuscules, mots reliés par des tirets, sans point : `info-card.tsx`, `use-retry.ts`, `shared-lib.test.ts`. Nexy tire un nom de fonction Python du nom du fichier (D-006). Un hook commence par `use-`.
+- Tout fichier `.ts` et `.tsx` de `src/` s'écrit `<nom>.<dossier>`, le dossier au singulier : `product.card.tsx`, `hero.section.tsx`, `use-retry.hook.ts`, `validate-email.util.ts` (D-006, ADR 003). Un hook commence par `use-`. Les tests s'écrivent `<nom>.test.ts(x)`, les fichiers Python en `snake_case`.
 - La réutilisation prime. La deuxième copie est un signal, la troisième est un défaut. Le code partagé va dans `src/shared/` (D-004).
 - React idiomatique : état dans `useState` et `useReducer`, effets dans `useEffect`, jamais de script DOM écrit à la main. Charger `nexy-react` pour tout fichier `.tsx`.
-- Tous les liens passent par `src/shared/ui/link.tsx`, l'adaptateur autour du `Link` de Nexy.
+- Tous les liens passent par `src/shared/ui/link.ui.tsx`, l'adaptateur autour du `Link` de Nexy.
 - Avant de corriger un bug, lire le code de la librairie concernée et écrire un test qui le reproduit.
 - `__nexy__/` est généré : ne jamais l'éditer, ne jamais le commiter.
 
@@ -80,7 +80,7 @@ Les versions sont exactes. Les lockfiles sont commités. Aucune dépendance en `
 src/routes/                 pages, un fichier par URL
 src/shared/ui/              atomes : bouton, badge, carte, champ, lien, conteneur
 src/shared/hooks/           logique réutilisable
-src/shared/lib/             fonctions pures
+src/shared/utils/             fonctions pures, TypeScript et Python
 src/shared/i18n/            dictionnaires, langue, contenu
 src/shared/types/           types partagés
 src/components/layout/      en-tête, navigation, pied de page, document
