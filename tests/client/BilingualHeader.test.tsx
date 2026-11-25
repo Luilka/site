@@ -26,7 +26,7 @@ afterEach(() => {
 describe("bilingual header", () => {
   it("reads French from the URL and links to the same page in English", () => {
     renderApp();
-    expect(screen.getByRole("heading", { level: 1, name: /Une communauté qui fait grandir le code/ })).toBeTruthy();
+    expect(screen.getByRole("heading", { level: 1, name: /Un studio de design centré sur l'utilisateur/ })).toBeTruthy();
     expect(screen.getByRole("link", { name: "Passer en anglais" }).getAttribute("href")).toBe("/en/about");
   });
 
@@ -37,7 +37,7 @@ describe("bilingual header", () => {
     expect(trigger.getAttribute("aria-expanded")).toBe("false");
     fireEvent.mouseEnter(wrapper!);
     expect(trigger.getAttribute("aria-expanded")).toBe("true");
-    expect(wrapper?.querySelector(".dropdown-panel")?.className).toContain("is-open");
+    expect(wrapper?.querySelector(".mega-panel")?.className).toContain("is-open");
     fireEvent.mouseLeave(wrapper!);
     expect(trigger.getAttribute("aria-expanded")).toBe("false");
   });
