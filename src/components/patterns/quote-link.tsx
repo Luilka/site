@@ -1,6 +1,6 @@
 import { CalendarDays } from "lucide-react";
 
-import { CONTACT_MAILTO } from "@/shared/lib/contact.ts";
+import { CONTACT_MAILTO } from "@/shared/lib/contact-mailto.ts";
 import { useContent } from "@/shared/i18n";
 import { buttonClasses, type ButtonVariant } from "@/shared/ui/button.tsx";
 

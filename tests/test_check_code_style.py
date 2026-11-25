@@ -43,5 +43,35 @@ def test_several_map_calls_are_allowed_in_ts() -> None:
     assert style.check_text("a.map(f); b.map(g);", "a.ts") == []
 
 
+def test_lowercase_hyphenated_names_are_accepted() -> None:
+    for name in (
+        "card.tsx",
+        "info-card.tsx",
+        "use-retry.ts",
+        "shared-lib.test.ts",
+        "nexy-client.d.ts",
+    ):
+        assert style.name_failures(Path("src") / name) == []
+
+
+def test_tool_config_files_at_the_root_are_accepted() -> None:
+    assert style.name_failures(Path("vitest.config.ts")) == []
+
+
+def test_route_segment_names_are_accepted() -> None:
+    assert style.name_failures(Path("src/routes/[lang]/[slug].tsx")) == []
+
+
+def test_other_name_styles_are_refused() -> None:
+    for name in ("InfoCard.tsx", "info_card.tsx", "info.card.tsx", "useRetry.ts"):
+        assert len(style.name_failures(Path("src") / name)) == 1, name
+
+
+def test_a_hook_file_must_start_with_use() -> None:
+    assert style.name_failures(Path("src/shared/hooks/retry.ts")) == [
+        "src/shared/hooks/retry.ts: a file in a hooks folder must start with use-"
+    ]
+
+
 def test_the_project_source_follows_the_rules() -> None:
     assert style.run_checks(ROOT).failures == []
