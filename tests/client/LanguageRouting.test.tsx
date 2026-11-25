@@ -2,8 +2,10 @@ import { render, screen } from "@testing-library/react";
 import { afterEach, describe, expect, it, vi } from "vitest";
 
 import SiteHeader from "@/components/patterns/site-header.tsx";
-import { languageFromPathname, legacyRedirectTarget, localizedHref, pageFromPathname, useLanguageRedirect } from "@/i18n";
+import { languageFromPathname, localizedHref, pageFromPathname } from "@/i18n";
 import About from "@/routes/[lang]/about.tsx";
+import Home from "@/routes/[lang]/index.tsx";
+import RootHome from "@/routes/index.tsx";
 
 function setPathname(pathname: string): void {
   (globalThis as Record<string, unknown>).__NEXY_LOCATION__ = {
@@ -12,11 +14,6 @@ function setPathname(pathname: string): void {
     hash: "",
     params: {},
   };
-}
-
-function RedirectProbe() {
-  useLanguageRedirect();
-  return null;
 }
 
 afterEach(() => {
@@ -41,7 +38,48 @@ describe("language in the URL", () => {
   it("renders English copy from an English URL", () => {
     setPathname("/en/about");
     render(<About />);
-    expect(screen.getByRole("heading", { level: 1, name: /A community that grows code/ })).toBeTruthy();
+    expect(screen.getByRole("heading", { level: 1, name: /A user-centric design studio/ })).toBeTruthy();
+  });
+
+  it("renders the four short service labels from an English URL", () => {
+    setPathname("/en");
+    render(<Home />);
+    for (const label of ["UX Design", "UI design", "Software", "COM"]) {
+      expect(screen.getAllByText(label).length).toBeGreaterThan(0);
+    }
+    expect(
+      screen.getByRole("heading", { level: 2, name: "Design the experience, write the product" }),
+    ).toBeTruthy();
+  });
+
+  it("says the studio builds digital products in English", () => {
+    setPathname("/en");
+    const { container } = render(<Home />);
+    const text = container.textContent ?? "";
+    expect(text).toContain(
+      "We design, write and build digital products. Every service can also be booked on its own.",
+    );
+    for (const claim of [
+      "We do not write code",
+      "We do not develop the software",
+      "We write no code",
+    ]) {
+      expect(text).not.toContain(claim);
+    }
+  });
+
+  it("shows the work subtitles in English", () => {
+    setPathname("/en");
+    const { container } = render(<Home />);
+    for (const subtitle of [
+      "UX Design: Mobile App",
+      "UX Design & UI Design: Mobile App",
+      "Full Project & All Services",
+      "Rebranding, Design System and Brand Guidelines",
+    ]) {
+      expect(screen.getAllByText(subtitle)).toHaveLength(1);
+    }
+    expect(container.querySelectorAll(".work .who p")).toHaveLength(0);
   });
 
   it("points the language switch at the same page in the other language", () => {
@@ -54,21 +92,11 @@ describe("language in the URL", () => {
     expect(localizedHref("https://github.com/Luilka/site", "en")).toBe("https://github.com/Luilka/site");
   });
 
-  it("builds redirect targets from the client language", () => {
-    expect(legacyRedirectTarget("/", "fr")).toBe("/fr");
-    expect(legacyRedirectTarget("/about", "fr")).toBe("/fr/about");
-    expect(legacyRedirectTarget("/", "en")).toBe("/en");
-    expect(legacyRedirectTarget("/about", "en")).toBe("/en/about");
-    expect(legacyRedirectTarget("/fr/about", "en")).toBeNull();
-    expect(legacyRedirectTarget("/en/about", "fr")).toBeNull();
-  });
-
-  it("redirects unprefixed URLs to the client language", () => {
-    const replace = vi.fn();
-    vi.stubGlobal("location", { replace });
-    vi.stubGlobal("navigator", { language: "en-US", languages: ["en-US", "en"] });
-    setPathname("/about");
-    render(<RedirectProbe />);
-    expect(replace).toHaveBeenCalledWith("/en/about");
+  it("renders the French home at the root without a redirect", () => {
+    setPathname("/");
+    render(<RootHome />);
+    const heading = screen.getByRole("heading", { level: 1 });
+    expect(heading.textContent).toContain("Agence de");
+    expect(heading.textContent).toContain("reliant produit et");
   });
 });
