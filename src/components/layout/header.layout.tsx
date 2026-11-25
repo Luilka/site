@@ -1,8 +1,19 @@
 import BrandMark from "@/components/layout/brand-mark.layout.tsx";
-import MainNavigation from "@/components/layout/navigation/main-navigation.layout.tsx";
 import { ChevronDown, CalendarDays } from "lucide-react";
-import { useLanguageSwitch, useContent } from "@/shared/i18n";
+import { useLanguageSwitch, useContent, navigation } from "@/shared/i18n";
 import AppLink from "@/shared/ui/link.ui.tsx";
+import NavEntry from "@/components/layout/navigation/nav-entry.layout.tsx";
+import { useOpenMenu } from "@/shared/hooks/use-open-menu.hook.ts";
+
+function MainNavigation() {
+  const menu = useOpenMenu();
+  const { navigationLabel } = useContent();
+  return (
+    <nav className="nav-links" aria-label={navigationLabel} onMouseLeave={menu.close} onBlur={menu.onBlur}>
+      {navigation.map((item) => <NavEntry key={item.href} item={item} menu={menu} />)}
+    </nav>
+  );
+}
 
 function ContactLink() {
   const { contactAction } = useContent();

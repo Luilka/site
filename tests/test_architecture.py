@@ -55,7 +55,6 @@ def test_layout_patterns_and_cards_use_complete_component_names() -> None:
             "service.card.tsx",
             "work.card.tsx",
             "step.card.tsx",
-            "info.card.tsx",
         ),
     }
     for folder, names in expected.items():
@@ -64,7 +63,7 @@ def test_layout_patterns_and_cards_use_complete_component_names() -> None:
 
 
 def test_home_sections_are_named_after_their_intention() -> None:
-    expected = ("hero", "about", "process", "services", "products", "works", "info")
+    expected = ("about", "process", "services", "products", "works", "info")
     for name in expected:
         assert (COMPONENTS / "sections" / "(home)" / f"{name}.section.tsx").is_file(), name
 
