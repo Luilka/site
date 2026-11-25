@@ -1,39 +1,83 @@
 import { fireEvent, render, screen } from "@testing-library/react";
-import { describe, expect, it } from "vitest";
+import { afterEach, describe, expect, it } from "vitest";
 
 import SiteHeader from "@/components/patterns/site-header.tsx";
 
-function openServices() {
+function openServices(pathname = "/fr") {
+  (globalThis as Record<string, unknown>).__NEXY_LOCATION__ = {
+    pathname,
+    search: "",
+    hash: "",
+    params: {},
+  };
   render(<SiteHeader />);
   const trigger = screen.getByRole("link", { name: /Services/ });
   fireEvent.mouseEnter(trigger.parentElement!);
   return {
     trigger,
-    panel: trigger.parentElement?.querySelector(".dropdown-panel") as HTMLElement,
+    panel: trigger.parentElement?.querySelector(".mega-panel") as HTMLElement,
   };
 }
 
-describe("header dropdown design", () => {
-  it("shows an image column and described items in the other column", () => {
+afterEach(() => {
+  delete (globalThis as Record<string, unknown>).__NEXY_LOCATION__;
+});
+
+describe("header mega menu design", () => {
+  it("shows a labelled panel with one image card per service", () => {
     const { panel } = openServices();
-    expect(panel.querySelector(".dropdown-media img")).not.toBeNull();
-    const items = panel.querySelectorAll(".dropdown-item");
-    expect(items).toHaveLength(4);
-    for (const item of items) {
-      expect(item.querySelector(".dropdown-description")?.textContent?.trim()).toBeTruthy();
+    expect(panel.querySelector(".mega-eyebrow")?.textContent).toBeTruthy();
+    expect(panel.querySelector(".mega-title")?.textContent).toBeTruthy();
+    const cards = panel.querySelectorAll(".mega-card");
+    expect(cards).toHaveLength(4);
+    for (const card of cards) {
+      expect(card.querySelector("img")?.getAttribute("src")).toBeTruthy();
+      expect(card.querySelector(".mega-card-description")?.textContent?.trim()).toBeTruthy();
+      expect(card.querySelector(".mega-card-action")?.textContent?.trim()).toBeTruthy();
     }
   });
 
-  it("changes the image when the pointer moves over each item", () => {
+  it("names the four short services in French", () => {
     const { panel } = openServices();
-    const image = panel.querySelector(".dropdown-media img") as HTMLImageElement;
-    const items = panel.querySelectorAll(".dropdown-item");
-    const sources = new Set<string>();
-    for (const item of items) {
-      fireEvent.mouseEnter(item);
-      sources.add(image.getAttribute("src") ?? "");
+    const titles = Array.from(panel.querySelectorAll(".mega-card h3")).map((node) => node.textContent);
+    expect(titles).toEqual(["UX Design", "UI design", "Software", "COM"]);
+  });
+
+  it("names the four short services in English", () => {
+    const { panel } = openServices("/en");
+    const titles = Array.from(panel.querySelectorAll(".mega-card h3")).map((node) => node.textContent);
+    expect(titles).toEqual(["UX Design", "UI design", "Software", "COM"]);
+  });
+
+  it("gives each card its own image", () => {
+    const { panel } = openServices();
+    const sources = new Set(
+      Array.from(panel.querySelectorAll(".mega-card img")).map((image) => image.getAttribute("src") ?? ""),
+    );
+    expect(sources.size).toBe(4);
+  });
+
+  it("does not claim the studio refuses development work in the menu", () => {
+    const { panel } = openServices();
+    const text = panel.textContent ?? "";
+    expect(text).not.toContain("Aucun code");
+  });
+
+  it("does not claim the studio refuses development work in the English menu", () => {
+    const { panel } = openServices("/en");
+    const text = panel.textContent ?? "";
+    for (const claim of ["We write no code", "We do not develop the software"]) {
+      expect(text).not.toContain(claim);
     }
-    expect(sources.size).toBe(items.length);
+  });
+
+  it("offers a column of navigation links", () => {
+    const { panel } = openServices();
+    const links = panel.querySelectorAll(".mega-aside a");
+    expect(links.length).toBeGreaterThanOrEqual(3);
+    for (const link of links) {
+      expect(link.getAttribute("href")).toBeTruthy();
+    }
   });
 
   it("uses a bold chevron on the trigger", () => {
