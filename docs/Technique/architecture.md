@@ -56,6 +56,10 @@ Les images des projets vont dans `public/`, en `webp` ou `avif` (le `svg` pour l
 
 Les couvertures actuelles sont des illustrations abstraites en `svg` (`public/images/work/` et `public/images/products/`), dessinées sans texte et sans faux écran, en attendant les vraies images. Pour remplacer une couverture : déposer le fichier `webp` dans `public/images/`, puis changer `src`, `width` et `height` de son entrée dans `images.json`. Aucun composant ne change.
 
+## Couleurs
+
+Les jetons sont dans `src/globale.css` : `--paper`, `--text` et `--night` (noir et blanc), `--graphite`, `--gray`, `--muted`, `--border-ui`, et l'unique `--accent` (D-020). Les illustrations de `public/images/` n'emploient que ces valeurs ; un test refuse le retour de l'ancien bleu et de l'ancien violet.
+
 ## Héros de l'accueil
 
 `HeroReel` (`patterns.tsx`) empile les couvertures des réalisations et fait un fondu de l'une à l'autre toutes les 4 secondes (`use-reel.hook.ts`). Le diaporama est décoratif, masqué aux lecteurs d'écran, et s'arrête sous `prefers-reduced-motion` et avec l'économie de données (`prefers-still.util.ts`). Un bouton Pause nommé le contrôle. Une boucle vidéo viendra dans le même composant (D-019).
