@@ -16,3 +16,6 @@ tmp/
 htmlcov/
 __nexy__/build-cache.json
 __nexy__/server.port
+
+# Rendered films (heavy, regenerated from motion/*/timeline.html)
+motion/*/out/

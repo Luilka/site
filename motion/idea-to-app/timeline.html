@@ -1,0 +1,416 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Luilka, de l'idée à l'app</title>
+<style>html,body{margin:0;background:#fff}svg{display:block}</style>
+</head>
+<body>
+<svg id="stage" xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080"></svg>
+<script>
+const LANG = new URLSearchParams(location.search).get("lang") === "en" ? "en" : "fr";
+const W = 1920, H = 1080, FPS = 24, DURATION = 32, SPAN = 1920;
+const FOREST = "#1c3f34", NIGHT = "#132a22", GOLD = "#c9a24b", INK = "#0a0a0a", MUTED = "#454540", PEARL = "#ebebe8", LINE = "#e4e4df";
+const START = [0.8, 6.0, 11.2, 16.4, 22.0, 26.6];
+
+const COPY = {
+  fr: {
+    names: ["IDÉE", "CADRAGE", "DIRECTION VISUELLE", "DESIGN D'INTERFACE", "LIVRAISON", "APP"],
+    heads: ["Tout commence par une idée.", "Nous partons des utilisateurs.", "Nous posons le langage visuel.", "Nous dessinons les écrans.", "Nous livrons un système.", "L'idée devient une app."],
+    caps: [
+      ["Une intuition, un besoin, une envie de mieux faire."],
+      ["Nous clarifions le problème, les personnes concernées", "et ce que le produit doit accomplir."],
+      ["Nous définissons le langage visuel, la voix", "et les principes qui tiennent l'ensemble."],
+      ["Nous dessinons les parcours et les écrans,", "puis nous les testons avec de vrais utilisateurs."],
+      ["Nous remettons des maquettes prêtes à l'emploi", "et un système de composants que vos équipes peuvent utiliser."],
+      ["Du design à l'app."],
+    ],
+    example: "Interface d'exemple", tagline: "Du design à l'app.", cta: "Nous contacter",
+  },
+  en: {
+    names: ["IDEA", "SCOPING", "VISUAL DIRECTION", "INTERFACE DESIGN", "HANDOVER", "APP"],
+    heads: ["It all starts with an idea.", "We start with the people who use it.", "We set the visual language.", "We design the screens.", "We deliver a system.", "The idea becomes an app."],
+    caps: [
+      ["An intuition, a need, a wish to do better."],
+      ["We clarify the problem, the people involved", "and what the product must achieve."],
+      ["We define the visual language, the voice", "and the principles that hold it together."],
+      ["We draw the flows and screens,", "then test them with real users."],
+      ["We deliver ready to use designs", "and a component system your teams can build on."],
+      ["From design to app."],
+    ],
+    example: "Example interface", tagline: "From design to app.", cta: "Contact us",
+  },
+}[LANG];
+
+const clamp = (v) => Math.min(1, Math.max(0, v));
+const seg = (t, a, b) => clamp((t - a) / (b - a));
+const lerp = (a, b, p) => a + (b - a) * p;
+const eOutExpo = (x) => (x >= 1 ? 1 : 1 - Math.pow(2, -10 * x));
+const eOutCubic = (x) => 1 - Math.pow(1 - x, 3);
+const eInCubic = (x) => x * x * x;
+const eInOutCubic = (x) => (x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2);
+const eInOutSine = (x) => -(Math.cos(Math.PI * x) - 1) / 2;
+const eOutBack = (x, c1 = 1.5) => { const c3 = c1 + 1; return 1 + c3 * Math.pow(x - 1, 3) + c1 * Math.pow(x - 1, 2); };
+
+const NS = "http://www.w3.org/2000/svg";
+const el = (tag, attrs = {}, parent) => {
+  const n = document.createElementNS(NS, tag);
+  for (const [k, v] of Object.entries(attrs)) n.setAttribute(k, v);
+  if (parent) parent.appendChild(n);
+  return n;
+};
+const setT = (n, x, y, s = 1, r = 0) => n.setAttribute("transform", `translate(${x} ${y}) rotate(${r}) scale(${s})`);
+const stage = document.getElementById("stage");
+const defs = el("defs", {}, stage);
+el("rect", { width: W, height: H, fill: "#fff" }, stage);
+
+const dots = el("g", { opacity: 0.9 }, stage);
+for (let x = -60; x < W + SPAN * 6; x += 80) for (let y = 40; y < H; y += 80) el("circle", { cx: x, cy: y, r: 1.6, fill: LINE }, dots);
+const world = el("g", {}, stage);
+const hud = el("g", {}, stage);
+const veil = el("rect", { width: W, height: H, fill: "#fff", opacity: 0 }, stage);
+
+const camX = (t) => START.reduce((sum, s, i) => (i === 0 ? 0 : sum + SPAN * eInOutCubic(seg(t, s - 0.85, s + 0.1))), 0);
+
+let clipId = 0;
+function line(parent, cx, y, text, size, family, color, opts = {}) {
+  const id = `c${clipId++}`;
+  const c = el("clipPath", { id }, defs);
+  el("rect", { x: cx - 1100, y: y - size * 1.05, width: 2200, height: size * 1.45 }, c);
+  const g = el("g", { "clip-path": `url(#${id})` }, parent);
+  const t = el("text", { x: cx, y, "text-anchor": "middle", "font-family": family, "font-size": size, fill: color, ...opts }, g);
+  t.textContent = text;
+  return t;
+}
+const SERIF = "Noto Serif Display, serif", SANS = "Noto Sans Display, sans-serif", MONO = "DejaVu Sans Mono, monospace";
+
+function words(parent, cx, y, text, size) {
+  const holder = el("g", {}, parent);
+  const parts = text.split(" ");
+  const probe = el("text", { "font-family": SERIF, "font-size": size, visibility: "hidden" }, holder);
+  const widths = parts.map((p) => { probe.textContent = p + " "; return probe.getComputedTextLength(); });
+  holder.removeChild(probe);
+  const total = widths.reduce((a, b) => a + b, 0);
+  let x = cx - total / 2;
+  return parts.map((p, i) => {
+    const t = line(holder, x + widths[i] / 2, y, p, size, SERIF, INK);
+    x += widths[i];
+    return t;
+  });
+}
+
+function rise(node, size, p) { node.setAttribute("transform", `translate(0 ${(1 - eOutExpo(p)) * size * 1.2})`); }
+
+function header(i, ox) {
+  const g = el("g", {}, world);
+  const w = words(g, ox, 200, COPY.heads[i], 80);
+  const caps = COPY.caps[i].map((c, k) => line(g, ox, 276 + k * 40, c, 30, SANS, MUTED));
+  return (u) => {
+    w.forEach((t, k) => rise(t, 80, seg(u, 0.1 + k * 0.1, 0.9 + k * 0.1)));
+    caps.forEach((t, k) => { rise(t, 30, seg(u, 0.9 + k * 0.12, 1.5 + k * 0.12)); t.setAttribute("opacity", seg(u, 0.9 + k * 0.12, 1.3 + k * 0.12)); });
+  };
+}
+
+function person(parent, fill) {
+  const g = el("g", {}, parent);
+  el("circle", { cx: 0, cy: -26, r: 17, fill }, g);
+  el("path", { d: "M-30 26 Q-30 -6 0 -6 Q30 -6 30 26 Z", fill }, g);
+  return g;
+}
+function rrect(parent, x, y, w, h, r, attrs) { return el("rect", { x, y, width: w, height: h, rx: r, ...attrs }, parent); }
+
+/* ---------- station 0: idea ---------- */
+function station0(ox) {
+  const g = el("g", {}, world);
+  const head = header(0, ox);
+  const halo = el("circle", { cx: ox, cy: 640, r: 70, fill: "none", stroke: GOLD, "stroke-width": 2 }, g);
+  const core = el("circle", { r: 70, fill: FOREST }, g);
+  const sats = [
+    el("circle", { r: 16, fill: GOLD }, g),
+    rrect(g, -15, -15, 30, 30, 4, { fill: "none", stroke: FOREST, "stroke-width": 3 }),
+    el("path", { d: "M0 -20 L19 14 L-19 14 Z", fill: "none", stroke: GOLD, "stroke-width": 3, "stroke-linejoin": "round" }, g),
+  ];
+  const ORBIT = [[250, 120, 0.9, 0], [320, 150, 0.6, 2.1], [200, 90, 1.2, 4.0]];
+  return (u) => {
+    head(u);
+    const pop = eOutBack(seg(u, 0.3, 0.9), 1.7);
+    setT(core, ox, 640, Math.max(0.001, pop));
+    const rip = seg(u, 0.9, 2.1);
+    halo.setAttribute("r", 70 + 150 * eOutCubic(rip));
+    halo.setAttribute("opacity", rip > 0 && rip < 1 ? 0.7 * (1 - rip) : 0);
+    sats.forEach((s, k) => {
+      const [rx, ry, sp, ph] = ORBIT[k];
+      const born = eOutBack(seg(u, 1.4 + k * 0.35, 2.0 + k * 0.35));
+      const a = ph + u * sp;
+      const drift = eInCubic(seg(u, 4.0, 5.2)) * 1200;
+      setT(s, ox + Math.cos(a) * rx + drift, 640 + Math.sin(a) * ry, Math.max(0.001, born), u * 40 * (k + 1));
+    });
+  };
+}
+
+/* ---------- station 1: people ---------- */
+function station1(ox) {
+  const g = el("g", {}, world);
+  const head = header(1, ox);
+  const tones = [FOREST, GOLD, NIGHT, "#9a9a92", FOREST];
+  const xs = [-340, -170, 0, 170, 340];
+  const need = el("g", {}, g);
+  rrect(need, -150, -70, 300, 140, 22, { fill: PEARL, stroke: LINE });
+  rrect(need, -110, -36, 160, 14, 7, { fill: FOREST });
+  rrect(need, -110, -8, 220, 12, 6, { fill: "#c4c4bc" });
+  rrect(need, -110, 16, 120, 12, 6, { fill: "#c4c4bc" });
+  const people = xs.map((x, k) => { const p = person(g, tones[k]); return { p, x, k }; });
+  const links = xs.map((x) => el("path", { d: `M${ox + x} 690 C${ox + x} 610 ${ox} 700 ${ox} 590`, fill: "none", stroke: GOLD, "stroke-width": 2, "stroke-dasharray": "3 9", "stroke-linecap": "round", pathLength: 1 }, g));
+  const bubble = el("g", {}, g);
+  el("path", { d: "M0 0 h120 a18 18 0 0 1 18 18 v34 a18 18 0 0 1 -18 18 h-70 l-26 24 v-24 h-24 a18 18 0 0 1 -18 -18 v-34 a18 18 0 0 1 18 -18 Z", fill: FOREST }, bubble);
+  [22, 40].forEach((y, k) => rrect(bubble, 18, y, 100 - k * 30, 9, 4.5, { fill: "#fff", opacity: 0.85 }));
+  const ORDER = [0.35, 0.62, 0.5, 0.85, 0.7];
+  return (u) => {
+    head(u);
+    setT(need, ox, 540, Math.max(0.001, eOutBack(seg(u, 0.6, 1.2))));
+    need.setAttribute("opacity", seg(u, 0.6, 0.9));
+    people.forEach(({ p, x, k }) => {
+      const s = eOutBack(seg(u, 1.0 + ORDER[k], 1.55 + ORDER[k]), 1.8);
+      setT(p, ox + x, 700 - 8 * Math.sin(u * 2.2 + k), Math.max(0.001, s));
+      links[k].setAttribute("stroke-dashoffset", 1 - eInOutCubic(seg(u, 1.9 + k * 0.18, 2.9 + k * 0.18)));
+      links[k].setAttribute("stroke-dasharray", "3 9");
+    });
+    const b = eOutBack(seg(u, 3.1, 3.6), 2);
+    setT(bubble, ox + 40, 410 + 40, Math.max(0.001, b) * 0.0 + Math.max(0.001, b));
+    bubble.setAttribute("opacity", seg(u, 3.1, 3.3));
+  };
+}
+
+/* ---------- station 2: visual language ---------- */
+function station2(ox) {
+  const g = el("g", {}, world);
+  const head = header(2, ox);
+  const sw = [[FOREST, -270], [GOLD, -90], [NIGHT, 90], [PEARL, 270]].map(([fill, x], k) => {
+    const c = el("circle", { r: 62, fill, stroke: fill === PEARL ? "#c4c4bc" : "none", "stroke-width": 2 }, g);
+    return { c, x, k };
+  });
+  const aa1 = line(g, ox - 150, 780, "Aa", 120, SERIF, INK);
+  const aa2 = line(g, ox + 150, 780, "Aa", 120, SANS, INK);
+  const rule = el("path", { d: `M${ox - 330} 830 H${ox + 330}`, stroke: GOLD, "stroke-width": 2, pathLength: 1, "stroke-dasharray": 1 }, g);
+  const ticks = Array.from({ length: 12 }, (_, i) => el("line", { x1: ox - 330 + i * 60, x2: ox - 330 + i * 60, y1: 822, y2: 838, stroke: GOLD, "stroke-width": 2, opacity: 0 }, g));
+  const FROM = [[-900, 0], [0, -520], [0, 520], [900, 0]];
+  return (u) => {
+    head(u);
+    sw.forEach(({ c, x, k }) => {
+      const p = eOutBack(seg(u, 0.5 + k * 0.28, 1.6 + k * 0.28), 1.2);
+      const fly = 1 - eOutExpo(seg(u, 0.5 + k * 0.28, 1.5 + k * 0.28));
+      setT(c, ox + x + FROM[k][0] * fly, 600 + FROM[k][1] * fly, Math.max(0.001, 0.7 + 0.3 * p));
+      c.setAttribute("opacity", seg(u, 0.5 + k * 0.28, 0.8 + k * 0.28));
+    });
+    rise(aa1, 120, seg(u, 2.2, 3.1)); rise(aa2, 120, seg(u, 2.4, 3.3));
+    rule.setAttribute("stroke-dashoffset", 1 - eInOutCubic(seg(u, 3.0, 4.0)));
+    ticks.forEach((t, i) => t.setAttribute("opacity", seg(u, 3.3 + i * 0.05, 3.5 + i * 0.05)));
+  };
+}
+
+/* ---------- shared phone ---------- */
+function phone(parent) {
+  const g = el("g", {}, parent);
+  const body = rrect(g, -145, -280, 290, 560, 40, { fill: "#fff", stroke: INK, "stroke-width": 3, pathLength: 1, "stroke-dasharray": 1 });
+  const screen = el("g", { opacity: 0 }, g);
+  const hdr = rrect(screen, -125, -258, 250, 48, 12, { fill: FOREST });
+  const hdrTxt = el("text", { x: -108, y: -228, "font-family": SANS, "font-size": 17, fill: "#fff", "letter-spacing": 2 }, screen);
+  hdrTxt.textContent = COPY.example.toUpperCase();
+  const rows = [0, 1, 2].map((k) => {
+    const r = el("g", {}, screen);
+    rrect(r, -125, -190 + k * 92, 250, 78, 16, { fill: PEARL });
+    el("circle", { cx: -90, cy: -151 + k * 92, r: 20, fill: k === 1 ? GOLD : "#c4c4bc" }, r);
+    rrect(r, -58, -168 + k * 92, 100, 13, 6, { fill: INK, opacity: 0.8 });
+    rrect(r, -58, -146 + k * 92, 70, 10, 5, { fill: "#a9a9a1" });
+    const tg = rrect(r, 62, -162 + k * 92, 44, 24, 12, { fill: "#c4c4bc" });
+    const kn = el("circle", { cx: 74, cy: -150 + k * 92, r: 9, fill: "#fff" }, r);
+    return { r, tg, kn, k };
+  });
+  const btn = el("g", {}, screen);
+  const btnBg = rrect(btn, -125, 128, 250, 60, 30, { fill: FOREST });
+  const btnLabel = el("text", { x: 0, y: 165, "text-anchor": "middle", "font-family": SANS, "font-size": 20, fill: "#fff", "letter-spacing": 2 }, btn);
+  btnLabel.textContent = LANG === "en" ? "CONFIRM" : "CONFIRMER";
+  const check = el("path", { d: "M-16 158 l10 12 l22 -26", fill: "none", stroke: "#fff", "stroke-width": 5, "stroke-linecap": "round", "stroke-linejoin": "round", pathLength: 1, "stroke-dasharray": 1, "stroke-dashoffset": 1 }, btn);
+  return { g, body, screen, hdr, rows, btn, btnBg, btnLabel, check };
+}
+function cursor(parent) {
+  const c = el("path", { d: "M0 0 L0 30 L8 23 L14 36 L20 33 L14 21 L25 21 Z", fill: INK, stroke: "#fff", "stroke-width": 2, "stroke-linejoin": "round", opacity: 0 }, parent);
+  return c;
+}
+const bez = (p0, p1, p2, p3, t) => {
+  const m = 1 - t;
+  return [m * m * m * p0[0] + 3 * m * m * t * p1[0] + 3 * m * t * t * p2[0] + t * t * t * p3[0], m * m * m * p0[1] + 3 * m * m * t * p1[1] + 3 * m * t * t * p2[1] + t * t * t * p3[1]];
+};
+
+/* ---------- station 3: interface ---------- */
+function station3(ox) {
+  const g = el("g", {}, world);
+  const head = header(3, ox);
+  const ph = phone(g);
+  const cur = cursor(g);
+  const ring = el("circle", { r: 20, fill: "none", stroke: GOLD, "stroke-width": 3, opacity: 0 }, g);
+  const tester = person(g, GOLD);
+  const fb = el("g", {}, g);
+  rrect(fb, 0, 0, 150, 54, 27, { fill: FOREST });
+  el("path", { d: "M26 28 l9 10 l18 -20", fill: "none", stroke: "#fff", "stroke-width": 4, "stroke-linecap": "round", "stroke-linejoin": "round" }, fb);
+  rrect(fb, 70, 20, 56, 10, 5, { fill: "#fff", opacity: 0.8 });
+  const cx = ox, cy = 640;
+  return (u) => {
+    head(u);
+    setT(ph.g, cx, cy, 1);
+    ph.body.setAttribute("stroke-dashoffset", 1 - eInOutCubic(seg(u, 0.3, 1.5)));
+    ph.screen.setAttribute("opacity", seg(u, 1.4, 1.7));
+    const hdrP = eOutExpo(seg(u, 1.5, 2.1));
+    ph.hdr.setAttribute("width", 250 * hdrP);
+    ph.rows.forEach(({ r, k }) => { const p = eOutExpo(seg(u, 1.8 + k * 0.22, 2.5 + k * 0.22)); r.setAttribute("opacity", p); r.setAttribute("transform", `translate(${(1 - p) * 70} 0)`); });
+    const bp = eOutBack(seg(u, 2.6, 3.1), 1.4);
+    ph.btn.setAttribute("transform", `translate(0 ${(1 - Math.min(1, bp)) * 40})`); ph.btn.setAttribute("opacity", seg(u, 2.6, 2.9));
+    const P = [[cx + 520, cy + 260], [cx + 330, cy + 360], [cx + 120, cy + 290], [cx + 20, cy + 160]];
+    const mv = eInOutCubic(seg(u, 3.1, 3.95));
+    const [mx, my] = bez(P[0], P[1], P[2], P[3], mv);
+    const press = seg(u, 4.12, 4.2) - seg(u, 4.2, 4.3);
+    cur.setAttribute("opacity", seg(u, 3.05, 3.2) * (1 - seg(u, 4.9, 5.1)));
+    setT(cur, mx, my, 1 - 0.12 * press);
+    const hover = seg(u, 3.85, 4.1) * (1 - seg(u, 4.2, 4.3));
+    ph.btnBg.setAttribute("transform", `translate(${-125 * 0.04 * hover} ${-3 * hover})`);
+    const done = seg(u, 4.2, 4.45);
+    ph.btnBg.setAttribute("fill", done > 0.5 ? "#0f2a20" : FOREST);
+    ph.btnLabel.setAttribute("opacity", 1 - done);
+    ph.check.setAttribute("stroke-dashoffset", 1 - eOutCubic(seg(u, 4.35, 4.75)));
+    const rp = seg(u, 4.2, 4.9);
+    setT(ring, cx + 20, cy + 158, 0.5 + 2.2 * eOutCubic(rp));
+    ring.setAttribute("opacity", rp > 0 && rp < 1 ? 0.8 * (1 - rp) : 0);
+    ph.rows.forEach(({ tg, kn, k }) => { const p = eInOutCubic(seg(u, 4.5 + k * 0.12, 4.9 + k * 0.12)); tg.setAttribute("fill", p > 0.5 ? FOREST : "#c4c4bc"); kn.setAttribute("cx", lerp(74, 94, p)); });
+    const tp = eOutBack(seg(u, 3.3, 3.9), 1.8);
+    setT(tester, cx - 330, cy + 130, Math.max(0.001, tp));
+    const fbp = eOutBack(seg(u, 4.55, 5.0), 1.8);
+    setT(fb, cx - 380, cy - 30, Math.max(0.001, fbp));
+    fb.setAttribute("opacity", seg(u, 4.55, 4.7));
+  };
+}
+
+/* ---------- station 4: system ---------- */
+function station4(ox) {
+  const g = el("g", {}, world);
+  const head = header(4, ox);
+  const cards = [];
+  const cols = [-400, 0, 400], rowsY = [510, 720];
+  const kinds = ["button", "toggle", "row", "header", "avatar", "input"];
+  kinds.forEach((kind, i) => {
+    const c = el("g", {}, g);
+    rrect(c, -170, -85, 340, 170, 24, { fill: "#fff", stroke: LINE, "stroke-width": 2 });
+    if (kind === "button") rrect(c, -110, -22, 220, 44, 22, { fill: FOREST });
+    if (kind === "toggle") { rrect(c, -34, -18, 68, 36, 18, { fill: FOREST }); el("circle", { cx: 16, cy: 0, r: 13, fill: "#fff" }, c); }
+    if (kind === "row") { el("circle", { cx: -110, cy: 0, r: 22, fill: GOLD }, c); rrect(c, -70, -18, 150, 13, 6, { fill: INK, opacity: 0.8 }); rrect(c, -70, 6, 100, 10, 5, { fill: "#a9a9a1" }); }
+    if (kind === "header") { rrect(c, -130, -26, 260, 52, 14, { fill: NIGHT }); rrect(c, -108, -6, 90, 12, 6, { fill: GOLD }); }
+    if (kind === "avatar") { [0, 1, 2].forEach((k) => el("circle", { cx: -60 + k * 60, cy: 0, r: 28, fill: [FOREST, GOLD, "#9a9a92"][k], stroke: "#fff", "stroke-width": 4 }, c)); }
+    if (kind === "input") { rrect(c, -120, -24, 240, 48, 12, { fill: "#fff", stroke: "#a9a9a1", "stroke-width": 2 }); rrect(c, -100, -4, 90, 9, 4.5, { fill: "#c4c4bc" }); }
+    cards.push({ c, x: cols[i % 3], y: rowsY[Math.floor(i / 3)], i });
+  });
+  const phone2 = phone(g);
+  return (u) => {
+    head(u);
+    const split = eInOutCubic(seg(u, 0.5, 1.5));
+    setT(phone2.g, ox - 20, 640, 1 - 0.55 * split, 0);
+    phone2.g.setAttribute("opacity", 1 - seg(u, 1.0, 1.7));
+    phone2.body.setAttribute("stroke-dashoffset", 0); phone2.screen.setAttribute("opacity", 1);
+    phone2.hdr.setAttribute("width", 250); phone2.rows.forEach(({ r }) => r.setAttribute("opacity", 1));
+    phone2.btn.setAttribute("opacity", 1);
+    cards.forEach(({ c, x, y, i }) => {
+      const p = eOutBack(seg(u, 0.9 + i * 0.16, 1.7 + i * 0.16), 1.3);
+      const fly = 1 - eOutExpo(seg(u, 0.9 + i * 0.16, 1.7 + i * 0.16));
+      setT(c, ox + x * (1 - fly * 0.7), 640 + (y - 640) * (1 - fly * 0.6), Math.max(0.001, 0.55 + 0.45 * p));
+      c.setAttribute("opacity", seg(u, 0.9 + i * 0.16, 1.2 + i * 0.16));
+    });
+  };
+}
+
+/* ---------- station 5: app ---------- */
+function station5(ox) {
+  const g = el("g", {}, world);
+  const head = header(5, ox);
+  const rings = [0, 1, 2].map(() => el("circle", { cx: ox, cy: 640, r: 300, fill: "none", stroke: GOLD, "stroke-width": 2, opacity: 0 }, g));
+  const ph = phone(g);
+  const bar = rrect(g, -110, 0, 220, 10, 5, { fill: GOLD });
+  const live = el("g", {}, g);
+  const mark = el("g", { opacity: 0 }, g);
+  const FINGERPRINT = "M12 3.75a6.715 6.715 0 0 0-3.722 1.118.75.75 0 1 1-.828-1.25 8.25 8.25 0 0 1 12.8 6.883c0 3.014-.574 5.897-1.62 8.543a.75.75 0 0 1-1.395-.551A21.69 21.69 0 0 0 18.75 10.5 6.75 6.75 0 0 0 12 3.75ZM6.157 5.739a.75.75 0 0 1 .21 1.04A6.715 6.715 0 0 0 5.25 10.5c0 1.613-.463 3.12-1.265 4.393a.75.75 0 0 1-1.27-.8A6.715 6.715 0 0 0 3.75 10.5c0-1.68.503-3.246 1.367-4.55a.75.75 0 0 1 1.04-.211ZM12 7.5a3 3 0 0 0-3 3c0 3.1-1.176 5.927-3.105 8.056a.75.75 0 1 1-1.112-1.008A10.459 10.459 0 0 0 7.5 10.5a4.5 4.5 0 1 1 9 0c0 .547-.022 1.09-.067 1.626a.75.75 0 0 1-1.495-.123c.041-.495.062-.996.062-1.503a3 3 0 0 0-3-3Zm0 2.25a.75.75 0 0 1 .75.75c0 3.908-1.424 7.485-3.781 10.238a.75.75 0 0 1-1.14-.975A14.19 14.19 0 0 0 11.25 10.5a.75.75 0 0 1 .75-.75Zm3.239 5.183a.75.75 0 0 1 .515.927 19.417 19.417 0 0 1-2.585 5.544.75.75 0 0 1-1.243-.84 17.915 17.915 0 0 0 2.386-5.116.75.75 0 0 1 .927-.515Z";
+  el("path", { d: FINGERPRINT, fill: FOREST, "fill-rule": "evenodd", transform: "translate(-40 -150) scale(3.4)" }, mark);
+  line(mark, 0, 20, "LUILKA", 64, SANS, INK, { "letter-spacing": 18 });
+  line(mark, 0, 86, COPY.tagline, 36, SERIF, FOREST);
+  line(mark, 0, 160, COPY.cta.toUpperCase(), 22, SANS, GOLD, { "letter-spacing": 8 });
+  return (u) => {
+    head(u);
+    const appear = eOutBack(seg(u, 0.3, 1.1), 1.3);
+    const out = eInOutCubic(seg(u, 2.5, 3.1));
+    setT(ph.g, ox, 640 + 40 * out, Math.max(0.001, appear) * (1 - 0.3 * out));
+    ph.g.setAttribute("opacity", (1 - out) * seg(u, 0.3, 0.6));
+    ph.body.setAttribute("stroke-dashoffset", 0); ph.screen.setAttribute("opacity", 1);
+    ph.hdr.setAttribute("width", 250);
+    ph.btn.setAttribute("opacity", 1); ph.btnLabel.setAttribute("opacity", 0); ph.check.setAttribute("stroke-dashoffset", 0); ph.btnBg.setAttribute("fill", "#0f2a20");
+    ph.rows.forEach(({ r, tg, kn, k }) => {
+      const sl = eOutCubic(seg(u, 1.1 + k * 0.2, 1.8 + k * 0.2));
+      r.setAttribute("transform", `translate(0 ${(1 - sl) * 24})`); r.setAttribute("opacity", sl);
+      const p = eInOutCubic(seg(u, 1.9 + k * 0.25, 2.3 + k * 0.25)); tg.setAttribute("fill", p > 0.5 ? FOREST : "#c4c4bc"); kn.setAttribute("cx", lerp(74, 94, p));
+    });
+    rings.forEach((r, k) => { const p = seg(u, 1.4 + k * 0.5, 3.2 + k * 0.5); r.setAttribute("r", 220 + 420 * eOutCubic(p)); r.setAttribute("opacity", p > 0 && p < 1 ? 0.5 * (1 - p) : 0); });
+    bar.setAttribute("opacity", 0);
+    const m = eOutBack(seg(u, 2.8, 3.6), 1.1);
+    mark.setAttribute("opacity", seg(u, 2.8, 3.2));
+    setT(mark, ox, 560 + (1 - Math.min(1, m)) * 30, 1);
+  };
+}
+
+const builders = [station0, station1, station2, station3, station4, station5];
+const updates = builders.map((b, i) => b(SPAN / 2 + i * SPAN));
+
+/* ---------- fixed HUD: mark + chronology ---------- */
+const NODES = START.map((_, i) => 240 + i * 288);
+const hudLine = el("line", { x1: NODES[0], x2: NODES[5], y1: 975, y2: 975, stroke: LINE, "stroke-width": 3 }, hud);
+const hudFill = el("line", { x1: NODES[0], x2: NODES[0], y1: 975, y2: 975, stroke: GOLD, "stroke-width": 3 }, hud);
+const hudNodes = NODES.map((x) => { const g = el("g", {}, hud); el("circle", { cx: 0, cy: 0, r: 10, fill: "#fff", stroke: GOLD, "stroke-width": 3 }, g); const d = el("circle", { cx: 0, cy: 0, r: 5, fill: GOLD, opacity: 0 }, g); g.setAttribute("transform", `translate(${x} 975)`); return { g, d }; });
+const hudLabels = NODES.map((x, i) => { const t = el("text", { x, y: 1022, "text-anchor": "middle", "font-family": SANS, "font-size": 17, "letter-spacing": 4, fill: MUTED }, hud); t.textContent = COPY.names[i]; return t; });
+const brand = el("g", { opacity: 0 }, hud);
+el("path", { d: "M12 3.75a6.715 6.715 0 0 0-3.722 1.118.75.75 0 1 1-.828-1.25 8.25 8.25 0 0 1 12.8 6.883c0 3.014-.574 5.897-1.62 8.543a.75.75 0 0 1-1.395-.551A21.69 21.69 0 0 0 18.75 10.5 6.75 6.75 0 0 0 12 3.75Z", fill: FOREST, transform: "translate(70 50) scale(1.6)" }, brand);
+const brandText = el("text", { x: 118, y: 78, "font-family": SANS, "font-size": 24, "letter-spacing": 8, fill: INK }, brand);
+brandText.textContent = "LUILKA";
+
+window.draw = (t) => {
+  const cam = camX(t);
+  world.setAttribute("transform", `translate(${-cam} 0)`);
+  dots.setAttribute("transform", `translate(${-cam * 0.55} 0)`);
+  updates.forEach((update, i) => update(t - START[i]));
+  const hudIn = eInOutCubic(seg(t, 0.2, 0.9));
+  hud.setAttribute("opacity", hudIn * (1 - seg(t, 29.2, 29.9)));
+  brand.setAttribute("opacity", seg(t, 0.3, 0.9) * (1 - seg(t, 26.4, 27.2)));
+  const prog = START.reduce((acc, s, i) => (i === 0 ? 0 : acc + eInOutCubic(seg(t, s - 0.8, s + 0.3))), 0);
+  hudFill.setAttribute("x2", NODES[0] + (NODES[5] - NODES[0]) * (prog / 5));
+  hudNodes.forEach(({ d }, i) => d.setAttribute("opacity", seg(t, START[i] - 0.3, START[i] + 0.2)));
+  hudLabels.forEach((l, i) => { const on = seg(t, START[i] - 0.3, START[i] + 0.3) * (1 - (i < 5 ? seg(t, START[i + 1] - 0.9, START[i + 1] - 0.3) : 0)); l.setAttribute("fill", on > 0.5 ? FOREST : MUTED); l.setAttribute("opacity", 0.55 + 0.45 * on); });
+  veil.setAttribute("opacity", seg(t, 31.2, 32) + (1 - seg(t, 0, 0.5)));
+};
+
+/* the cues the sound is built from, in seconds */
+window.CUES = (() => {
+  const c = [];
+  const add = (t, kind, n = 0) => c.push({ t: +t.toFixed(3), kind, n });
+  START.forEach((s, i) => { if (i > 0) add(s - 0.85, "swish"); add(s + 0.15, "breath", i); });
+  add(START[0] + 0.3, "pop"); add(START[0] + 0.9, "ripple");
+  [0, 1, 2].forEach((k) => add(START[0] + 1.4 + k * 0.35, "blip", k));
+  [0, 1, 2, 3, 4].forEach((k) => add(START[1] + 1.0 + [0.35, 0.62, 0.5, 0.85, 0.7][k], "person", k));
+  add(START[1] + 3.1, "bubble");
+  [0, 1, 2, 3].forEach((k) => add(START[2] + 0.5 + k * 0.28 + 0.6, "swatch", k));
+  add(START[2] + 2.3, "type"); add(START[2] + 3.0, "ruler");
+  add(START[3] + 0.3, "draw"); [0, 1, 2].forEach((k) => add(START[3] + 1.8 + k * 0.22, "snap", k)); add(START[3] + 2.6, "snap", 3);
+  add(START[3] + 3.1, "cursor"); add(START[3] + 4.12, "press"); add(START[3] + 4.2, "release"); add(START[3] + 4.45, "success"); add(START[3] + 4.55, "feedback");
+  [0, 1, 2].forEach((k) => add(START[3] + 4.5 + k * 0.12, "toggle", k));
+  for (let i = 0; i < 6; i++) add(START[4] + 0.9 + i * 0.16 + 0.5, "land", i);
+  [0, 1, 2].forEach((k) => add(START[5] + 1.9 + k * 0.25, "toggle", k));
+  add(START[5] + 2.9, "final");
+  return c.sort((a, b) => a.t - b.t);
+})();
+window.MOTION = { FPS, DURATION };
+window.draw(0);
+</script>
+</body>
+</html>

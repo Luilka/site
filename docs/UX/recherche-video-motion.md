@@ -5,6 +5,8 @@
 **Documents liés** : [recherche UX](recherche-ux-confiance.md), [synthèse du thème](audit-theme.md)
 **Demande du titulaire** : des films de l'agence, pas de présentation d'application. Il s'agit de montrer qui est Luilka et ce que l'agence fait (sa façon de travailler avec les gens), de manière humaine, avec du vrai mouvement et du son, au niveau d'un studio de pointe en UX.
 
+**Cap retenu (27 novembre 2026, D-022).** Le titulaire a précisé qu'il veut un film de motion design en chronologie, avec des formes, du texte et des écrans, qui raconte de l'idée à l'app. Il est produit : voir [le film](film-de-l-idee-a-l-app.md). Le dossier de tournage et le guide de la voix restent valables pour une version avec de vraies personnes.
+
 ## Ce que j'ai pu et n'ai pas pu faire
 
 **Correction de cap (26 novembre 2026).** La première version de ce document proposait des films d'interfaces d'applications. Le titulaire l'a écartée : le film présente l'agence et sa manière de travailler, pas un produit.
