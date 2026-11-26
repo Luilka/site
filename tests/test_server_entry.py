@@ -13,6 +13,7 @@ def make_project(root: Path) -> None:
     (root / "__nexy__" / "src" / "actions.ts").write_text("x", encoding="utf-8")
     (root / "src").mkdir()
     (root / "nexyconfig.py").write_text("y", encoding="utf-8")
+    (root / "vite.config.ts").write_text("z", encoding="utf-8")
 
 
 def test_server_entry_exposes_a_fastapi_app() -> None:
@@ -42,4 +43,17 @@ def test_copy_project_skips_missing_items(tmp_path: Path) -> None:
     target = tmp_path / "out"
     target.mkdir()
     copy_project(tmp_path, target)
-    assert sorted(path.name for path in target.iterdir()) == ["__nexy__", "nexyconfig.py", "src"]
+    assert sorted(path.name for path in target.iterdir()) == [
+        "__nexy__",
+        "nexyconfig.py",
+        "src",
+        "vite.config.ts",
+    ]
+
+
+def test_relocated_copy_keeps_the_vite_config_that_links_the_client(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    make_project(tmp_path)
+    monkeypatch.setattr(os, "access", lambda *_args: False)
+    assert (writable_root(tmp_path) / "vite.config.ts").is_file()

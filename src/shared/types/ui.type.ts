@@ -1,5 +1,5 @@
 import type { Language } from "./site.type.ts";
-import type { ButtonHTMLAttributes, HTMLAttributes, InputHTMLAttributes } from "react";
+import type { ButtonHTMLAttributes, HTMLAttributes, ImgHTMLAttributes, InputHTMLAttributes } from "react";
 import type { Href, LinkProps } from "@nexy/client";
 
 export type ContainerProps = HTMLAttributes<HTMLDivElement>;
@@ -12,6 +12,13 @@ export type ButtonVariant = "primary" | "outline" | "dark";
 
 export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   variant?: ButtonVariant;
+};
+
+export type ImageProps = Omit<ImgHTMLAttributes<HTMLImageElement>, "src" | "alt" | "width" | "height"> & {
+  src: string;
+  alt: string;
+  width: number;
+  height: number;
 };
 
 export type InputProps = InputHTMLAttributes<HTMLInputElement>;

@@ -8,6 +8,7 @@ import { useOpenMenu } from "@/shared/hooks/use-open-menu.hook.ts";
 import { useId } from "react";
 import { useDismiss } from "@/shared/hooks/use-dismiss.hook.ts";
 import { useNewsletter } from "@/shared/hooks/use-newsletter.hook.ts";
+import { Image } from "@/shared/ui/images.tsx";
 import { Input } from "@/shared/ui/inputs.tsx";
 import type { FooterColumnProps, MegaAsideProps, MegaCardProps, MegaCardTextProps, MegaContentProps, MegaGridProps, MegaHeadProps, MegaPanelProps, NavDropdownProps, NavEntryProps, NavTriggerProps, NewsletterMessageProps, NewsletterSubmitProps } from "@/shared/types";
 
@@ -241,7 +242,7 @@ function MegaCardText({ item }: MegaCardTextProps) {
 function MegaCard({ item, onClose }: MegaCardProps) {
   return (
     <Link className="group flex flex-col text-[#2a2a30] no-underline" href={item.href} onClick={onClose}>
-      <div className="mb-3 overflow-hidden h-[12rem] rounded-[0.75rem] bg-soft"><img className="h-full w-full object-cover" src={item.image} alt="" /></div>
+      <div className="mb-3 overflow-hidden h-[12rem] rounded-[0.75rem] bg-soft"><Image className="h-full w-full object-cover" src={item.image} alt="" width={320} height={320} /></div>
       <MegaCardText item={item} />
     </Link>
   );
