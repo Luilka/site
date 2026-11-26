@@ -56,11 +56,11 @@ Chaque principe a un énoncé, un contre-exemple et un lien vers sa source. Un �
 
 ## 7. Un mouvement discret
 
-**Énoncé.** Le mouvement sert l'entrée d'un élément, pas la décoration. `prefers-reduced-motion` est respecté : sans mouvement, le contenu s'affiche tel quel.
+**Énoncé.** Le mouvement sert l'entrée d'un élément, pas la décoration. `prefers-reduced-motion` est respecté : sans mouvement, le contenu s'affiche tel quel. Une exception est écrite : le bandeau de processus de l'accueil défile en boucle (D-014). Il est décoratif, masqué aux lecteurs d'écran, et son défilement s'arrête sous `prefers-reduced-motion` et sous le pointeur.
 
-**Contre-exemple.** Une animation en boucle sur un bandeau, ou un contenu masqué tant que l'animation n'a pas fini.
+**Contre-exemple.** Une animation en boucle qui ne s'arrête pas avec `prefers-reduced-motion`, ou qui porte une information, ou un contenu masqué tant que l'animation n'a pas fini.
 
-**Lien.** `src/routes/layout.tsx`, WCAG 2.2 critère 2.3.3.
+**Lien.** `src/routes/layout.tsx`, D-014, WCAG 2.2 critères 2.3.3 et 2.2.2. Le critère 2.2.2 demande une pause pour toute animation de plus de cinq secondes qui porte une information : le bandeau n'en porte pas, il n'a donc pas de bouton de pause.
 
 ## 8. Un menu qui se lit au clavier
 
