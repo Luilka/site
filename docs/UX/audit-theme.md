@@ -41,6 +41,28 @@ Prudence : l'effet d'une couleur dépend du contexte et de la culture, et les é
 - **Conversion.** Une seule couleur d'action, la même partout : le bouton de contact. Le reste est neutre pour que cette action soit la plus visible. Aujourd'hui l'accueil en a quatre (noir, bleu, violet, gris) : l'œil ne sait pas où aller.
 - **Engagement.** Il vient du contenu : réalisations en grand, un cas raconté, un visage de l'équipe, une réponse promise. Pas de la couleur.
 
+## Votre signature, relevée dans vos projets
+
+Lecture des feuilles de style locales de vos projets récents (Sina, portfolio, Muse, ancien portfolio) le 26 novembre 2026. Mitemo et Pro n'ont pas de feuille de style lisible dans leurs dépôts publics : leur identité visuelle n'a pas été relevée.
+
+| Projet | Base | Accent | Détail |
+|---|---|---|---|
+| Sina | Blanc cassé `#fcfcfc`, texte `#171717` | Vert menthe `#72e3ad` | Neutres sans teinte, bordures fines |
+| Ancien portfolio | Blanc, texte `#0a0a0a`, mode sombre | Vert `#2f834f` | Neutres sans teinte |
+| Portfolio | Blanc, `#0a0a0a`, gris `#f2f2f2` | Orange `#ff4f00` | Titres en police d'affichage, étiquettes en monospace |
+| Muse | Blanc, `#171717`, mode sombre `#0a0a0a` | Aucun | Neutres seuls |
+
+Ce que cela dit de votre goût :
+1. **Neutres sans teinte partout, un seul accent au plus.** Le thème noir et blanc de D-018 prolonge ce que vous faites déjà.
+2. **Le vert revient deux fois sur quatre.** Il appuie le vert comme accent, plutôt qu'un jaune ou un violet que vous n'employez nulle part.
+3. **Une touche d'écriture technique** (monospace pour les étiquettes) dans le portfolio : une piste pour la « touche Luilka », à garder en petit, pour les étiquettes et les numéros d'étape.
+
+Contrastes à respecter si le vert de vos projets est repris : le menthe `#72e3ad` ne supporte que du texte noir (12,5 pour 1) et jamais du texte blanc (1,6). Le vert `#2f834f` passe tout juste avec du blanc (4,7). Le vert profond `#0c5a41` est le plus sûr (8,2 avec du blanc).
+
+## Marques proches de votre approche
+
+Mêmes ressorts que vos projets (neutres, un accent, rigueur technique) : Linear, Vercel et Qoder pour l'interface, Pentagram et IDEO pour la preuve et la méthode. Je n'ai pas relevé d'autres marques à ce jour : la liste complète d'un benchmark reste à faire (à nommer : titulaire et date).
+
 ## Proposition
 
 ### Palette
@@ -54,7 +76,7 @@ Prudence : l'effet d'une couleur dépend du contexte et de la culture, et les é
 | Texte secondaire | `#404040` | Descriptions (10,4 sur blanc) |
 | **Accent d'action** | à trancher | Un seul, pour le contact et l'étape finale |
 
-Accent proposé : **vert profond `#0c5a41`** (blanc dessus : 8,2 pour 1). Il est sobre comme chez Andela et Qoder, évoque la réussite sans l'excitation du rouge, et il n'est ni le bleu des produits génériques ni un code de marque déjà saturé chez les studios. Alternative : aucun accent, comme Linear et Vercel, le bouton noir seul portant l'action. Le choix est un choix d'identité, non mesuré auprès de visiteurs.
+Accent proposé : **vert profond `#0c5a41`** (blanc dessus : 8,2 pour 1). Il est sobre comme chez Andela et Qoder, évoque la réussite sans l'excitation du rouge, et il n'est ni le bleu des produits génériques ni un code de marque déjà saturé chez les studios. Le vert est aussi celui que vous employez déjà dans Sina et votre ancien portfolio. Alternative : aucun accent, comme Linear, Vercel et Muse, le bouton noir seul portant l'action. Le choix est un choix d'identité, non mesuré auprès de visiteurs.
 
 ### Règles
 
