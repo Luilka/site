@@ -29,10 +29,8 @@ def test_every_inner_page_uses_the_shared_page_hero() -> None:
 def test_contact_panel_is_shared_by_landing_and_contact_page() -> None:
     landing = (SRC / "routes" / "[lang]" / "index.tsx").read_text(encoding="utf-8")
     contact = (SRC / "routes" / "[lang]" / "contact.tsx").read_text(encoding="utf-8")
-    home = SRC / "components" / "sections" / "(home)"
-    sections = "".join(path.read_text(encoding="utf-8") for path in home.glob("home-*.tsx"))
     assert "HomeProof" in landing
-    assert "ContactPanel" in sections
+    assert "ContactPanel" in landing
     assert "ContactPanel" in contact
 
 

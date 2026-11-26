@@ -98,8 +98,7 @@ def test_landing_page_composes_the_home_sections() -> None:
 
 
 def test_home_sections_compose_the_page_sections() -> None:
-    home = COMPONENTS / "sections" / "(home)"
-    text = "".join(path.read_text(encoding="utf-8") for path in home.glob("home-*.section.tsx"))
+    text = (SRC / "routes" / "[lang]" / "index.tsx").read_text(encoding="utf-8")
     for name in (
         "HeroSection",
         "ProcessSection",

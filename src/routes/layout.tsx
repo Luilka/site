@@ -1,7 +1,56 @@
 import type { ReactNode } from "react";
-
-import Document from "@/components/layout/document.layout.tsx";
 import { useUrlLanguage } from "@/shared/i18n";
+import Footer from "@/components/layout/footer.layout.tsx";
+import Header from "@/components/layout/header.layout.tsx";
+import IconSprite from "@/components/layout/icon-sprite.layout.tsx";
+
+const INTER = "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap";
+
+type DocumentProps = {
+  language: string;
+  children: ReactNode;
+};
+
+function FontLinks() {
+  return (
+    <>
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+      <link href={INTER} rel="stylesheet" />
+    </>
+  );
+}
+
+function DocumentHead() {
+  return (
+    <head>
+      <meta charSet="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <title>Luilka | Design agency</title>
+      <FontLinks />
+    </head>
+  );
+}
+
+function DocumentBody({ children }: { children: ReactNode }) {
+  return (
+    <body>
+      <IconSprite />
+      <Header />
+      <main>{children}</main>
+      <Footer />
+    </body>
+  );
+}
+
+function Document({ language, children }: DocumentProps) {
+  return (
+    <html lang={language}>
+      <DocumentHead />
+      <DocumentBody>{children}</DocumentBody>
+    </html>
+  );
+}
 
 type RootLayoutProps = {
   children: ReactNode;
