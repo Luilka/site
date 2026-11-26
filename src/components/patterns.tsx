@@ -184,7 +184,7 @@ function ProcessStageList({ className }: ProcessStageListProps) {
 
 function ProcessStages({ reverse }: ProcessBandProps) {
   return (
-    <div className="relative z-2 overflow-x-clip bg-[color-mix(in_srgb,var(--blue)_20%,var(--paper))] py-7 font-medium">
+    <div className="relative z-2 overflow-x-clip bg-night text-paper py-7 font-medium">
       <div className={`${TRACK} ${reverse ? "animate-marquee" : "animate-marquee-right"}`}>
         <ProcessStageList className={LIST} />
         <ProcessStageList className={LIST_COPY} />
