@@ -9,8 +9,8 @@
 
 - **Idée** : Luilka est un studio de design qui part des gens avant de dessiner. Le film le montre par des personnes réelles, sans vanter de produit.
 - **Durée** : film principal de 90 à 120 secondes, version courte de 15 à 20 secondes pour le héros de l'accueil.
-- **Langues parlées** : à décider (français, lingala, kituba). Chaque langue parlée est sous-titrée.
-- **Personnes à l'image** : 2 ou 3, à nommer.
+- **Langues parlées** : français et anglais, par la même personne (décision du titulaire, 26 novembre 2026). Lingala et kituba ne sont pas retenus pour l'instant. Deux montages, un par langue : le montage français est sous-titré en anglais, le montage anglais est sous-titré en français.
+- **Personnes à l'image** : Espoir LOEMBA, fondateur, en premier. Une ou deux autres personnes, à nommer, peuvent s'ajouter plus tard ; les sources conseillent 2 ou 3 personnes, mais un film avec une seule personne reste possible.
 - **Lieux** : à nommer. Un lieu de vie pour la personne, un lieu de travail pour l'équipe.
 - **Dates** : à nommer.
 
@@ -18,7 +18,8 @@
 
 | Rôle | Tâche | Titulaire |
 |---|---|---|
-| Direction | Choisit les personnes, valide le film | @Espoir-Loem |
+| Direction | Valide le film | @Espoir-Loem |
+| Personne à l'image | Espoir LOEMBA, fondateur | @Espoir-Loem |
 | Intervieweur | Pose les questions, écoute | à nommer |
 | Caméra et son | Image, prise de son, notes de lieu | à nommer |
 | Montage | Assemble les prises, sous-titres, mixage | assisté par moi, relu par le titulaire |
@@ -71,6 +72,17 @@ Une personne peut tenir deux rôles, mais pas l'intervieweur et la caméra en m�
 **À ne pas faire** : finir les phrases à la place de la personne, proposer une réponse, couper un silence trop vite, poser une question fermée, demander de répéter « comme avant » pour la caméra, écrire les paroles à l'avance.
 
 **Fin** : demander « Y a-t-il quelque chose que je n'ai pas demandé et que tu voudrais dire ? » puis remercier.
+
+**Deux langues, deux passages.** L'entretien se fait deux fois : d'abord en français, puis en anglais. En anglais, les mêmes questions sont posées, et les réponses sont dites avec ses propres mots, sans lire ni traduire mot à mot la version française : un récit traduit sonne faux. Faire une pause entre les deux passages. Garder les deux versions complètes, même si elles se ressemblent.
+
+**Les mêmes questions en anglais** :
+1. "Tell me about the last time an app or a service made you lose time."
+2. "What did you do in that moment?"
+3. "What would you have wanted someone to tell you or show you?"
+4. "What made you trust a service, or lose trust in it?"
+5. "What should someone who designs this kind of thing know about you?"
+
+Fin : "Is there anything I didn't ask that you would like to say?"
 
 **Pour l'équipe de Luilka** : mêmes principes, avec une question de plus : « Raconte un moment où un test avec un vrai utilisateur a changé ce que tu avais dessiné. » Les réponses sont dites par les personnes elles-mêmes, jamais lues.
 
@@ -141,8 +153,8 @@ Prévoir quelques plans de rechange (mains, objets, lumière) : le montage en a 
 
 ## 12. À trancher
 
-1. Les 2 ou 3 personnes.
+1. Les éventuelles personnes qui s'ajoutent à Espoir LOEMBA.
 2. Les lieux et les dates.
-3. Les langues parlées.
+3. Qui filme.
 4. Le contact et les délais du formulaire d'accord.
 5. L'endroit privé où stocker les vidéos brutes.

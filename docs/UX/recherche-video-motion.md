@@ -114,6 +114,6 @@ Les sources sont des sociétés de production et des médias : leurs conseils so
 
 1. Cette direction (l'agence par les gens, sans interface de produit) convient-elle ?
 2. Qui apparaît (2 ou 3 personnes) et où tourner ?
-3. Langues parlées ?
+3. Langues parlées : **français et anglais**, par Espoir LOEMBA (décidé le 26 novembre 2026) ; qui d'autre apparaît ?
 4. Souhaitez-vous que je prépare dès maintenant le dossier de tournage imprimable (traitement, questions, liste de plans, formulaire) ?
 5. Quel élément de la vidéo de référence faut-il retenir ?
