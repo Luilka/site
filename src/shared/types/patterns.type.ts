@@ -26,6 +26,15 @@ export type PageHeroTextProps = {
   description: string;
 };
 
+export type PageTitleProps = {
+  children: ReactNode;
+  className?: string;
+};
+
+export type PageLeadProps = {
+  children: ReactNode;
+};
+
 export type PageHeroProps = {
   eyebrow: string;
   title: string;

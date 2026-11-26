@@ -8,9 +8,10 @@ import { useRetry } from "@/shared/hooks/use-retry.hook.ts";
 import Errors from "@/routes/errors.tsx";
 import { motion } from "motion/react";
 import { Badge } from "@/shared/ui/badges.tsx";
+import { cn } from "@/shared/utils/cn.util.ts";
 import { PROCESS_STAGES } from "@/shared/utils/process-stages.util.ts";
 import { CONTACT_MAILTO } from "@/shared/utils/contact-mailto.util.ts";
-import type { ActionLinkProps, ContactPanelProps, FeedbackBoundaryProps, PageFrameProps, PageHeroProps, PageHeroTextProps, ProcessBandProps, ProcessStageListProps, ProcessStageProps, QuoteLinkProps, RevealProps, StateCopyProps } from "@/shared/types";
+import type { ActionLinkProps, ContactPanelProps, FeedbackBoundaryProps, PageFrameProps, PageHeroProps, PageHeroTextProps, PageLeadProps, PageTitleProps, ProcessBandProps, ProcessStageListProps, ProcessStageProps, QuoteLinkProps, RevealProps, StateCopyProps } from "@/shared/types";
 
 export function ActionLink({ action, className }: ActionLinkProps) {
   return (
@@ -90,12 +91,20 @@ export function PageFrame({ page, children }: PageFrameProps) {
   );
 }
 
+export function PageTitle({ className, children }: PageTitleProps) {
+  return <h1 className={cn("max-w-[46rem] text-balance text-(length:--text-3xl) leading-[1.15] font-semibold tracking-[-0.02em] max-[1000px]:text-(length:--text-2xl)", className)}>{children}</h1>;
+}
+
+export function PageLead({ children }: PageLeadProps) {
+  return <p className="mt-[22px] max-w-[42rem] text-(length:--text-base) text-muted leading-[1.55]">{children}</p>;
+}
+
 function PageHeroText({ eyebrow, title, description }: PageHeroTextProps) {
   return (
     <>
       <Badge>{eyebrow}</Badge>
-      <h1 className="max-w-[46rem] text-balance text-(length:--text-3xl) leading-[1.15] font-semibold tracking-[-0.02em] max-[1000px]:text-(length:--text-2xl)">{title}</h1>
-      <p className="mt-[22px] max-w-[42rem] text-(length:--text-base) text-muted leading-[1.55]">{description}</p>
+      <PageTitle>{title}</PageTitle>
+      <PageLead>{description}</PageLead>
     </>
   );
 }
