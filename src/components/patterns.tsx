@@ -1,4 +1,4 @@
-import { ArrowUpRight, ChevronRight, Pause, Play, CalendarDays, Code, FlaskConical, Lightbulb, LayoutDashboard, PenTool, Rocket, type LucideIcon } from "lucide-react";
+import { ArrowUpRight, ChevronRight, Pause, Play, Volume2, VolumeX, CalendarDays, Code, FlaskConical, Lightbulb, LayoutDashboard, PenTool, Rocket, type LucideIcon } from "lucide-react";
 import { buttonClasses } from "@/shared/ui/buttons.tsx";
 import { Link, ErrorBoundary } from "@/shared/ui/links.tsx";
 import { Container } from "@/shared/ui/containers.tsx";
@@ -11,7 +11,7 @@ import { useVideoPlayback } from "@/shared/hooks/use-video-playback.hook.ts";
 import { Badge } from "@/shared/ui/badges.tsx";
 import { cn } from "@/shared/utils/cn.util.ts";
 import { PROCESS_STAGES } from "@/shared/utils/process-stages.util.ts";
-import type { ActionLinkProps, BreadcrumbProps, ContactPanelProps, FeedbackBoundaryProps, PageFrameProps, PageHeroProps, PageHeroTextProps, PageLeadProps, PageTitleProps, ProcessBandProps, ReelToggleProps, ReelVideoProps, ProcessStageListProps, ProcessStageProps, ContactButtonProps, RevealProps, StateCopyProps } from "@/shared/types";
+import type { ActionLinkProps, BreadcrumbProps, ContactPanelProps, FeedbackBoundaryProps, PageFrameProps, PageHeroProps, PageHeroTextProps, PageLeadProps, PageTitleProps, ProcessBandProps, ReelSoundProps, ReelToggleProps, ReelVideoProps, ProcessStageListProps, ProcessStageProps, ContactButtonProps, RevealProps, StateCopyProps } from "@/shared/types";
 
 export function ActionLink({ action, className }: ActionLinkProps) {
   return (
@@ -53,12 +53,27 @@ export function FeedbackBoundary({ children }: FeedbackBoundaryProps) {
 }
 
 const REEL_FRAME = "relative h-[440px] overflow-hidden rounded-[28px] bg-night";
-const REEL_BUTTON = "absolute bottom-3 right-3 row-center justify-center size-11 rounded-full bg-paper/80 text-text backdrop-blur-md cursor-pointer";
+const REEL_BUTTON = "row-center justify-center size-11 rounded-full bg-paper/80 text-text backdrop-blur-md cursor-pointer";
 
 function ReelToggle({ paused, onToggle }: ReelToggleProps) {
   const { reelPause, reelPlay } = useContent();
   const Icon = paused ? Play : Pause;
   return <button type="button" className={REEL_BUTTON} aria-label={paused ? reelPlay : reelPause} onClick={onToggle}><Icon size={20} strokeWidth={1.8} aria-hidden="true" /></button>;
+}
+
+function ReelSound({ sound, onToggle }: ReelSoundProps) {
+  const { soundOn, soundOff } = useContent();
+  const Icon = sound ? Volume2 : VolumeX;
+  return <button type="button" className={REEL_BUTTON} aria-label={sound ? soundOff : soundOn} onClick={onToggle}><Icon size={20} strokeWidth={1.8} aria-hidden="true" /></button>;
+}
+
+function ReelControls({ player }: ReelVideoProps) {
+  return (
+    <div className="absolute bottom-3 right-3 flex gap-2">
+      <ReelSound sound={player.sound} onToggle={player.toggleSound} />
+      <ReelToggle paused={player.paused} onToggle={player.toggle} />
+    </div>
+  );
 }
 
 const REEL_VIDEO = "absolute inset-0 size-full object-cover";
@@ -71,13 +86,13 @@ function ReelVideo({ player }: ReelVideoProps) {
   );
 }
 
-/** A silent, decorative motion video for the home hero, still on its poster when the visitor asks for less motion. */
+/** A decorative motion video for the home hero: it plays only on screen, silent until the visitor asks for sound, and stays on its poster when they ask for less motion. */
 export function HeroReel() {
   const player = useVideoPlayback();
   return (
     <div className={REEL_FRAME}>
       <ReelVideo player={player} />
-      <ReelToggle paused={player.paused} onToggle={player.toggle} />
+      <ReelControls player={player} />
     </div>
   );
 }

@@ -59,6 +59,11 @@ export type ReelVideoProps = {
   player: VideoPlayback;
 };
 
+export type ReelSoundProps = {
+  sound: boolean;
+  onToggle: () => void;
+};
+
 export type ReelToggleProps = {
   paused: boolean;
   onToggle: () => void;

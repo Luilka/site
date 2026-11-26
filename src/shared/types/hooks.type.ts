@@ -3,7 +3,9 @@ import type { FocusEvent, KeyboardEvent, RefObject } from "react";
 export type VideoPlayback = {
   ref: RefObject<HTMLVideoElement | null>;
   paused: boolean;
+  sound: boolean;
   toggle: () => void;
+  toggleSound: () => void;
 };
 
 export type MobileMenuState = {

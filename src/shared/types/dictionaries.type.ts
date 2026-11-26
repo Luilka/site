@@ -161,6 +161,8 @@ export type Dictionary = {
   closeLabel: string;
   reelPause: string;
   reelPlay: string;
+  soundOn: string;
+  soundOff: string;
   mobileNavigationLabel: string;
   breadcrumb: BreadcrumbCopy;
   home: HomeCopy;

@@ -62,7 +62,7 @@ Les jetons sont dans `src/globale.css` : `--paper` (blanc), `--text`, `--night` 
 
 ## Héros de l'accueil
 
-`HeroReel` (`patterns.tsx`) joue `public/video/hero-reel.mp4`, une vidéo de motion design muette en boucle, avec l'image fixe `hero-reel-poster.webp` (D-021). Elle est décorative, masquée aux lecteurs d'écran, et reste sur l'image sous `prefers-reduced-motion` et avec l'économie de données (`prefers-still.util.ts`, `use-video-playback.hook.ts`). Un bouton Pause nommé la contrôle. La source de la pièce est `motion/hero-reel/timeline.html`.
+`HeroReel` (`patterns.tsx`) joue `public/video/hero-reel.mp4`, une vidéo de motion design en boucle, seulement à l'écran (`IntersectionObserver`), son coupé jusqu'au clic sur le bouton de son, avec l'image fixe `hero-reel-poster.webp` (D-021). Elle est décorative, masquée aux lecteurs d'écran, et reste sur l'image sous `prefers-reduced-motion` et avec l'économie de données (`prefers-still.util.ts`, `use-video-playback.hook.ts`). Un bouton Pause nommé la contrôle. La source de la pièce est `motion/hero-reel/timeline.html`.
 
 ## Cartes de réalisations et de produits
 

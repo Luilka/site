@@ -25,7 +25,7 @@ afterEach(() => {
 });
 
 describe("hero reel", () => {
-  it("plays a silent looping video from a still poster, decorative and inline on phones", () => {
+  it("plays a looping video, silent until the visitor asks for sound, from a still poster, decorative and inline on phones", () => {
     const { container } = render(<HeroReel />);
     const video = container.querySelector("video") as HTMLVideoElement;
     expect(video.muted).toBe(true);
@@ -34,6 +34,7 @@ describe("hero reel", () => {
     expect(video.getAttribute("poster")).toBe("/video/hero-reel-poster.webp");
     expect(video.getAttribute("aria-hidden")).toBe("true");
     expect(video.querySelector("source")?.getAttribute("src")).toBe("/video/hero-reel.mp4");
+    expect(video.querySelector("source")?.getAttribute("type")).toBe("video/mp4");
   });
 
   it("fills the frame and loads only its metadata until it plays", () => {
@@ -75,6 +76,84 @@ describe("hero reel", () => {
   it("survives a browser that refuses to autoplay", () => {
     play.mockRejectedValue(new Error("blocked"));
     expect(() => render(<HeroReel />)).not.toThrow();
+  });
+});
+
+type Watcher = (entries: { isIntersecting: boolean }[]) => void;
+
+function mockViewport(): { show: (visible: boolean) => void } {
+  let watcher: Watcher = () => undefined;
+  class FakeObserver {
+    constructor(callback: Watcher) { watcher = callback; }
+    observe(): void {}
+    disconnect(): void {}
+  }
+  vi.stubGlobal("IntersectionObserver", FakeObserver);
+  return { show: (visible) => act(() => watcher([{ isIntersecting: visible }])) };
+}
+
+describe("hero reel sound", () => {
+  it("offers a named sound button of 44 pixels that starts off", () => {
+    render(<HeroReel />);
+    const button = screen.getByRole("button", { name: dictionaries.fr.soundOn });
+    expect(button.className).toContain("size-11");
+    expect(document.querySelector("video")?.muted).toBe(true);
+  });
+
+  it("turns the sound on and off with the button", () => {
+    render(<HeroReel />);
+    fireEvent.click(screen.getByRole("button", { name: dictionaries.fr.soundOn }));
+    expect(document.querySelector("video")?.muted).toBe(false);
+    fireEvent.click(screen.getByRole("button", { name: dictionaries.fr.soundOff }));
+    expect(document.querySelector("video")?.muted).toBe(true);
+  });
+
+  it("falls back to silence when the browser refuses the sound", async () => {
+    play.mockImplementation(function (this: HTMLMediaElement) { return this.muted ? Promise.resolve() : Promise.reject(new Error("blocked")); });
+    render(<HeroReel />);
+    fireEvent.click(screen.getByRole("button", { name: dictionaries.fr.soundOn }));
+    expect(await screen.findByRole("button", { name: dictionaries.fr.soundOn })).toBeTruthy();
+    expect(document.querySelector("video")?.muted).toBe(true);
+  });
+
+  it("is written in both languages", () => {
+    for (const language of ["fr", "en"] as const) {
+      expect(dictionaries[language].soundOn.length).toBeGreaterThan(0);
+      expect(dictionaries[language].soundOff.length).toBeGreaterThan(0);
+    }
+  });
+});
+
+describe("hero reel viewport", () => {
+  it("waits to be on screen before it plays", () => {
+    const viewport = mockViewport();
+    render(<HeroReel />);
+    expect(play).not.toHaveBeenCalled();
+    viewport.show(true);
+    expect(play).toHaveBeenCalled();
+  });
+
+  it("stops, sound included, as soon as it leaves the screen, and plays again on return", () => {
+    const viewport = mockViewport();
+    render(<HeroReel />);
+    viewport.show(true);
+    fireEvent.click(screen.getByRole("button", { name: dictionaries.fr.soundOn }));
+    pause.mockClear();
+    viewport.show(false);
+    expect(pause).toHaveBeenCalled();
+    play.mockClear();
+    viewport.show(true);
+    expect(play).toHaveBeenCalled();
+    expect(document.querySelector("video")?.muted).toBe(false);
+  });
+
+  it("stays still when it is on screen but the visitor asked for less motion", () => {
+    mockStill(true);
+    const viewport = mockViewport();
+    render(<HeroReel />);
+    play.mockClear();
+    viewport.show(true);
+    expect(play).not.toHaveBeenCalled();
   });
 });
 
