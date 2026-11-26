@@ -1,6 +1,6 @@
 # Proposition : une vidéo de réalisations dans le héros
 
-**Statut** : chemin B retenu et appliqué le 26 novembre 2026 (D-019). Le chemin A reste à venir.
+**Statut** : chemin A appliqué le 26 novembre 2026 (D-021) avec une pièce de motion design construite sur la marque ; le diaporama du chemin B (D-019) est retiré.
 **Propriétaire** : @Espoir-Loem
 **Documents liés** : [recherche UX](recherche-ux-confiance.md), [synthèse du thème](audit-theme.md), [audit des pages](audit-pages-et-concurrence.md)
 
@@ -58,3 +58,19 @@ Taux de clic sur le contact depuis l'accueil (KPI à nommer, Q-004 pour la colle
 1. Chemin B maintenant, A ensuite ?
 2. Budget de poids de la vidéo (proposition : 1 Mo) ?
 3. Quelles réalisations montrer, avec quel accord ?
+
+## Réalisation : la pièce de motion design
+
+Source : `motion/hero-reel/timeline.html`. Chaque image est calculée à partir du temps par une fonction unique `draw(t)`, sans animation automatique du navigateur, donc rejouable et modifiable seconde par seconde.
+
+- **Format** : 1080 sur 880 (le cadre du héros en double densité), 24 images par seconde, 8 secondes, boucle sans coupure (la dernière image rejoint la première), sans son.
+- **Rythme** : une introduction de 0,6 s (logo, parcours en pointillé), puis quatre étapes de 1,7 s, puis 0,8 s de fondu de sortie.
+- **Chaque étape** : le segment du parcours se dessine (accélération puis freinage, `easeInOutCubic`), le point se pose avec un léger dépassement (`easeOutBack`), le chiffre, l'étiquette et les lignes de texte montent derrière un masque en cascade (`easeOutExpo`, décalage de 0,1 s), puis le tout sort en accélérant (`easeInCubic`) pendant que l'étape suivante arrive, avec un battement de 0,2 s.
+- **Retenue** : un seul trait doré de 1,5 pixel, un chiffre en serif à fort contraste, pas de lueur, pas de particules, pas de dégradé de maillage. Poussée de caméra de 3,5 % sur toute la durée.
+- **Texte** : les quatre descriptions de la page d'accueil, mot pour mot.
+- **Poids** : 202 Ko (MP4), contre un budget de 1 Mo.
+
+Rendu : ouvrir la page dans Chrome, appeler `draw(t)` pour `t = i / 24`, capturer 192 images, encoder en H.264 (`crf 26`, `yuv420p`, `faststart`). L'image fixe est la capture à 1,65 s.
+
+Limites : la pièce montre la méthode, pas les réalisations réelles ; elle sera à remplacer ou à compléter par vos enregistrements d'écran avec l'accord des clients. Aucun test de visiteurs n'a été fait.
+

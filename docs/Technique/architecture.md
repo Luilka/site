@@ -58,11 +58,11 @@ Les couvertures actuelles sont des illustrations abstraites en `svg` (`public/im
 
 ## Couleurs
 
-Les jetons sont dans `src/globale.css` : `--paper`, `--text` et `--night` (noir et blanc), `--graphite`, `--gray`, `--muted`, `--border-ui`, et l'unique `--accent` (D-020). Les illustrations de `public/images/` n'emploient que ces valeurs ; un test refuse le retour de l'ancien bleu et de l'ancien violet.
+Les jetons sont dans `src/globale.css` : `--paper` (crème), `--text`, `--night` (vert nuit), `--gray` (sable), `--muted`, `--border-ui`, `--accent` (forêt, l'action) et `--gold` (détails, texte sur fond sombre seulement) (D-021). Les illustrations de `public/images/` n'emploient que ces valeurs ; un test refuse le retour de l'ancien bleu et de l'ancien violet.
 
 ## Héros de l'accueil
 
-`HeroReel` (`patterns.tsx`) empile les couvertures des réalisations et fait un fondu de l'une à l'autre toutes les 4 secondes (`use-reel.hook.ts`). Le diaporama est décoratif, masqué aux lecteurs d'écran, et s'arrête sous `prefers-reduced-motion` et avec l'économie de données (`prefers-still.util.ts`). Un bouton Pause nommé le contrôle. Une boucle vidéo viendra dans le même composant (D-019).
+`HeroReel` (`patterns.tsx`) joue `public/video/hero-reel.mp4`, une vidéo de motion design muette en boucle, avec l'image fixe `hero-reel-poster.webp` (D-021). Elle est décorative, masquée aux lecteurs d'écran, et reste sur l'image sous `prefers-reduced-motion` et avec l'économie de données (`prefers-still.util.ts`, `use-video-playback.hook.ts`). Un bouton Pause nommé la contrôle. La source de la pièce est `motion/hero-reel/timeline.html`.
 
 ## Cartes de réalisations et de produits
 

@@ -1,6 +1,6 @@
 # Synthèse du thème : confiance, sérieux, conversion
 
-**Statut** : version 2, 26 novembre 2026, **appliquée** par D-020 (accent vert profond). Restent à faire : jetons nommés par rôle, jetons d'état, rayons réduits à trois, redessin des illustrations en fragments d'interface.
+**Statut** : version 2, 26 novembre 2026, **appliquée** par D-021 (palette de luxe : forêt, or, crème), qui remplace le vert `#0c5a41` de D-020. Restent à faire : jetons nommés par rôle, jetons d'état, rayons réduits à trois, redessin des illustrations en fragments d'interface.
 **Propriétaire** : @Espoir-Loem
 **Documents liés** : [décisions](../Product/decisions.md), [audit des pages](audit-pages-et-concurrence.md), [principes de design](design-principles.md), [vision](../Product/vision.md)
 **Sources** : notes de `research_notes/Positionnement design Luilka Afrique Congo/`, palettes de 12 sites mesurées le 26 novembre 2026, calculs de contraste WCAG 2.2.
