@@ -1,12 +1,12 @@
 import { ArrowUpRight, ChevronRight, CalendarDays } from "lucide-react";
 import { buttonClasses } from "@/shared/ui/buttons.tsx";
-import { AppLink, ErrorBoundary } from "@/shared/ui/links.tsx";
+import { Link, ErrorBoundary } from "@/shared/ui/links.tsx";
 import { Container } from "@/shared/ui/containers.tsx";
 import { useContent } from "@/shared/i18n";
 import type { HTMLAttributes } from "react";
 import { useRetry } from "@/shared/hooks/use-retry.hook.ts";
 import Errors from "@/routes/errors.tsx";
-import { MotionBox } from "@/shared/ui/motion-boxes.tsx";
+import { motion } from "motion/react";
 import { Badge } from "@/shared/ui/badges.tsx";
 import { PROCESS_STAGES } from "@/shared/utils/process-stages.util.ts";
 import { CONTACT_MAILTO } from "@/shared/utils/contact-mailto.util.ts";
@@ -14,10 +14,10 @@ import type { ActionLinkProps, ContactPanelProps, FeedbackBoundaryProps, PageFra
 
 export function ActionLink({ action, className }: ActionLinkProps) {
   return (
-    <AppLink className={buttonClasses("outline", className)} href={action.href}>
+    <Link className={buttonClasses("outline", className)} href={action.href}>
       {action.label}
       <ArrowUpRight size={10} strokeWidth={1.8} aria-hidden="true" />
-    </AppLink>
+    </Link>
   );
 }
 
@@ -59,7 +59,7 @@ const ENTRANCE = {
 
 export function HeroAccent() {
   return (
-    <MotionBox
+    <motion.div
       data-testid="motion-accent"
       aria-hidden="true"
       className="absolute inset-6 rounded-full border border-white/20"
@@ -74,7 +74,7 @@ export function NotFoundPanel() {
     <StatePanel>
       <span className="state-code" aria-hidden="true">{copy.code}</span>
       <StateCopy title={copy.title} description={copy.description} />
-      <AppLink className="btn btn-dark state-action" href="/">{copy.action}</AppLink>
+      <Link className="btn btn-dark state-action" href="/">{copy.action}</Link>
     </StatePanel>
   );
 }
@@ -147,9 +147,9 @@ export function QuoteLink({ variant = "primary", className }: QuoteLinkProps) {
 
 export function Reveal({ children, className }: RevealProps) {
   return (
-    <MotionBox className={className} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
+    <motion.div className={className} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
       {children}
-    </MotionBox>
+    </motion.div>
   );
 }
 

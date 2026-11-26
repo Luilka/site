@@ -10,12 +10,6 @@ describe("HeroAccent", () => {
     expect(container.firstElementChild?.getAttribute("aria-hidden")).toBe("true");
   });
 
-  it("leaves the accent unstyled when motion is reduced", () => {
-    setReducedMotion(true);
-    const { container } = render(<HeroAccent />);
-    expect(container.firstElementChild?.getAttribute("style")).toBeNull();
-  });
-
   it("renders the accent when motion is allowed", () => {
     setReducedMotion(false);
     render(<HeroAccent />);

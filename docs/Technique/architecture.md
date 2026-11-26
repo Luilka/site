@@ -28,7 +28,7 @@ Le serveur Python valide la langue et le slug avec `notFound()` de Nexy, à part
 | `src/components/cards.tsx` | Les cartes qui représentent un élément | `ProductCard`, `WorkCard` |
 | `src/components/patterns.tsx` | Les blocs réutilisés par plusieurs pages | `PageFrame`, `ContactPanel` |
 | `src/components/layout.tsx` | Ce qui entoure toutes les pages | `Header`, `Footer`, `NavEntry` |
-| `src/shared/ui/` | Les atomes sans connaissance du site, un fichier pluriel chacun | `buttons.tsx`, `links.tsx`, `motion-boxes.tsx` |
+| `src/shared/ui/` | Les atomes sans connaissance du site, un fichier pluriel chacun | `buttons.tsx`, `links.tsx` |
 | `src/shared/hooks/` | La logique d'interface réutilisable | `use-open-menu.hook.ts`, `use-newsletter.hook.ts` |
 | `src/shared/utils/` | Les fonctions pures, TypeScript et Python | `detail-href.util.ts`, `validate-email.util.ts`, `detail_slugs.py` |
 | `src/shared/i18n/` | La langue et le contenu | `dictionaries.i18n.ts`, `use-content.i18n.ts` |
@@ -42,7 +42,7 @@ Les dépendances vont dans un seul sens : `routes` vers `sections`, puis `cards`
 - Un composant ne fait que du rendu. Son état et ses événements viennent d'un hook.
 - Les trois collections de la page d'accueil (services, produits, réalisations) passent par `CollectionSection` de `sections.tsx`, qui reçoit les données et la façon de rendre une carte.
 - Les liens passent par `src/shared/ui/links.tsx`, qui ajoute le préfixe de langue à l'adresse.
-- Les mouvements passent par `src/shared/ui/motion-boxes.tsx`, qui respecte `prefers-reduced-motion`.
+- Les mouvements utilisent `motion.div` de Motion directement. `MotionConfig reducedMotion="user"` dans `src/routes/layout.tsx` respecte `prefers-reduced-motion` pour toute la page.
 - Les textes viennent du dictionnaire. Un texte visible écrit en dur dans un composant est un défaut.
 
 ## Contenu et langue

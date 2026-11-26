@@ -32,7 +32,6 @@ def test_atoms_use_plural_file_names() -> None:
         "inputs.tsx",
         "links.tsx",
         "icon-tiles.tsx",
-        "motion-boxes.tsx",
     )
     for name in expected:
         assert (SHARED / "ui" / name).is_file(), name

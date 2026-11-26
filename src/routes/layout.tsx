@@ -1,3 +1,4 @@
+import { MotionConfig } from "motion/react";
 import type { ReactNode } from "react";
 import { useUrlLanguage } from "@/shared/i18n";
 import { Footer, Header, IconSprite } from "@/components/layout.tsx";
@@ -31,7 +32,7 @@ function DocumentBody({ children }: { children: ReactNode }) {
     <body>
       <IconSprite />
       <Header />
-      <main>{children}</main>
+      <main><MotionConfig reducedMotion="user">{children}</MotionConfig></main>
       <Footer />
     </body>
   );

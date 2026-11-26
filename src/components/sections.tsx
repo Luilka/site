@@ -3,7 +3,7 @@ import { ActionLink, ContactPanel, PageHero, NotFoundPanel } from "@/components/
 import type { SectionProps } from "@/shared/types/section-props.type.ts";
 import { infoHref } from "@/shared/utils/info-href.util.ts";
 import type { AboutSectionProps, AboutTextProps, CardGridProps, CollectionSectionProps, DetailBackLinkProps, DetailBodyProps, DetailCardProps, DetailPageProps, DetailRouteViewProps, HeadingTextProps, InfoCard, InfoCardBodyProps, InfoCardProps, InfoSectionProps, ProcessSectionProps, SectionHeadingProps } from "@/shared/types";
-import { AppLink } from "@/shared/ui/links.tsx";
+import { Link } from "@/shared/ui/links.tsx";
 import { Card } from "@/shared/ui/cards.tsx";
 import { Badge } from "@/shared/ui/badges.tsx";
 import { StepCard, ProductCard, ServiceCard, WorkCard } from "@/components/cards.tsx";
@@ -55,7 +55,7 @@ function InfoCardBody({ title, meta, description }: InfoCardBodyProps) {
 
 function InfoCard({ href, ...copy }: InfoCardProps) {
   if (!href) return <Card className="info-card"><InfoCardBody {...copy} /></Card>;
-  return <AppLink className="card info-card" href={href}><InfoCardBody {...copy} /></AppLink>;
+  return <Link className="card info-card" href={href}><InfoCardBody {...copy} /></Link>;
 }
 
 export function InfoSection({ items, detail, ...section }: InfoSectionProps) {
@@ -139,9 +139,9 @@ export function CollectionSection<T>({ id, className, gridClassName, items, getK
 
 function DetailBackLink({ detail }: DetailBackLinkProps) {
   return (
-    <AppLink className="btn-outline" href={detail.backHref}>
+    <Link className="btn-outline" href={detail.backHref}>
       <ArrowLeft size={14} strokeWidth={1.8} aria-hidden="true" />{detail.backLabel}
-    </AppLink>
+    </Link>
   );
 }
 

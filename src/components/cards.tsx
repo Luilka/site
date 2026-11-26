@@ -1,6 +1,6 @@
 import { Boxes, Grid2X2, ImageIcon, Layers3, MessageSquare, PenTool, ShieldCheck, Sparkles, type LucideIcon, ArrowUpRight } from "lucide-react";
 import { detailHref } from "@/shared/utils/detail-href.util.ts";
-import { AppLink } from "@/shared/ui/links.tsx";
+import { Link } from "@/shared/ui/links.tsx";
 import { IconTile } from "@/shared/ui/icon-tiles.tsx";
 import { Card } from "@/shared/ui/cards.tsx";
 import type { CardIconProps, CardWatermarkProps, ProductCardProps, ProductHeaderProps, ProductTitleProps, ServiceCardProps, StepCardProps, StepTextProps, WorkCardProps, WorkInfoProps, WorkWhoProps } from "@/shared/types";
@@ -52,22 +52,22 @@ function ProductHeader({ name }: ProductHeaderProps) {
 
 export function ProductCard({ slug, name, description }: ProductCardProps) {
   return (
-    <AppLink className="card prod" href={detailHref("products", slug)}>
+    <Link className="card prod" href={detailHref("products", slug)}>
       <ArrowUpRight className="arrow absolute right-3" size={24} strokeWidth={1.5} aria-hidden="true" />
       <ProductHeader name={name} />
       <p>{description}</p>
       <CardWatermark name={name} />
-    </AppLink>
+    </Link>
   );
 }
 
 export function ServiceCard({ slug, title, description, shape }: ServiceCardProps) {
   return (
-    <AppLink className="card svc" href={detailHref("services", slug)}>
+    <Link className="card svc" href={detailHref("services", slug)}>
       <div className="ico" style={shape ? { borderRadius: shape } : undefined}><CardIcon name={title} /></div>
       <h3>{title}</h3>
       <p>{description}</p>
-    </AppLink>
+    </Link>
   );
 }
 
@@ -109,9 +109,9 @@ function WorkInfo({ name, kind, caseLabel }: WorkInfoProps) {
 
 export function WorkCard({ slug, name, kind = "Particulier", caseLabel = "Cas d'étude" }: WorkCardProps) {
   return (
-    <AppLink className="card work" href={detailHref("work", slug)}>
+    <Link className="card work" href={detailHref("work", slug)}>
       <CardWatermark name={name} />
       <WorkInfo name={name} kind={kind} caseLabel={caseLabel} />
-    </AppLink>
+    </Link>
   );
 }

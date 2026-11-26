@@ -60,7 +60,7 @@ Chaque principe a un énoncé, un contre-exemple et un lien vers sa source. Un �
 
 **Contre-exemple.** Une animation en boucle sur un bandeau, ou un contenu masqué tant que l'animation n'a pas fini.
 
-**Lien.** `src/shared/ui/motion-boxes.tsx`, WCAG 2.2 critère 2.3.3.
+**Lien.** `src/routes/layout.tsx`, WCAG 2.2 critère 2.3.3.
 
 ## 8. Un menu qui se lit au clavier
 

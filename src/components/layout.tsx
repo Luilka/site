@@ -1,4 +1,4 @@
-import { AppLink } from "@/shared/ui/links.tsx";
+import { Link } from "@/shared/ui/links.tsx";
 import { useContent, useLanguageSwitch, navigation } from "@/shared/i18n";
 import { Container } from "@/shared/ui/containers.tsx";
 import { Mail, ChevronDown, CalendarDays, ArrowUpRight, CircleAlert, CircleCheck } from "lucide-react";
@@ -13,12 +13,12 @@ import type { FooterColumnProps, MegaAsideProps, MegaCardProps, MegaCardTextProp
 
 export function BrandMark() {
   return (
-    <AppLink className="logo" href="/" aria-label="Luilka, accueil">
+    <Link className="logo" href="/" aria-label="Luilka, accueil">
       <svg aria-hidden="true">
         <use href="#finger" />
       </svg>
       Luilka
-    </AppLink>
+    </Link>
   );
 }
 
@@ -76,7 +76,7 @@ function FooterColumn({ title, links }: FooterColumnProps) {
   return (
     <div className="fcol">
       <h4>{title}</h4>
-      {links.map((link) => <AppLink key={link.label} href={link.href}>{link.label}</AppLink>)}
+      {links.map((link) => <Link key={link.label} href={link.href}>{link.label}</Link>)}
     </div>
   );
 }
@@ -153,9 +153,9 @@ function MainNavigation() {
 function ContactLink() {
   const { contactAction } = useContent();
   return (
-    <AppLink className="btn-outline bg-transparent! border-gray-400!" href="/contact">
+    <Link className="btn-outline bg-transparent! border-gray-400!" href="/contact">
       {contactAction}<CalendarDays size={14} strokeWidth={1.8} aria-hidden="true" />
-    </AppLink>
+    </Link>
   );
 }
 
@@ -172,9 +172,9 @@ function FlagMark() {
 function LanguageToggle() {
   const { language, next, label, page } = useLanguageSwitch();
   return (
-    <AppLink className="lang" href={page} language={next} aria-label={label}>
+    <Link className="lang" href={page} language={next} aria-label={label}>
       <FlagMark />{language.toUpperCase()}<ChevronDown size={14} strokeWidth={2.5} aria-hidden="true" />
-    </AppLink>
+    </Link>
   );
 }
 
@@ -232,10 +232,10 @@ function MegaCardText({ item }: MegaCardTextProps) {
 
 function MegaCard({ item, onClose }: MegaCardProps) {
   return (
-    <AppLink className="mega-card" href={item.href} onClick={onClose}>
+    <Link className="mega-card" href={item.href} onClick={onClose}>
       <div className="mega-media"><img src={item.image} alt="" /></div>
       <MegaCardText item={item} />
-    </AppLink>
+    </Link>
   );
 }
 
@@ -249,10 +249,10 @@ export function MegaGrid({ items, onClose }: MegaGridProps) {
 
 function NavTrigger({ item, id, open }: NavTriggerProps) {
   return (
-    <AppLink className="nav-trigger" href={item.href} aria-haspopup="true" aria-expanded={open} aria-controls={id}>
+    <Link className="nav-trigger" href={item.href} aria-haspopup="true" aria-expanded={open} aria-controls={id}>
       {item.label}
       <ChevronDown size={16} strokeWidth={2.5} aria-hidden="true" />
-    </AppLink>
+    </Link>
   );
 }
 
@@ -280,7 +280,7 @@ function MegaAside({ menu, onClose }: MegaAsideProps) {
   return (
     <aside className="mega-aside">
       <h3>{dropdown.linksTitle}</h3>
-      {dropdown.links.map((link) => <AppLink key={link.label} href={link.href} onClick={onClose}>{link.label}</AppLink>)}
+      {dropdown.links.map((link) => <Link key={link.label} href={link.href} onClick={onClose}>{link.label}</Link>)}
     </aside>
   );
 }
@@ -308,7 +308,7 @@ function NavDropdown({ item, open, onOpen, onClose }: NavDropdownProps) {
 }
 
 export function NavEntry({ item, menu }: NavEntryProps) {
-  if (!item.menu) return <AppLink href={item.href} onMouseEnter={menu.close}>{item.label}</AppLink>;
+  if (!item.menu) return <Link href={item.href} onMouseEnter={menu.close}>{item.label}</Link>;
   const key = item.menu;
   return <NavDropdown item={item} open={menu.current === key} onOpen={() => menu.open(key)} onClose={menu.close} />;
 }

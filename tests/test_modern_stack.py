@@ -74,3 +74,10 @@ def test_content_has_french_and_english_dictionaries() -> None:
 def test_ci_runs_on_the_three_branches() -> None:
     workflow = (ROOT / ".github" / "workflows" / "ci.yml").read_text(encoding="utf-8")
     assert all(name in workflow for name in ("develop", "staging", "main"))
+
+
+def test_motion_follows_the_reduced_motion_preference_from_the_root_layout() -> None:
+    layout = (SRC / "routes" / "layout.tsx").read_text(encoding="utf-8")
+    assert 'MotionConfig reducedMotion="user"' in layout
+    patterns = (SRC / "components" / "patterns.tsx").read_text(encoding="utf-8")
+    assert "<motion.div" in patterns

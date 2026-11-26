@@ -5,7 +5,7 @@ import { Button } from "@/shared/ui/buttons.tsx";
 import { Card } from "@/shared/ui/cards.tsx";
 import { Container } from "@/shared/ui/containers.tsx";
 import { Input } from "@/shared/ui/inputs.tsx";
-import { AppLink } from "@/shared/ui/links.tsx";
+import { Link } from "@/shared/ui/links.tsx";
 import { cn } from "@/shared/utils/cn.util.ts";
 
 describe("design system atoms", () => {
@@ -35,7 +35,7 @@ describe("design system atoms", () => {
   });
 
   it("renders internal links as semantic anchors", () => {
-    render(<AppLink href="/about">A propos</AppLink>);
+    render(<Link href="/about">A propos</Link>);
     expect(screen.getByRole("link", { name: "A propos" }).getAttribute("href")).toBe("/fr/about");
   });
 });

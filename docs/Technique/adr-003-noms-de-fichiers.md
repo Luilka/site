@@ -31,7 +31,7 @@ Retenir un fichier pluriel par famille pour les TSX, avec des exports nommés.
 | Cadre du site | `src/components/layout.tsx` |
 | Blocs partagés | `src/components/patterns.tsx` |
 | Sections de page | `src/components/sections.tsx` |
-| Atomes | `src/shared/ui/buttons.tsx`, `links.tsx`, `cards.tsx`, `badges.tsx`, `inputs.tsx`, `containers.tsx`, `icon-tiles.tsx`, `motion-boxes.tsx` |
+| Atomes | `src/shared/ui/buttons.tsx`, `links.tsx`, `cards.tsx`, `badges.tsx`, `inputs.tsx`, `containers.tsx`, `icon-tiles.tsx` |
 
 Règles communes :
 - Un composant déclaré pour un seul fichier est déclaré dans ce fichier. `src/routes/layout.tsx` contient son document, `src/routes/[lang]/index.tsx` ses sections d'accueil.

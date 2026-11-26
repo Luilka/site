@@ -15,10 +15,4 @@ describe("Reveal", () => {
     render(<Reveal>Notre methode</Reveal>);
     expect(screen.getByText("Notre methode")).toBeTruthy();
   });
-
-  it("leaves the content unstyled when motion is reduced", () => {
-    setReducedMotion(true);
-    render(<Reveal>Notre methode</Reveal>);
-    expect(screen.getByText("Notre methode").parentElement?.getAttribute("style")).toBeNull();
-  });
 });

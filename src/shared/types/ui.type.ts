@@ -1,7 +1,6 @@
 import type { Language } from "./site.type.ts";
 import type { ButtonHTMLAttributes, HTMLAttributes, InputHTMLAttributes } from "react";
 import type { Href, LinkProps } from "@nexy/client";
-import type { HTMLMotionProps } from "motion/react";
 
 export type ContainerProps = HTMLAttributes<HTMLDivElement>;
 
@@ -17,16 +16,10 @@ export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
 
 export type InputProps = InputHTMLAttributes<HTMLInputElement>;
 
-export type AppLinkProps = Omit<LinkProps, "href"> & {
+export type LocalizedLinkProps = Omit<LinkProps, "href"> & {
   href: Href;
   language?: Language;
 };
 
-export type MotionBoxProps = Pick<HTMLMotionProps<"div">, "initial" | "animate" | "transition"> & {
-  className?: string;
-  children?: React.ReactNode;
-  "aria-hidden"?: boolean | "true" | "false";
-  "data-testid"?: string;
-};
 
 export type CardProps = HTMLAttributes<HTMLDivElement>;
