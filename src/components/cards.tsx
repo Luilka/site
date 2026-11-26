@@ -36,7 +36,7 @@ function ProductTitle({ name }: ProductTitleProps) {
   return (
     <div>
       <h3 className="text-(length:--text-xl) font-semibold leading-[1.2]">{name}</h3>
-      <small className="px-1 mt-2 text-(length:--text-xs) text-[#6a6a74] block leading-[1]">Luilka</small>
+      <small className="px-1 mt-2 text-(length:--text-xs) text-muted block leading-[1]">Luilka</small>
     </div>
   );
 }
@@ -93,7 +93,7 @@ function WorkWho({ name, kind }: WorkWhoProps) {
   return (
     <div className="flex items-center gap-2">
       <div className="flex shrink-0 items-center justify-center w-[42px] h-[42px] rounded-[10px] bg-[#b8bac4] text-[#e8e8ee]"><CardIcon name={name} size={22} /></div>
-      <div><h3 className="m-0 text-(length:--text-sm) font-semibold block leading-[1.1]">{name}</h3><span className="text-(length:--text-xs) text-[#4d4d55] block">{kind}</span></div>
+      <div><h3 className="m-0 text-(length:--text-sm) font-semibold block leading-[1.1]">{name}</h3><span className="text-(length:--text-xs) text-muted block">{kind}</span></div>
     </div>
   );
 }

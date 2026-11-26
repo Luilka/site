@@ -27,6 +27,17 @@ describe("design consistency", () => {
     }
   });
 
+  it("keeps the small text of the product and case cards above the AA contrast", () => {
+    const { container } = render(
+      <>
+        <ProductCard slug="product" name="Tala" description="Texte" />
+        <WorkCard slug="work" name="Yano" kind="UX Design" />
+      </>,
+    );
+    expect(container.querySelector("small")?.className).toContain("text-muted");
+    expect(screen.getByText("UX Design").className).toContain("text-muted");
+  });
+
   it("keeps both dropdowns without punctuation in their labels", () => {
     render(<Header />);
     for (const label of ["Services", "Produits"]) {
