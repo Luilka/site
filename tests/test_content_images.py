@@ -12,9 +12,7 @@ VIEWBOX = re.compile(r'viewBox="0 0 (\d+) (\d+)"')
 
 def entries() -> list[tuple[str, str, dict[str, object]]]:
     return [
-        (kind, slug, image)
-        for kind, items in REGISTRY.items()
-        for slug, image in items.items()
+        (kind, slug, image) for kind, items in REGISTRY.items() for slug, image in items.items()
     ]
 
 

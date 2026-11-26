@@ -119,4 +119,3 @@ def test_cards_and_detail_pages_share_the_cover_transition_name() -> None:
     assert "viewTransitionName" in cards
     assert "viewTransitionName: cover.name" in sections
     assert "coverName(kind, raw.slug)" in detail
-
