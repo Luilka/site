@@ -218,7 +218,7 @@ Demandes ajoutées pendant les corrections : transitions de page (fait, voir [l'
 1. **Réalisations sans images.** Quels projets Luilka peut montrer, avec quelles images, et avec l'accord de qui ? Sans cela, retirer la section ou la remplacer par une explication de méthode.
 2. **Produits Tala, Vuga, Pro.** Existent-ils à montrer (captures, démonstration) ? Si non, les sortir de la page d'accueil. La vision les nomme, mais une carte sans contenu affaiblit les réalisations qui suivent.
 3. **Offres d'emploi.** Garder trois offres de développement sur la page Job est-il cohérent avec la vision d'un studio de design ?
-4. **Couleur signature.** Laquelle, et qui valide qu'elle porte l'ancrage congolais ?
+4. **Couleur signature.** Laquelle, et qui valide qu'elle porte l'ancrage congolais ? Deux propositions avec captures et contrastes sont dans [propositions-couleurs.md](propositions-couleurs.md).
 5. **Ton de la page de détail.** Un cas raconté (type Ojú) ou une fiche courte (type Novacraft) ?
 6. **Ordre de la navigation.** Réalisations en première ou deuxième position, comme chez Pentagram, Instrument, Afrostrength ou frog, au lieu de la quatrième ?
 7. **Journal.** Les trois entrées du blog n'ont qu'une phrase chacune, et leur page ne montre rien de plus. Publier de vraies notes de recherche, comme le fait YUX avec ses publications, ou retirer le journal tant qu'il est vide ?
