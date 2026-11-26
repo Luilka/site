@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Luilka, boucle du héros</title>
+<style>html,body{margin:0;background:#0f221b}svg{display:block}</style>
+</head>
+<body>
+<svg id="stage" xmlns="http://www.w3.org/2000/svg" width="1080" height="880" viewBox="0 0 1080 880"></svg>
+<script>
+const W = 1080, H = 880, FPS = 24, DURATION = 8;
+const GOLD = "#c9a24b", CREAM = "#f6f0e4";
+const STEP = 1.7, FIRST = 0.6;
+const NODES = [[240, 740], [460, 690], [660, 745], [860, 665]];
+const STEPS = [
+  { n: "01", label: "CADRAGE", lines: ["Nous clarifions le problème,", "les personnes concernées et ce que", "le produit doit accomplir."] },
+  { n: "02", label: "DIRECTION VISUELLE", lines: ["Nous définissons le langage visuel,", "la voix et les principes", "qui tiennent l'ensemble."] },
+  { n: "03", label: "DESIGN D'INTERFACE", lines: ["Nous dessinons les parcours et", "les écrans, puis nous les testons", "avec de vrais utilisateurs."] },
+  { n: "04", label: "LIVRAISON", lines: ["Nous remettons des maquettes", "prêtes à l'emploi et un système", "de composants que vos équipes", "peuvent utiliser."] },
+];
+const clamp = (v) => Math.min(1, Math.max(0, v));
+const seg = (t, a, b) => clamp((t - a) / (b - a));
+const easeOutExpo = (x) => (x >= 1 ? 1 : 1 - Math.pow(2, -10 * x));
+const easeInCubic = (x) => x * x * x;
+const easeInOutCubic = (x) => (x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2);
+const easeInOutSine = (x) => -(Math.cos(Math.PI * x) - 1) / 2;
+const easeOutBack = (x) => { const c1 = 1.2, c3 = c1 + 1; return 1 + c3 * Math.pow(x - 1, 3) + c1 * Math.pow(x - 1, 2); };
+
+const NS = "http://www.w3.org/2000/svg";
+const el = (tag, attrs = {}, parent) => {
+  const node = document.createElementNS(NS, tag);
+  for (const [k, v] of Object.entries(attrs)) node.setAttribute(k, v);
+  if (parent) parent.appendChild(node);
+  return node;
+};
+const stage = document.getElementById("stage");
+
+const defs = el("defs", {}, stage);
+const grad = el("radialGradient", { id: "bg", cx: "50%", cy: "44%", r: "75%" }, defs);
+el("stop", { offset: "0", "stop-color": "#1c3f34" }, grad);
+el("stop", { offset: "1", "stop-color": "#0f221b" }, grad);
+el("rect", { width: W, height: H, fill: "url(#bg)" }, stage);
+const scene = el("g", {}, stage);
+
+const route = el("g", { fill: "none", stroke: GOLD, "stroke-width": 1.5, "stroke-linecap": "round" }, scene);
+const curve = (a, b) => `M${a[0]} ${a[1]} C${a[0] + (b[0] - a[0]) / 2} ${a[1]} ${b[0] - (b[0] - a[0]) / 2} ${b[1]} ${b[0]} ${b[1]}`;
+const ghosts = [], drawn = [];
+for (let i = 1; i < NODES.length; i++) {
+  ghosts.push(el("path", { d: curve(NODES[i - 1], NODES[i]), opacity: 0.14, "stroke-dasharray": "2 9" }, route));
+  drawn.push(el("path", { d: curve(NODES[i - 1], NODES[i]), pathLength: 1, "stroke-dasharray": 1, "stroke-dashoffset": 1 }, route));
+}
+const nodes = NODES.map(([x, y]) => {
+  const g = el("g", { transform: `translate(${x} ${y}) scale(0)`, opacity: 0 }, scene);
+  el("circle", { r: 27, fill: "none", stroke: GOLD, "stroke-width": 1.5 }, g);
+  el("circle", { r: 8, fill: GOLD }, g);
+  return g;
+});
+
+const logo = el("g", { opacity: 0 }, scene);
+const FINGERPRINT = "M12 3.75a6.715 6.715 0 0 0-3.722 1.118.75.75 0 1 1-.828-1.25 8.25 8.25 0 0 1 12.8 6.883c0 3.014-.574 5.897-1.62 8.543a.75.75 0 0 1-1.395-.551A21.69 21.69 0 0 0 18.75 10.5 6.75 6.75 0 0 0 12 3.75ZM6.157 5.739a.75.75 0 0 1 .21 1.04A6.715 6.715 0 0 0 5.25 10.5c0 1.613-.463 3.12-1.265 4.393a.75.75 0 0 1-1.27-.8A6.715 6.715 0 0 0 3.75 10.5c0-1.68.503-3.246 1.367-4.55a.75.75 0 0 1 1.04-.211ZM12 7.5a3 3 0 0 0-3 3c0 3.1-1.176 5.927-3.105 8.056a.75.75 0 1 1-1.112-1.008A10.459 10.459 0 0 0 7.5 10.5a4.5 4.5 0 1 1 9 0c0 .547-.022 1.09-.067 1.626a.75.75 0 0 1-1.495-.123c.041-.495.062-.996.062-1.503a3 3 0 0 0-3-3Zm0 2.25a.75.75 0 0 1 .75.75c0 3.908-1.424 7.485-3.781 10.238a.75.75 0 0 1-1.14-.975A14.19 14.19 0 0 0 11.25 10.5a.75.75 0 0 1 .75-.75Zm3.239 5.183a.75.75 0 0 1 .515.927 19.417 19.417 0 0 1-2.585 5.544.75.75 0 0 1-1.243-.84 17.915 17.915 0 0 0 2.386-5.116.75.75 0 0 1 .927-.515Z";
+el("path", { d: FINGERPRINT, fill: GOLD, "fill-rule": "evenodd", transform: "translate(468 70) scale(1.5)" }, logo);
+const word = el("text", { x: 524, y: 98, "font-family": "Noto Sans Display, sans-serif", "font-size": 26, "letter-spacing": 7, fill: CREAM }, logo);
+word.textContent = "LUILKA";
+
+const ticks = [0, 1, 2, 3].map((i) => {
+  const x = 369 + i * 86;
+  el("line", { x1: x, x2: x + 66, y1: 826, y2: 826, stroke: GOLD, "stroke-width": 1.5, opacity: 0.25 }, scene);
+  return el("line", { x1: x, x2: x, y1: 826, y2: 826, stroke: GOLD, "stroke-width": 2 }, scene);
+});
+
+const LINE_Y = [480, 520, 560, 600];
+const groups = STEPS.map((step, i) => {
+  const g = el("g", { opacity: 0 }, scene);
+  const clip = (id, y, h) => { const c = el("clipPath", { id }, defs); el("rect", { x: 0, y, width: W, height: h }, c); return id; };
+  const num = el("g", { "clip-path": `url(#${clip(`cn${i}`, 150, 230)})` }, g);
+  const numText = el("text", { x: 540, y: 350, "text-anchor": "middle", "font-family": "Noto Serif Display, serif", "font-size": 250, fill: CREAM }, num);
+  numText.textContent = step.n;
+  const lab = el("g", { "clip-path": `url(#${clip(`cl${i}`, 380, 50)})` }, g);
+  const labText = el("text", { x: 540, y: 418, "text-anchor": "middle", "font-family": "Noto Sans Display, sans-serif", "font-size": 26, "letter-spacing": 9, fill: GOLD }, lab);
+  labText.textContent = step.label;
+  const lines = step.lines.map((line, k) => {
+    const c = el("g", { "clip-path": `url(#${clip(`ct${i}${k}`, LINE_Y[k] - 32, 46)})` }, g);
+    const t = el("text", { x: 540, y: LINE_Y[k], "text-anchor": "middle", "font-family": "Noto Sans Display, sans-serif", "font-size": 30, fill: CREAM, "fill-opacity": 0.82 }, c);
+    t.textContent = line;
+    return t;
+  });
+  return { g, numText, labText, lines };
+});
+
+function drawStep(i, t) {
+  const u = t - (FIRST + i * STEP);
+  const last = i === STEPS.length - 1;
+  const exit = last ? 0 : easeInCubic(seg(u, 1.2, 1.55));
+  const group = groups[i];
+  group.g.setAttribute("opacity", u < 0.05 || exit >= 1 ? 0 : 1 - exit);
+  const rise = (p, size) => (1 - easeOutExpo(p)) * size * 1.15 - exit * size * 0.45;
+  group.numText.setAttribute("transform", `translate(0 ${rise(seg(u, 0.1, 0.9), 250)})`);
+  group.labText.setAttribute("transform", `translate(0 ${rise(seg(u, 0.28, 0.9), 26)})`);
+  group.lines.forEach((line, k) => line.setAttribute("transform", `translate(0 ${rise(seg(u, 0.38 + k * 0.1, 1.05 + k * 0.1), 30)})`));
+}
+
+function drawNode(i, t) {
+  const u = t - (FIRST + i * STEP);
+  const grow = easeOutBack(seg(u, 0.25, 0.8));
+  const fade = seg(u, 0.25, 0.45);
+  const dim = i < STEPS.length - 1 ? 1 - 0.55 * easeInOutCubic(seg(u, 1.3, 1.9)) : 1;
+  nodes[i].setAttribute("opacity", fade * dim);
+  nodes[i].setAttribute("transform", `translate(${NODES[i][0]} ${NODES[i][1]}) scale(${Math.max(0, 0.4 + 0.6 * grow)})`);
+  if (i > 0) drawn[i - 1].setAttribute("stroke-dashoffset", 1 - easeInOutCubic(seg(u, -0.45, 0.35)));
+}
+
+function drawTick(i, t) {
+  const u = (t - (FIRST + i * STEP)) / STEP;
+  const x = 369 + i * 86;
+  ticks[i].setAttribute("x2", x + 66 * clamp(u));
+}
+
+window.draw = (t) => {
+  const intro = easeInOutCubic(seg(t, 0.1, 0.8));
+  logo.setAttribute("opacity", intro);
+  const outro = 1 - easeInOutSine(seg(t, 7.2, 8));
+  const push = 1 + 0.035 * easeInOutSine(t / DURATION);
+  scene.setAttribute("opacity", outro);
+  scene.setAttribute("transform", `translate(${W / 2} ${H / 2}) scale(${push}) translate(${-W / 2} ${-H / 2})`);
+  ghosts.forEach((g) => g.setAttribute("opacity", 0.14 * intro));
+  STEPS.forEach((_, i) => { drawStep(i, t); drawNode(i, t); drawTick(i, t); });
+};
+window.MOTION = { FPS, DURATION };
+window.draw(0);
+</script>
+</body>
+</html>
