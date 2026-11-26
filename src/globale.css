@@ -1,0 +1,121 @@
+@import "tailwindcss";
+
+@theme {
+  --color-paper: var(--paper);
+  --color-gray: var(--gray);
+  --color-gray-2: var(--gray-2);
+  --color-blue: var(--blue);
+  --color-text: var(--text);
+  --color-muted: var(--muted);
+  --color-accent-blue: var(--accent-blue);
+  --color-accent-purple: var(--accent-purple);
+  --color-soft: var(--bg-soft);
+  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", "Inter", system-ui, sans-serif;
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: clamp(1.5rem, 2.5vw, 1.75rem);
+  --text-3xl: clamp(2rem, 4vw, 2.875rem);
+  --animate-state-pulse: state-pulse 1.2s ease-in-out infinite;
+
+  @keyframes state-pulse {
+    0%,
+    100% {
+      opacity: 0.35;
+      transform: scaleX(0.7);
+    }
+    50% {
+      opacity: 1;
+      transform: scaleX(1);
+    }
+  }
+}
+
+:root {
+  --paper: #ffffff;
+  --gray: #cfd1db;
+  --gray-2: #b4b6bf;
+  --gray-3: #a9abb4;
+  --blue: #2a4cb5;
+  --text: #1a1a1f;
+  --muted: #3c3c45;
+  --accent-blue: #2a2ae6;
+  --accent-purple: #9b5de5;
+  --bg-soft: #f6f6fa;
+  --border-ui: #dcdce2;
+  --night: #0d0d10;
+  --flag-blue: #1d3f9f;
+  --flag-red: #e63946;
+  --container-width: 80rem;
+}
+
+@utility row-center {
+  display: flex;
+  align-items: center;
+}
+
+@utility pill-shape {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+}
+
+@layer base {
+  *, *::before, *::after {
+    @apply box-border m-0 p-0;
+    corner-shape: squircle;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    @apply text-text bg-paper text-(length:--text-base) leading-[1.5];
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a {
+    @apply text-inherit no-underline;
+  }
+
+  button {
+    font-family: inherit;
+  }
+
+  svg {
+    @apply block;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--blue);
+    outline-offset: 3px;
+  }
+}
+
+a,
+button,
+summary,
+label,
+[role="button"],
+[role="link"],
+[role="tab"],
+[role="checkbox"],
+[role="radio"],
+[role="switch"] {
+  @apply cursor-pointer;
+}
+
+input,
+textarea {
+  @apply cursor-text;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}

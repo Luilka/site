@@ -1,0 +1,12 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "paths": {
+      "@/*": ["./src/*"],
+      "@nexy/client": ["./src/shared/types/nexy-client.d.ts"],
+      "@nexy/*": ["./__nexy__/src/*"]
+    }
+  },
+  "include": ["src", "tests/client", "vitest.config.ts", "**/*.*.{ts,tsx}"],
+  "exclude": ["__nexy__", "node_modules"]
+}

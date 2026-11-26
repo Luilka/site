@@ -1,0 +1,68 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - develop
+      - staging
+      - main
+  pull_request:
+
+jobs:
+  quality:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install uv and Python
+        uses: astral-sh/setup-uv@v7
+        with:
+          version: "0.12.21"
+          python-version: "3.13.15"
+          enable-cache: true
+
+      - name: Install Node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .node-version
+          cache: npm
+
+      - name: Install Python dependencies
+        run: uv sync --frozen
+
+      - name: Install client dependencies
+        run: npm ci
+
+      - name: Check Python lint
+        run: uv run ruff check .
+
+      - name: Check Python format
+        run: uv run ruff format --check .
+
+      - name: Check Python types
+        run: uv run mypy
+
+      - name: Check client types
+        run: npx tsc --noEmit -p tsconfig.client.json
+
+      - name: Check client lint
+        run: npm run lint
+
+      - name: Check client code style
+        run: npm run check:style
+
+      - name: Check documentation
+        run: npm run check:docs
+
+      - name: Check KPI sheet
+        run: npm run check:kpi
+
+      - name: Run Python tests
+        run: uv run pytest
+
+      - name: Build project
+        run: uv run nx build
+
+      - name: Run client tests
+        run: npm test
