@@ -58,7 +58,7 @@ Les couvertures actuelles sont des illustrations abstraites en `svg` (`public/im
 
 ## Couleurs
 
-Les jetons sont dans `src/globale.css` : `--paper` (crème), `--text`, `--night` (vert nuit), `--gray` (sable), `--muted`, `--border-ui`, `--accent` (forêt, l'action) et `--gold` (détails, texte sur fond sombre seulement) (D-021). Les illustrations de `public/images/` n'emploient que ces valeurs ; un test refuse le retour de l'ancien bleu et de l'ancien violet.
+Les jetons sont dans `src/globale.css` : `--paper` (blanc), `--text`, `--night` (vert nuit), `--gray` (gris perle), `--muted`, `--border-ui`, `--accent` (forêt, l'action) et `--gold` (détails, texte sur fond sombre seulement) (D-021). Les illustrations de `public/images/` n'emploient que ces valeurs ; un test refuse le retour de l'ancien bleu et de l'ancien violet.
 
 ## Héros de l'accueil
 

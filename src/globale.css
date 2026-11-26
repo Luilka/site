@@ -57,14 +57,14 @@
 }
 
 :root {
-  --paper: #f6f0e4;
-  --gray: #e9dfc8;
+  --paper: #ffffff;
+  --gray: #ebebe8;
   --accent: #1c3f34;
   --gold: #c9a24b;
   --text: #0a0a0a;
-  --muted: #4a4437;
-  --bg-soft: #efe8d8;
-  --border-ui: #ddd3bd;
+  --muted: #454540;
+  --bg-soft: #f5f5f2;
+  --border-ui: #e4e4df;
   --night: #132a22;
   --flag-blue: #1d3f9f;
   --flag-red: #e63946;
