@@ -71,3 +71,48 @@ def test_no_source_or_illustration_keeps_the_old_blue_and_violet() -> None:
         if any(token in file.read_text(encoding="utf-8") for token in old)
     ]
     assert offenders == []
+
+
+
+def test_reference_layout_utilities_are_used() -> None:
+    layout = (ROOT / "src" / "components" / "layout.tsx").read_text(encoding="utf-8")
+    home = (ROOT / "src" / "routes" / "[lang]" / "index.tsx").read_text(encoding="utf-8")
+    assert "isolate" in layout
+    assert "grid-cols-[1fr_540px]" in home
+    buttons = (ROOT / "src" / "shared" / "ui" / "buttons.tsx").read_text(encoding="utf-8")
+    assert "pill-shape" in buttons
+
+
+def test_steps_and_about_sections_have_a_small_shared_gap() -> None:
+    sections = (ROOT / "src" / "components" / "sections.tsx").read_text(encoding="utf-8")
+    steps_bottom = re.search(r'className="pt-\[70px\] pb-\[(\d+)px\]"', sections)
+    about_top = re.search(r'className="pt-\[(\d+)px\] pb-\[90px\]"', sections)
+    assert steps_bottom is not None
+    assert about_top is not None
+    assert int(steps_bottom.group(1)) + int(about_top.group(1)) <= 40
+
+
+def test_header_typography_follows_readable_sizes() -> None:
+    header = (ROOT / "src" / "components" / "layout.tsx").read_text(encoding="utf-8")
+    buttons = (ROOT / "src" / "shared" / "ui" / "buttons.tsx").read_text(encoding="utf-8")
+    assert "text-(length:--text-lg)" in header
+    assert "size-6" in header
+    assert "text-(length:--text-base) font-medium ml-0" in header
+    assert "text-(length:--text-sm) font-medium" in header
+    assert "text-(length:--text-sm) font-medium" in buttons
+
+
+def test_header_groups_logo_and_navigation_together() -> None:
+    header = (ROOT / "src" / "components" / "layout.tsx").read_text(encoding="utf-8")
+    assert "justify-between" in header
+    assert "gap-8" in header
+    assert "ml-0" in header
+    assert "gap-[36px] ml-auto" in header
+
+
+def test_header_is_sticky_and_uses_utility_classes() -> None:
+    header = (ROOT / "src" / "components" / "layout.tsx").read_text(encoding="utf-8")
+    assert "sticky top-0" in header
+    assert "z-13" in header
+    assert "max-w-7xl" in header
+    assert 'className="absolute inset-0 -z-1 bg-white/80 backdrop-blur"' in header
