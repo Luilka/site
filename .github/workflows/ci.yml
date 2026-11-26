@@ -58,6 +58,9 @@ jobs:
       - name: Check KPI sheet
         run: npm run check:kpi
 
+      - name: Check images
+        run: npm run check:images
+
       - name: Run Python tests
         run: uv run pytest
 

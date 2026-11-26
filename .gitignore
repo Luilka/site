@@ -15,3 +15,4 @@ tmp/
 .coverage.json
 htmlcov/
 __nexy__/build-cache.json
+__nexy__/server.port
