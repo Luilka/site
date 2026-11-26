@@ -1,6 +1,6 @@
 # Propositions de couleur
 
-**Statut** : deux propositions, aucune appliquée. À trancher par le titulaire, voir la décision 4 de [l'audit des pages](audit-pages-et-concurrence.md).
+**Statut** : deux propositions, aucune appliquée. Depuis D-018, la base du thème est noir et blanc : ces options ne servent plus que comme couleur d'accent. À trancher par le titulaire, voir la décision 4 de [l'audit des pages](audit-pages-et-concurrence.md).
 **Date** : 26 novembre 2026
 **Documents liés** : [principes de design](design-principles.md), [audit des pages](audit-pages-et-concurrence.md)
 
