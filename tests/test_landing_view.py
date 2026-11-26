@@ -78,11 +78,11 @@ def test_steps_and_about_sections_have_a_small_shared_gap() -> None:
 
 def test_header_typography_follows_readable_sizes() -> None:
     css = (ROOT / "src" / "globale.css").read_text(encoding="utf-8")
-    assert "font-size: var(--text-lg)" in css_rule(css, ".logo")
+    assert "text-(length:--text-lg)" in css_rule(css, ".logo")
     assert "size-6" in css_rule(css, ".logo svg")
-    assert "font-size: var(--text-base)" in css_rule(css, ".nav-links")
-    assert "font-size: var(--text-sm)" in css_rule(css, ".lang")
-    assert "font-size: var(--text-sm)" in css_rule(css, ".btn-outline")
+    assert "text-(length:--text-base)" in css_rule(css, ".nav-links")
+    assert "text-(length:--text-sm)" in css_rule(css, ".lang")
+    assert "text-(length:--text-sm)" in css_rule(css, ".btn-outline")
 
 
 def test_header_groups_logo_and_navigation_together() -> None:
@@ -90,8 +90,8 @@ def test_header_groups_logo_and_navigation_together() -> None:
     header = (ROOT / "src" / "components" / "layout.tsx").read_text(encoding="utf-8")
     assert "justify-between" in header
     assert "gap-8" in header
-    assert "margin-left: 0" in css_rule(css, ".nav-links")
-    assert "margin-left: auto" in css_rule(css, ".nav-right")
+    assert "ml-0" in css_rule(css, ".nav-links")
+    assert "ml-auto" in css_rule(css, ".nav-right")
 
 
 def test_header_is_sticky_and_uses_utility_classes() -> None:

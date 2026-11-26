@@ -70,7 +70,7 @@ def test_service_grid_fits_four_cards() -> None:
     css = (SRC / "globale.css").read_text(encoding="utf-8")
     grid = re.search(r"(?ms)^\.svc-grid \{(.*?)^\}", css)
     assert grid is not None
-    assert "@apply grid grid-cols-4;" in grid.group(1)
+    assert "grid grid-cols-4" in grid.group(1)
 
 
 def test_mega_cards_use_a_responsive_grid() -> None:
@@ -78,14 +78,14 @@ def test_mega_cards_use_a_responsive_grid() -> None:
     grid = re.search(r"(?ms)^    \.mega-grid \{(.*?)^    \}", css)
     assert grid is not None
     assert "repeat(auto-fit" in grid.group(1)
-    assert "minmax(13rem, 1fr)" in grid.group(1)
+    assert "minmax(13rem,_1fr)" in grid.group(1)
 
 
 def test_mega_image_fills_its_container_height() -> None:
     css = (SRC / "globale.css").read_text(encoding="utf-8")
     media = re.search(r"(?ms)^    \.mega-media \{(.*?)^    \}", css)
     assert media is not None
-    assert "height: 12rem;" in media.group(1)
+    assert "h-[12rem]" in media.group(1)
     image = re.search(r"(?ms)^      img \{(.*?)^      \}", media.group(1))
     assert image is not None
     assert "@apply h-full w-full;" in image.group(1)

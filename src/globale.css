@@ -61,10 +61,7 @@
 
   body {
     font-family: var(--font-sans);
-    color: var(--text);
-    background: var(--paper);
-    font-size: var(--text-base);
-    line-height: 1.5;
+    @apply text-text bg-paper text-(length:--text-base) leading-[1.5];
     -webkit-font-smoothing: antialiased;
   }
 
@@ -106,9 +103,7 @@ textarea {
 
 @layer components {
   .container {
-    max-width: var(--container-width);
-    margin: 0 auto;
-    padding: 0 64px;
+    @apply max-w-[var(--container-width)] my-0 mx-auto py-0 px-[64px];
   }
 
   .nav {
@@ -121,14 +116,11 @@ textarea {
 
   .nav-trigger,
   .nav-links > a {
-    @apply inline-flex items-center gap-1 rounded-lg;
-    min-height: 2.75rem;
-    padding: 0.5rem 0.75rem;
+    @apply inline-flex items-center gap-1 rounded-lg min-h-[2.75rem] py-[0.5rem] px-[0.75rem];
     transition: color 160ms ease, background-color 160ms ease;
 
     &:hover {
-      color: var(--blue);
-      background: var(--bg-soft);
+      @apply text-blue bg-soft;
     }
   }
 
@@ -146,22 +138,21 @@ textarea {
     border-top: 1px solid var(--border-ui);
     border-bottom: 1px solid var(--border-ui);
     box-shadow: 0 18px 40px rgb(0 0 0 / 12%);
-    opacity: 0;
+    @apply opacity-[0];
     visibility: hidden;
     transform: translateY(-0.375rem);
     transition: opacity 160ms ease, transform 160ms ease, visibility 160ms ease;
-    pointer-events: none;
+    @apply pointer-events-none;
 
     &.is-open {
-      opacity: 1;
+      @apply opacity-[1];
       visibility: visible;
       transform: translateY(0);
       pointer-events: auto;
     }
 
     .mega-inner {
-      @apply flex items-stretch gap-8;
-      padding-top: 1.5rem;
+      @apply flex items-stretch gap-8 pt-[1.5rem];
       padding-bottom: 1.75rem;
     }
 
@@ -174,41 +165,28 @@ textarea {
     }
 
     .mega-eyebrow {
-      @apply block uppercase;
-      font-size: var(--text-xs);
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      color: var(--blue);
+      @apply block uppercase text-(length:--text-xs) font-semibold tracking-[0.08em] text-blue;
     }
 
     .mega-title {
       margin: 0.25rem 0 0;
-      font-size: var(--text-xl);
-      font-weight: 600;
-      line-height: 1.2;
+      @apply text-(length:--text-xl) font-semibold leading-[1.2];
     }
 
     .mega-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
-      gap: 1rem;
+      @apply grid grid-cols-[repeat(auto-fit,_minmax(13rem,_1fr))] gap-[1rem];
     }
 
     .mega-card {
-      @apply flex flex-col;
-      color: var(--text);
-      text-decoration: none;
+      @apply flex flex-col text-text no-underline;
 
       &:hover .mega-card-title {
-        color: var(--blue);
+        @apply text-blue;
       }
     }
 
     .mega-media {
-      @apply mb-3 overflow-hidden;
-      height: 12rem;
-      border-radius: 0.75rem;
-      background: var(--bg-soft);
+      @apply mb-3 overflow-hidden h-[12rem] rounded-[0.75rem] bg-soft;
 
       img {
         @apply h-full w-full;
@@ -217,32 +195,20 @@ textarea {
     }
 
     .mega-card-eyebrow {
-      @apply uppercase;
-      font-size: var(--text-xs);
-      font-weight: 600;
-      letter-spacing: 0.06em;
-      color: var(--muted);
+      @apply uppercase text-(length:--text-xs) font-semibold tracking-[0.06em] text-muted;
     }
 
     .mega-card-title {
       margin: 0.15rem 0 0.35rem;
-      font-size: var(--text-base);
-      font-weight: 600;
-      line-height: 1.25;
+      @apply text-(length:--text-base) font-semibold leading-[1.25];
     }
 
     .mega-card-description {
-      @apply m-0;
-      font-size: var(--text-xs);
-      color: var(--muted);
-      line-height: 1.45;
+      @apply m-0 text-(length:--text-xs) text-muted leading-[1.45];
     }
 
     .mega-card-action {
-      @apply mt-2 inline-flex items-center gap-1;
-      font-size: var(--text-xs);
-      font-weight: 600;
-      color: var(--blue);
+      @apply mt-2 inline-flex items-center gap-1 text-(length:--text-xs) font-semibold text-blue;
     }
 
     .mega-aside {
@@ -251,19 +217,14 @@ textarea {
       padding-left: 1.75rem;
 
       h3 {
-        @apply m-0 pb-2;
-        font-size: var(--text-sm);
-        font-weight: 600;
+        @apply m-0 pb-2 text-(length:--text-sm) font-semibold;
       }
 
       a {
-        @apply block py-2;
-        font-size: var(--text-sm);
-        color: var(--text);
-        text-decoration: none;
+        @apply block py-2 text-(length:--text-sm) text-text no-underline;
 
         &:hover {
-          color: var(--blue);
+          @apply text-blue;
         }
       }
     }
@@ -277,14 +238,12 @@ textarea {
     padding: clamp(3rem, 7vw, 5rem) 0 clamp(2rem, 5vw, 3.5rem);
 
     h1 {
-      max-width: 46rem;
+      @apply max-w-[46rem];
       text-wrap: balance;
     }
 
     p {
-      max-width: 42rem;
-      font-size: var(--text-base);
-      color: var(--muted);
+      @apply max-w-[42rem] text-(length:--text-base) text-muted;
     }
   }
 
@@ -293,30 +252,25 @@ textarea {
   }
 
   .info-card {
-    padding: 1.5rem;
+    @apply p-[1.5rem];
     border: 1px solid color-mix(in srgb, var(--text) 12%, var(--paper));
-    border-radius: 1.125rem;
-    background: var(--paper);
+    @apply rounded-[1.125rem] bg-paper;
 
     h3 {
-      @apply mt-3 mb-2;
-      font-size: var(--text-xl);
+      @apply mt-3 mb-2 text-(length:--text-xl);
     }
 
     p {
-      @apply text-sm;
-      color: var(--muted);
-      line-height: 1.6;
+      @apply text-sm text-muted leading-[1.6];
     }
   }
 
   .btn-cta {
-    padding: 0.75rem 1.125rem;
-    font-size: var(--text-sm);
+    @apply py-[0.75rem] px-[1.125rem] text-(length:--text-sm);
   }
 
   .section-action {
-    margin-top: 0;
+    @apply mt-0;
   }
 
   .card {
@@ -324,61 +278,26 @@ textarea {
   }
 
   .state-panel {
-    @apply flex flex-col items-center justify-center;
-    min-height: 26rem;
+    @apply flex flex-col items-center justify-center min-h-[26rem];
     padding: clamp(3rem, 8vw, 6rem) 1.5rem;
-    text-align: center;
+    @apply text-center;
 
     h1 {
-      @apply m-0;
-      max-width: 34rem;
-      font-size: var(--text-3xl);
-      line-height: 1.15;
+      @apply m-0 max-w-[34rem] text-(length:--text-3xl) leading-[1.15];
     }
 
     .state-code {
-      @apply mb-4 block;
-      font-size: clamp(4rem, 12vw, 7rem);
-      font-weight: 700;
-      line-height: 1;
-      color: var(--blue);
+      @apply mb-4 block text-[length:clamp(4rem,_12vw,_7rem)] font-bold leading-[1] text-blue;
     }
 
     .state-text {
-      @apply mx-auto mt-4 mb-8;
-      max-width: 32rem;
-      color: var(--muted);
-      line-height: 1.6;
+      @apply mx-auto mt-4 mb-8 max-w-[32rem] text-muted leading-[1.6];
     }
 
     .state-progress {
-      @apply block;
-      width: 3rem;
-      height: 0.25rem;
-      margin-bottom: 1.5rem;
-      border-radius: 999px;
+      @apply block w-[3rem] h-[0.25rem] mb-[1.5rem] rounded-[999px];
       background: linear-gradient(90deg, var(--blue), var(--accent-purple));
       animation: state-pulse 1.2s ease-in-out infinite;
-    }
-  }
-
-  .state-preview {
-    padding: clamp(3rem, 7vw, 5rem) 0;
-
-    h1 {
-      @apply m-0;
-      font-size: var(--text-3xl);
-    }
-
-    p {
-      @apply mt-4;
-      max-width: 38rem;
-      color: var(--muted);
-      line-height: 1.6;
-    }
-
-    .state-action {
-      @apply mt-8;
     }
   }
 
@@ -406,10 +325,7 @@ textarea {
 }
 
 .logo {
-  @apply row-center;
-  gap: 6px;
-  font-weight: 600;
-  font-size: var(--text-lg);
+  @apply row-center gap-[6px] font-semibold text-(length:--text-lg);
 }
 
 .logo svg {
@@ -425,35 +341,23 @@ textarea {
 .nav-links {
   @apply row-center;
   align-self: stretch;
-  gap: 0.5rem;
-  font-size: var(--text-base);
-  font-weight: 500;
-  margin-left: 0;
+  @apply gap-[0.5rem] text-(length:--text-base) font-medium ml-0;
 }
 
 .nav-links a {
-  color: #2a2a30;
+  @apply text-[#2a2a30];
 }
 
 .nav-right {
-  @apply row-center;
-  gap: 36px;
-  margin-left: auto;
+  @apply row-center gap-[36px] ml-auto;
 }
 
 .lang {
-  @apply row-center;
-  gap: 4px;
-  font-size: var(--text-sm);
-  font-weight: 500;
+  @apply row-center gap-[4px] text-(length:--text-sm) font-medium;
 }
 
 .flag {
-  @apply inline-flex items-center;
-  width: 14px;
-  height: 10px;
-  border-radius: 2px;
-  overflow: hidden;
+  @apply inline-flex items-center w-[14px] h-[10px] rounded-[2px] overflow-hidden;
 }
 
 .flag i {
@@ -461,45 +365,36 @@ textarea {
 }
 
 .flag i:nth-child(1) {
-  background: var(--flag-blue);
+  @apply bg-[var(--flag-blue)];
 }
 
 .flag i:nth-child(2) {
-  background: var(--paper);
+  @apply bg-paper;
   border: 1px solid #eee;
 }
 
 .flag i:nth-child(3) {
-  background: var(--flag-red);
+  @apply bg-[var(--flag-red)];
 }
 
 .btn-outline {
-  @apply pill-shape;
-  gap: 8px;
+  @apply pill-shape gap-[8px];
   border: 1px solid #2a2a30;
-  background: var(--paper);
-  padding: 8px 18px;
-  font-size: var(--text-sm);
-  font-weight: 500;
+  @apply bg-paper py-[8px] px-[18px] text-(length:--text-sm) font-medium;
 }
 
 .btn {
-  @apply pill-shape;
-  gap: 10px;
+  @apply pill-shape gap-[10px];
   border: 0;
-  padding: 14px 22px;
-  font-size: 14px;
-  font-weight: 500;
+  @apply py-[14px] px-[22px] text-[length:14px] font-medium;
 }
 
 .btn-gray {
-  background: var(--gray);
-  color: var(--text);
+  @apply bg-gray text-text;
 }
 
 .btn-dark {
-  background: var(--night);
-  color: var(--paper);
+  @apply bg-[var(--night)] text-paper;
 }
 
 .hero {
@@ -507,69 +402,52 @@ textarea {
 }
 
 .hero-grid {
-  @apply grid items-center;
-  grid-template-columns: 1fr 540px;
-  gap: 6px;
+  @apply grid items-center grid-cols-[1fr_540px] gap-[6px];
 }
 
 .badge {
   @apply pill-shape;
   border: 1px solid #d9d9e0;
-  font-size: var(--text-xs);
-  padding: 2px 9px;
-  color: #444;
-  margin-bottom: 34px;
+  @apply text-(length:--text-xs) py-[2px] px-[9px] text-[#444] mb-[34px];
 }
 
 .hero h1 {
-  font-size: var(--text-3xl);
-  line-height: 1.15;
-  font-weight: 600;
-  letter-spacing: -0.02em;
-  max-width: 520px;
+  @apply text-(length:--text-3xl) leading-[1.15] font-semibold tracking-[-0.02em] max-w-[520px];
 }
 
 .hero h1 .b {
-  color: var(--accent-blue);
+  @apply text-accent-blue;
 }
 
 .hero h1 .p {
-  color: var(--accent-purple);
+  @apply text-accent-purple;
 }
 
 .hero p {
-  font-size: var(--text-base);
-  color: var(--muted);
-  max-width: 470px;
+  @apply text-(length:--text-base) text-muted max-w-[470px];
   margin: 22px 0 28px;
-  line-height: 1.55;
+  @apply leading-[1.55];
 }
 
 .hero-img {
-  height: 440px;
-  border-radius: 28px;
+  @apply h-[440px] rounded-[28px];
   background: linear-gradient(135deg, #2b2b30, #0f0f12 55%, #3a3a40);
-  position: relative;
-  overflow: hidden;
+  @apply relative overflow-hidden;
 }
 
 .hero-img::before {
   content: "";
-  position: absolute;
+  @apply absolute;
   inset: 0;
   background: repeating-linear-gradient(115deg, rgb(255 255 255 / 12%) 0 42px, transparent 42px 90px);
 }
 
 .hero-img::after {
   content: "";
-  position: absolute;
+  @apply absolute;
   inset: 0;
   background: linear-gradient(160deg, rgb(255 255 255 / 18%), transparent 40%);
 }
-
-
-
-
 
 .steps {
   padding: 70px 0 20px;
@@ -580,35 +458,22 @@ textarea {
 }
 
 .step {
-  @apply flex flex-col;
-  background: var(--gray);
-  border-radius: 18px;
-  padding: 4px;
+  @apply flex flex-col bg-gray rounded-[18px] p-[4px];
 }
 
 .step h3 {
-  font-size: var(--text-lg);
-  font-weight: 600;
-  margin-bottom: 6px;
+  @apply text-(length:--text-lg) font-semibold mb-[6px];
 }
 
 .step p {
-  font-size: var(--text-sm);
-  color: var(--muted);
-  line-height: 1.5;
+  @apply text-(length:--text-sm) text-muted leading-[1.5];
 }
 
 .step .n {
-  background: var(--paper);
+  @apply bg-paper;
   border: 2px solid var(--paper);
   outline: 1px solid var(--border-ui);
-  border-radius: 16px;
-  height: 180px;
-  @apply flex items-center justify-center;
-  font-size: 96px;
-  font-weight: 500;
-  letter-spacing: -0.02em;
-  margin-top: auto;
+  @apply rounded-[16px] h-[180px] flex items-center justify-center text-[length:96px] font-medium tracking-[-0.02em] mt-auto;
   box-shadow: 0 2px 8px rgb(0 0 0 / 5%);
 }
 
@@ -617,44 +482,32 @@ textarea {
 }
 
 .about-grid {
-  @apply grid items-stretch;
-  grid-template-columns: 540px 1fr;
-  gap: 64px;
+  @apply grid items-stretch grid-cols-[540px_1fr] gap-[64px];
 }
 
 .about-img {
-  @apply flex items-center justify-center;
-  background: var(--gray);
-  border-radius: 22px;
-  min-height: 400px;
+  @apply flex items-center justify-center bg-gray rounded-[22px] min-h-[400px];
 }
 
 .about-img svg {
-  width: 140px;
-  height: 140px;
+  @apply w-[140px] h-[140px];
   fill: #2a2a30;
 }
 
 .about-txt {
-  padding-top: 36px;
+  @apply pt-[36px];
 }
 
 .about-txt h2 {
-  font-size: var(--text-2xl);
-  font-weight: 600;
-  margin-bottom: 28px;
+  @apply text-(length:--text-2xl) font-semibold mb-[28px];
 }
 
 .about-txt p {
-  font-size: var(--text-base);
-  color: var(--muted);
-  line-height: 1.6;
-  margin-bottom: 22px;
-  max-width: 520px;
+  @apply text-(length:--text-base) text-muted leading-[1.6] mb-[22px] max-w-[520px];
 }
 
 .services {
-  padding: 80px 0;
+  @apply py-[80px] px-0;
 }
 
 h2.sec {
@@ -662,11 +515,7 @@ h2.sec {
 }
 
 .sec-p {
-  font-size: var(--text-base);
-  color: var(--muted);
-  max-width: 520px;
-  margin-top: 22px;
-  line-height: 1.6;
+  @apply text-(length:--text-base) text-muted max-w-[520px] mt-[22px] leading-[1.6];
 }
 
 .sec-head {
@@ -674,13 +523,11 @@ h2.sec {
 }
 
 .svc-grid {
-  @apply grid grid-cols-4;
-  margin-top: 80px;
+  @apply grid grid-cols-4 mt-[80px];
 }
 
 .svc {
-  @apply text-center;
-  padding: 0 28px;
+  @apply text-center py-0 px-[28px];
   border-left: 1px solid var(--border-ui);
 }
 
@@ -689,26 +536,15 @@ h2.sec {
 }
 
 .svc .ico {
-  @apply mx-auto flex items-center justify-center;
-  width: 48px;
-  height: 48px;
-  border-radius: 50% 50% 50% 8px;
-  background: var(--gray);
-  margin-bottom: 22px;
-  color: #2a2a30;
+  @apply mx-auto flex items-center justify-center w-[48px] h-[48px] rounded-[50%_50%_50%_8px] bg-gray mb-[22px] text-[#2a2a30];
 }
 
 .svc h3 {
-  font-size: var(--text-xl);
-  font-weight: 600;
-  margin-bottom: 18px;
+  @apply text-(length:--text-xl) font-semibold mb-[18px];
 }
 
 .svc p {
-  font-size: var(--text-base);
-  color: var(--muted);
-  line-height: 1.9;
-  padding: 0 6px;
+  @apply text-(length:--text-base) text-muted leading-[1.9] py-0 px-[6px];
 }
 
 .products,
@@ -717,16 +553,13 @@ h2.sec {
 }
 
 .prod-grid {
-  @apply grid grid-cols-3 gap-4;
-  margin-top: 40px;
+  @apply grid grid-cols-3 gap-4 mt-[40px];
 }
 
 .prod {
-  @apply relative flex flex-col;
-  height: 545px;
-  border-radius: 18px;
+  @apply relative flex flex-col h-[545px] rounded-[18px];
   background: linear-gradient(180deg, var(--gray) 0%, var(--gray) 35%, var(--gray-2) 100%);
-  padding: 16px 14px;
+  @apply py-[16px] px-[14px];
 }
 
 .prod .top {
@@ -734,54 +567,36 @@ h2.sec {
 }
 
 .mini {
-  @apply flex shrink-0 items-center justify-center;
-  width: 30px;
-  height: 30px;
-  border-radius: 8px;
-  background: #b8bac4;
-  color: #e8e8ee;
+  @apply flex shrink-0 items-center justify-center w-[30px] h-[30px] rounded-[8px] bg-[#b8bac4] text-[#e8e8ee];
 }
 
 .prod small {
-  font-size: var(--text-xs);
-  color: #6a6a74;
-  display: block;
-  line-height: 1;
+  @apply text-(length:--text-xs) text-[#6a6a74] block leading-[1];
 }
 
 .prod h3 {
-  font-size: var(--text-xl);
-  font-weight: 600;
-  line-height: 1.2;
+  @apply text-(length:--text-xl) font-semibold leading-[1.2];
 }
 
 .prod .arrow {
-  color: #6a6a74;
+  @apply text-[#6a6a74];
 }
 
 .prod p {
-  font-size: var(--text-sm);
-  color: #55555e;
-  margin-top: 10px;
-  line-height: 1.55;
+  @apply text-(length:--text-sm) text-[#55555e] mt-[10px] leading-[1.55];
 }
 
 .prod .ph2,
 .work .ph2 {
-  @apply flex;
-  margin: auto;
-  color: var(--paper);
+  @apply flex m-auto text-paper;
 }
 
 .work-grid {
-  @apply grid grid-cols-2 gap-4;
-  margin-top: 40px;
+  @apply grid grid-cols-2 gap-4 mt-[40px];
 }
 
 .work {
-  @apply relative flex items-center justify-center;
-  height: 396px;
-  border-radius: 18px;
+  @apply relative flex items-center justify-center h-[396px] rounded-[18px];
   background: linear-gradient(180deg, var(--gray) 0%, var(--gray) 40%, var(--gray-3) 100%);
 }
 
@@ -797,58 +612,37 @@ h2.sec {
 }
 
 .work .who .mini {
-  width: 42px;
-  height: 42px;
-  border-radius: 10px;
+  @apply w-[42px] h-[42px] rounded-[10px];
 }
 
 .work .who h3 {
-  margin: 0;
-  font-size: var(--text-sm);
-  font-weight: 600;
-  display: block;
-  line-height: 1.1;
+  @apply m-0 text-(length:--text-sm) font-semibold block leading-[1.1];
 }
 
 .work .who span {
-  font-size: var(--text-xs);
-  color: #4d4d55;
-  display: block;
+  @apply text-(length:--text-xs) text-[#4d4d55] block;
 }
 
 .pill {
   @apply pill-shape gap-1.5;
   border: 1px solid #8f919b;
-  font-size: var(--text-xs);
-  padding: 4px 10px;
-  color: #333;
+  @apply text-(length:--text-xs) py-[4px] px-[10px] text-[#333];
 }
 
 .cta-wrap {
-  background: var(--bg-soft);
-  padding: 90px 0;
-  margin-top: 20px;
+  @apply bg-soft py-[90px] px-0 mt-[20px];
 }
 
 .cta {
-  background: var(--gray);
-  border-radius: 22px;
-  padding: 70px 60px;
-  min-height: 300px;
+  @apply bg-gray rounded-[22px] py-[70px] px-[60px] min-h-[300px];
 }
 
 .cta h2 {
-  font-size: var(--text-2xl);
-  font-weight: 600;
-  margin-bottom: 22px;
+  @apply text-(length:--text-2xl) font-semibold mb-[22px];
 }
 
 .cta p {
-  font-size: var(--text-base);
-  color: var(--muted);
-  max-width: 440px;
-  margin-bottom: 26px;
-  line-height: 1.7;
+  @apply text-(length:--text-base) text-muted max-w-[440px] mb-[26px] leading-[1.7];
 }
 
 footer {
@@ -856,51 +650,38 @@ footer {
 }
 
 .foot {
-  @apply grid items-start;
-  grid-template-columns: 1.4fr 0.5fr 0.5fr 1.1fr;
-  gap: 40px;
+  @apply grid items-start grid-cols-[1.4fr_0.5fr_0.5fr_1.1fr] gap-[40px];
 }
 
 .foot .about-f p {
-  font-size: var(--text-sm);
-  color: var(--muted);
+  @apply text-(length:--text-sm) text-muted;
   margin: 22px 0 24px;
-  max-width: 300px;
-  line-height: 1.55;
+  @apply max-w-[300px] leading-[1.55];
 }
 
 .soc {
-  @apply flex gap-3;
-  color: var(--muted);
+  @apply flex gap-3 text-muted;
 }
 
 .fcol h4,
 .news h4 {
-  font-size: 16px;
-  font-weight: 600;
-  margin-bottom: 12px;
+  @apply text-[length:16px] font-semibold mb-[12px];
 }
 
 .fcol a {
-  display: block;
-  font-size: var(--text-sm);
-  color: var(--muted);
-  margin-bottom: 12px;
+  @apply block text-(length:--text-sm) text-muted mb-[12px];
 }
 
 .news p {
-  font-size: var(--text-sm);
-  color: var(--muted);
-  margin-bottom: 22px;
-  max-width: 300px;
+  @apply text-(length:--text-sm) text-muted mb-[22px] max-w-[300px];
 }
 
 .news form {
   @apply flex gap-1.5;
   border: 1px solid var(--border-ui);
-  border-radius: 13px;
+  @apply rounded-[13px];
   
-  padding: 4px;
+  @apply p-[4px];
 }
 
 .news input {
@@ -908,69 +689,54 @@ footer {
   border: 0;
   outline: 0;
   font-family: inherit;
-  font-size: var(--text-sm);
-  padding: 0 10px;
+  @apply text-(length:--text-sm) py-0 px-[10px];
 }
 
 .news button {
-  @apply flex items-center gap-1.5;
-  background: var(--night);
-  color: var(--paper);
+  @apply flex items-center gap-1.5 bg-[var(--night)] text-paper;
   border: 0;
-  border-radius: 10px;
-  padding: 9px 14px;
-  font-size: var(--text-sm);
-}
-
-.news-message {
-  font-size: var(--text-sm);
-  color: var(--muted);
-  margin-top: 8px;
+  @apply rounded-[10px] py-[9px] px-[14px] text-(length:--text-sm);
 }
 
 .copy {
-  background: #e9e9ee;
-  padding: 16px 0;
-  font-size: var(--text-sm);
-  color: #555;
+  @apply bg-[#e9e9ee] py-[16px] px-0 text-(length:--text-sm) text-[#555];
 }
 
 .copy .container {
-  padding: 0 32px;
+  @apply py-0 px-[32px];
 }
 
 @media (max-width: 1000px) {
   .container {
-    padding: 0 24px;
+    @apply py-0 px-[24px];
   }
 
   .nav-links {
-    display: none;
+    @apply hidden;
   }
 
   .hero-grid,
   .about-grid {
-    grid-template-columns: 1fr;
+    @apply grid-cols-[1fr];
   }
 
   .steps-grid,
   .svc-grid,
   .prod-grid,
   .info-grid {
-    grid-template-columns: 1fr 1fr;
+    @apply grid-cols-[1fr_1fr];
   }
 
   .work-grid {
-    grid-template-columns: 1fr;
+    @apply grid-cols-[1fr];
   }
 
   .foot {
-    grid-template-columns: 1fr 1fr;
+    @apply grid-cols-[1fr_1fr];
   }
 
-
   .hero h1 {
-    font-size: var(--text-2xl);
+    @apply text-(length:--text-2xl);
   }
 }
 
@@ -979,12 +745,12 @@ footer {
   .svc-grid,
   .prod-grid,
   .info-grid {
-    grid-template-columns: 1fr;
+    @apply grid-cols-[1fr];
   }
 
   .svc {
     border-left: 0;
-    margin-bottom: 30px;
+    @apply mb-[30px];
   }
 }
 
