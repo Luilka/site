@@ -7,20 +7,20 @@
     ]
   },
   "__nexy__/main.ts": {
-    "file": "assets/main-B7ZGLUQG.js",
+    "file": "assets/main-BArVO2AP.js",
     "name": "main",
     "src": "__nexy__/main.ts",
     "isEntry": true,
     "dynamicImports": [
-      "_cards-D0NL9Yjy.js",
+      "_cards-DXd6BEt3.js",
       "src/components/layout.tsx",
-      "_notfound-B6VlS-no.js",
+      "_notfound-BnK4NrIh.js",
       "src/components/sections.tsx",
       "src/routes/[lang]/about.tsx",
       "src/routes/[lang]/blog/[slug].tsx",
       "src/routes/[lang]/blog/index.tsx",
       "src/routes/[lang]/contact.tsx",
-      "_index-Db11kTr4.js",
+      "_index-CKzT3G4X.js",
       "src/routes/[lang]/job.tsx",
       "src/routes/[lang]/products/[slug].tsx",
       "src/routes/[lang]/products/index.tsx",
@@ -28,11 +28,11 @@
       "src/routes/[lang]/services/index.tsx",
       "src/routes/[lang]/work/[slug].tsx",
       "src/routes/[lang]/works.tsx",
-      "_notfound-B6VlS-no.js",
-      "_index-Db11kTr4.js",
+      "_notfound-BnK4NrIh.js",
+      "_index-CKzT3G4X.js",
       "src/routes/layout.tsx",
       "src/routes/loading.tsx",
-      "_notfound-B6VlS-no.js",
+      "_notfound-BnK4NrIh.js",
       "src/shared/ui/badges.tsx",
       "src/shared/ui/buttons.tsx",
       "src/shared/ui/cards.tsx",
@@ -40,13 +40,14 @@
       "src/shared/ui/icon-tiles.tsx",
       "src/shared/ui/images.tsx",
       "src/shared/ui/inputs.tsx",
-      "_links-B9KCJ0Bt.js",
+      "_links-DnYlT6JM.js",
       "src/shared/ui/logos.tsx",
+      "src/shared/ui/social-icons.tsx",
       "_index-BQrK0G40.js",
       "_client-B_xVUOmq.js"
     ],
     "css": [
-      "assets/main-BHaSeDKW.css"
+      "assets/main-B1LihJjQ.css"
     ]
   },
   "_arrow-up-right-uEKUkSXr.js": {
@@ -56,13 +57,13 @@
       "_index-BQrK0G40.js"
     ]
   },
-  "_cards-D0NL9Yjy.js": {
-    "file": "assets/cards-D0NL9Yjy.js",
+  "_cards-DXd6BEt3.js": {
+    "file": "assets/cards-DXd6BEt3.js",
     "name": "cards",
     "isDynamicEntry": true,
     "imports": [
       "_jsx-runtime-u17CrQMm.js",
-      "_links-B9KCJ0Bt.js",
+      "_links-DnYlT6JM.js",
       "src/shared/ui/icon-tiles.tsx",
       "src/shared/ui/cards.tsx",
       "src/shared/ui/images.tsx",
@@ -81,12 +82,12 @@
     "file": "assets/cn.util-2dOUpm6k.js",
     "name": "cn.util"
   },
-  "_contact-mailto.util-CTej6RLz.js": {
-    "file": "assets/contact-mailto.util-CTej6RLz.js",
+  "_contact-mailto.util-s7y5og6R.js": {
+    "file": "assets/contact-mailto.util-s7y5og6R.js",
     "name": "contact-mailto.util",
     "imports": [
       "_arrow-up-right-uEKUkSXr.js",
-      "_links-B9KCJ0Bt.js"
+      "_links-DnYlT6JM.js"
     ]
   },
   "_index-BQrK0G40.js": {
@@ -97,29 +98,29 @@
       "_index-CstGYLK3.js"
     ]
   },
-  "_index-CstGYLK3.js": {
-    "file": "assets/index-CstGYLK3.js",
-    "name": "index"
-  },
-  "_index-Db11kTr4.js": {
-    "file": "assets/index-Db11kTr4.js",
+  "_index-CKzT3G4X.js": {
+    "file": "assets/index-CKzT3G4X.js",
     "name": "index",
     "isDynamicEntry": true,
     "imports": [
       "_jsx-runtime-u17CrQMm.js",
-      "_notfound-B6VlS-no.js",
-      "_links-B9KCJ0Bt.js",
-      "_contact-mailto.util-CTej6RLz.js",
+      "_notfound-BnK4NrIh.js",
+      "_links-DnYlT6JM.js",
+      "_contact-mailto.util-s7y5og6R.js",
       "src/components/sections.tsx",
       "src/shared/ui/containers.tsx"
     ]
+  },
+  "_index-CstGYLK3.js": {
+    "file": "assets/index-CstGYLK3.js",
+    "name": "index"
   },
   "_jsx-runtime-u17CrQMm.js": {
     "file": "assets/jsx-runtime-u17CrQMm.js",
     "name": "jsx-runtime"
   },
-  "_links-B9KCJ0Bt.js": {
-    "file": "assets/links-B9KCJ0Bt.js",
+  "_links-DnYlT6JM.js": {
+    "file": "assets/links-DnYlT6JM.js",
     "name": "links",
     "isDynamicEntry": true,
     "imports": [
@@ -129,16 +130,16 @@
       "_cn.util-2dOUpm6k.js"
     ]
   },
-  "_notfound-B6VlS-no.js": {
-    "file": "assets/notfound-B6VlS-no.js",
+  "_notfound-BnK4NrIh.js": {
+    "file": "assets/notfound-BnK4NrIh.js",
     "name": "notfound",
     "isDynamicEntry": true,
     "imports": [
       "_jsx-runtime-u17CrQMm.js",
       "src/shared/ui/buttons.tsx",
-      "_links-B9KCJ0Bt.js",
+      "_links-DnYlT6JM.js",
       "src/shared/ui/containers.tsx",
-      "_contact-mailto.util-CTej6RLz.js",
+      "_contact-mailto.util-s7y5og6R.js",
       "_index-BQrK0G40.js",
       "_MotionConfigContext-CkPoHrJC.js",
       "src/shared/ui/badges.tsx",
@@ -146,19 +147,20 @@
     ]
   },
   "src/components/layout.tsx": {
-    "file": "assets/layout-CH0TcaY0.js",
+    "file": "assets/layout-BKvoeDrR.js",
     "name": "layout",
     "src": "src/components/layout.tsx",
     "isDynamicEntry": true,
     "imports": [
       "_jsx-runtime-u17CrQMm.js",
       "src/shared/ui/buttons.tsx",
-      "_links-B9KCJ0Bt.js",
-      "_contact-mailto.util-CTej6RLz.js",
+      "_links-DnYlT6JM.js",
+      "_contact-mailto.util-s7y5og6R.js",
       "src/shared/ui/containers.tsx",
       "_index-BQrK0G40.js",
       "src/shared/ui/images.tsx",
       "src/shared/ui/logos.tsx",
+      "src/shared/ui/social-icons.tsx",
       "src/shared/ui/inputs.tsx",
       "_arrow-up-right-uEKUkSXr.js",
       "_cn.util-2dOUpm6k.js",
@@ -167,22 +169,22 @@
     ]
   },
   "src/components/sections.tsx": {
-    "file": "assets/sections-BOCMpuSz.js",
+    "file": "assets/sections-C_Ov33_N.js",
     "name": "sections",
     "src": "src/components/sections.tsx",
     "isDynamicEntry": true,
     "imports": [
       "_jsx-runtime-u17CrQMm.js",
       "src/shared/ui/containers.tsx",
-      "_notfound-B6VlS-no.js",
-      "_cards-D0NL9Yjy.js",
+      "_notfound-BnK4NrIh.js",
+      "_cards-DXd6BEt3.js",
       "src/shared/ui/buttons.tsx",
-      "_links-B9KCJ0Bt.js",
+      "_links-DnYlT6JM.js",
       "src/shared/ui/cards.tsx",
       "src/shared/ui/images.tsx",
       "src/shared/ui/logos.tsx",
       "src/shared/ui/badges.tsx",
-      "_contact-mailto.util-CTej6RLz.js",
+      "_contact-mailto.util-s7y5og6R.js",
       "_index-BQrK0G40.js",
       "_arrow-up-right-uEKUkSXr.js",
       "_cn.util-2dOUpm6k.js",
@@ -193,16 +195,16 @@
     ]
   },
   "src/routes/[lang]/about.tsx": {
-    "file": "assets/about-B1e6m8ui.js",
+    "file": "assets/about-C3Av4FHG.js",
     "name": "about",
     "src": "src/routes/[lang]/about.tsx",
     "isDynamicEntry": true,
     "imports": [
       "_jsx-runtime-u17CrQMm.js",
-      "_notfound-B6VlS-no.js",
+      "_notfound-BnK4NrIh.js",
       "src/components/sections.tsx",
-      "_links-B9KCJ0Bt.js",
-      "_contact-mailto.util-CTej6RLz.js",
+      "_links-DnYlT6JM.js",
+      "_contact-mailto.util-s7y5og6R.js",
       "src/shared/ui/buttons.tsx",
       "_cn.util-2dOUpm6k.js",
       "src/shared/ui/containers.tsx",
@@ -211,7 +213,7 @@
       "_MotionConfigContext-CkPoHrJC.js",
       "src/shared/ui/badges.tsx",
       "_arrow-up-right-uEKUkSXr.js",
-      "_cards-D0NL9Yjy.js",
+      "_cards-DXd6BEt3.js",
       "src/shared/ui/icon-tiles.tsx",
       "src/shared/ui/cards.tsx",
       "src/shared/ui/images.tsx",
@@ -220,7 +222,7 @@
     ]
   },
   "src/routes/[lang]/blog/[slug].tsx": {
-    "file": "assets/_slug_-hAjKEGuy.js",
+    "file": "assets/_slug_-GrIVYdAU.js",
     "name": "_slug_",
     "src": "src/routes/[lang]/blog/[slug].tsx",
     "isDynamicEntry": true,
@@ -229,17 +231,17 @@
       "src/components/sections.tsx",
       "src/shared/ui/containers.tsx",
       "_cn.util-2dOUpm6k.js",
-      "_notfound-B6VlS-no.js",
+      "_notfound-BnK4NrIh.js",
       "src/shared/ui/buttons.tsx",
-      "_links-B9KCJ0Bt.js",
+      "_links-DnYlT6JM.js",
       "_index-BQrK0G40.js",
       "_index-CstGYLK3.js",
       "__nexy__/main.ts",
-      "_contact-mailto.util-CTej6RLz.js",
+      "_contact-mailto.util-s7y5og6R.js",
       "_arrow-up-right-uEKUkSXr.js",
       "_MotionConfigContext-CkPoHrJC.js",
       "src/shared/ui/badges.tsx",
-      "_cards-D0NL9Yjy.js",
+      "_cards-DXd6BEt3.js",
       "src/shared/ui/icon-tiles.tsx",
       "src/shared/ui/cards.tsx",
       "src/shared/ui/images.tsx",
@@ -247,16 +249,16 @@
     ]
   },
   "src/routes/[lang]/blog/index.tsx": {
-    "file": "assets/blog-mU9AvpeZ.js",
+    "file": "assets/blog-Mj9B1_oG.js",
     "name": "blog",
     "src": "src/routes/[lang]/blog/index.tsx",
     "isDynamicEntry": true,
     "imports": [
       "_jsx-runtime-u17CrQMm.js",
-      "_notfound-B6VlS-no.js",
+      "_notfound-BnK4NrIh.js",
       "src/components/sections.tsx",
-      "_links-B9KCJ0Bt.js",
-      "_contact-mailto.util-CTej6RLz.js",
+      "_links-DnYlT6JM.js",
+      "_contact-mailto.util-s7y5og6R.js",
       "src/shared/ui/buttons.tsx",
       "_cn.util-2dOUpm6k.js",
       "src/shared/ui/containers.tsx",
@@ -265,7 +267,7 @@
       "_MotionConfigContext-CkPoHrJC.js",
       "src/shared/ui/badges.tsx",
       "_arrow-up-right-uEKUkSXr.js",
-      "_cards-D0NL9Yjy.js",
+      "_cards-DXd6BEt3.js",
       "src/shared/ui/icon-tiles.tsx",
       "src/shared/ui/cards.tsx",
       "src/shared/ui/images.tsx",
@@ -274,15 +276,15 @@
     ]
   },
   "src/routes/[lang]/contact.tsx": {
-    "file": "assets/contact-BU9m9T9-.js",
+    "file": "assets/contact-DC6c12bw.js",
     "name": "contact",
     "src": "src/routes/[lang]/contact.tsx",
     "isDynamicEntry": true,
     "imports": [
       "_jsx-runtime-u17CrQMm.js",
-      "_notfound-B6VlS-no.js",
-      "_links-B9KCJ0Bt.js",
-      "_contact-mailto.util-CTej6RLz.js",
+      "_notfound-BnK4NrIh.js",
+      "_links-DnYlT6JM.js",
+      "_contact-mailto.util-s7y5og6R.js",
       "src/shared/ui/buttons.tsx",
       "_cn.util-2dOUpm6k.js",
       "src/shared/ui/containers.tsx",
@@ -295,16 +297,16 @@
     ]
   },
   "src/routes/[lang]/job.tsx": {
-    "file": "assets/job-BzaVjYdr.js",
+    "file": "assets/job-CcUeNixq.js",
     "name": "job",
     "src": "src/routes/[lang]/job.tsx",
     "isDynamicEntry": true,
     "imports": [
       "_jsx-runtime-u17CrQMm.js",
-      "_notfound-B6VlS-no.js",
+      "_notfound-BnK4NrIh.js",
       "src/components/sections.tsx",
-      "_links-B9KCJ0Bt.js",
-      "_contact-mailto.util-CTej6RLz.js",
+      "_links-DnYlT6JM.js",
+      "_contact-mailto.util-s7y5og6R.js",
       "src/shared/ui/buttons.tsx",
       "_cn.util-2dOUpm6k.js",
       "src/shared/ui/containers.tsx",
@@ -313,7 +315,7 @@
       "_MotionConfigContext-CkPoHrJC.js",
       "src/shared/ui/badges.tsx",
       "_arrow-up-right-uEKUkSXr.js",
-      "_cards-D0NL9Yjy.js",
+      "_cards-DXd6BEt3.js",
       "src/shared/ui/icon-tiles.tsx",
       "src/shared/ui/cards.tsx",
       "src/shared/ui/images.tsx",
@@ -322,7 +324,7 @@
     ]
   },
   "src/routes/[lang]/products/[slug].tsx": {
-    "file": "assets/_slug_-B1KaOH9J.js",
+    "file": "assets/_slug_-B_5SiNSr.js",
     "name": "_slug_",
     "src": "src/routes/[lang]/products/[slug].tsx",
     "isDynamicEntry": true,
@@ -331,17 +333,17 @@
       "src/components/sections.tsx",
       "src/shared/ui/containers.tsx",
       "_cn.util-2dOUpm6k.js",
-      "_notfound-B6VlS-no.js",
+      "_notfound-BnK4NrIh.js",
       "src/shared/ui/buttons.tsx",
-      "_links-B9KCJ0Bt.js",
+      "_links-DnYlT6JM.js",
       "_index-BQrK0G40.js",
       "_index-CstGYLK3.js",
       "__nexy__/main.ts",
-      "_contact-mailto.util-CTej6RLz.js",
+      "_contact-mailto.util-s7y5og6R.js",
       "_arrow-up-right-uEKUkSXr.js",
       "_MotionConfigContext-CkPoHrJC.js",
       "src/shared/ui/badges.tsx",
-      "_cards-D0NL9Yjy.js",
+      "_cards-DXd6BEt3.js",
       "src/shared/ui/icon-tiles.tsx",
       "src/shared/ui/cards.tsx",
       "src/shared/ui/images.tsx",
@@ -349,26 +351,26 @@
     ]
   },
   "src/routes/[lang]/products/index.tsx": {
-    "file": "assets/products-B_avY9nm.js",
+    "file": "assets/products-BmADAbKH.js",
     "name": "products",
     "src": "src/routes/[lang]/products/index.tsx",
     "isDynamicEntry": true,
     "imports": [
       "_jsx-runtime-u17CrQMm.js",
-      "_notfound-B6VlS-no.js",
+      "_notfound-BnK4NrIh.js",
       "src/components/sections.tsx",
       "src/shared/ui/buttons.tsx",
       "_cn.util-2dOUpm6k.js",
-      "_links-B9KCJ0Bt.js",
+      "_links-DnYlT6JM.js",
       "_index-BQrK0G40.js",
       "_index-CstGYLK3.js",
       "__nexy__/main.ts",
       "src/shared/ui/containers.tsx",
-      "_contact-mailto.util-CTej6RLz.js",
+      "_contact-mailto.util-s7y5og6R.js",
       "_arrow-up-right-uEKUkSXr.js",
       "_MotionConfigContext-CkPoHrJC.js",
       "src/shared/ui/badges.tsx",
-      "_cards-D0NL9Yjy.js",
+      "_cards-DXd6BEt3.js",
       "src/shared/ui/icon-tiles.tsx",
       "src/shared/ui/cards.tsx",
       "src/shared/ui/images.tsx",
@@ -376,7 +378,7 @@
     ]
   },
   "src/routes/[lang]/services/[slug].tsx": {
-    "file": "assets/_slug_-2LKrJzcT.js",
+    "file": "assets/_slug_-8t9k_-Mg.js",
     "name": "_slug_",
     "src": "src/routes/[lang]/services/[slug].tsx",
     "isDynamicEntry": true,
@@ -385,17 +387,17 @@
       "src/components/sections.tsx",
       "src/shared/ui/containers.tsx",
       "_cn.util-2dOUpm6k.js",
-      "_notfound-B6VlS-no.js",
+      "_notfound-BnK4NrIh.js",
       "src/shared/ui/buttons.tsx",
-      "_links-B9KCJ0Bt.js",
+      "_links-DnYlT6JM.js",
       "_index-BQrK0G40.js",
       "_index-CstGYLK3.js",
       "__nexy__/main.ts",
-      "_contact-mailto.util-CTej6RLz.js",
+      "_contact-mailto.util-s7y5og6R.js",
       "_arrow-up-right-uEKUkSXr.js",
       "_MotionConfigContext-CkPoHrJC.js",
       "src/shared/ui/badges.tsx",
-      "_cards-D0NL9Yjy.js",
+      "_cards-DXd6BEt3.js",
       "src/shared/ui/icon-tiles.tsx",
       "src/shared/ui/cards.tsx",
       "src/shared/ui/images.tsx",
@@ -403,26 +405,26 @@
     ]
   },
   "src/routes/[lang]/services/index.tsx": {
-    "file": "assets/services-CXc7CCDh.js",
+    "file": "assets/services-DKJwPOZQ.js",
     "name": "services",
     "src": "src/routes/[lang]/services/index.tsx",
     "isDynamicEntry": true,
     "imports": [
       "_jsx-runtime-u17CrQMm.js",
-      "_notfound-B6VlS-no.js",
+      "_notfound-BnK4NrIh.js",
       "src/components/sections.tsx",
       "src/shared/ui/buttons.tsx",
       "_cn.util-2dOUpm6k.js",
-      "_links-B9KCJ0Bt.js",
+      "_links-DnYlT6JM.js",
       "_index-BQrK0G40.js",
       "_index-CstGYLK3.js",
       "__nexy__/main.ts",
       "src/shared/ui/containers.tsx",
-      "_contact-mailto.util-CTej6RLz.js",
+      "_contact-mailto.util-s7y5og6R.js",
       "_arrow-up-right-uEKUkSXr.js",
       "_MotionConfigContext-CkPoHrJC.js",
       "src/shared/ui/badges.tsx",
-      "_cards-D0NL9Yjy.js",
+      "_cards-DXd6BEt3.js",
       "src/shared/ui/icon-tiles.tsx",
       "src/shared/ui/cards.tsx",
       "src/shared/ui/images.tsx",
@@ -430,7 +432,7 @@
     ]
   },
   "src/routes/[lang]/work/[slug].tsx": {
-    "file": "assets/_slug_-DXUmA41j.js",
+    "file": "assets/_slug_-BgIfGmah.js",
     "name": "_slug_",
     "src": "src/routes/[lang]/work/[slug].tsx",
     "isDynamicEntry": true,
@@ -439,17 +441,17 @@
       "src/components/sections.tsx",
       "src/shared/ui/containers.tsx",
       "_cn.util-2dOUpm6k.js",
-      "_notfound-B6VlS-no.js",
+      "_notfound-BnK4NrIh.js",
       "src/shared/ui/buttons.tsx",
-      "_links-B9KCJ0Bt.js",
+      "_links-DnYlT6JM.js",
       "_index-BQrK0G40.js",
       "_index-CstGYLK3.js",
       "__nexy__/main.ts",
-      "_contact-mailto.util-CTej6RLz.js",
+      "_contact-mailto.util-s7y5og6R.js",
       "_arrow-up-right-uEKUkSXr.js",
       "_MotionConfigContext-CkPoHrJC.js",
       "src/shared/ui/badges.tsx",
-      "_cards-D0NL9Yjy.js",
+      "_cards-DXd6BEt3.js",
       "src/shared/ui/icon-tiles.tsx",
       "src/shared/ui/cards.tsx",
       "src/shared/ui/images.tsx",
@@ -457,26 +459,26 @@
     ]
   },
   "src/routes/[lang]/works.tsx": {
-    "file": "assets/works-DPg3d2bM.js",
+    "file": "assets/works-w3HLRswY.js",
     "name": "works",
     "src": "src/routes/[lang]/works.tsx",
     "isDynamicEntry": true,
     "imports": [
       "_jsx-runtime-u17CrQMm.js",
-      "_notfound-B6VlS-no.js",
+      "_notfound-BnK4NrIh.js",
       "src/components/sections.tsx",
       "src/shared/ui/buttons.tsx",
       "_cn.util-2dOUpm6k.js",
-      "_links-B9KCJ0Bt.js",
+      "_links-DnYlT6JM.js",
       "_index-BQrK0G40.js",
       "_index-CstGYLK3.js",
       "__nexy__/main.ts",
       "src/shared/ui/containers.tsx",
-      "_contact-mailto.util-CTej6RLz.js",
+      "_contact-mailto.util-s7y5og6R.js",
       "_arrow-up-right-uEKUkSXr.js",
       "_MotionConfigContext-CkPoHrJC.js",
       "src/shared/ui/badges.tsx",
-      "_cards-D0NL9Yjy.js",
+      "_cards-DXd6BEt3.js",
       "src/shared/ui/icon-tiles.tsx",
       "src/shared/ui/cards.tsx",
       "src/shared/ui/images.tsx",
@@ -484,38 +486,39 @@
     ]
   },
   "src/routes/layout.tsx": {
-    "file": "assets/layout-DJDrozPv.js",
+    "file": "assets/layout-RfQ7N1gU.js",
     "name": "layout",
     "src": "src/routes/layout.tsx",
     "isDynamicEntry": true,
     "imports": [
       "_jsx-runtime-u17CrQMm.js",
-      "_links-B9KCJ0Bt.js",
+      "_links-DnYlT6JM.js",
       "src/components/layout.tsx",
       "_index-BQrK0G40.js",
       "_MotionConfigContext-CkPoHrJC.js",
       "__nexy__/main.ts",
       "_cn.util-2dOUpm6k.js",
       "src/shared/ui/buttons.tsx",
-      "_contact-mailto.util-CTej6RLz.js",
+      "_contact-mailto.util-s7y5og6R.js",
       "_arrow-up-right-uEKUkSXr.js",
       "src/shared/ui/containers.tsx",
       "src/shared/ui/images.tsx",
       "src/shared/ui/logos.tsx",
+      "src/shared/ui/social-icons.tsx",
       "src/shared/ui/inputs.tsx",
       "_index-CstGYLK3.js"
     ]
   },
   "src/routes/loading.tsx": {
-    "file": "assets/loading-B1D5Luvb.js",
+    "file": "assets/loading-D2i3krrc.js",
     "name": "loading",
     "src": "src/routes/loading.tsx",
     "isDynamicEntry": true,
     "imports": [
       "_jsx-runtime-u17CrQMm.js",
-      "_notfound-B6VlS-no.js",
-      "_links-B9KCJ0Bt.js",
-      "_contact-mailto.util-CTej6RLz.js",
+      "_notfound-BnK4NrIh.js",
+      "_links-DnYlT6JM.js",
+      "_contact-mailto.util-s7y5og6R.js",
       "src/shared/ui/buttons.tsx",
       "_cn.util-2dOUpm6k.js",
       "src/shared/ui/containers.tsx",
@@ -599,6 +602,15 @@
     "file": "assets/logos-xyDzRCu0.js",
     "name": "logos",
     "src": "src/shared/ui/logos.tsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "_jsx-runtime-u17CrQMm.js"
+    ]
+  },
+  "src/shared/ui/social-icons.tsx": {
+    "file": "assets/social-icons-BTEWPBgy.js",
+    "name": "social-icons",
+    "src": "src/shared/ui/social-icons.tsx",
     "isDynamicEntry": true,
     "imports": [
       "_jsx-runtime-u17CrQMm.js"
