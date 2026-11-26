@@ -22,7 +22,7 @@
   --animate-state-pulse: state-pulse 1.2s ease-in-out infinite;
   --animate-marquee: marquee 36s linear infinite;
   --animate-marquee-right: marquee-right 36s linear infinite;
-  --animate-stripes: stripes 1.2s linear infinite;
+  --animate-stripes: stripes 0.4s linear infinite;
 
   @keyframes marquee {
     to {

@@ -84,7 +84,7 @@ def test_marquee_animation_is_defined_once_in_the_theme() -> None:
     assert "--animate-marquee:" in css
     assert css.count("@keyframes marquee {") == 1
     assert "--animate-marquee-right:" in css
-    assert "--animate-stripes:" in css
+    assert "--animate-stripes: stripes 0.4s linear infinite;" in css
     assert css.count("@keyframes stripes {") == 1
     assert css.count("@keyframes marquee-right {") == 1
 

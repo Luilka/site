@@ -56,11 +56,12 @@ describe("landing components", () => {
     expect(tilted?.className).toContain("repeating-linear-gradient(45deg");
   });
 
-  it("colours the tilted band differently from the grey band and scrolls its lines", () => {
+  it("colours the icon band blue, keeps the tilted band grey, and scrolls its lines", () => {
     const { container } = render(<ProcessBand />);
+    expect(container.querySelector(".animate-marquee-right")?.parentElement?.className).toContain("color-mix(in_srgb,var(--blue)_20%,var(--paper))");
     const tilted = container.querySelector('[class*="rotate-2"]')?.className ?? "";
-    expect(tilted).toContain("bg-blue/25");
-    expect(tilted).not.toContain("bg-gray");
+    expect(tilted).toContain("bg-gray-200");
+    expect(tilted).not.toContain("bg-blue");
     expect(tilted).toContain("animate-stripes");
     expect(tilted).toContain("motion-reduce:animate-none");
     const reversed = render(<ProcessBand reverse />).container.querySelector('[class*="rotate-2"]')?.className ?? "";

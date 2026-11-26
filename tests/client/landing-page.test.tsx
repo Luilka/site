@@ -12,7 +12,7 @@ describe("landing page", () => {
 
   it("uses the reference section classes", () => {
     const { container } = render(<Home />);
-    for (const name of ["grid-cols-4", "grid-cols-3", "grid-cols-2", "bg-gray-300"]) {
+    for (const name of ["grid-cols-4", "grid-cols-3", "grid-cols-2", "animate-marquee-right"]) {
       expect(container.querySelector(`.${name}`)).not.toBeNull();
     }
   });
