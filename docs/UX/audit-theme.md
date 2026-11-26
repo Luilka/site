@@ -52,10 +52,13 @@ Lecture des feuilles de style locales de vos projets récents (Sina, portfolio, 
 | Portfolio | Blanc, `#0a0a0a`, gris `#f2f2f2` | Orange `#ff4f00` | Titres en police d'affichage, étiquettes en monospace |
 | Muse | Blanc, `#171717`, mode sombre `#0a0a0a` | Aucun | Neutres seuls |
 
+Travail en équipe (Akieni Academy, dossiers locaux `sap`, `KOP`, `Tea Cozy` et autres) : un seul dossier lu, `sap`, avec un vert foncé `#1c3f34`, un crème `#f6f0e4` et un or `#c9a24b`. Ce n'est pas forcément votre choix : en équipe, la palette est souvent décidée à plusieurs. Les autres projets d'équipe n'ont pas été relevés (à nommer : lesquels portent votre design).
+
 Ce que cela dit de votre goût :
 1. **Neutres sans teinte partout, un seul accent au plus.** Le thème noir et blanc de D-018 prolonge ce que vous faites déjà.
 2. **Le vert revient deux fois sur quatre.** Il appuie le vert comme accent, plutôt qu'un jaune ou un violet que vous n'employez nulle part.
-3. **Une touche d'écriture technique** (monospace pour les étiquettes) dans le portfolio : une piste pour la « touche Luilka », à garder en petit, pour les étiquettes et les numéros d'étape.
+3. **Un vert foncé et sobre dans le travail d'équipe aussi** (`sap`), ce qui renforce le vert profond plutôt que le menthe.
+4. **Une touche d'écriture technique** (monospace pour les étiquettes) dans le portfolio : une piste pour la « touche Luilka », à garder en petit, pour les étiquettes et les numéros d'étape.
 
 Contrastes à respecter si le vert de vos projets est repris : le menthe `#72e3ad` ne supporte que du texte noir (12,5 pour 1) et jamais du texte blanc (1,6). Le vert `#2f834f` passe tout juste avec du blanc (4,7). Le vert profond `#0c5a41` est le plus sûr (8,2 avec du blanc).
 
