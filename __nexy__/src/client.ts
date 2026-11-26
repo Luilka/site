@@ -1,0 +1,245 @@
+// @ts-nocheck
+// Client navigation for React: Link, Image and the hooks of the router.
+//
+//   import { Link, Image, useRouter, usePathname, useParams, useSearchParams } from '@nexy/client'
+//   import { useFetch, useAction } from '@nexy/client'
+//
+// Written with createElement (no JSX) so it needs no compiler setting of its own.
+import {
+  Component,
+  createElement,
+  forwardRef,
+  useEffect,
+  useMemo,
+  useRef,
+  useSyncExternalStore,
+  type AnchorHTMLAttributes,
+  type ImgHTMLAttributes,
+  type MutableRefObject,
+  type Ref
+} from 'react'
+import type { Route } from './routes.auto.ts'
+import {
+  getRouter,
+  hold,
+  serverLocation,
+  type Blocker,
+  type NavigateOptions,
+  type Params,
+  type RouterLocation,
+  type RouteMatchInfo,
+  type TransitionState
+} from './router.ts'
+import {
+  imageAttributes,
+  isActive,
+  linkClass,
+  onceVisible,
+  warnMissingAlt,
+  withBaseHref,
+  type ImageProps,
+  type Prefetch
+} from './shared.ts'
+import {
+  createActionState,
+  ActionError,
+  type Action,
+  type ActionOptions,
+  type ActionState
+} from './action-runtime.ts'
+import { createFetchState, FetchError, type FetchState } from './fetch-runtime.ts'
+
+/** A route of the project, with an optional query or fragment, or a link out of the app. */
+export type Href =
+  | Route
+  | `${Route}?${string}`
+  | `${Route}#${string}`
+  | `${'http' | 'https'}://${string}`
+  | `mailto:${string}`
+  | `tel:${string}`
+  | `#${string}`
+
+const subscribe = (onChange: () => void): (() => void) => getRouter()?.subscribe(onChange) ?? (() => {})
+const snapshot = (): RouterLocation => getRouter()?.getLocation() ?? serverLocation()
+
+/** The current location: pathname, search, hash and the params of the matched route. */
+export function useLocation(): RouterLocation {
+  // In the browser the first render must see the URL the server rendered: the router has it.
+  return useSyncExternalStore(subscribe, snapshot, snapshot)
+}
+
+export function usePathname(): string {
+  return useLocation().pathname
+}
+
+export function useParams<T extends Params = Params>(): T {
+  return useLocation().params as T
+}
+
+export function useSearchParams(): URLSearchParams {
+  const { search } = useLocation()
+  return useMemo(() => new URLSearchParams(search), [search])
+}
+
+const router = {
+  push: (href: Href, options?: NavigateOptions) => getRouter()?.navigate(href, options),
+  replace: (href: Href, options?: NavigateOptions) => getRouter()?.replace(href, options),
+  back: () => getRouter()?.back(),
+  forward: () => getRouter()?.forward(),
+  refresh: () => getRouter()?.refresh(),
+  prefetch: (href: Href) => getRouter()?.prefetch(href)
+}
+
+/** Imperative navigation. The object never changes, so it is safe in a dependency list. */
+export function useRouter(): typeof router {
+  return router
+}
+
+export type LinkProps = Omit<AnchorHTMLAttributes<HTMLAnchorElement>, 'href'> & {
+  href: Href
+  /** Replace the history entry instead of adding one. */
+  replace?: boolean
+  /** Scroll to the top after navigating. Default: true. */
+  scroll?: boolean
+  /** When to load the target page: on hover, focus or touch (`'intent'`, the default), when the
+   *  link scrolls into view (`'viewport'`), or never (`false`). */
+  prefetch?: Prefetch
+  /** Added to `className` while the link points at the current page. */
+  activeClassName?: string
+  /** Active only on the exact page, not on the pages below it. */
+  exact?: boolean
+}
+
+export const Link = forwardRef<HTMLAnchorElement, LinkProps>(function Link(
+  { href, replace, scroll, prefetch = 'intent', activeClassName, exact, className, onMouseEnter, onFocus, onTouchStart, ...rest },
+  forwardedRef
+) {
+  const { pathname } = useLocation()
+  const own = useRef<HTMLAnchorElement | null>(null)
+  const intent = prefetch === 'intent' || prefetch === true
+  // `onMouseEnter`, `onFocus` and `onTouchStart` are the moments a click is likely: warm the page.
+  const onIntent = <E,>(handler?: (event: E) => void) => (event: E) => {
+    handler?.(event)
+    if (intent) getRouter()?.prefetch(href)
+  }
+
+  useEffect(() => {
+    if (prefetch !== 'viewport' || !own.current) return
+    return onceVisible(own.current, () => getRouter()?.prefetch(href))
+  }, [prefetch, href])
+
+  const setRef: Ref<HTMLAnchorElement> = node => {
+    own.current = node
+    if (typeof forwardedRef === 'function') forwardedRef(node)
+    else if (forwardedRef) (forwardedRef as MutableRefObject<HTMLAnchorElement | null>).current = node
+  }
+
+  return createElement('a', {
+    ...rest,
+    ref: setRef,
+    href: withBaseHref(href),
+    className: linkClass(className, isActive(pathname, href, exact), activeClassName),
+    'aria-current': isActive(pathname, href, true) ? 'page' : undefined,
+    'data-nexy-link': 'true',
+    'data-nexy-replace': replace ? '' : undefined,
+    'data-nexy-scroll': scroll === false ? 'false' : undefined,
+    onMouseEnter: onIntent(onMouseEnter),
+    onFocus: onIntent(onFocus),
+    onTouchStart: onIntent(onTouchStart)
+  })
+})
+
+export type ImageComponentProps = Omit<ImgHTMLAttributes<HTMLImageElement>, 'src' | 'alt' | 'width' | 'height' | 'loading' | 'sizes' | 'srcSet'> &
+  ImageProps
+
+export const Image = forwardRef<HTMLImageElement, ImageComponentProps>(function Image(
+  { src, alt, width, height, priority, fill, loading, sizes, srcSet, style, ...rest },
+  ref
+) {
+  warnMissingAlt(alt)
+  const { fetchpriority, srcset, style: computed, ...attributes } = imageAttributes({
+    src, alt, width, height, priority, fill, loading, sizes, srcSet
+  })
+  return createElement('img', {
+    ...rest,
+    ...attributes,
+    ref,
+    srcSet: srcset,
+    fetchPriority: fetchpriority,
+    style: { ...computed, ...style }
+  })
+})
+
+/** Match a pathname against the routes: the route and its params, or null when none matches. */
+export function useMatch(pathname?: string): RouteMatchInfo {
+  const router = getRouter()
+  // Without a path, match the current page. usePathname() runs on every render (rules of hooks).
+  const current = usePathname()
+  const target = pathname ?? current
+  return useMemo(() => router?.matchPath(target) ?? { match: null, found: false }, [router, target])
+}
+
+/** Hold navigation: `true` while there are unsaved changes, or a blocker returning a reason. */
+export function useBlocker(when: Blocker | boolean, message?: string): void {
+  const router = getRouter()
+  // true asks `message` before leaving and before a reload; false holds nothing.
+  useEffect(() => (router ? hold(router, when, message) : undefined), [router, when, message])
+}
+
+const IDLE: TransitionState = { pending: false, next: null }
+
+/** The in-flight navigation state: `{ pending, next }`. Read it for a loading boundary. */
+export function useTransition(): TransitionState {
+  const router = getRouter()
+  return useSyncExternalStore(
+    onChange => router?.subscribeTransition(onChange) ?? (() => {}),
+    () => router?.transition() ?? IDLE,
+    () => IDLE
+  )
+}
+
+/** Catch errors during client rendering and show a fallback instead of crashing the page. */
+export type ErrorBoundaryProps = {
+  /** Rendered when a descendant throws during client navigation. */
+  fallback: (error: Error, reset: () => void) => React.ReactNode
+  children?: React.ReactNode
+}
+
+type BoundaryState = { error: Error | null }
+
+// React catches a render error only in a class that defines getDerivedStateFromError.
+export class ErrorBoundary extends Component<ErrorBoundaryProps, BoundaryState> {
+  state: BoundaryState = { error: null }
+
+  static getDerivedStateFromError(error: Error): BoundaryState {
+    return { error }
+  }
+
+  reset = (): void => this.setState({ error: null })
+
+  render(): React.ReactNode {
+    const { error } = this.state
+    return error ? this.props.fallback(error, this.reset) : (this.props.children ?? null)
+  }
+}
+
+export { ActionError }
+export type { Action, ActionOptions, ActionState }
+
+/** Call an action from a component: `const { run, pending, data, error } = useAction(createUser)`. */
+export function useAction<Input, Output>(action: Action<Input, Output>, options?: ActionOptions<Output>) {
+  const store = useMemo(() => createActionState(action, options), [action])
+  const state = useSyncExternalStore(store.subscribe, store.getState, store.getState)
+  return { ...state, run: store.run, reset: store.reset }
+}
+
+export { FetchError }
+export type { FetchState }
+
+/** Read JSON from the server: `const { data, error, pending, refresh } = useFetch<User[]>('/api/users')`. */
+export function useFetch<Data = unknown>(url: string) {
+  const store = useMemo(() => createFetchState<Data>(url), [url])
+  const state = useSyncExternalStore(store.subscribe, store.getState, store.getState)
+  useEffect(() => void store.start(), [store])
+  return { ...state, refresh: store.refresh }
+}

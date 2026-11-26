@@ -1,0 +1,1 @@
+{"framework": "react", "ext": ".tsx", "component_name": "Cards", "func_name": "Cards", "py_path": "__nexy__/src/shared/ui/cards.py", "html_path": "__nexy__/src/shared/ui/cards.html", "pathname": "/src/shared/ui/cards", "symbol": "Card", "source": "src/shared/ui/cards.tsx", "global_src": "/src/shared/ui/cards.tsx", "key_hash": "5bc1f698eed5b5a212f423e366c518a7"}

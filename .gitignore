@@ -1,5 +1,5 @@
 __pycache__/
-__nexy__/
+__nexy__/.temp
 *.pyc
 .env
 nexy.db
@@ -14,3 +14,4 @@ tmp/
 .coverage
 .coverage.json
 htmlcov/
+__nexy__/build-cache.json

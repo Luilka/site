@@ -1,0 +1,270 @@
+// @ts-nocheck
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import fs from 'fs'
+import os from 'os'
+import path from 'path'
+import { glob } from 'glob'
+import { EXCLUDES } from './excludes'
+
+export type Framework = 'react' | 'preact' | 'solid' | 'vue' | 'svelte'
+
+export const c = {
+  reset:  '\x1b[0m',
+  dim:    '\x1b[2m',
+  yellow: '\x1b[33m',
+  red:    '\x1b[31m',
+  green:  '\x1b[32m',
+}
+
+const GLOB_IGNORE = ['node_modules/**', 'dist/**', '__nexy__/**', '.git/**', 'public/**', 'nexy/**', ...EXCLUDES]
+
+export function globIgnore(): string[] {
+  return GLOB_IGNORE
+}
+
+export const FRAMEWORK_PACKAGES: Record<Framework, string> = {
+  react:  'react',
+  preact: 'preact',
+  solid:  'solid-js',
+  vue:    'vue',
+  svelte: 'svelte',
+}
+
+export async function loadMdxPlugin(
+  files: string[],
+  jsxImportSource: 'react' | 'preact'
+): Promise<any[]> {
+  if (!files.some(file => path.extname(file) === '.mdx')) return []
+  try {
+    const { default: mdx } = await import('@mdx-js/esbuild')
+    return [mdx({ jsx: true, jsxImportSource })]
+  } catch {
+    throw new Error(
+      '.mdx files found but @mdx-js/esbuild is not installed. ' +
+      'Run: bun add -d @mdx-js/esbuild (or pnpm add -D / npm install -D)'
+    )
+  }
+}
+
+export function getProjectFrameworks(): Set<Framework> {
+  const frameworks = new Set<Framework>()
+  const files = glob.sync('**/*.{tsx,jsx,vue,svelte,mdx}', {
+    cwd: process.cwd(),
+    ignore: globIgnore()
+  })
+  let hasUnmarkedTsx = false
+
+  for (const file of files) {
+    if (file.endsWith('.vue')) {
+      frameworks.add('vue')
+    } else if (file.endsWith('.svelte')) {
+      frameworks.add('svelte')
+    } else if (file.endsWith('.mdx')) {
+      frameworks.add(resolveMdxFramework(path.resolve(process.cwd(), file)))
+    } else if (file.endsWith('.tsx') || file.endsWith('.jsx')) {
+      const content = fs.readFileSync(path.resolve(process.cwd(), file), 'utf-8')
+      if (content.includes("from 'solid-js'") || content.includes('from "solid-js"')) {
+        frameworks.add('solid')
+      } else if (content.includes("from 'preact'") || content.includes('from "preact"')) {
+        frameworks.add('preact')
+      } else if (
+        content.includes("from 'react'") || content.includes('from "react"') ||
+        content.includes("from 'react-dom'") || content.includes('from "react-dom"')
+      ) {
+        frameworks.add('react')
+      } else {
+        hasUnmarkedTsx = true
+      }
+    }
+  }
+
+  // The automatic JSX runtime needs no framework import, so a React 19 or
+  // Preact component looks import-free. Fall back to what is installed.
+  if (hasUnmarkedTsx && frameworks.size === 0) {
+    if (isFrameworkInstalled('react')) {
+      frameworks.add('react')
+    } else if (isFrameworkInstalled('preact')) {
+      frameworks.add('preact')
+    } else if (isFrameworkInstalled('solid')) {
+      frameworks.add('solid')
+    }
+  }
+
+  return frameworks
+}
+
+export function checkFrameworks(usedFrameworks: Set<Framework>): Set<Framework> {
+  const installed = new Set<Framework>()
+  for (const framework of usedFrameworks) {
+    const pkgPath = path.resolve(process.cwd(), 'node_modules', FRAMEWORK_PACKAGES[framework])
+    if (fs.existsSync(pkgPath)) {
+      installed.add(framework)
+    } else {
+      console.warn(
+        `${c.yellow} "${framework}" is used but not installed.` +
+        ` Install it with your package manager: ${FRAMEWORK_PACKAGES[framework]}${c.reset}`
+      )
+    }
+  }
+  return installed
+}
+
+export function isFrameworkInstalled(framework: Framework): boolean {
+  return fs.existsSync(
+    path.resolve(process.cwd(), 'node_modules', FRAMEWORK_PACKAGES[framework])
+  )
+}
+
+export function detectTsxFramework(filePath: string): 'react' | 'preact' | 'solid' | null {
+  if (!filePath.endsWith('.tsx') && !filePath.endsWith('.jsx')) return null
+  const content = fs.readFileSync(filePath, 'utf-8')
+
+  if (content.includes("from 'solid-js'") || content.includes('from "solid-js"')) return 'solid'
+  if (content.includes("from 'preact'")   || content.includes('from "preact"'))   return 'preact'
+
+  // Vérifier aussi le dossier parent - si le fichier est dans un template preact/solid
+  const normalizedPath = filePath.replace(/\\/g, '/')
+  if (normalizedPath.includes('web-fbr-preact') || normalizedPath.includes('/preact/')) return 'preact'
+  if (normalizedPath.includes('web-fbr-solid')  || normalizedPath.includes('/solid/'))  return 'solid'
+
+  return 'react'
+}
+
+export function resolveMdxFramework(filePath: string): 'react' | 'preact' {
+  const content = fs.readFileSync(filePath, 'utf-8')
+  if (content.includes("from 'preact'") || content.includes('from "preact"')) return 'preact'
+  const normalizedPath = filePath.replace(/\\/g, '/')
+  if (normalizedPath.includes('web-fbr-preact') || normalizedPath.includes('/preact/')) return 'preact'
+  return 'react'
+}
+
+export const isComponent = (exportName: string, Component: any, fileName: string): boolean => {
+  if (typeof Component !== 'function') return false
+  if (Component.prototype?.isReactComponent) return true
+  const source = Component.toString().trim()
+  if (source.startsWith('class') && !source.includes('isReactComponent')) return false
+  const name = exportName === 'default' ? (Component.name || fileName) : exportName
+  return /^[A-Z]/.test(name)
+}
+
+export function getManifest(): Record<string, any> {
+  const manifestPath = path.resolve(process.cwd(), '__nexy__/client/.vite/manifest.json')
+  if (!fs.existsSync(manifestPath)) {
+    console.error(`${c.red} Manifest not found. Run vite build first.${c.reset}`)
+    process.exit(1)
+  }
+  return JSON.parse(fs.readFileSync(manifestPath, 'utf-8'))
+}
+
+export function getAssetTags(manifest: Record<string, any>, fileName: string): { js: string, css: string } {
+  const entry = Object.values(manifest).find((e: any) =>
+    e.file.includes(fileName) && !e.file.endsWith('.css')
+  ) as any
+
+  // const js = entry?.file ? `<script type="module" src="/${entry.file}"></script>` : ''
+  const js =""
+  const css = entry?.css?.map((csf: string) => `<link rel="stylesheet" href="/${csf}">`).join('') || ''
+
+  return { js, css }
+}
+
+let snippetsChain: Promise<void> = Promise.resolve()
+
+export function saveSnippets(newSnippets: Record<string, string>) {
+  snippetsChain = snippetsChain.then(() => {
+    const snippetsPath = path.resolve(process.cwd(), '__nexy__/client/snippets.json')
+    const existing = fs.existsSync(snippetsPath)
+      ? JSON.parse(fs.readFileSync(snippetsPath, 'utf-8'))
+      : {}
+
+    fs.mkdirSync(path.resolve(process.cwd(), '__nexy__/client/static'), { recursive: true })
+    fs.writeFileSync(snippetsPath, JSON.stringify({ ...existing, ...newSnippets }, null, 2))
+  })
+  return snippetsChain
+}
+
+export function flushSnippets(): Promise<void> {
+  return snippetsChain
+}
+
+export function writeComponent(
+  relativeDir: string,
+  entryId: string,
+  finalContent: string,
+  snippets: Record<string, string>
+) {
+  const outputDir = path.join(process.cwd(), '__nexy__/client/static', relativeDir)
+  fs.mkdirSync(outputDir, { recursive: true })
+  fs.writeFileSync(path.join(outputDir, `${entryId}.html`), finalContent)
+
+  const snippetKey = path.join(relativeDir, `${entryId}.html`).replace(/\\/g, '/')
+  snippets[snippetKey] = finalContent
+
+}
+
+
+export function getEntryId(
+  fileName: string,
+  exportName: string,
+  framework: Framework
+): string {
+  // Vue and Svelte: filename.vue.html / filename.svelte.html
+  if (framework === 'vue') return `${fileName}.vue`
+  if (framework === 'svelte') return `${fileName}.svelte`
+
+  // React, Preact, Solid: filename.Default.html / filename.MyComp.html
+  return `${fileName}.${exportName === 'default' ? 'Default' : exportName}`
+}
+
+export interface SSGEntry {
+  file: string;
+  component: string;
+  status: 'success' | 'failed' | 'not_supported';
+  /** Why a component has no server HTML; `nx build` prints it next to the file. */
+  reason?: string;
+}
+
+export interface SSGResult {
+  entries: SSGEntry[];
+}
+
+export function writeReport(results: SSGResult[], elapsedMs?: number) {
+  const all: SSGEntry[] = results.flatMap(r => r.entries)
+  const reportPath = path.resolve(process.cwd(), '__nexy__/client/ssg-report.json')
+  fs.mkdirSync(path.dirname(reportPath), { recursive: true })
+  const report = elapsedMs === undefined
+    ? all
+    : { timingMs: Math.round(elapsedMs), entries: all }
+  fs.writeFileSync(reportPath, JSON.stringify(report, null, 2))
+}
+
+export function getTempDir(): string {
+  const tempDir = path.resolve(process.cwd(), '__nexy__', '.temp');
+  if (!fs.existsSync(tempDir)) {
+    fs.mkdirSync(tempDir, { recursive: true });
+  }
+  return tempDir;
+}
+
+export function cpuCount(): number {
+  return Math.max(1, os.cpus().length)
+}
+
+export async function mapPool<T, R>(
+  items: readonly T[],
+  worker: (item: T, index: number) => Promise<R>,
+  concurrency = cpuCount()
+): Promise<R[]> {
+  const results: R[] = new Array(items.length)
+  let next = 0
+  const runner = async () => {
+    while (true) {
+      const index = next++
+      if (index >= items.length) return
+      results[index] = await worker(items[index], index)
+    }
+  }
+  const workers = Array.from({ length: Math.min(concurrency, items.length) }, () => runner())
+  await Promise.all(workers)
+  return results
+}
