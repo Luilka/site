@@ -5,68 +5,63 @@ import { dictionaries } from "@/shared/i18n";
 import { prefersStill } from "@/shared/utils/prefers-still.util.ts";
 import Home from "@/routes/[lang]/index.tsx";
 
-function visibleSlides(container: HTMLElement): number[] {
-  return Array.from(container.querySelectorAll("img"), (img, index) => (img.className.includes("opacity-100") ? index : -1)).filter((index) => index >= 0);
-}
-
 function mockStill(reduce: boolean, saveData = false): void {
   vi.stubGlobal("matchMedia", (query: string) => ({ matches: reduce && query.includes("reduce") }));
   Object.defineProperty(navigator, "connection", { value: { saveData }, configurable: true });
 }
 
+let play: ReturnType<typeof vi.spyOn>;
+let pause: ReturnType<typeof vi.spyOn>;
+
 beforeEach(() => {
-  vi.useFakeTimers();
   mockStill(false);
+  play = vi.spyOn(HTMLMediaElement.prototype, "play").mockResolvedValue(undefined);
+  pause = vi.spyOn(HTMLMediaElement.prototype, "pause").mockImplementation(() => undefined);
 });
 
 afterEach(() => {
-  vi.useRealTimers();
+  vi.restoreAllMocks();
   vi.unstubAllGlobals();
 });
 
 describe("hero reel", () => {
-  it("stacks the cover of every realisation, decorative, with the first one loaded at once", () => {
+  it("plays a silent looping video from a still poster, decorative and inline on phones", () => {
     const { container } = render(<HeroReel />);
-    const images = container.querySelectorAll("img");
-    expect(images).toHaveLength(dictionaries.fr.works.length);
-    expect(images[0].getAttribute("loading")).toBe("eager");
-    expect(images[1].getAttribute("loading")).toBe("lazy");
-    expect(container.querySelector("[aria-hidden='true']")?.contains(images[0])).toBe(true);
+    const video = container.querySelector("video") as HTMLVideoElement;
+    expect(video.muted).toBe(true);
+    expect(video.loop).toBe(true);
+    expect(video.getAttribute("playsinline")).not.toBeNull();
+    expect(video.getAttribute("poster")).toBe("/video/hero-reel-poster.webp");
+    expect(video.getAttribute("aria-hidden")).toBe("true");
+    expect(video.querySelector("source")?.getAttribute("src")).toBe("/video/hero-reel.mp4");
   });
 
-  it("shows one cover at a time and moves on to the next one", () => {
+  it("fills the frame and loads only its metadata until it plays", () => {
     const { container } = render(<HeroReel />);
-    expect(visibleSlides(container)).toEqual([0]);
-    act(() => { vi.advanceTimersByTime(4000); });
-    expect(visibleSlides(container)).toEqual([1]);
+    const video = container.querySelector("video");
+    expect(video?.className).toContain("absolute inset-0 size-full object-cover");
+    expect(video?.getAttribute("preload")).toBe("metadata");
   });
 
-  it("fades between covers and stops fading under reduced motion", () => {
-    const { container } = render(<HeroReel />);
-    const className = container.querySelector("img")?.className ?? "";
-    expect(className).toContain("transition-opacity");
-    expect(className).toContain("motion-reduce:transition-none");
-  });
-
-  it("can be paused by a named button and resumed", () => {
-    const { container } = render(<HeroReel />);
+  it("starts playing, and can be paused by a named button and resumed", () => {
+    render(<HeroReel />);
+    expect(play).toHaveBeenCalled();
     fireEvent.click(screen.getByRole("button", { name: dictionaries.fr.reelPause }));
-    act(() => { vi.advanceTimersByTime(9000); });
-    expect(visibleSlides(container)).toEqual([0]);
+    expect(pause).toHaveBeenCalled();
+    play.mockClear();
     fireEvent.click(screen.getByRole("button", { name: dictionaries.fr.reelPlay }));
-    act(() => { vi.advanceTimersByTime(4000); });
-    expect(visibleSlides(container)).toEqual([1]);
+    expect(play).toHaveBeenCalled();
   });
 
-  it("starts still when the visitor asked for less motion", () => {
+  it("stays on the poster when the visitor asked for less motion", () => {
     mockStill(true);
-    const { container } = render(<HeroReel />);
-    act(() => { vi.advanceTimersByTime(9000); });
-    expect(visibleSlides(container)).toEqual([0]);
+    render(<HeroReel />);
+    act(() => undefined);
+    expect(pause).toHaveBeenCalled();
     expect(screen.getByRole("button", { name: dictionaries.fr.reelPlay })).toBeTruthy();
   });
 
-  it("starts still when the visitor saves data", () => {
+  it("stays on the poster when the visitor saves data", () => {
     mockStill(false, true);
     render(<HeroReel />);
     expect(screen.getByRole("button", { name: dictionaries.fr.reelPlay })).toBeTruthy();
@@ -75,6 +70,11 @@ describe("hero reel", () => {
   it("gives the pause button a touch target of at least 44 pixels", () => {
     render(<HeroReel />);
     expect(screen.getByRole("button", { name: dictionaries.fr.reelPause }).className).toContain("size-11");
+  });
+
+  it("survives a browser that refuses to autoplay", () => {
+    play.mockRejectedValue(new Error("blocked"));
+    expect(() => render(<HeroReel />)).not.toThrow();
   });
 });
 
@@ -87,10 +87,10 @@ describe("prefers still", () => {
 });
 
 describe("home hero", () => {
-  it("shows the reel of realisations instead of the striped panel", () => {
+  it("shows the motion video instead of the striped panel", () => {
     const { container } = render(<Home />);
     const hero = container.querySelector("section");
-    expect(hero?.querySelectorAll("img").length).toBeGreaterThan(0);
+    expect(hero?.querySelector("video")).not.toBeNull();
     expect(hero?.querySelector("div[class*='repeating-linear-gradient']")).toBeNull();
   });
 });

@@ -7,7 +7,7 @@ import { StripedPanel } from "@/shared/ui/panels.tsx";
 import { SAMPLE_IMAGE } from "./fixtures.ts";
 
 describe("accent button", () => {
-  it("is the single green action, and the dark button turns green on hover", () => {
+  it("is the single forest action, and the dark button turns forest on hover", () => {
     expect(buttonClasses("accent")).toContain("bg-accent text-paper");
     expect(buttonClasses("dark")).toContain("hover:bg-accent");
   });

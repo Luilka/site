@@ -40,18 +40,19 @@ def test_design_tokens_match_the_reference() -> None:
         token in css
         for token in (
             "--text: #0a0a0a",
-            "--night: #0a0a0a",
-            "--graphite: #262626",
-            "--gray: #e8e8e8",
-            "--bg-soft: #f5f5f5",
-            "--accent: #0c5a41",
+            "--paper: #f6f0e4",
+            "--night: #132a22",
+            "--accent: #1c3f34",
+            "--gold: #c9a24b",
+            "--gray: #e9dfc8",
+            "--bg-soft: #efe8d8",
         )
     )
 
 
-def test_theme_is_black_and_white_with_one_green_accent() -> None:
+def test_theme_is_forest_gold_and_cream_with_no_blue_or_violet() -> None:
     css = (ROOT / "src" / "globale.css").read_text(encoding="utf-8")
-    for old in ("#cfd1db", "#f6f6fa", "#b4b6bf", "#2a4cb5", "#1a1a1f", "#2a2ae6", "#9b5de5", "--blue:", "--accent-blue", "--accent-purple"):
+    for old in ("#cfd1db", "#f6f6fa", "#b4b6bf", "#2a4cb5", "#1a1a1f", "#2a2ae6", "#9b5de5", "--blue:", "--accent-blue", "--accent-purple", "--graphite", "#0c5a41", "#262626", "#e8e8e8"):
         assert old not in css
 
 

@@ -102,7 +102,7 @@ function StepText({ title, description }: StepTextProps) {
   );
 }
 
-const STEP_TONES: readonly string[] = ["bg-night text-paper", "bg-graphite text-paper", "bg-gray text-text", "bg-accent text-paper"];
+const STEP_TONES: readonly string[] = ["bg-night text-paper", "bg-gold text-night", "bg-gray text-text", "bg-accent text-paper"];
 
 export function StepCard({ number, title, description, index = 0 }: StepCardProps) {
   return (

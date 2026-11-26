@@ -7,12 +7,11 @@ import type { HTMLAttributes } from "react";
 import { useRetry } from "@/shared/hooks/use-retry.hook.ts";
 import Errors from "@/routes/errors.tsx";
 import { motion } from "motion/react";
-import { Picture } from "@/shared/ui/images.tsx";
-import { useReel } from "@/shared/hooks/use-reel.hook.ts";
+import { useVideoPlayback } from "@/shared/hooks/use-video-playback.hook.ts";
 import { Badge } from "@/shared/ui/badges.tsx";
 import { cn } from "@/shared/utils/cn.util.ts";
 import { PROCESS_STAGES } from "@/shared/utils/process-stages.util.ts";
-import type { ActionLinkProps, BreadcrumbProps, ContactPanelProps, FeedbackBoundaryProps, PageFrameProps, PageHeroProps, PageHeroTextProps, PageLeadProps, PageTitleProps, ProcessBandProps, ReelSlideProps, ReelSlidesProps, ReelToggleProps, ProcessStageListProps, ProcessStageProps, ContactButtonProps, RevealProps, StateCopyProps } from "@/shared/types";
+import type { ActionLinkProps, BreadcrumbProps, ContactPanelProps, FeedbackBoundaryProps, PageFrameProps, PageHeroProps, PageHeroTextProps, PageLeadProps, PageTitleProps, ProcessBandProps, ReelToggleProps, ReelVideoProps, ProcessStageListProps, ProcessStageProps, ContactButtonProps, RevealProps, StateCopyProps } from "@/shared/types";
 
 export function ActionLink({ action, className }: ActionLinkProps) {
   return (
@@ -56,33 +55,29 @@ export function FeedbackBoundary({ children }: FeedbackBoundaryProps) {
 const REEL_FRAME = "relative h-[440px] overflow-hidden rounded-[28px] bg-night";
 const REEL_BUTTON = "absolute bottom-3 right-3 row-center justify-center size-11 rounded-full bg-paper/80 text-text backdrop-blur-md cursor-pointer";
 
-function ReelSlide({ image, active, first }: ReelSlideProps) {
-  const fade = active ? "opacity-100" : "opacity-0";
-  return <Picture className={`absolute inset-0 size-full transition-opacity duration-700 motion-reduce:transition-none ${fade}`} image={image} loading={first ? "eager" : "lazy"} />;
-}
-
-function ReelSlides({ images, index }: ReelSlidesProps) {
-  return (
-    <div aria-hidden="true">
-      {images.map((image, position) => <ReelSlide key={image.src} image={image} active={position === index} first={position === 0} />)}
-    </div>
-  );
-}
-
 function ReelToggle({ paused, onToggle }: ReelToggleProps) {
   const { reelPause, reelPlay } = useContent();
   const Icon = paused ? Play : Pause;
   return <button type="button" className={REEL_BUTTON} aria-label={paused ? reelPlay : reelPause} onClick={onToggle}><Icon size={20} strokeWidth={1.8} aria-hidden="true" /></button>;
 }
 
-/** A silent, decorative reel of the realisation covers for the home hero, still when the visitor asks for less motion. */
+const REEL_VIDEO = "absolute inset-0 size-full object-cover";
+
+function ReelVideo({ player }: ReelVideoProps) {
+  return (
+    <video ref={player.ref} className={REEL_VIDEO} poster="/video/hero-reel-poster.webp" muted loop playsInline preload="metadata" aria-hidden="true" tabIndex={-1}>
+      <source src="/video/hero-reel.mp4" type="video/mp4" />
+    </video>
+  );
+}
+
+/** A silent, decorative motion video for the home hero, still on its poster when the visitor asks for less motion. */
 export function HeroReel() {
-  const { works } = useContent();
-  const reel = useReel(works.length);
+  const player = useVideoPlayback();
   return (
     <div className={REEL_FRAME}>
-      <ReelSlides images={works.map((work) => work.image)} index={reel.index} />
-      <ReelToggle paused={reel.paused} onToggle={reel.toggle} />
+      <ReelVideo player={player} />
+      <ReelToggle paused={player.paused} onToggle={player.toggle} />
     </div>
   );
 }
@@ -202,7 +197,7 @@ function ProcessStageList({ className }: ProcessStageListProps) {
 
 function ProcessStages({ reverse }: ProcessBandProps) {
   return (
-    <div className="relative z-2 overflow-x-clip bg-night text-paper py-7 font-medium">
+    <div className="relative z-2 overflow-x-clip bg-night text-gold py-7 font-medium">
       <div className={`${TRACK} ${reverse ? "animate-marquee" : "animate-marquee-right"}`}>
         <ProcessStageList className={LIST} />
         <ProcessStageList className={LIST_COPY} />

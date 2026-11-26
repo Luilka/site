@@ -8,7 +8,7 @@ const VARIANTS: Record<ButtonVariant, string> = {
   primary: `${SOLID} bg-gray text-text`,
   outline: OUTLINE,
   dark: `${SOLID} bg-[var(--night)] text-paper hover:bg-accent`,
-  accent: `${SOLID} bg-accent text-paper hover:bg-graphite`,
+  accent: `${SOLID} bg-accent text-paper hover:bg-night`,
   light: `${SOLID} bg-paper text-text`,
 };
 

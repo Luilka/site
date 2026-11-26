@@ -69,13 +69,13 @@ describe("landing components", () => {
     expect(reversed).toContain("[animation-direction:reverse]");
   });
 
-  it("takes the four steps from ink to the one accent, which marks the delivery", () => {
+  it("takes the four steps from deep forest through gold and sand to the forest accent of the delivery", () => {
     const { container } = render(<ProcessSection />);
     const cards = Array.from(container.querySelectorAll("section > div > div"), (card) => card.className);
     expect(cards).toHaveLength(4);
     expect(new Set(cards).size).toBe(4);
     expect(cards[0]).toContain("bg-night");
-    expect(cards[1]).toContain("bg-graphite");
+    expect(cards[1]).toContain("bg-gold text-night");
     expect(cards[2]).toContain("bg-gray");
     expect(cards[3]).toContain("bg-accent text-paper");
   });

@@ -1,7 +1,7 @@
 import type { FocusEvent, KeyboardEvent, RefObject } from "react";
 
-export type ReelState = {
-  index: number;
+export type VideoPlayback = {
+  ref: RefObject<HTMLVideoElement | null>;
   paused: boolean;
   toggle: () => void;
 };
