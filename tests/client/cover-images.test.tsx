@@ -18,6 +18,21 @@ describe("cover images", () => {
     expect(cover?.getAttribute("alt")).toBe("");
   });
 
+  it.each([
+    ["work", <WorkCard key="w" slug="yano" name="Yano" kind="UX Design" image={SAMPLE_IMAGE} />],
+    ["product", <ProductCard key="p" slug="tala" name="Tala" description="Texte" image={SAMPLE_IMAGE} />],
+  ])("fills the whole %s card with the cover and lays the text over it", (_name, card) => {
+    const { container } = render(card);
+    const link = container.querySelector("a");
+    expect(link?.className).toContain("relative");
+    expect(link?.className).toContain("overflow-hidden");
+    const cover = link?.querySelector("img")?.className ?? "";
+    for (const name of ["absolute", "inset-0", "size-full", "object-cover"]) expect(cover).toContain(name);
+    const info = link?.lastElementChild?.className ?? "";
+    expect(info).toContain("absolute");
+    expect(info).toContain("backdrop-blur");
+  });
+
   it("shows the cover of a product on its card", () => {
     const { container } = render(<ProductCard slug="tala" name="Tala" description="Texte" image={SAMPLE_IMAGE} />);
     expect(container.querySelector("img")?.getAttribute("src")).toBe("/images/work/sample.svg");

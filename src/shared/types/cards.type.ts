@@ -46,7 +46,11 @@ export type TeamLabelProps = {
 export type CardCoverProps = {
   image: DetailImage;
   name: string;
-  className: string;
+};
+
+export type ProductInfoProps = {
+  name: string;
+  description: string;
 };
 
 export type ProductTitleProps = {

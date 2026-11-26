@@ -11,7 +11,7 @@ import { githubAvatar, githubProfile } from "@/shared/utils/github.util.ts";
 import { initialsOf } from "@/shared/utils/initials.util.ts";
 import { profileLabel } from "@/shared/utils/profile-label.util.ts";
 import { coverName } from "@/shared/utils/cover-name.util.ts";
-import type { CardCoverProps, CardIconProps, ProductCardProps, ProductHeaderProps, ProductTitleProps, ServiceCardProps, StepCardProps, StepTextProps, TeamCardProps, TeamLabelProps, TeamNameProps, TeamPortraitProps, TeamProfileLinkProps, ValueCardProps, ValueIconProps, ValueTextProps, WorkCardProps, WorkInfoProps, WorkWhoProps } from "@/shared/types";
+import type { CardCoverProps, CardIconProps, ProductCardProps, ProductInfoProps, ProductHeaderProps, ProductTitleProps, ServiceCardProps, StepCardProps, StepTextProps, TeamCardProps, TeamLabelProps, TeamNameProps, TeamPortraitProps, TeamProfileLinkProps, ValueCardProps, ValueIconProps, ValueTextProps, WorkCardProps, WorkInfoProps, WorkWhoProps } from "@/shared/types";
 
 const ICONS: Record<string, LucideIcon> = {
   "UX Design": PenTool,
@@ -32,6 +32,8 @@ export function CardIcon({ name, size = 22, strokeWidth = 2 }: CardIconProps) {
   return <Icon size={size} strokeWidth={strokeWidth} aria-hidden="true" />;
 }
 
+const GLASS = "absolute inset-x-3 bottom-3 rounded-[14px] border border-paper/60 bg-paper/80 p-3 backdrop-blur-md";
+
 function ProductTitle({ name }: ProductTitleProps) {
   return (
     <div>
@@ -50,17 +52,33 @@ function ProductHeader({ name }: ProductHeaderProps) {
   );
 }
 
-function CardCover({ image, name, className }: CardCoverProps) {
-  return <Picture className={className} image={image} style={{ viewTransitionName: name }} />;
+function CardCover({ image, name }: CardCoverProps) {
+  return <Picture className="absolute inset-0 size-full" image={image} style={{ viewTransitionName: name }} />;
+}
+
+function ProductTop({ name }: ProductHeaderProps) {
+  return (
+    <div className="flex items-start justify-between gap-2">
+      <ProductHeader name={name} />
+      <ArrowUpRight className="shrink-0 text-muted" size={22} strokeWidth={1.5} aria-hidden="true" />
+    </div>
+  );
+}
+
+function ProductInfo({ name, description }: ProductInfoProps) {
+  return (
+    <div className={GLASS}>
+      <ProductTop name={name} />
+      <p className="mt-3 text-(length:--text-sm) text-muted leading-[1.55]">{description}</p>
+    </div>
+  );
 }
 
 export function ProductCard({ slug, name, description, image }: ProductCardProps) {
   return (
-    <Link className="min-w-0 relative flex flex-col h-[545px] overflow-hidden rounded-[18px] py-[16px] px-[14px] bg-[linear-gradient(180deg,var(--gray)_0%,var(--gray)_35%,var(--gray-2)_100%)]" href={detailHref("products", slug)}>
-      <ArrowUpRight className="absolute right-3 text-[#6a6a74]" size={24} strokeWidth={1.5} aria-hidden="true" />
-      <ProductHeader name={name} />
-      <p className="text-(length:--text-sm) text-[#55555e] mt-[10px] leading-[1.55]">{description}</p>
-      <CardCover className="mt-auto h-[300px] rounded-[12px]" image={image} name={coverName("products", slug)} />
+    <Link className="min-w-0 relative block h-[545px] overflow-hidden rounded-[18px] bg-gray max-[640px]:h-[460px]" href={detailHref("products", slug)}>
+      <CardCover image={image} name={coverName("products", slug)} />
+      <ProductInfo name={name} description={description} />
     </Link>
   );
 }
@@ -104,7 +122,7 @@ function WorkWho({ name, kind }: WorkWhoProps) {
 
 function WorkInfo({ name, kind, caseLabel }: WorkInfoProps) {
   return (
-    <div className="flex flex-1 items-center justify-between px-[14px]">
+    <div className={`${GLASS} flex items-center justify-between`}>
       <WorkWho name={name} kind={kind} />
       <span className="pill-shape gap-1.5 border border-muted/50 text-(length:--text-xs) py-[4px] px-[10px] text-text">{caseLabel}<ArrowUpRight size={8} strokeWidth={1.5} aria-hidden="true" /></span>
     </div>
@@ -113,8 +131,8 @@ function WorkInfo({ name, kind, caseLabel }: WorkInfoProps) {
 
 export function WorkCard({ slug, name, kind = "Particulier", caseLabel = "Cas d'étude", image }: WorkCardProps) {
   return (
-    <Link className="min-w-0 relative flex flex-col h-[396px] overflow-hidden rounded-[18px] bg-gray" href={detailHref("work", slug)}>
-      <CardCover className="h-[324px]" image={image} name={coverName("work", slug)} />
+    <Link className="min-w-0 relative block h-[396px] overflow-hidden rounded-[18px] bg-gray max-[640px]:h-[300px]" href={detailHref("work", slug)}>
+      <CardCover image={image} name={coverName("work", slug)} />
       <WorkInfo name={name} kind={kind} caseLabel={caseLabel} />
     </Link>
   );
