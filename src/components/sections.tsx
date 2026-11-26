@@ -6,7 +6,7 @@ import type { AboutSectionProps, AboutTextProps, CardGridProps, CollectionSectio
 import { buttonClasses } from "@/shared/ui/buttons.tsx";
 import { Link } from "@/shared/ui/links.tsx";
 import { Card } from "@/shared/ui/cards.tsx";
-import { Image } from "@/shared/ui/images.tsx";
+import { Picture } from "@/shared/ui/images.tsx";
 import { Logo } from "@/shared/ui/logos.tsx";
 import { Badge } from "@/shared/ui/badges.tsx";
 import { StepCard, ProductCard, ServiceCard, WorkCard } from "@/components/cards.tsx";
@@ -156,7 +156,7 @@ function DetailBackLink({ detail }: DetailBackLinkProps) {
 
 function DetailMedia({ cover }: DetailMediaProps) {
   return (
-    <Image className="w-full h-auto rounded-[22px]" src={cover.src} width={cover.width} height={cover.height} alt="" loading="eager" fetchPriority="high" style={{ viewTransitionName: cover.name }} />
+    <Picture className="h-auto rounded-[22px]" image={cover} loading="eager" fetchPriority="high" style={{ viewTransitionName: cover.name }} />
   );
 }
 

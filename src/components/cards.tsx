@@ -3,7 +3,7 @@ import { detailHref } from "@/shared/utils/detail-href.util.ts";
 import { Link } from "@/shared/ui/links.tsx";
 import { IconTile } from "@/shared/ui/icon-tiles.tsx";
 import { Card } from "@/shared/ui/cards.tsx";
-import { Image } from "@/shared/ui/images.tsx";
+import { Picture } from "@/shared/ui/images.tsx";
 import { coverName } from "@/shared/utils/cover-name.util.ts";
 import type { CardCoverProps, CardIconProps, ProductCardProps, ProductHeaderProps, ProductTitleProps, ServiceCardProps, StepCardProps, StepTextProps, WorkCardProps, WorkInfoProps, WorkWhoProps } from "@/shared/types";
 
@@ -45,7 +45,7 @@ function ProductHeader({ name }: ProductHeaderProps) {
 }
 
 function CardCover({ image, name, className }: CardCoverProps) {
-  return <Image className={`w-full object-cover ${className}`} src={image.src} width={image.width} height={image.height} alt="" style={{ viewTransitionName: name }} />;
+  return <Picture className={className} image={image} style={{ viewTransitionName: name }} />;
 }
 
 export function ProductCard({ slug, name, description, image }: ProductCardProps) {

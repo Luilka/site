@@ -1,3 +1,4 @@
+import type { DetailImage } from "./detail.type.ts";
 import type { Language } from "./site.type.ts";
 import type { ButtonHTMLAttributes, HTMLAttributes, ImgHTMLAttributes, InputHTMLAttributes } from "react";
 import type { Href, LinkProps } from "@nexy/client";
@@ -20,6 +21,12 @@ export type ImageProps = Omit<ImgHTMLAttributes<HTMLImageElement>, "src" | "alt"
   width: number;
   height: number;
 };
+
+export type PictureProps = Omit<ImageProps, "src" | "alt" | "width" | "height"> & {
+  image: DetailImage;
+};
+
+export type PanelProps = HTMLAttributes<HTMLDivElement>;
 
 export type LogoProps = {
   className?: string;
