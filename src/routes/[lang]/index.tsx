@@ -2,6 +2,7 @@ import { NotFoundPanel, ProcessBand, ContactPanel, HeroAccent, QuoteLink } from 
 import { isSupportedLanguage, useContent } from "@/shared/i18n";
 import { ProductsSection, ServicesSection, WorksSection, ProcessSection, AboutSection } from "@/components/sections.tsx";
 import { Container } from "@/shared/ui/containers.tsx";
+import { StripedPanel } from "@/shared/ui/panels.tsx";
 import type { HomeProps } from "@/shared/types";
 
 function HomeAbout() {
@@ -34,7 +35,7 @@ function HeroSection() {
     <section className="pt-[72px] pb-[64px]">
       <Container className="grid items-center grid-cols-[1fr_540px] gap-[6px] max-[1000px]:grid-cols-[1fr]">
         <HeroCopy />
-        <div className="relative overflow-hidden h-[440px] rounded-[28px] bg-[linear-gradient(135deg,#2b2b30,#0f0f12_55%,#3a3a40)] before:absolute before:inset-0 before:content-[''] before:bg-[repeating-linear-gradient(115deg,rgb(255_255_255/12%)_0_42px,transparent_42px_90px)] after:absolute after:inset-0 after:content-[''] after:bg-[linear-gradient(160deg,rgb(255_255_255/18%),transparent_40%)]"><HeroAccent /></div>
+        <StripedPanel className="h-[440px]"><HeroAccent /></StripedPanel>
       </Container>
     </section>
   );
