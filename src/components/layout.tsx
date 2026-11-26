@@ -24,7 +24,7 @@ const NEWS_BUTTON = "flex items-center gap-1.5 bg-[var(--night)] text-paper bord
 const MEGA_PANEL = "fixed left-0 right-0 z-12 bg-white/80 backdrop-blur top-[4.4375rem] border-y border-y-[var(--border-ui)] shadow-[0_18px_40px_rgb(0_0_0/12%)] transition-[opacity,transform,visibility] duration-160 ease-[ease] motion-reduce:transition-none";
 const MEGA_CLOSED = "opacity-0 invisible [transform:translateY(-0.375rem)] pointer-events-none";
 const MEGA_OPEN = "opacity-100 visible [transform:translateY(0)] pointer-events-auto";
-const SOCIAL_LINK = "row-center justify-center size-11 rounded-lg hover:bg-soft hover:text-text";
+const SOCIAL_LINK = "row-center justify-center size-11 rounded-full border border-[var(--border-ui)] hover:bg-soft hover:text-text";
 const MOBILE_BUTTON = "row-center justify-center size-11 rounded-lg cursor-pointer text-[#2a2a30] hover:bg-soft";
 const MOBILE_PANEL = "fixed inset-x-0 top-[4.4375rem] z-12 max-h-[calc(100dvh-4.4375rem)] overflow-y-auto border-y border-y-[var(--border-ui)] bg-white py-2 shadow-[0_18px_40px_rgb(0_0_0/12%)]";
 const MOBILE_LINK = "flex min-h-[3rem] items-center px-6 text-(length:--text-lg) font-medium text-[#2a2a30] hover:bg-soft hover:text-blue";
@@ -59,7 +59,7 @@ function SocialProfileLink({ link }: SocialProfileLinkProps) {
 function SocialIcons() {
   const links = useSocialLinks();
   return (
-    <div className="flex gap-1 text-muted">
+    <div className="flex gap-3 text-muted">
       <MailLink />
       {links.map((link) => <SocialProfileLink key={link.network} link={link} />)}
     </div>
