@@ -60,7 +60,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
 
 - Function components, typed props (`type Props = {...}`), default exports for routes and
   components.
-- One component per file, named like the file. Small components: if the JSX is long, extract.
+- One file per family of components (`cards.tsx`, `buttons.tsx`), named exports. A component used in one place is declared in the file that uses it. Small components: if the JSX is long, extract.
 - Lists get stable `key`s. Never an index for a list that reorders.
 - Import with the `@/` alias: `import Button from "@/components/button.tsx"`.
 - Navigate with `Link` from `@nexy/client`; keep `<a>` for external URLs.
