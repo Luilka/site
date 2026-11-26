@@ -37,6 +37,8 @@ Chose à rendre facile : atteindre un projet et voir ce que Luilka a décidé et
 | Services, Réalisations, Job | Le même paragraphe (« Notre stratégie est centrée sur l'utilisateur... ») sert d'introduction à des sections différentes. | Moyenne |
 | Services, Réalisations, Job | Le titre de la page et le titre de la section disent la même chose l'un sous l'autre (« Nos services » deux fois). | Moyenne |
 | Job | Les offres (CDI à Kinshasa, ingénieur front-end React, design engineer) parlent de développement, alors que la vision écarte l'image d'un studio de développeurs. À arbitrer avec la vision. | Moyenne |
+| Réalisations, Produits | Le bouton « Découvrir plus » de la page Réalisations mène au Blog, et celui de la page Produits mène aux Réalisations. Sur la page qui est déjà la liste complète, il n'a pas de sens. | Moyenne |
+| Pied de page | Le formulaire de newsletter valide l'adresse puis annonce que l'envoi sera disponible prochainement : il ne s'abonne à rien. Une action qui ne mène nulle part contredit le principe 3 des principes de design. | Moyenne |
 | Pied de page | « Copyright 2025 » alors que nous sommes en 2026. | Basse |
 | Détail | Voir la section suivante. | Haute |
 
@@ -93,16 +95,17 @@ Tokens de `src/globale.css` :
 
 ### Contrastes à corriger
 
-Seuils WCAG 2.2 AA : 4,5 pour 1 pour le texte courant, 3 pour 1 pour les grands textes et les icônes.
+Seuils WCAG 2.2 AA : 4,5 pour 1 pour le texte courant, 3 pour 1 pour les grands textes et les composants. Une icône décorative (`aria-hidden`) n'est pas soumise au seuil.
 
 | Élément | Rapport | Constat |
 |---|---|---|
-| Icône blanche sur carte grise (réalisations, produits) | 2,3 pour 1 | Sous le seuil de 3 pour 1. Ces icônes sont décoratives (`aria-hidden`), mais elles sont le seul contenu visuel de la carte. |
-| Sous-titre « Luilka » `#6a6a74` sur fond de carte produit | 3,5 pour 1 | Texte de 12 pixels sous le seuil de 4,5 pour 1. |
-| Description produit `#55555e` sur fond bas du dégradé | 3,7 pour 1 | Texte de 14 pixels sous le seuil de 4,5 pour 1. |
-| « marque » en violet `#9b5de5` | 4,1 pour 1 | Passe en grand texte (3 pour 1), pas en texte courant. C'est un titre de 46 pixels : acceptable. |
+| Sous-titre « Luilka » `#6a6a74` sur le fond gris d'une carte produit | 3,5 pour 1 | Texte de 12 pixels sous le seuil de 4,5 pour 1. À corriger. |
+| Sous-titre d'une réalisation `#4d4d55` en bas du dégradé de la carte (fond voisin de `#afb1bb`) | 3,9 pour 1 | Texte de 12 pixels sous le seuil de 4,5 pour 1. À corriger. Le jeton `text-muted` (`#3c3c45`) atteint environ 5 pour 1 sur ce fond. |
+| Description d'un produit `#55555e` sur le fond gris d'une carte produit | 4,9 pour 1 | Passe. Le texte se trouve dans la zone grise unie du dégradé, pas dans sa partie basse. |
+| Icône blanche en filigrane sur carte grise (réalisations, produits) | 2,3 pour 1 | Exemptée du seuil, car décorative. Le problème est ailleurs : cette icône est le seul visuel de la carte. |
+| « marque » en violet `#9b5de5` sur blanc | 4,1 pour 1 | Passe en grand texte (3 pour 1), pas en texte courant. C'est un titre de 46 pixels : acceptable. |
 
-Ces rapports sont calculés sur les valeurs des tokens et des classes, pas mesurés sur un rendu. La mesure du fond exact d'un dégradé varie du haut au bas de la carte.
+Ces rapports sont calculés sur les valeurs des jetons et des classes, pas mesurés sur un rendu. Le fond exact d'un dégradé varie du haut au bas de la carte : la valeur de la ligne des réalisations est celle du bas de la carte, où se trouve le texte.
 
 ### Face à la concurrence
 
@@ -131,6 +134,39 @@ Deux pistes, sans en trancher une :
 
 Dans les deux cas, les tokens de `src/globale.css` restent la seule source (principe des [principes de design](design-principles.md)), et le changement se fait dans les tokens, pas dans les composants.
 
+## Benchmark élargi : studios africains et mondiaux
+
+Collecte du 26 novembre 2026 sur les pages publiques : l'accueil et, quand le site l'expose, une page de réalisation ou de domaine. Elle complète les six studios vus plus haut et les notes de `research_notes/`. Les comptes de mots et d'images viennent du HTML reçu : un site qui affiche son contenu par JavaScript est sous-compté.
+
+### Ce que chaque site met en avant
+
+| Studio | Ce qu'il met en avant | Début de la navigation | Page de preuve lue |
+|---|---|---|---|
+| YUX | Recherche et design centrés sur les gens, par domaines (inclusion financière et agritech, éducation, IA grand public, santé et genre), avec un laboratoire d'IA et des publications | About us, What We Do, AI Lab, Publications | Page de domaine : 170 mots, 10 images. Page Services : 630 mots, 35 images. Page Publications : 390 mots, 18 images |
+| Derz Consulting | Produits et services qui marchent pour les gens, avec un volet recherche et conseil | About, How we work, Services, Team, Projects | Aucun lien de cas détecté |
+| Inflection Studio (Nairobi) | Partenaire de croissance numérique : stratégie, design, ingénierie et marketing, avec des produits maison | Home, About, Services, Products | Aucun lien de cas détecté |
+| Afrostrength (Lagos) | Marque, logiciel sur mesure et organisation, par une seule équipe | Work en premier | Page `/work` : index d'histoires clients, 820 mots, 4 images (un index, pas un cas) |
+| Novolab (Johannesburg) | Société qui crée et fait grandir des produits numériques, avec une approche centrée sur les gens | Portfolio, About, Criteria, Studio | Aucun lien de cas détecté |
+| Studio Bao | Équipe de design à la demande, par abonnement | Non détecté | Aucun lien de cas détecté |
+| IDEO | Design centré sur l'humain, avec un rapport annuel publié | About IDEO, Our leaders, Careers, Contact, puis les villes | Aucun lien de cas détecté |
+| ustwo | Produits numériques que les gens gardent, avec une section sur l'IA et des articles | Home, Services, Work, AI, Insights | Cas RVO Health : 1 030 mots, 9 images, 1 vidéo. Il ouvre sur l'impact, puis le défi, le partenariat, la démarche |
+| Fantasy | Produits numériques, expériences de marque et systèmes intelligents. Accueil minimal : 160 mots | Non détecté | Cas Nike x LeBron : 540 mots, 3 images, 6 vidéos |
+| Pentagram | Plus grand cabinet de design indépendant, détenu par 24 associés (selon sa description) | Work, About, News, Contact | Page `/work` : index de 39 images (un index, pas un cas) |
+| Instrument | Agence de marque, de produit et de marketing menée par la technologie | Work, Services, Brand, Marketing, Product | Aucun lien de cas détecté |
+| frog | Expériences et transformation, avec des articles de fond | Insights, Work, Services, Culture | Cas sur la robotique : 1 990 mots, 43 images |
+| Work & Co | Résolution de problèmes complexes par le design et la technologie. Accueil : 260 mots | Non détecté | Aucun lien de cas détecté |
+
+`...XYZ Design` (dddxyz.com) n'a pas pu être lu : l'accès a été refusé.
+
+### Ce qu'on en retient
+
+1. **Le travail passe en premier.** Pentagram, Instrument et Afrostrength placent Work en tête de la navigation, frog en deuxième position, ustwo en troisième après l'accueil et les services. Luilka commence par À propos et place Réalisations en quatrième. Pour une personne qui compare, la preuve doit être à un geste de l'accueil.
+2. **La preuve est visuelle.** Sur les pages de réalisation lues, ustwo montre 9 images et frog 43. YUX met 10 images sur une page de domaine qui ne compte que 170 mots. Fantasy mise sur 6 vidéos. Luilka en montre zéro.
+3. **L'ouverture par l'effet.** ustwo commence son cas par l'impact, avant le défi et la démarche. C'est l'ordre proposé plus haut pour une page de projet.
+4. **YUX se différencie par la recherche publiée.** Son menu a une entrée Publications et un laboratoire d'IA, et les notes de `research_notes/` citent ses études sur l'état de l'UX en Afrique. C'est le concurrent le plus proche du positionnement de Luilka, qui relie recherche, interface et livrable. Une étude publiée est une preuve que Luilka peut produire sans l'accord d'un client, ce que ne permet pas une réalisation.
+5. **Couleurs.** IDEO tient un jaune-vert vif (`#d9ff00`) sur un bleu nuit (`#151f27`). Pentagram est presque monochrome avec un rouge (`#e61428`). ustwo combine des neutres sombres et trois accents vifs, dont un bleu (`#2306eb`) et un violet (`#9913ff`). Afrostrength a un fond crème. YUX utilise quatre accents d'égale fréquence sur sa page d'accueil : rouille (`#c34f28`), jaune (`#fcc014`), turquoise (`#61c4a7`) et indigo (`#5e67f6`). Le bleu et le violet vifs de Luilka ressemblent à ceux d'ustwo : pour se distinguer, une palette éloignée du bleu-violet de studio produit a plus de valeur. C'est une inférence, pas une mesure.
+6. **Le menu mobile.** Une détection par motif trouve un contrôle de menu dans le HTML de dix des treize sites lus. Elle peut se tromper dans les deux sens, donc ce n'est pas une mesure. Le comportement sur téléphone de ces sites n'a pas été vérifié sur un écran.
+
 ## Priorités
 
 | Priorité | Action | Effort estimé |
@@ -140,7 +176,7 @@ Dans les deux cas, les tokens de `src/globale.css` restent la seule source (prin
 | P0 | Donner une vraie hiérarchie au `h1` des pages intérieures et supprimer le doublon titre de page, titre de section. | Faible |
 | P1 | Refaire la page de détail d'un projet avec la structure ci-dessus, en commençant par un seul projet complet (images et texte fournis par le studio). | Moyen, dépend du contenu |
 | P1 | Remplacer les rectangles gris de la section Réalisations par de vraies images, ou retirer la section tant qu'elles n'existent pas. | Dépend du contenu |
-| P1 | Corriger les trois contrastes ci-dessus. | Faible |
+| P1 | Corriger les deux contrastes ci-dessus. | Faible |
 | P2 | Choisir une couleur signature et un fond chaud, puis les passer dans les tokens. | Moyen, à décider |
 | P2 | Un texte propre par section au lieu du paragraphe générique répété. | Faible |
 | P2 | Pages de service avec livrable, déroulé et projet associé. | Moyen |
@@ -158,10 +194,16 @@ Les efforts sont des estimations de travail, pas des mesures.
 3. **Offres d'emploi.** Garder trois offres de développement sur la page Job est-il cohérent avec la vision d'un studio de design ?
 4. **Couleur signature.** Laquelle, et qui valide qu'elle porte l'ancrage congolais ?
 5. **Ton de la page de détail.** Un cas raconté (type Ojú) ou une fiche courte (type Novacraft) ?
+6. **Ordre de la navigation.** Réalisations en première ou deuxième position, comme chez Pentagram, Instrument, Afrostrength ou frog, au lieu de la quatrième ?
+7. **Journal.** Les trois entrées du blog n'ont qu'une phrase chacune, et leur page ne montre rien de plus. Publier de vraies notes de recherche, comme le fait YUX avec ses publications, ou retirer le journal tant qu'il est vide ?
+8. **Newsletter.** La brancher à un service d'envoi, ou retirer le formulaire. Le choix dépend de la question Q-004 sur la mesure d'usage.
 
 ## Limites
 
-- Échantillon : six studios pour les couleurs, deux pages de cas pour le contenu. Le comptage des couleurs vient du HTML et de la première feuille de style, il ne remplace pas une capture de chaque site.
+- Échantillon : dix-huit studios au total, mais une seule page de preuve lue par studio, et seulement cinq vrais cas (Ojú, Novacraft, ustwo, Fantasy et frog). Les index d'Afrostrength et de Pentagram ne comptent pas comme des cas.
+- Couleurs : comptées dans le HTML et les trois premières feuilles de style de chaque site. Les valeurs par défaut de Bootstrap (`#0d6efd`, `#007bff`, `#dc3545`), vues sur la feuille de style de YUX et sur frog, ne sont pas des couleurs de marque et sont écartées. Pour YUX, on garde les couleurs de la page d'accueil. Pour Fantasy et Work & Co, le résultat n'est pas concluant et aucune couleur n'est retenue. Cela ne remplace pas une capture de chaque site.
+- Mots et images : comptés dans le HTML reçu, donc sous-estimés pour les sites rendus par JavaScript.
+- Menu mobile : détection par motif dans le HTML, indicative.
 - Aucun test auprès de visiteurs : les constats viennent d'une lecture des pages et des rapports de contraste, pas de mesures d'usage. Aucune donnée d'usage n'est collectée tant que la question Q-004 est ouverte.
 - Les captures ont été prises sur un serveur local en production (`nx start`), pas sur Vercel.
 - Les pages de blog et d'à-propos ont été regardées en surface, sans lecture des articles.
@@ -170,4 +212,5 @@ Les efforts sont des estimations de travail, pas des mesures.
 
 - Notes de recherche : `research_notes/Positionnement design Luilka Afrique Congo/white_space_positionnement.md` (positionnement, studios concurrents, consultés le 23 novembre 2026).
 - Pages consultées le 26 novembre 2026 : ojustudio.com (page `/work/gangan/`), novacraft.africa (page `/showcase/podzyme`), et les accueils de nakacreatives.com, studiobao.africa, defijn.io et mantaray.africa pour les couleurs.
+- Benchmark élargi, pages consultées le 26 novembre 2026 : yux.design (accueil et pages `/en-gb/services`, `/en-gb/publications`, `/en-gb/financial-inclusion-agritech`, `/en-gb/health-gender`), derzconsulting.com, inflectionstudio.io, afrostrength.com, novolab.co.za, ideo.com, ustwo.com (page `/work/rvo-health/`), fantasy.co (page `/work/nike-lebron`), pentagram.com, instrument.com, frog.co (page `/work/designing-robots-for-human-spaces-with-physical-ai`), work.co.
 - Contrastes : formule du rapport de luminance relative de WCAG 2.2, calculée sur les valeurs de `src/globale.css` et de `src/components/`.
