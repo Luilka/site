@@ -185,6 +185,32 @@ Collecte du 26 novembre 2026 sur les pages publiques : l'accueil et, quand le si
 
 Les efforts sont des estimations de travail, pas des mesures.
 
+## Changements appliqués
+
+Mise à jour du 26 novembre 2026, à la demande du titulaire. Chaque ligne renvoie à un test.
+
+| Priorité | Action | Statut |
+|---|---|---|
+| P0 | Menu de navigation sur téléphone | Fait. Bouton « Menu » sous 1140 pixels, fermeture au clavier, bouton « Nous contacter » dans le menu. `tests/client/mobile-menu.test.tsx` |
+| P0 | Libellés dans la langue de la page | Fait, D-013. « Blog » reste « Blog » dans les deux langues. `tests/client/translated-labels.test.tsx` |
+| P0 | Titre des pages intérieures et doublon de titre | Fait. `tests/client/multipage.test.tsx` |
+| P1 | Page de détail | Fait en partie : couverture en tête, description une seule fois. Le cas raconté reste à écrire par le studio. `tests/client/cover-images.test.tsx` |
+| P1 | Réalisations sans images | Couvertures abstraites en attendant les vraies images. `tests/test_content_images.py` |
+| P1 | Contrastes | Fait pour les deux textes concernés. `tests/client/design-consistency.test.tsx` |
+| P2 | Couleur signature | À décider. Voir les décisions à prendre. |
+| P2 | Un texte propre par section | Fait sur les pages intérieures, qui n'ont plus le paragraphe générique. |
+| P2 | Pages de service avec déroulé et projet associé | À faire. |
+| P3 | Bandeau de processus | Gardé, comme le design de l'accueil. Il défile en boucle et porte un motif de lignes obliques, D-014. |
+| P3 | Année du pied de page | Fait. `tests/client/landing-components.test.tsx` |
+
+Demandes ajoutées pendant les corrections : transitions de page (fait, voir [l'architecture](../Technique/architecture.md)) et liens LinkedIn, TikTok et YouTube dans le pied de page (structure faite, adresses à fournir).
+
+### Défauts trouvés en mesurant
+
+- **Débordement horizontal.** L'accueil mesurait 528 pixels de large dans un écran de 320, à cause du bandeau de processus et du pied de page. Il n'y a plus de défilement de côté. À 800 et 1280 pixels, le fond incliné du bandeau dépassait de 3 pixels : c'était la barre de défilement horizontale vue sur la capture de production.
+- **Seuil de l'en-tête.** Avec les libellés français, plus longs, l'en-tête de bureau débordait entre 1001 et environ 1120 pixels, et le menu de bureau et le menu mobile s'affichaient ensemble à 1000 pixels pile. Le seuil est maintenant de 1140 pixels, et un test vérifie que les deux classes ont le même nombre.
+- **Marqueur de production.** `nx start` supprime `__nexy__/nexy.prod` en s'arrêtant, ce qui casserait le déploiement au prochain commit. `tests/test_nexy_build_committed.py` garde le fichier versionné.
+
 ## Décisions à prendre
 
 À inscrire au registre des décisions une fois tranchées (nouvelle ligne et date, jamais de modification silencieuse) :

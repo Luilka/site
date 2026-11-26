@@ -32,9 +32,9 @@ Chaque principe a un énoncé, un contre-exemple et un lien vers sa source. Un �
 
 ## 4. Un plan de titres lisible
 
-**Énoncé.** Un `h1` par page, un `h2` par section, un `h3` par carte. Un nom de projet est un titre, pas un texte en gras.
+**Énoncé.** Un `h1` par page, un `h2` par section, un `h3` par carte. Un nom de projet est un titre, pas un texte en gras. Une page intérieure n'a qu'un titre : le `h1` de son bandeau d'ouverture, à la taille d'affichage. Aucune section ne le répète.
 
-**Contre-exemple.** Un nom de réalisation en `<b>`, absent du plan de titres.
+**Contre-exemple.** Un nom de réalisation en `<b>`, absent du plan de titres, ou « Nos services » en `h1` puis en `h2` juste dessous.
 
 **Lien.** [Audit](audit-accueil.md), WCAG 2.2 critère 1.3.1.
 
@@ -64,19 +64,19 @@ Chaque principe a un énoncé, un contre-exemple et un lien vers sa source. Un �
 
 ## 8. Un menu qui se lit au clavier
 
-**Énoncé.** Le menu déroulant s'ouvre au survol et au focus, se ferme avec Escape ou quand le focus le quitte, et annonce son état par `aria-expanded` et `aria-controls`.
+**Énoncé.** Le menu déroulant s'ouvre au survol et au focus, se ferme avec Escape ou quand le focus le quitte, et annonce son état par `aria-expanded` et `aria-controls`. Sous 1140 pixels, le bouton « Menu » ouvre la même navigation : il se ferme avec Escape en rendant le focus au bouton, quand le focus le quitte et quand on choisit un lien. La navigation ne disparaît jamais sans remplaçant.
 
-**Contre-exemple.** Un menu qui ne s'ouvre qu'à la souris, ou dont le focus reste piégé.
+**Contre-exemple.** Un menu qui ne s'ouvre qu'à la souris, dont le focus reste piégé, ou une navigation masquée sur téléphone sans bouton pour la rouvrir.
 
 **Lien.** `src/shared/hooks/use-dismiss.hook.ts`, `tests/client/dropdown-navigation.test.tsx`.
 
 ## 9. Des cibles lisibles, un contraste tenu
 
-**Énoncé.** Les cibles tactiles font 24 sur 24 pixels CSS au minimum, 44 en objectif. Le contraste est de 4,5:1 pour le texte courant, 3:1 pour les grands textes et les composants. Le focus reste visible : aucun parent ne le coupe.
+**Énoncé.** Les cibles tactiles font 24 sur 24 pixels CSS au minimum, 44 en objectif. Le contraste est de 4,5:1 pour le texte courant, 3:1 pour les grands textes et les composants. Le focus reste visible : aucun parent ne le coupe. Aucune page ne défile de côté à 320 pixels de large.
 
-**Contre-exemple.** Un `main` avec `overflow-y-hidden` qui coupe le contour de focus.
+**Contre-exemple.** Un `main` avec `overflow-y-hidden` qui coupe le contour de focus, ou un bandeau de 528 pixels dans un écran de 320.
 
-**Lien.** WCAG 2.2 critères 1.4.3 et 2.5.8, [audit](audit-accueil.md).
+**Lien.** WCAG 2.2 critères 1.4.3, 1.4.10 et 2.5.8, [audit](audit-accueil.md), `tests/test_responsive_layout.py`.
 
 ## 10. Des états prévus
 
