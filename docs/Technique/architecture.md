@@ -2,7 +2,7 @@
 
 **Statut.** Retenue, 26 novembre 2026.
 **Propriétaire.** @Espoir-Loem.
-**Décisions liées.** D-002, D-003, D-004, D-006, D-007, D-012, D-013, D-014, D-015, D-016.
+**Décisions liées.** D-002, D-003, D-004, D-006, D-007, D-012, D-013, D-014, D-015, D-016, D-017.
 
 ## Flux d'une URL à l'écran
 
@@ -56,6 +56,10 @@ Les images des projets vont dans `public/`, en `webp` ou `avif` (le `svg` pour l
 
 Les couvertures actuelles sont des illustrations abstraites en `svg` (`public/images/work/` et `public/images/products/`), dessinées sans texte et sans faux écran, en attendant les vraies images. Pour remplacer une couverture : déposer le fichier `webp` dans `public/images/`, puis changer `src`, `width` et `height` de son entrée dans `images.json`. Aucun composant ne change.
 
+## Cartes de réalisations et de produits
+
+La couverture occupe toute la carte (`absolute inset-0`, `object-cover`) et le texte est posé en absolu sur un panneau translucide flou. Les illustrations des produits gardent leur sujet dans la partie centrale du cadre, que le recadrage conserve.
+
 ## Transitions de page
 
 Nexy enveloppe chaque navigation du client dans `document.startViewTransition`, et la saute sous `prefers-reduced-motion`. Luilka n'ajoute aucune bibliothèque : `src/globale.css` règle le mouvement.
@@ -67,7 +71,7 @@ Nexy enveloppe chaque navigation du client dans `document.startViewTransition`, 
 
 ## Menu mobile et en-tête
 
-Au-dessous de 1140 pixels, la navigation du bureau laisse la place à un bouton « Menu » (`MobileMenu` de `layout.tsx`, état dans `use-mobile-menu.hook.ts`). Le seuil est le même dans les deux classes, `max-[1140px]:hidden` et `min-[1140px]:hidden`, et `tests/test_responsive_layout.py` le vérifie. Il tient aux libellés français, plus longs que les anglais. Sous 440 pixels, l'action de contact de l'en-tête garde son icône et le menu porte un bouton « Nous contacter » lisible.
+Au-dessous de 1140 pixels, la navigation du bureau laisse la place à un bouton « Menu » (`MobileMenu` de `layout.tsx`, état dans `use-mobile-menu.hook.ts`) qui ouvre une feuille latérale à droite : dialogue modal, fond flou à grille de petits carrés, défilement de la page bloqué, focus dans la feuille. Fermée, elle est masquée et inerte. Le seuil est le même dans les deux classes, `max-[1140px]:hidden` et `min-[1140px]:hidden`, et `tests/test_responsive_layout.py` le vérifie. Il tient aux libellés français, plus longs que les anglais. Sous 440 pixels, l'action de contact de l'en-tête garde son icône et le menu porte un bouton « Nous contacter » lisible.
 
 Aucune page ne défile de côté à 320 pixels : `ProcessBand` coupe son défilement avec `overflow-x-clip` et le pied de page laisse ses colonnes rétrécir.
 

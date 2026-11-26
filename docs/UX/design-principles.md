@@ -64,7 +64,7 @@ Chaque principe a un énoncé, un contre-exemple et un lien vers sa source. Un �
 
 ## 8. Un menu qui se lit au clavier
 
-**Énoncé.** Le menu déroulant s'ouvre au survol et au focus, se ferme avec Escape ou quand le focus le quitte, et annonce son état par `aria-expanded` et `aria-controls`. Sous 1140 pixels, le bouton « Menu » ouvre la même navigation : il se ferme avec Escape en rendant le focus au bouton, quand le focus le quitte et quand on choisit un lien. La navigation ne disparaît jamais sans remplaçant.
+**Énoncé.** Le menu déroulant s'ouvre au survol et au focus, se ferme avec Escape ou quand le focus le quitte, et annonce son état par `aria-expanded` et `aria-controls`. Sous 1140 pixels, le bouton « Menu » ouvre la même navigation dans une feuille latérale modale (D-017) : fond flou à grille, focus dans la feuille, défilement de la page bloqué. Elle se ferme avec Escape en rendant le focus au bouton, avec son bouton « Fermer », en touchant le fond, quand le focus la quitte et quand on choisit un lien. La navigation ne disparaît jamais sans remplaçant.
 
 **Contre-exemple.** Un menu qui ne s'ouvre qu'à la souris, dont le focus reste piégé, ou une navigation masquée sur téléphone sans bouton pour la rouvrir.
 
