@@ -88,29 +88,70 @@ describe("values section", () => {
   });
 });
 
+const TEAM = { title: "Équipe", description: "Intro" };
+const FOUNDER = { name: "Espoir LOEMBA", role: "Founder", github: "Espoir-Loem" };
+
 describe("team section", () => {
   it("shows the name as a title and the role of each member", () => {
-    render(<TeamSection title="Équipe" description="Intro" members={[{ name: "Espoir LOEMBA", role: "CEO" }]} />);
+    render(<TeamSection {...TEAM} members={[FOUNDER]} />);
     expect(screen.getByRole("heading", { level: 2, name: "Équipe" })).toBeTruthy();
     expect(screen.getByRole("heading", { level: 3, name: "Espoir LOEMBA" })).toBeTruthy();
-    expect(screen.getByText("CEO")).toBeTruthy();
+    expect(screen.getByText("Founder")).toBeTruthy();
   });
 
   it("shows nothing when there is no member", () => {
-    const { container } = render(<TeamSection title="Équipe" description="Intro" members={[]} />);
+    const { container } = render(<TeamSection {...TEAM} members={[]} />);
     expect(container.firstElementChild).toBeNull();
   });
 
-  it("shows the initials, hidden from assistive technology, when a member has no photo", () => {
-    render(<TeamCard name="Espoir LOEMBA" role="CEO" />);
-    const initials = screen.getByText("EL");
-    expect(initials.getAttribute("aria-hidden")).toBe("true");
+  it("reproduces six profiles in three columns and two rows", () => {
+    const members = Array.from({ length: 6 }, (_, index) => ({ name: `Membre ${index + 1}`, role: `Rôle ${index + 1}`, github: `compte-${index + 1}` }));
+    const { container } = render(<TeamSection {...TEAM} members={members} />);
+    expect(screen.getAllByRole("heading", { level: 3 })).toHaveLength(6);
+    expect(screen.getAllByRole("link")).toHaveLength(6);
+    expect(container.querySelector("div[class*='grid-cols-3']")?.children).toHaveLength(6);
+  });
+});
+
+describe("team card", () => {
+  it("draws the portrait from the GitHub avatar, sized, loaded late and without sending the page address", () => {
+    const { container } = render(<TeamCard {...FOUNDER} />);
+    const portrait = container.querySelector("img");
+    expect(portrait?.getAttribute("src")).toBe("https://github.com/Espoir-Loem.png?size=480");
+    expect(portrait?.getAttribute("width")).toBe("480");
+    expect(portrait?.getAttribute("height")).toBe("480");
+    expect(portrait?.getAttribute("loading")).toBe("lazy");
+    expect(portrait?.getAttribute("referrerpolicy")).toBe("no-referrer");
+    expect(portrait?.getAttribute("alt")).toBe("");
   });
 
-  it("shows the photo of a member who has one", () => {
-    const { container } = render(<TeamCard name="Espoir LOEMBA" role="CEO" image={SAMPLE_IMAGE} />);
-    expect(container.querySelector("img")?.getAttribute("src")).toBe("/images/work/sample.svg");
-    expect(screen.queryByText("EL")).toBeNull();
+  it("keeps the initials behind the photo, hidden from assistive technology, in case it does not load", () => {
+    render(<TeamCard {...FOUNDER} />);
+    expect(screen.getByText("EL").getAttribute("aria-hidden")).toBe("true");
+  });
+
+  it("shows only the initials and no link for a member without a GitHub account", () => {
+    const { container } = render(<TeamCard name="Espoir LOEMBA" role="Founder" />);
+    expect(screen.getByText("EL")).toBeTruthy();
+    expect(container.querySelector("img")).toBeNull();
+    expect(screen.queryByRole("link")).toBeNull();
+  });
+
+  it("links the GitHub profile through a round button named after the person", () => {
+    setLanguage("fr");
+    render(<TeamCard {...FOUNDER} />);
+    const link = screen.getByRole("link", { name: "Profil GitHub de Espoir LOEMBA" });
+    expect(link.getAttribute("href")).toBe("https://github.com/Espoir-Loem");
+    expect(link.getAttribute("target")).toBe("_blank");
+    expect(link.getAttribute("rel")).toBe("noopener noreferrer");
+    expect(link.className).toContain("rounded-full");
+    expect(link.querySelector("svg path")?.getAttribute("d")?.startsWith("M12 .297c-6.63")).toBe(true);
+  });
+
+  it("names the profile button in English on an English page", () => {
+    setLanguage("en");
+    render(<TeamCard {...FOUNDER} />);
+    expect(screen.getByRole("link", { name: "GitHub profile of Espoir LOEMBA" })).toBeTruthy();
   });
 });
 
@@ -131,6 +172,13 @@ describe("about page", () => {
     expect(screen.queryByText("Direction visuelle")).toBeNull();
   });
 
+  it("does not announce a CEO before there is one", () => {
+    setLanguage("fr");
+    const { container } = render(<About />);
+    expect(container.textContent).not.toContain("CEO");
+    expect(container.textContent).toContain("Founder");
+  });
+
   it("keeps the published mission text of the studio and none from the mockup", () => {
     setLanguage("fr");
     const { container } = render(<About />);
@@ -145,6 +193,18 @@ describe("about copy", () => {
     expect(fr.aboutPage.values.items).toHaveLength(en.aboutPage.values.items.length);
     expect(fr.aboutPage.team.members).toHaveLength(en.aboutPage.team.members.length);
     expect(fr.aboutPage.values.items).toHaveLength(5);
+  });
+
+  it("lists the founder first, with their GitHub account, in both languages", () => {
+    for (const language of ["fr", "en"] as const) {
+      const { members } = dictionaries[language].aboutPage.team;
+      expect(members[0]).toEqual({ name: "Espoir LOEMBA", role: "Founder", github: "Espoir-Loem" });
+    }
+  });
+
+  it("writes the name in the profile label of each language", () => {
+    expect(dictionaries.fr.aboutPage.profileLabel).toContain("{name}");
+    expect(dictionaries.en.aboutPage.profileLabel).toContain("{name}");
   });
 
   it("gives every value a title and one sentence", () => {

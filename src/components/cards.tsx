@@ -5,9 +5,13 @@ import { IconTile } from "@/shared/ui/icon-tiles.tsx";
 import { Card } from "@/shared/ui/cards.tsx";
 import { Picture } from "@/shared/ui/images.tsx";
 import { StripedPanel } from "@/shared/ui/panels.tsx";
+import { SocialIcon } from "@/shared/ui/social-icons.tsx";
+import { useContent } from "@/shared/i18n";
+import { githubAvatar, githubProfile } from "@/shared/utils/github.util.ts";
 import { initialsOf } from "@/shared/utils/initials.util.ts";
+import { profileLabel } from "@/shared/utils/profile-label.util.ts";
 import { coverName } from "@/shared/utils/cover-name.util.ts";
-import type { CardCoverProps, CardIconProps, ProductCardProps, ProductHeaderProps, ProductTitleProps, ServiceCardProps, StepCardProps, StepTextProps, TeamCardProps, TeamLabelProps, TeamPortraitProps, ValueCardProps, ValueIconProps, ValueTextProps, WorkCardProps, WorkInfoProps, WorkWhoProps } from "@/shared/types";
+import type { CardCoverProps, CardIconProps, ProductCardProps, ProductHeaderProps, ProductTitleProps, ServiceCardProps, StepCardProps, StepTextProps, TeamCardProps, TeamLabelProps, TeamNameProps, TeamPortraitProps, TeamProfileLinkProps, ValueCardProps, ValueIconProps, ValueTextProps, WorkCardProps, WorkInfoProps, WorkWhoProps } from "@/shared/types";
 
 const ICONS: Record<string, LucideIcon> = {
   "UX Design": PenTool,
@@ -157,27 +161,50 @@ export function ValueCard({ title, description, index }: ValueCardProps) {
   );
 }
 
-function TeamPortrait({ name, image }: TeamPortraitProps) {
-  if (image) {
-    return <div className="relative flex-1 overflow-hidden rounded-[22px]"><Picture className="absolute inset-0 size-full" image={image} /></div>;
-  }
-  return <div className="grid flex-1 place-content-center text-(length:--text-3xl) font-semibold text-muted/50" aria-hidden="true">{initialsOf(name)}</div>;
+const PORTRAIT = "relative grid flex-1 place-content-center overflow-hidden rounded-[22px] text-(length:--text-3xl) font-semibold text-muted/50";
+const PROFILE_LINK = "row-center justify-center size-11 shrink-0 rounded-full border border-[var(--border-ui)] text-muted hover:bg-soft hover:text-text";
+
+function TeamPortrait({ name, github }: TeamPortraitProps) {
+  return (
+    <div className={PORTRAIT}>
+      <span aria-hidden="true">{initialsOf(name)}</span>
+      {github ? <Picture className="absolute inset-0 size-full" image={githubAvatar(github)} referrerPolicy="no-referrer" /> : null}
+    </div>
+  );
 }
 
-function TeamLabel({ name, role }: TeamLabelProps) {
+function TeamProfileLink({ name, github }: TeamProfileLinkProps) {
+  const { aboutPage } = useContent();
   return (
-    <div className="rounded-[18px] bg-paper px-4 py-3">
+    <a className={PROFILE_LINK} href={githubProfile(github)} aria-label={profileLabel(aboutPage.profileLabel, name)} target="_blank" rel="noopener noreferrer">
+      <SocialIcon network="github" className="size-5" />
+    </a>
+  );
+}
+
+function TeamName({ name, role }: TeamNameProps) {
+  return (
+    <div>
       <h3 className="text-(length:--text-base) font-semibold">{name}</h3>
       <p className="text-(length:--text-sm) text-muted">{role}</p>
     </div>
   );
 }
 
-export function TeamCard({ name, role, image }: TeamCardProps) {
+function TeamLabel({ name, role, github }: TeamLabelProps) {
+  return (
+    <div className="flex items-center justify-between gap-3 rounded-[18px] bg-paper px-4 py-3">
+      <TeamName name={name} role={role} />
+      {github ? <TeamProfileLink name={name} github={github} /> : null}
+    </div>
+  );
+}
+
+export function TeamCard({ name, role, github }: TeamCardProps) {
   return (
     <Card className="flex min-h-[26rem] flex-col rounded-[28px] bg-gray p-2">
-      <TeamPortrait name={name} image={image} />
-      <TeamLabel name={name} role={role} />
+      <TeamPortrait name={name} github={github} />
+      <TeamLabel name={name} role={role} github={github} />
     </Card>
   );
 }

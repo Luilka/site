@@ -4,9 +4,11 @@ import { findDetail, isKnownDetailSlug } from "@/content/detail-models.content.t
 import { detailHref } from "@/shared/utils/detail-href.util.ts";
 import { infoHref } from "@/shared/utils/info-href.util.ts";
 import { copyrightText } from "@/shared/utils/copyright-text.util.ts";
+import { githubAvatar, githubProfile } from "@/shared/utils/github.util.ts";
 import { initialsOf } from "@/shared/utils/initials.util.ts";
 import { newsletterState } from "@/shared/utils/newsletter-state.util.ts";
 import { pageKey } from "@/shared/utils/page-key.util.ts";
+import { profileLabel } from "@/shared/utils/profile-label.util.ts";
 import { socialProfiles } from "@/shared/utils/social-profiles.util.ts";
 import { isValidEmail } from "@/shared/utils/validate-email.util.ts";
 
@@ -82,5 +84,21 @@ describe("initials of a name", () => {
 
   it("keeps an accented capital", () => {
     expect(initialsOf("élodie Mbemba")).toBe("ÉM");
+  });
+});
+
+describe("GitHub addresses of a person", () => {
+  it("builds the avatar and the profile address of an account", () => {
+    expect(githubAvatar("Espoir-Loem")).toEqual({ src: "https://github.com/Espoir-Loem.png?size=480", width: 480, height: 480 });
+    expect(githubProfile("Espoir-Loem")).toBe("https://github.com/Espoir-Loem");
+  });
+
+  it("keeps an odd account name from changing the address", () => {
+    expect(githubProfile("a/b?c")).toBe("https://github.com/a%2Fb%3Fc");
+    expect(githubAvatar("a/b").src).toBe("https://github.com/a%2Fb.png?size=480");
+  });
+
+  it("writes the name of a person in a label template", () => {
+    expect(profileLabel("Profil de {name}", "Ada")).toBe("Profil de Ada");
   });
 });

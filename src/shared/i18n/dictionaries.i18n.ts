@@ -344,6 +344,7 @@ const fr: Dictionary = {
   },
   aboutPage: {
     mission: "Notre mission",
+    profileLabel: "Profil GitHub de {name}",
     values: {
       title: "Nos valeurs",
       description: "Ce qui guide chaque projet, de la première observation à la livraison.",
@@ -358,7 +359,7 @@ const fr: Dictionary = {
     team: {
       title: "Notre équipe",
       description: "Les personnes qui conçoivent, écrivent et construisent avec vous.",
-      members: [{ name: "Espoir LOEMBA", role: "CEO" }],
+      members: [{ name: "Espoir LOEMBA", role: "Founder", github: "Espoir-Loem" }],
     },
     images: imageSource.about,
   },
@@ -561,6 +562,7 @@ const en: Dictionary = {
   },
   aboutPage: {
     mission: "Our mission",
+    profileLabel: "GitHub profile of {name}",
     values: {
       title: "Our values",
       description: "What guides every project, from the first observation to handover.",
@@ -575,7 +577,7 @@ const en: Dictionary = {
     team: {
       title: "Our team",
       description: "The people who design, write and build with you.",
-      members: [{ name: "Espoir LOEMBA", role: "CEO" }],
+      members: [{ name: "Espoir LOEMBA", role: "Founder", github: "Espoir-Loem" }],
     },
     images: imageSource.about,
   },

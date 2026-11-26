@@ -1,5 +1,7 @@
 export type SocialNetwork = "linkedin" | "tiktok" | "youtube";
 
+export type BrandIcon = SocialNetwork | "github";
+
 export type SocialProfile = {
   network: SocialNetwork;
   href: string;
@@ -10,6 +12,6 @@ export type SocialLink = SocialProfile & {
 };
 
 export type SocialIconProps = {
-  network: SocialNetwork;
+  network: BrandIcon;
   className?: string;
 };

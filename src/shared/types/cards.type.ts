@@ -24,12 +24,23 @@ export type TeamCardProps = TeamMember;
 
 export type TeamPortraitProps = {
   name: string;
-  image?: DetailImage;
+  github?: string;
+};
+
+export type TeamProfileLinkProps = {
+  name: string;
+  github: string;
+};
+
+export type TeamNameProps = {
+  name: string;
+  role: string;
 };
 
 export type TeamLabelProps = {
   name: string;
   role: string;
+  github?: string;
 };
 
 export type CardCoverProps = {

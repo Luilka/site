@@ -54,7 +54,7 @@ export type ValueItem = {
 export type TeamMember = {
   name: string;
   role: string;
-  image?: DetailImage;
+  github?: string;
 };
 
 export type AboutImages = {
@@ -78,6 +78,7 @@ export type TeamCopy = {
 
 export type AboutPageCopy = {
   mission: string;
+  profileLabel: string;
   values: ValuesCopy;
   team: TeamCopy;
   images: AboutImages;
