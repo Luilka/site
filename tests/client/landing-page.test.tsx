@@ -12,7 +12,7 @@ describe("landing page", () => {
 
   it("uses the reference section classes", () => {
     const { container } = render(<Home />);
-    for (const name of ["hero-grid", "steps-grid", "prod-grid", "work-grid", "bg-gray-300"]) {
+    for (const name of ["hero-grid", "grid-cols-4", "grid-cols-3", "grid-cols-2", "bg-gray-300"]) {
       expect(container.querySelector(`.${name}`)).not.toBeNull();
     }
   });
@@ -62,9 +62,9 @@ describe("landing page", () => {
 
   it("limits the home page to four works and three products", () => {
     const { container } = render(<Home />);
-    expect(container.querySelectorAll(".work")).toHaveLength(4);
-    expect(container.querySelectorAll(".prod")).toHaveLength(3);
-    expect(container.querySelectorAll(".work .who p")).toHaveLength(0);
+    expect(container.querySelectorAll("a[href*='/work/']")).toHaveLength(4);
+    expect(container.querySelectorAll("a[href*='/products/']")).toHaveLength(3);
+    expect(container.querySelectorAll("a[href*='/work/'] p")).toHaveLength(0);
   });
 
   it("offers two quote actions", () => {

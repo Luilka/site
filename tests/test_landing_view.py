@@ -49,31 +49,16 @@ def test_design_tokens_match_the_reference() -> None:
 
 def test_reference_class_names_are_defined() -> None:
     css = (ROOT / "src" / "globale.css").read_text(encoding="utf-8")
-    assert all(
-        name in css
-        for name in (
-            ".nav",
-            ".prod",
-            ".hero-grid",
-            ".steps-grid",
-            ".prod-grid",
-            ".work-grid",
-            ".btn-outline",
-        )
-    )
+    assert all(name in css for name in (".nav", ".hero-grid", ".btn-outline"))
 
 
 def test_steps_and_about_sections_have_a_small_shared_gap() -> None:
-    css = (ROOT / "src" / "globale.css").read_text(encoding="utf-8")
-    steps = css_rule(css, ".steps")
-    about = css_rule(css, ".about")
-    steps_padding = re.search(r"padding:\s*\d+px\s+0\s+(\d+)px", steps)
-    about_padding = re.search(r"padding:\s*(\d+)px\s+0\s+\d+px", about)
-    assert steps_padding is not None
-    assert about_padding is not None
-    steps_bottom = int(steps_padding.group(1))
-    about_top = int(about_padding.group(1))
-    assert steps_bottom + about_top <= 40
+    sections = (ROOT / "src" / "components" / "sections.tsx").read_text(encoding="utf-8")
+    steps_bottom = re.search(r'className="pt-\[70px\] pb-\[(\d+)px\]"', sections)
+    about_top = re.search(r'className="pt-\[(\d+)px\] pb-\[90px\]"', sections)
+    assert steps_bottom is not None
+    assert about_top is not None
+    assert int(steps_bottom.group(1)) + int(about_top.group(1)) <= 40
 
 
 def test_header_typography_follows_readable_sizes() -> None:

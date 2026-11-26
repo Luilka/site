@@ -78,7 +78,7 @@ describe("language in the URL", () => {
     ]) {
       expect(screen.getAllByText(subtitle)).toHaveLength(1);
     }
-    expect(container.querySelectorAll(".work .who p")).toHaveLength(0);
+    expect(container.querySelectorAll("a[href*='/work/'] p")).toHaveLength(0);
   });
 
   it("points the language switch at the same page in the other language", () => {

@@ -44,7 +44,7 @@ describe("design consistency", () => {
         <ServiceCard slug="service" title="COM" description="d" />
       </>,
     );
-    expect(new Set(iconClasses(container, ".svc .ico svg")).size).toBe(4);
+    expect(new Set(iconClasses(container, "a > div:first-child svg")).size).toBe(4);
   });
 
   it("gives each product a distinct design icon", () => {
@@ -55,12 +55,12 @@ describe("design consistency", () => {
         <ProductCard slug="product" name="Pro" description="c" />
       </>,
     );
-    expect(new Set(iconClasses(container, ".prod .icon-tile svg")).size).toBe(3);
+    expect(new Set(iconClasses(container, "a .icon-tile svg")).size).toBe(3);
   });
 
   it("uses a readable project icon beside the work name", () => {
     const { container } = render(<WorkCard slug="work" name="Yano" />);
-    const icon = container.querySelector(".work .who .mini svg");
+    const icon = container.querySelector("a > div:last-child > div:first-child > div:first-child svg");
     expect(icon?.getAttribute("width")).toBe("22");
   });
 
@@ -73,7 +73,7 @@ describe("design consistency", () => {
         <WorkCard slug="work" name="Privatis Capital Invest" />
       </>,
     );
-    expect(new Set(iconClasses(container, ".work .mini svg")).size).toBe(4);
+    expect(new Set(iconClasses(container, "a > div:last-child > div:first-child > div:first-child svg")).size).toBe(4);
   });
 
   it("keeps only the supplied fingerprint in the sprite", () => {

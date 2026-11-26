@@ -86,7 +86,7 @@ describe("design-first home content", () => {
     ]) {
       expect(screen.getAllByText(description)).toHaveLength(1);
     }
-    const texts = Array.from(container.querySelectorAll(".svc p")).map((node) => node.textContent ?? "");
+    const texts = Array.from(container.querySelectorAll("a[href*='/services/'] p")).map((node) => node.textContent ?? "");
     expect(texts).toHaveLength(4);
     for (const text of texts) {
       expect(text.length).toBeLessThan(170);
@@ -103,7 +103,7 @@ describe("design-first home content", () => {
     ]) {
       expect(screen.getAllByText(subtitle)).toHaveLength(1);
     }
-    expect(container.querySelectorAll(".work .who p")).toHaveLength(0);
+    expect(container.querySelectorAll("a[href*='/work/'] p")).toHaveLength(0);
   });
 
   it("hides the decorative process band from assistive technology", () => {

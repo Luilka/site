@@ -12,10 +12,16 @@ import { Fragment } from "react";
 import { ArrowLeft } from "lucide-react";
 import { useDetail } from "@/shared/hooks/use-detail.hook.ts";
 
+const SECTION_SPACING = "py-20 px-0";
+const STACK = "max-[1000px]:grid-cols-[1fr_1fr] max-[640px]:grid-cols-[1fr]";
+const INFO_CARD = "min-w-0 p-[1.5rem] border border-[color-mix(in_srgb,var(--text)_12%,var(--paper))] rounded-[1.125rem] bg-paper";
+const INFO_TITLE = "mt-3 mb-2 text-(length:--text-xl)";
+const INFO_TEXT = "text-sm text-muted leading-[1.6]";
+
 function AboutArt() {
   return (
-    <div className="about-img">
-      <svg viewBox="0 0 24 24" aria-hidden="true">
+    <div className="flex items-center justify-center bg-gray rounded-[22px] min-h-[400px]">
+      <svg className="w-[140px] h-[140px] fill-[#2a2a30]" viewBox="0 0 24 24" aria-hidden="true">
         <use href="#finger" />
       </svg>
     </div>
@@ -24,9 +30,9 @@ function AboutArt() {
 
 function AboutText({ title, paragraphs, action }: AboutTextProps) {
   return (
-    <div className="about-txt">
-      <h2>{title}</h2>
-      {paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+    <div className="pt-[36px]">
+      <h2 className="text-(length:--text-2xl) font-semibold mb-[28px]">{title}</h2>
+      {paragraphs.map((paragraph) => <p key={paragraph} className="text-(length:--text-base) text-muted leading-[1.6] mb-[22px] max-w-[520px]">{paragraph}</p>)}
       {action ? <ActionLink action={action} /> : null}
     </div>
   );
@@ -34,8 +40,8 @@ function AboutText({ title, paragraphs, action }: AboutTextProps) {
 
 export function AboutSection({ id, ...text }: AboutSectionProps) {
   return (
-    <section className="about" id={id}>
-      <Container className="about-grid">
+    <section className="pt-[12px] pb-[90px]" id={id}>
+      <Container className="grid items-stretch grid-cols-[540px_1fr] gap-[64px] max-[1000px]:grid-cols-[1fr]">
         <AboutArt />
         <AboutText {...text} />
       </Container>
@@ -47,20 +53,20 @@ function InfoCardBody({ title, meta, description }: InfoCardBodyProps) {
   return (
     <>
       <Badge>{meta}</Badge>
-      <h3>{title}</h3>
-      <p>{description}</p>
+      <h3 className={INFO_TITLE}>{title}</h3>
+      <p className={INFO_TEXT}>{description}</p>
     </>
   );
 }
 
 function InfoCard({ href, ...copy }: InfoCardProps) {
-  if (!href) return <Card className="info-card"><InfoCardBody {...copy} /></Card>;
-  return <Link className="card info-card" href={href}><InfoCardBody {...copy} /></Link>;
+  if (!href) return <Card className={INFO_CARD}><InfoCardBody {...copy} /></Card>;
+  return <Link className={INFO_CARD} href={href}><InfoCardBody {...copy} /></Link>;
 }
 
 export function InfoSection({ items, detail, ...section }: InfoSectionProps) {
   return (
-    <CollectionSection {...section} className="services" gridClassName="info-grid" items={items}
+    <CollectionSection {...section} className={SECTION_SPACING} gridClassName={`mt-10 grid grid-cols-3 gap-4 ${STACK}`} items={items}
       getKey={(item) => item.title} render={(item) => <InfoCard {...item} href={infoHref(detail, item)} />} />
   );
 }
@@ -68,8 +74,8 @@ export function InfoSection({ items, detail, ...section }: InfoSectionProps) {
 export function ProcessSection({ id }: ProcessSectionProps) {
   const { steps } = useContent();
   return (
-    <section className="steps" id={id}>
-      <Container className="steps-grid">
+    <section className="pt-[70px] pb-[20px]" id={id}>
+      <Container className={`grid grid-cols-4 gap-4 ${STACK}`}>
         {steps.map((step) => <StepCard key={step.number} {...step} />)}
       </Container>
     </section>
@@ -79,7 +85,7 @@ export function ProcessSection({ id }: ProcessSectionProps) {
 export function ProductsSection(props: SectionProps) {
   const { products } = useContent();
   return (
-    <CollectionSection {...props} className="products" gridClassName="prod-grid" items={products}
+    <CollectionSection {...props} className="pt-[80px] pb-[90px]" gridClassName={`grid grid-cols-3 gap-4 mt-[40px] ${STACK}`} items={products}
       getKey={(product) => product.slug} render={(product) => <ProductCard {...product} />} />
   );
 }
@@ -87,7 +93,7 @@ export function ProductsSection(props: SectionProps) {
 export function ServicesSection(props: SectionProps) {
   const { services } = useContent();
   return (
-    <CollectionSection {...props} className="services" gridClassName="svc-grid" items={services}
+    <CollectionSection {...props} className={SECTION_SPACING} gridClassName={`grid grid-cols-4 mt-[80px] ${STACK}`} items={services}
       getKey={(service) => service.slug} render={(service) => <ServiceCard {...service} />} />
   );
 }
@@ -95,7 +101,7 @@ export function ServicesSection(props: SectionProps) {
 export function WorksSection(props: SectionProps) {
   const { works } = useContent();
   return (
-    <CollectionSection {...props} className="works" gridClassName="work-grid" items={works}
+    <CollectionSection {...props} className="pt-[80px] pb-[90px]" gridClassName="grid grid-cols-2 gap-4 mt-[40px] max-[1000px]:grid-cols-[1fr]" items={works}
       getKey={(work) => work.slug} render={(work) => <WorkCard {...work} />} />
   );
 }
@@ -103,7 +109,7 @@ export function WorksSection(props: SectionProps) {
 function HeadingText({ title, description }: HeadingTextProps) {
   return (
     <div>
-      <h2 className="sec">{title}</h2>
+      <h2 className="text-2xl font-semibold">{title}</h2>
       {description ? <p className="text-(length:--text-base) text-muted max-w-[520px] mt-[22px] leading-[1.6]">{description}</p> : null}
     </div>
   );
@@ -147,10 +153,10 @@ function DetailBackLink({ detail }: DetailBackLinkProps) {
 
 function DetailCard({ title, body }: DetailCardProps) {
   return (
-    <div className="info-grid">
-      <article className="card info-card">
-        <h3>{title}</h3>
-        <p>{body}</p>
+    <div className={`mt-10 grid grid-cols-3 gap-4 ${STACK}`}>
+      <article className={INFO_CARD}>
+        <h3 className={INFO_TITLE}>{title}</h3>
+        <p className={INFO_TEXT}>{body}</p>
       </article>
     </div>
   );
@@ -158,7 +164,7 @@ function DetailCard({ title, body }: DetailCardProps) {
 
 function DetailBody({ detail }: DetailBodyProps) {
   return (
-    <section className="services">
+    <section className={SECTION_SPACING}>
       <Container>
         <DetailCard title={detail.title} body={detail.body} />
         <DetailBackLink detail={detail} />

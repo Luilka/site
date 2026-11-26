@@ -36,7 +36,8 @@ def test_styles_use_current_css_features() -> None:
     css = (SRC / "globale.css").read_text(encoding="utf-8")
     assert "@layer components" in css
     assert "&:hover" in css
-    assert "color-mix(" in css
+    sections = (SRC / "components" / "sections.tsx").read_text(encoding="utf-8")
+    assert "color-mix(" in sections
     assert "text-wrap: balance" in css
 
 
@@ -47,7 +48,7 @@ def test_lucide_is_pinned() -> None:
 
 def test_step_card_uses_the_reference_padding() -> None:
     source = (SRC / "components" / "cards.tsx").read_text(encoding="utf-8")
-    assert 'className="t p-8"' in source
+    assert '<div className="p-8">' in source
 
 
 def test_ui_icons_come_from_lucide() -> None:

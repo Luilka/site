@@ -63,10 +63,8 @@ def test_mega_panel_matches_the_header_surface() -> None:
 
 
 def test_service_grid_fits_four_cards() -> None:
-    css = (SRC / "globale.css").read_text(encoding="utf-8")
-    grid = re.search(r"(?ms)^\.svc-grid \{(.*?)^\}", css)
-    assert grid is not None
-    assert "grid grid-cols-4" in grid.group(1)
+    sections = (SRC / "components" / "sections.tsx").read_text(encoding="utf-8")
+    assert "grid grid-cols-4 mt-[80px]" in sections
 
 
 def test_mega_cards_use_a_responsive_grid() -> None:

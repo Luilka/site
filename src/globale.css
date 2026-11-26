@@ -205,28 +205,6 @@ textarea {
     }
   }
 
-  .info-grid {
-    @apply mt-10 grid grid-cols-3 gap-4;
-  }
-
-  .info-card {
-    @apply p-[1.5rem];
-    border: 1px solid color-mix(in srgb, var(--text) 12%, var(--paper));
-    @apply rounded-[1.125rem] bg-paper;
-
-    h3 {
-      @apply mt-3 mb-2 text-(length:--text-xl);
-    }
-
-    p {
-      @apply text-sm text-muted leading-[1.6];
-    }
-  }
-
-  .card {
-    @apply min-w-0;
-  }
-
   .state-panel {
     @apply flex flex-col items-center justify-center min-h-[26rem];
     padding: clamp(3rem, 8vw, 6rem) 1.5rem;
@@ -369,172 +347,6 @@ textarea {
   background: linear-gradient(160deg, rgb(255 255 255 / 18%), transparent 40%);
 }
 
-.steps {
-  padding: 70px 0 20px;
-}
-
-.steps-grid {
-  @apply grid grid-cols-4 gap-4;
-}
-
-.step {
-  @apply flex flex-col bg-gray rounded-[18px] p-[4px];
-}
-
-.step h3 {
-  @apply text-(length:--text-lg) font-semibold mb-[6px];
-}
-
-.step p {
-  @apply text-(length:--text-sm) text-muted leading-[1.5];
-}
-
-.step .n {
-  @apply bg-paper;
-  border: 2px solid var(--paper);
-  outline: 1px solid var(--border-ui);
-  @apply rounded-[16px] h-[180px] flex items-center justify-center text-[length:96px] font-medium tracking-[-0.02em] mt-auto;
-  box-shadow: 0 2px 8px rgb(0 0 0 / 5%);
-}
-
-.about {
-  padding: 12px 0 90px;
-}
-
-.about-grid {
-  @apply grid items-stretch grid-cols-[540px_1fr] gap-[64px];
-}
-
-.about-img {
-  @apply flex items-center justify-center bg-gray rounded-[22px] min-h-[400px];
-}
-
-.about-img svg {
-  @apply w-[140px] h-[140px];
-  fill: #2a2a30;
-}
-
-.about-txt {
-  @apply pt-[36px];
-}
-
-.about-txt h2 {
-  @apply text-(length:--text-2xl) font-semibold mb-[28px];
-}
-
-.about-txt p {
-  @apply text-(length:--text-base) text-muted leading-[1.6] mb-[22px] max-w-[520px];
-}
-
-.services {
-  @apply py-[80px] px-0;
-}
-
-h2.sec {
-  @apply text-2xl font-semibold;
-}
-
-.svc-grid {
-  @apply grid grid-cols-4 mt-[80px];
-}
-
-.svc {
-  @apply text-center py-0 px-[28px];
-  border-left: 1px solid var(--border-ui);
-}
-
-.svc:first-child {
-  border-left: 0;
-}
-
-.svc .ico {
-  @apply mx-auto flex items-center justify-center w-[48px] h-[48px] rounded-[50%_50%_50%_8px] bg-gray mb-[22px] text-[#2a2a30];
-}
-
-.svc h3 {
-  @apply text-(length:--text-xl) font-semibold mb-[18px];
-}
-
-.svc p {
-  @apply text-(length:--text-base) text-muted leading-[1.9] py-0 px-[6px];
-}
-
-.products,
-.works {
-  padding: 80px 0 90px;
-}
-
-.prod-grid {
-  @apply grid grid-cols-3 gap-4 mt-[40px];
-}
-
-.prod {
-  @apply relative flex flex-col h-[545px] rounded-[18px];
-  background: linear-gradient(180deg, var(--gray) 0%, var(--gray) 35%, var(--gray-2) 100%);
-  @apply py-[16px] px-[14px];
-}
-
-.prod .top {
-  @apply flex items-start gap-2.5;
-}
-
-.mini {
-  @apply flex shrink-0 items-center justify-center w-[30px] h-[30px] rounded-[8px] bg-[#b8bac4] text-[#e8e8ee];
-}
-
-.prod small {
-  @apply text-(length:--text-xs) text-[#6a6a74] block leading-[1];
-}
-
-.prod h3 {
-  @apply text-(length:--text-xl) font-semibold leading-[1.2];
-}
-
-.prod .arrow {
-  @apply text-[#6a6a74];
-}
-
-.prod p {
-  @apply text-(length:--text-sm) text-[#55555e] mt-[10px] leading-[1.55];
-}
-
-.prod .ph2,
-.work .ph2 {
-  @apply flex m-auto text-paper;
-}
-
-.work-grid {
-  @apply grid grid-cols-2 gap-4 mt-[40px];
-}
-
-.work {
-  @apply relative flex items-center justify-center h-[396px] rounded-[18px];
-  background: linear-gradient(180deg, var(--gray) 0%, var(--gray) 40%, var(--gray-3) 100%);
-}
-
-.work .info {
-  @apply absolute flex items-center justify-between;
-  left: 14px;
-  right: 14px;
-  bottom: 12px;
-}
-
-.work .who {
-  @apply flex items-center gap-2;
-}
-
-.work .who .mini {
-  @apply w-[42px] h-[42px] rounded-[10px];
-}
-
-.work .who h3 {
-  @apply m-0 text-(length:--text-sm) font-semibold block leading-[1.1];
-}
-
-.work .who span {
-  @apply text-(length:--text-xs) text-[#4d4d55] block;
-}
-
 .cta {
   @apply bg-gray rounded-[22px] py-[70px] px-[60px] min-h-[300px];
 }
@@ -613,19 +425,7 @@ footer {
     @apply hidden;
   }
 
-  .hero-grid,
-  .about-grid {
-    @apply grid-cols-[1fr];
-  }
-
-  .steps-grid,
-  .svc-grid,
-  .prod-grid,
-  .info-grid {
-    @apply grid-cols-[1fr_1fr];
-  }
-
-  .work-grid {
+  .hero-grid {
     @apply grid-cols-[1fr];
   }
 
@@ -635,20 +435,6 @@ footer {
 
   .hero h1 {
     @apply text-(length:--text-2xl);
-  }
-}
-
-@media (max-width: 640px) {
-  .steps-grid,
-  .svc-grid,
-  .prod-grid,
-  .info-grid {
-    @apply grid-cols-[1fr];
-  }
-
-  .svc {
-    border-left: 0;
-    @apply mb-[30px];
   }
 }
 

@@ -26,7 +26,7 @@ describe("design system atoms", () => {
         </Card>
       </Container>,
     );
-    expect(container.querySelector(".container .card span")?.className).toContain("pill-shape");
+    expect(container.querySelector(".container div span")?.className).toContain("pill-shape");
   });
 
   it("renders a typed email input", () => {
