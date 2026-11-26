@@ -13,7 +13,7 @@
 - Logo dessiné par le composant `Logo`, sans sprite ni `<use>`.
 - Couvertures abstraites en `svg` pour les quatre réalisations et les trois produits, un registre `src/content/images.json`, et une page de détail qui ne répète plus sa description.
 - Transitions de page : en-tête fixe, nouvelle page qui monte, couverture partagée entre la carte et la page.
-- Liens LinkedIn, TikTok et YouTube dans le pied de page, affichés seulement quand l'adresse est renseignée dans `src/content/social.json`.
+- Liens LinkedIn, TikTok et YouTube dans le pied de page, affichés seulement quand l'adresse est renseignée dans `src/content/social.json`. LinkedIn est renseigné, TikTok et YouTube attendent leur adresse.
 - Année du pied de page calculée, contrastes corrigés pour deux textes de cartes.
 
 ## Défauts corrigés au passage
@@ -28,4 +28,4 @@ Voir [controles.md](../docs/Technique/controles.md). Les résultats de chaque co
 
 ## Questions ouvertes
 
-Q-001, Q-003 et Q-004 du registre. À trancher par le titulaire : la couleur signature, l'ordre de la navigation, le sort du journal et de la newsletter, les adresses des trois réseaux sociaux, et le style des couvertures de réalisations.
+Q-001, Q-003 et Q-004 du registre. À trancher par le titulaire : la couleur signature, l'ordre de la navigation, le sort du journal et de la newsletter, les adresses de TikTok et de YouTube, et le style des couvertures de réalisations.

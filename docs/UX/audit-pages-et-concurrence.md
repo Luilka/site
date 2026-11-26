@@ -203,7 +203,7 @@ Mise à jour du 26 novembre 2026, à la demande du titulaire. Chaque ligne renvo
 | P3 | Bandeau de processus | Gardé, comme le design de l'accueil. Il défile en boucle et porte un motif de lignes obliques, D-014. |
 | P3 | Année du pied de page | Fait. `tests/client/landing-components.test.tsx` |
 
-Demandes ajoutées pendant les corrections : transitions de page (fait, voir [l'architecture](../Technique/architecture.md)) et liens LinkedIn, TikTok et YouTube dans le pied de page (structure faite, adresses à fournir).
+Demandes ajoutées pendant les corrections : transitions de page (fait, voir [l'architecture](../Technique/architecture.md)) et liens LinkedIn, TikTok et YouTube dans le pied de page (structure faite, LinkedIn renseigné, adresses de TikTok et de YouTube à fournir).
 
 ### Défauts trouvés en mesurant
 
