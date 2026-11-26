@@ -3,7 +3,7 @@
 **Version.** 1.
 **Date.** 26 novembre 2026.
 **Statut.** Définitions posées. Cibles et propriétaires à nommer avant le premier tableau de bord.
-**Périmètre.** Bugs, qualité du code, UX, accessibilité, performance, SEO et usage du site. Aucune cible chiffrée n'est inventée dans cette fiche.
+**Périmètre.** Bugs, qualité du code, UX, accessibilité, performance, SEO, usage du site et produit, sur l'ensemble de l'application. Aucune cible chiffrée n'est inventée dans cette fiche.
 
 ## 1. Principes
 
@@ -73,6 +73,14 @@ Le HTML servi est une coquille (D-003, question Q-001). Ces mesures disent si le
 | SITE-03 | Part de l'anglais | Sessions en anglais divisées par sessions, avec `language_switch` pour les bascules | Événements canoniques | @Espoir-Loem, intérimaire | À nommer | à instrumenter |
 | SITE-04 | Taux de 404 | `page_not_found` divisés par pages vues | Événements canoniques | @Espoir-Loem, intérimaire | À nommer | à instrumenter |
 
-## 9. Règles de mise à jour
+## 9. Produit
+
+| Identifiant | Nom | Formule | Source | Propriétaire | Cible | Disponibilité |
+|---|---|---|---|---|---|---|
+| PROD-01 | Parcours vers le contact | Sessions qui passent de la page d'accueil à `quote_click` divisées par sessions sur la page d'accueil | Événements canoniques | @Espoir-Loem, intérimaire | À nommer | à instrumenter |
+| PROD-02 | Pages avec une action | Pages publiques qui portent une action de contact visible divisées par pages publiques | Relevé des routes de `src/routes/`, daté | @Espoir-Loem, intérimaire | À nommer | disponible |
+| PROD-03 | Parité des langues | Textes présents en français et en anglais divisés par textes du dictionnaire | Dictionnaires de `src/shared/i18n/`, extrait daté | @Espoir-Loem, intérimaire | À nommer | disponible |
+
+## 10. Règles de mise à jour
 
 Toute nouvelle mesure reçoit un identifiant de groupe, une formule écrite et une source avant d'entrer dans un tableau de bord. La suppression d'une mesure conserve son identifiant, avec la date d'arrêt et le motif. Les cibles, les seuils d'alerte et les propriétaires sont nommés par décision écrite dans le [registre](decisions.md), jamais dans un message. Le script `scripts/check_kpi.py` vérifie les sections, les identifiants, la forme des lignes et les cibles avant chaque fusion.

@@ -5,7 +5,7 @@ import sys
 from pathlib import Path
 
 SHEET = Path("docs") / "Product" / "kpi.md"
-GROUPS = {"BUG": 3, "QUA": 2, "UX": 3, "ACC": 2, "PERF": 3, "SEO": 2, "SITE": 4}
+GROUPS = {"BUG": 3, "QUA": 2, "UX": 3, "ACC": 2, "PERF": 3, "SEO": 2, "SITE": 4, "PROD": 3}
 SECTIONS = (
     "## 2. Bugs",
     "## 3. Qualité du code",
@@ -14,6 +14,7 @@ SECTIONS = (
     "## 6. Performance",
     "## 7. SEO",
     "## 8. Usage du site",
+    "## 9. Produit",
 )
 COLUMNS = 7
 AVAILABILITY = {"disponible", "à instrumenter"}

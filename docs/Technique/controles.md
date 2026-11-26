@@ -14,7 +14,7 @@
 | Types client | `npm run typecheck` | `tsc` sur `tsconfig.client.json` | Check client types |
 | Lint client | `npm run lint` | ESLint, dont 10 lignes par fonction | Check client lint |
 | Style client | `npm run check:style` | Aucun commentaire sauf JSDoc, un `.map()` par composant, noms de fichiers | Check client code style |
-| KPI | `npm run check:kpi` | Sections, 19 identifiants, forme des lignes, cibles sourcées | Check KPI sheet |
+| KPI | `npm run check:kpi` | Sections, 22 identifiants, forme des lignes, cibles sourcées | Check KPI sheet |
 | Documentation | `npm run check:docs` | Typographie, liens, index, ADR, notes, numérotation | Check documentation |
 | Tests Python | `uv run pytest` | Routes, structure, contenu | Run Python tests |
 | Tests client | `npm test` | Composants et hooks | Run client tests |
