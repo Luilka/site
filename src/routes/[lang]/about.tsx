@@ -1,13 +1,33 @@
-import { PageFrame } from "@/components/patterns.tsx";
-import { AboutSection, ProcessSection } from "@/components/sections.tsx";
+import { ContactPanel } from "@/components/patterns.tsx";
+import { AboutHero, MissionSection, TeamSection, ValuesSection } from "@/components/sections.tsx";
 import { useContent } from "@/shared/i18n";
 
-export default function About() {
-  const { about } = useContent();
+function AboutStory() {
+  const { about, pages, aboutPage } = useContent();
   return (
-    <PageFrame page="about">
-      <AboutSection paragraphs={about} />
-      <ProcessSection />
-    </PageFrame>
+    <>
+      <AboutHero {...pages.about} image={aboutPage.images.hero} />
+      <MissionSection title={aboutPage.mission} paragraphs={about} images={aboutPage.images} />
+    </>
+  );
+}
+
+function AboutPeople() {
+  const { aboutPage } = useContent();
+  return (
+    <>
+      <ValuesSection {...aboutPage.values} />
+      <TeamSection {...aboutPage.team} />
+    </>
+  );
+}
+
+export default function About() {
+  return (
+    <>
+      <AboutStory />
+      <AboutPeople />
+      <ContactPanel />
+    </>
   );
 }

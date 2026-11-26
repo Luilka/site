@@ -1,11 +1,13 @@
-import { Boxes, Grid2X2, ImageIcon, Layers3, MessageSquare, PenTool, ShieldCheck, Sparkles, type LucideIcon, ArrowUpRight } from "lucide-react";
+import { BadgeCheck, Blocks, Boxes, Eye, Grid2X2, ImageIcon, Layers3, MessageSquare, PenLine, PenTool, ShieldCheck, Sparkles, Users, type LucideIcon, ArrowUpRight } from "lucide-react";
 import { detailHref } from "@/shared/utils/detail-href.util.ts";
 import { Link } from "@/shared/ui/links.tsx";
 import { IconTile } from "@/shared/ui/icon-tiles.tsx";
 import { Card } from "@/shared/ui/cards.tsx";
 import { Picture } from "@/shared/ui/images.tsx";
+import { StripedPanel } from "@/shared/ui/panels.tsx";
+import { initialsOf } from "@/shared/utils/initials.util.ts";
 import { coverName } from "@/shared/utils/cover-name.util.ts";
-import type { CardCoverProps, CardIconProps, ProductCardProps, ProductHeaderProps, ProductTitleProps, ServiceCardProps, StepCardProps, StepTextProps, WorkCardProps, WorkInfoProps, WorkWhoProps } from "@/shared/types";
+import type { CardCoverProps, CardIconProps, ProductCardProps, ProductHeaderProps, ProductTitleProps, ServiceCardProps, StepCardProps, StepTextProps, TeamCardProps, TeamLabelProps, TeamPortraitProps, ValueCardProps, ValueIconProps, ValueTextProps, WorkCardProps, WorkInfoProps, WorkWhoProps } from "@/shared/types";
 
 const ICONS: Record<string, LucideIcon> = {
   "UX Design": PenTool,
@@ -111,5 +113,71 @@ export function WorkCard({ slug, name, kind = "Particulier", caseLabel = "Cas d'
       <CardCover className="h-[324px]" image={image} name={coverName("work", slug)} />
       <WorkInfo name={name} kind={kind} caseLabel={caseLabel} />
     </Link>
+  );
+}
+
+const VALUE_ICONS: readonly LucideIcon[] = [Eye, Users, Blocks, PenLine, BadgeCheck];
+const VALUE_PLACES: readonly string[] = [
+  "min-[641px]:col-span-2 min-[1001px]:col-span-1 min-[1001px]:col-start-2 min-[1001px]:row-span-2 min-[1001px]:row-start-1",
+  "min-[1001px]:col-start-1 min-[1001px]:row-start-1",
+  "min-[1001px]:col-start-1 min-[1001px]:row-start-2",
+  "min-[1001px]:col-start-3 min-[1001px]:row-start-1",
+  "min-[1001px]:col-start-3 min-[1001px]:row-start-2",
+];
+const VALUE_BASE = "flex flex-col justify-between gap-8 p-7";
+const VALUE_FEATURED = `${VALUE_BASE} text-paper`;
+const VALUE_PLAIN = `${VALUE_BASE} bg-gray rounded-[28px] text-text`;
+
+function ValueIcon({ index, featured }: ValueIconProps) {
+  const Icon = VALUE_ICONS[index % VALUE_ICONS.length];
+  return (
+    <span className={`relative grid size-11 place-content-center rounded-xl ${featured ? "bg-paper/15 text-paper" : "bg-paper text-text"}`}>
+      <Icon size={22} strokeWidth={1.8} aria-hidden="true" />
+    </span>
+  );
+}
+
+function ValueText({ title, description, featured }: ValueTextProps) {
+  return (
+    <div className="relative">
+      <h3 className={featured ? "text-(length:--text-2xl) font-semibold" : "text-(length:--text-xl) font-semibold"}>{title}</h3>
+      <p className={`mt-2 text-(length:--text-sm) leading-[1.6] ${featured ? "text-paper/85" : "text-muted"}`}>{description}</p>
+    </div>
+  );
+}
+
+export function ValueCard({ title, description, index }: ValueCardProps) {
+  const featured = index === 0;
+  const Surface = featured ? StripedPanel : Card;
+  return (
+    <Surface className={`${featured ? VALUE_FEATURED : VALUE_PLAIN} ${VALUE_PLACES[index] ?? ""}`}>
+      <ValueIcon index={index} featured={featured} />
+      <ValueText title={title} description={description} featured={featured} />
+    </Surface>
+  );
+}
+
+function TeamPortrait({ name, image }: TeamPortraitProps) {
+  if (image) {
+    return <div className="relative flex-1 overflow-hidden rounded-[22px]"><Picture className="absolute inset-0 size-full" image={image} /></div>;
+  }
+  return <div className="grid flex-1 place-content-center text-(length:--text-3xl) font-semibold text-muted/50" aria-hidden="true">{initialsOf(name)}</div>;
+}
+
+function TeamLabel({ name, role }: TeamLabelProps) {
+  return (
+    <div className="rounded-[18px] bg-paper px-4 py-3">
+      <h3 className="text-(length:--text-base) font-semibold">{name}</h3>
+      <p className="text-(length:--text-sm) text-muted">{role}</p>
+    </div>
+  );
+}
+
+export function TeamCard({ name, role, image }: TeamCardProps) {
+  return (
+    <Card className="flex min-h-[26rem] flex-col rounded-[28px] bg-gray p-2">
+      <TeamPortrait name={name} image={image} />
+      <TeamLabel name={name} role={role} />
+    </Card>
   );
 }

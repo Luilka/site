@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import { Header } from "@/components/layout.tsx";
-import About from "@/routes/[lang]/about.tsx";
+import { AboutSection } from "@/components/sections.tsx";
 import { Logo } from "@/shared/ui/logos.tsx";
 
 describe("logo", () => {
@@ -28,8 +28,8 @@ describe("logo", () => {
     expect(screen.getByRole("link", { name: "Luilka, accueil" }).querySelector("svg > path")).not.toBeNull();
   });
 
-  it("is drawn as the visual of the about section without any sprite reference", () => {
-    const { container } = render(<About />);
+  it("is drawn as the visual of the home about section without any sprite reference", () => {
+    const { container } = render(<AboutSection paragraphs={["Texte"]} />);
     expect(container.querySelector("use")).toBeNull();
     expect(container.querySelector("svg.size-\\[140px\\] > path")).not.toBeNull();
   });

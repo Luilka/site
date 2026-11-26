@@ -26,6 +26,10 @@ export type PageHeroTextProps = {
   description: string;
 };
 
+export type BreadcrumbProps = {
+  current: string;
+};
+
 export type PageTitleProps = {
   children: ReactNode;
   className?: string;

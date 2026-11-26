@@ -11,7 +11,7 @@ import { Badge } from "@/shared/ui/badges.tsx";
 import { cn } from "@/shared/utils/cn.util.ts";
 import { PROCESS_STAGES } from "@/shared/utils/process-stages.util.ts";
 import { CONTACT_MAILTO } from "@/shared/utils/contact-mailto.util.ts";
-import type { ActionLinkProps, ContactPanelProps, FeedbackBoundaryProps, PageFrameProps, PageHeroProps, PageHeroTextProps, PageLeadProps, PageTitleProps, ProcessBandProps, ProcessStageListProps, ProcessStageProps, QuoteLinkProps, RevealProps, StateCopyProps } from "@/shared/types";
+import type { ActionLinkProps, BreadcrumbProps, ContactPanelProps, FeedbackBoundaryProps, PageFrameProps, PageHeroProps, PageHeroTextProps, PageLeadProps, PageTitleProps, ProcessBandProps, ProcessStageListProps, ProcessStageProps, QuoteLinkProps, RevealProps, StateCopyProps } from "@/shared/types";
 
 export function ActionLink({ action, className }: ActionLinkProps) {
   return (
@@ -89,6 +89,36 @@ export function PageFrame({ page, children }: PageFrameProps) {
       <ContactPanel />
     </>
   );
+}
+
+const CRUMBS = "flex flex-wrap items-center gap-2 text-(length:--text-base) text-muted";
+
+function BreadcrumbHome() {
+  const { breadcrumb } = useContent();
+  return <li><Link className="hover:text-text hover:underline" href="/">{breadcrumb.home}</Link></li>;
+}
+
+function BreadcrumbCurrent({ current }: BreadcrumbProps) {
+  return (
+    <li className="flex items-center gap-2">
+      <ChevronRight size={16} strokeWidth={2} aria-hidden="true" />
+      <span className="font-semibold text-text" aria-current="page">{current}</span>
+    </li>
+  );
+}
+
+function BreadcrumbList({ current }: BreadcrumbProps) {
+  return (
+    <ol className={CRUMBS}>
+      <BreadcrumbHome />
+      <BreadcrumbCurrent current={current} />
+    </ol>
+  );
+}
+
+export function Breadcrumb({ current }: BreadcrumbProps) {
+  const { breadcrumb } = useContent();
+  return <nav aria-label={breadcrumb.label}><BreadcrumbList current={current} /></nav>;
 }
 
 export function PageTitle({ className, children }: PageTitleProps) {

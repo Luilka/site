@@ -1,15 +1,15 @@
 import { Container } from "@/shared/ui/containers.tsx";
-import { ActionLink, ContactPanel, PageHero, NotFoundPanel } from "@/components/patterns.tsx";
+import { ActionLink, Breadcrumb, ContactPanel, PageHero, PageLead, PageTitle, NotFoundPanel } from "@/components/patterns.tsx";
 import type { SectionProps } from "@/shared/types/section-props.type.ts";
 import { infoHref } from "@/shared/utils/info-href.util.ts";
-import type { AboutSectionProps, AboutTextProps, CardGridProps, CollectionSectionProps, DetailBackLinkProps, DetailBodyProps, DetailMediaProps, DetailPageProps, DetailRouteViewProps, HeadingTextProps, InfoCard, InfoCardBodyProps, InfoCardProps, InfoSectionProps, ProcessSectionProps, SectionHeadingProps } from "@/shared/types";
+import type { AboutHeroProps, AboutSectionProps, AboutTextProps, BandProps, CardGridProps, CollectionSectionProps, DetailBackLinkProps, DetailBodyProps, DetailMediaProps, DetailPageProps, DetailRouteViewProps, HeadingTextProps, InfoCard, InfoCardBodyProps, InfoCardProps, InfoSectionProps, MissionDetailsProps, MissionSectionProps, ProcessSectionProps, SectionHeadingProps, TeamGridProps, TeamSectionProps, ValueGridProps, ValuesSectionProps } from "@/shared/types";
 import { buttonClasses } from "@/shared/ui/buttons.tsx";
 import { Link } from "@/shared/ui/links.tsx";
 import { Card } from "@/shared/ui/cards.tsx";
 import { Picture } from "@/shared/ui/images.tsx";
 import { Logo } from "@/shared/ui/logos.tsx";
 import { Badge } from "@/shared/ui/badges.tsx";
-import { StepCard, ProductCard, ServiceCard, WorkCard } from "@/components/cards.tsx";
+import { StepCard, ProductCard, ServiceCard, TeamCard, ValueCard, WorkCard } from "@/components/cards.tsx";
 import { useContent } from "@/shared/i18n";
 import { Fragment } from "react";
 import { ArrowLeft } from "lucide-react";
@@ -21,6 +21,12 @@ const STACK = "max-[1000px]:grid-cols-[1fr_1fr] max-[640px]:grid-cols-[1fr]";
 const INFO_CARD = "min-w-0 p-[1.5rem] border border-[color-mix(in_srgb,var(--text)_12%,var(--paper))] rounded-[1.125rem] bg-paper";
 const INFO_TITLE = "mt-3 mb-2 text-(length:--text-xl)";
 const INFO_TEXT = "text-sm text-muted leading-[1.6]";
+const BAND = "py-[clamp(2.5rem,6vw,5rem)]";
+const SPLIT = "grid grid-cols-2 items-center gap-16 max-[1000px]:grid-cols-[1fr] max-[1000px]:gap-10";
+const ROUNDED = "rounded-[28px]";
+const MISSION_TEXT = "mt-5 text-(length:--text-base) text-muted leading-[1.6]";
+const VALUE_GRID = "mt-16 grid grid-cols-1 gap-4 min-[641px]:grid-cols-2 min-[1001px]:grid-cols-3 min-[1001px]:auto-rows-[minmax(16.5rem,auto)]";
+const TEAM_GRID = "mt-16 grid grid-cols-3 gap-4 max-[1000px]:grid-cols-2 max-[640px]:grid-cols-1";
 
 function AboutArt() {
   return (
@@ -81,6 +87,89 @@ export function ProcessSection({ id }: ProcessSectionProps) {
         {steps.map((step) => <StepCard key={step.number} {...step} />)}
       </Container>
     </section>
+  );
+}
+
+function Band({ children, className }: BandProps) {
+  return (
+    <section className={BAND}>
+      <Container className={className}>{children}</Container>
+    </section>
+  );
+}
+
+export function AboutHero({ eyebrow, title, description, image }: AboutHeroProps) {
+  return (
+    <section className="pt-[clamp(3rem,7vw,5rem)] pb-[clamp(2rem,5vw,3.5rem)]">
+      <Container className={SPLIT}>
+        <div><Breadcrumb current={eyebrow} /><PageTitle className="mt-8">{title}</PageTitle><PageLead>{description}</PageLead></div>
+        <Picture className={ROUNDED} image={image} loading="eager" fetchPriority="high" />
+      </Container>
+    </section>
+  );
+}
+
+function MissionDetails({ images }: MissionDetailsProps) {
+  return (
+    <div className="mt-8 grid grid-cols-2 gap-4">
+      <Picture className={ROUNDED} image={images.detailA} />
+      <Picture className={ROUNDED} image={images.detailB} />
+    </div>
+  );
+}
+
+function MissionCopy({ title, paragraphs, images }: MissionSectionProps) {
+  return (
+    <div>
+      <h2 className="text-(length:--text-2xl) font-semibold">{title}</h2>
+      {paragraphs.map((paragraph) => <p key={paragraph} className={MISSION_TEXT}>{paragraph}</p>)}
+      <MissionDetails images={images} />
+    </div>
+  );
+}
+
+export function MissionSection(props: MissionSectionProps) {
+  return (
+    <Band className={SPLIT}>
+      <MissionCopy {...props} />
+      <Picture className={`${ROUNDED} min-[1001px]:order-first`} image={props.images.mission} />
+    </Band>
+  );
+}
+
+function ValueGrid({ items }: ValueGridProps) {
+  return (
+    <div className={VALUE_GRID}>
+      {items.map((item, index) => <ValueCard key={item.title} {...item} index={index} />)}
+    </div>
+  );
+}
+
+export function ValuesSection({ title, description, items }: ValuesSectionProps) {
+  if (items.length === 0) return null;
+  return (
+    <Band>
+      <HeadingText title={title} description={description} />
+      <ValueGrid items={items} />
+    </Band>
+  );
+}
+
+function TeamGrid({ members }: TeamGridProps) {
+  return (
+    <div className={TEAM_GRID}>
+      {members.map((member) => <TeamCard key={member.name} {...member} />)}
+    </div>
+  );
+}
+
+export function TeamSection({ title, description, members }: TeamSectionProps) {
+  if (members.length === 0) return null;
+  return (
+    <Band>
+      <HeadingText title={title} description={description} />
+      <TeamGrid members={members} />
+    </Band>
   );
 }
 

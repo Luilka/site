@@ -41,6 +41,48 @@ export type PageIntro = {
   description: string;
 };
 
+export type BreadcrumbCopy = {
+  label: string;
+  home: string;
+};
+
+export type ValueItem = {
+  title: string;
+  description: string;
+};
+
+export type TeamMember = {
+  name: string;
+  role: string;
+  image?: DetailImage;
+};
+
+export type AboutImages = {
+  hero: DetailImage;
+  mission: DetailImage;
+  detailA: DetailImage;
+  detailB: DetailImage;
+};
+
+export type ValuesCopy = {
+  title: string;
+  description: string;
+  items: readonly ValueItem[];
+};
+
+export type TeamCopy = {
+  title: string;
+  description: string;
+  members: readonly TeamMember[];
+};
+
+export type AboutPageCopy = {
+  mission: string;
+  values: ValuesCopy;
+  team: TeamCopy;
+  images: AboutImages;
+};
+
 export type ProcessStep = {
   number: string;
   title: string;
@@ -116,6 +158,7 @@ export type Dictionary = {
   homeLabel: string;
   menuLabel: string;
   mobileNavigationLabel: string;
+  breadcrumb: BreadcrumbCopy;
   home: HomeCopy;
   sectionTitles: SectionTitles;
   sectionDescriptions: SectionDescriptions;
@@ -124,6 +167,7 @@ export type Dictionary = {
     title: string;
     description: string;
   };
+  aboutPage: AboutPageCopy;
   pages: Record<PageKey, PageIntro>;
   steps: readonly ProcessStep[];
   services: readonly Service[];

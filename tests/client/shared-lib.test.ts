@@ -4,6 +4,7 @@ import { findDetail, isKnownDetailSlug } from "@/content/detail-models.content.t
 import { detailHref } from "@/shared/utils/detail-href.util.ts";
 import { infoHref } from "@/shared/utils/info-href.util.ts";
 import { copyrightText } from "@/shared/utils/copyright-text.util.ts";
+import { initialsOf } from "@/shared/utils/initials.util.ts";
 import { newsletterState } from "@/shared/utils/newsletter-state.util.ts";
 import { pageKey } from "@/shared/utils/page-key.util.ts";
 import { socialProfiles } from "@/shared/utils/social-profiles.util.ts";
@@ -65,5 +66,21 @@ describe("shared lib", () => {
     expect(findDetail("fr", "blog", "inconnu")).toBeNull();
     expect(isKnownDetailSlug("blog", "inconnu")).toBe(false);
     expect(isKnownDetailSlug("blog", undefined)).toBe(false);
+  });
+});
+
+describe("initials of a name", () => {
+  it("takes the first letter of the first and of the last word, in capitals", () => {
+    expect(initialsOf("Espoir LOEMBA")).toBe("EL");
+    expect(initialsOf("  Jean  de la Fontaine ")).toBe("JF");
+  });
+
+  it("keeps one letter for a single word and nothing for an empty name", () => {
+    expect(initialsOf("madonna")).toBe("M");
+    expect(initialsOf("   ")).toBe("");
+  });
+
+  it("keeps an accented capital", () => {
+    expect(initialsOf("élodie Mbemba")).toBe("ÉM");
   });
 });

@@ -1,9 +1,40 @@
-import type { InfoCard } from "./dictionaries.type.ts";
-import type { DetailCover, DetailKind, DetailModel, DetailRouteProps } from "./detail.type.ts";
+import type { AboutImages, InfoCard, PageIntro, TeamCopy, TeamMember, ValueItem, ValuesCopy } from "./dictionaries.type.ts";
+import type { DetailCover, DetailImage, DetailKind, DetailModel, DetailRouteProps } from "./detail.type.ts";
 import type { SectionProps } from "./section-props.type.ts";
 import type { SectionAction } from "./dictionaries.type.ts";
 import type { Href } from "@/shared/ui/links.tsx";
 import type { ReactNode } from "react";
+
+export type BandProps = {
+  children: ReactNode;
+  className?: string;
+};
+
+export type AboutHeroProps = PageIntro & {
+  image: DetailImage;
+};
+
+export type MissionSectionProps = {
+  title: string;
+  paragraphs: readonly string[];
+  images: AboutImages;
+};
+
+export type MissionDetailsProps = {
+  images: AboutImages;
+};
+
+export type ValuesSectionProps = ValuesCopy;
+
+export type ValueGridProps = {
+  items: readonly ValueItem[];
+};
+
+export type TeamSectionProps = TeamCopy;
+
+export type TeamGridProps = {
+  members: readonly TeamMember[];
+};
 
 export type AboutTextProps = {
   title?: string;

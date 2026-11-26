@@ -313,6 +313,7 @@ const fr: Dictionary = {
   homeLabel: "Luilka, accueil",
   menuLabel: "Menu",
   mobileNavigationLabel: "Navigation mobile",
+  breadcrumb: { label: "Fil d'Ariane", home: "Accueil" },
   home: {
     prefix: "Agence de",
     design: "design",
@@ -340,6 +341,26 @@ const fr: Dictionary = {
     title: "Donnons forme à votre prochaine idée.",
     description:
       "Décrivez votre besoin en quelques lignes. Nous revenons avec une première lecture et un créneau d'échange.",
+  },
+  aboutPage: {
+    mission: "Notre mission",
+    values: {
+      title: "Nos valeurs",
+      description: "Ce qui guide chaque projet, de la première observation à la livraison.",
+      items: [
+        { title: "Observer avant de dessiner", description: "Chaque choix part d'un besoin observé chez les personnes qui utiliseront le produit." },
+        { title: "Vérifier avec les gens", description: "Les parcours et les écrans sont testés avec celles et ceux qui utiliseront le produit." },
+        { title: "Livrer une interface prête à construire", description: "Maquettes prêtes à l'emploi et système de composants que vos équipes peuvent utiliser." },
+        { title: "Écrire dès la première maquette", description: "Le ton et les messages sont écrits en même temps que l'interface." },
+        { title: "Des preuves sourcées", description: "Un projet est montré sous son vrai nom, et aucun chiffre n'est écrit sans source." },
+      ],
+    },
+    team: {
+      title: "Notre équipe",
+      description: "Les personnes qui conçoivent, écrivent et construisent avec vous.",
+      members: [{ name: "Espoir LOEMBA", role: "CEO" }],
+    },
+    images: imageSource.about,
   },
   pages: {
     about: {
@@ -511,6 +532,7 @@ const en: Dictionary = {
   homeLabel: "Luilka, home",
   menuLabel: "Menu",
   mobileNavigationLabel: "Mobile navigation",
+  breadcrumb: { label: "Breadcrumb", home: "Home" },
   home: {
     prefix: "Creative",
     design: "design",
@@ -536,6 +558,26 @@ const en: Dictionary = {
   contact: {
     title: "Let's shape your next idea.",
     description: "Describe your need in a few lines. We will come back with a first reading and a time to talk.",
+  },
+  aboutPage: {
+    mission: "Our mission",
+    values: {
+      title: "Our values",
+      description: "What guides every project, from the first observation to handover.",
+      items: [
+        { title: "Observe before drawing", description: "Every choice starts from a need seen in the people who will use the product." },
+        { title: "Check with real people", description: "Flows and screens are tested with the people who will use the product." },
+        { title: "Hand over an interface ready to build", description: "Ready to use designs and a component system your teams can build on." },
+        { title: "Write from the first draft", description: "Tone and messages are written at the same time as the interface." },
+        { title: "Sourced proof", description: "A project is shown under its real name, and no figure is written without a source." },
+      ],
+    },
+    team: {
+      title: "Our team",
+      description: "The people who design, write and build with you.",
+      members: [{ name: "Espoir LOEMBA", role: "CEO" }],
+    },
+    images: imageSource.about,
   },
   pages: {
     about: {
