@@ -11,7 +11,11 @@ VIEWBOX = re.compile(r'viewBox="0 0 (\d+) (\d+)"')
 
 
 def entries() -> list[tuple[str, str, dict[str, object]]]:
-    return [(kind, slug, image) for kind, items in REGISTRY.items() for slug, image in items.items()]
+    return [
+        (kind, slug, image)
+        for kind, items in REGISTRY.items()
+        for slug, image in items.items()
+    ]
 
 
 def test_every_work_and_product_has_a_cover() -> None:
