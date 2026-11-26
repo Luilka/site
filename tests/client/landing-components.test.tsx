@@ -56,6 +56,17 @@ describe("landing components", () => {
     expect(tilted?.className).toContain("repeating-linear-gradient(45deg");
   });
 
+  it("colours the tilted band differently from the grey band and scrolls its lines", () => {
+    const { container } = render(<ProcessBand />);
+    const tilted = container.querySelector('[class*="rotate-2"]')?.className ?? "";
+    expect(tilted).toContain("bg-blue/25");
+    expect(tilted).not.toContain("bg-gray");
+    expect(tilted).toContain("animate-stripes");
+    expect(tilted).toContain("motion-reduce:animate-none");
+    const reversed = render(<ProcessBand reverse />).container.querySelector('[class*="rotate-2"]')?.className ?? "";
+    expect(reversed).toContain("[animation-direction:reverse]");
+  });
+
   it("renders a numbered stage", () => {
     render(<StepCard number="01" title="Cadrage" description="Texte" />);
     expect(screen.getByText("01")).toBeTruthy();

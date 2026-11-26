@@ -152,7 +152,7 @@ const LIST = "flex min-w-[100vw] shrink-0 items-center justify-around gap-12 px-
 const LIST_COPY = `${LIST} motion-reduce:hidden`;
 const CHEVRON = "opacity-50 motion-reduce:max-[1000px]:hidden";
 const CHEVRON_LAST = `${CHEVRON} motion-reduce:hidden`;
-const TILT = "absolute inset-0 -left-0.5 -right-0.5 bg-gray-200 bg-[repeating-linear-gradient(45deg,transparent_0_8px,color-mix(in_srgb,var(--text)_18%,transparent)_8px_10px)]";
+const TILT = "absolute inset-0 -left-0.5 -right-0.5 bg-blue/25 animate-stripes motion-reduce:animate-none bg-[repeating-linear-gradient(45deg,transparent_0_8px,color-mix(in_srgb,var(--blue)_45%,transparent)_8px_10px)] bg-size-[14.1421px_14.1421px]";
 
 const STAGE_ICONS: Record<string, LucideIcon> = {
   Concept: Lightbulb,
@@ -196,7 +196,7 @@ function ProcessStages({ reverse }: ProcessBandProps) {
 export function ProcessBand({ reverse = false }: ProcessBandProps) {
   return (
     <div className="relative overflow-x-clip" aria-hidden="true">
-      <div className={`${TILT} ${reverse ? "rotate-2" : "-rotate-2"}`}></div>
+      <div className={`${TILT} ${reverse ? "rotate-2 [animation-direction:reverse]" : "-rotate-2"}`}></div>
       <ProcessStages reverse={reverse} />
     </div>
   );
