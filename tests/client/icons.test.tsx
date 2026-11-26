@@ -1,10 +1,8 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
-
-import ProcessBand from "@/components/patterns/process-band.pattern.tsx";
-import Footer from "@/components/layout/footer.layout.tsx";
-import NewsletterForm from "@/components/layout/newsletter-form.layout.tsx";
-import DetailPage from "@/components/sections/detail-page.section.tsx";
+import { ProcessBand } from "@/components/patterns.tsx";
+import { Footer, NewsletterForm } from "@/components/layout.tsx";
+import { DetailPage } from "@/components/sections.tsx";
 import type { DetailModel } from "@/shared/types";
 
 const detail: DetailModel = {

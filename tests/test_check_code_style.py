@@ -35,21 +35,23 @@ def test_comment_markers_inside_strings_are_ignored() -> None:
 
 
 def test_second_map_call_is_refused_in_tsx() -> None:
-    text = "a.map(f); b.map(g);"
-    assert style.check_text(text, "a.tsx") == ["a.tsx: 2 .map calls, one is allowed per TSX file"]
+    text = "function A() { a.map(f); b.map(g); }"
+    assert style.check_text(text, "a.tsx") == [
+        "a.tsx: 2 .map calls in one component, one is allowed"
+    ]
+
+
+def test_one_map_call_per_component_is_allowed_in_one_tsx_file() -> None:
+    text = "function A() { a.map(f); }\nfunction B() { b.map(g); }"
+    assert style.check_text(text, "a.tsx") == []
 
 
 def test_several_map_calls_are_allowed_in_ts() -> None:
     assert style.check_text("a.map(f); b.map(g);", "a.ts") == []
 
 
-def test_names_follow_the_folder_they_live_in() -> None:
+def test_ts_names_follow_the_folder_they_live_in() -> None:
     accepted = (
-        "src/components/cards/product.card.tsx",
-        "src/components/sections/(home)/hero.section.tsx",
-        "src/components/layout/navigation/nav-entry.layout.tsx",
-        "src/components/patterns/page-frame.pattern.tsx",
-        "src/shared/ui/button.ui.tsx",
         "src/shared/hooks/use-retry.hook.ts",
         "src/shared/utils/validate-email.util.ts",
         "src/shared/i18n/dictionaries.i18n.ts",
@@ -60,15 +62,14 @@ def test_names_follow_the_folder_they_live_in() -> None:
         assert style.name_failures(Path(name)) == [], name
 
 
-def test_a_name_without_its_folder_suffix_is_refused() -> None:
-    failures = style.name_failures(Path("src/components/cards/product-card.tsx"))
-    assert failures == [
-        "src/components/cards/product-card.tsx: file name must be <name>.card.ts(x)"
-    ]
+def test_tsx_files_have_plain_plural_names() -> None:
+    for name in ("src/components/cards.tsx", "src/shared/ui/buttons.tsx", "src/routes/layout.tsx"):
+        assert style.name_failures(Path(name)) == [], name
 
 
-def test_a_name_with_the_suffix_of_another_folder_is_refused() -> None:
-    assert len(style.name_failures(Path("src/components/cards/product.section.tsx"))) == 1
+def test_a_ts_name_without_its_folder_suffix_is_refused() -> None:
+    failures = style.name_failures(Path("src/shared/utils/validate-email.ts"))
+    assert failures == ["src/shared/utils/validate-email.ts: file name must be <name>.util.ts(x)"]
 
 
 def test_barrels_and_declarations_are_accepted() -> None:

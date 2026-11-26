@@ -1,8 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
-
-import ProcessBand from "@/components/patterns/process-band.pattern.tsx";
-import WorkCard from "@/components/cards/work.card.tsx";
+import { ProcessBand } from "@/components/patterns.tsx";
+import { WorkCard } from "@/components/cards.tsx";
 import Home from "@/routes/[lang]/index.tsx";
 
 describe("design-first home content", () => {

@@ -1,5 +1,5 @@
-import PageFrame from "@/components/patterns/page-frame.pattern.tsx";
-import ProductsSection from "@/components/sections/(home)/products.section.tsx";
+import { PageFrame } from "@/components/patterns.tsx";
+import { ProductsSection } from "@/components/sections.tsx";
 import { useContent } from "@/shared/i18n";
 
 export default function Products() {

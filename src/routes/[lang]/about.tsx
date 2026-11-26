@@ -1,6 +1,5 @@
-import PageFrame from "@/components/patterns/page-frame.pattern.tsx";
-import AboutSection from "@/components/sections/(home)/about.section.tsx";
-import ProcessSection from "@/components/sections/(home)/process.section.tsx";
+import { PageFrame } from "@/components/patterns.tsx";
+import { AboutSection, ProcessSection } from "@/components/sections.tsx";
 import { useContent } from "@/shared/i18n";
 
 export default function About() {

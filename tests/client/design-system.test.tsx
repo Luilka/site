@@ -1,12 +1,11 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
-
-import Badge from "@/shared/ui/badge.ui.tsx";
-import Button from "@/shared/ui/button.ui.tsx";
-import Card from "@/shared/ui/card.ui.tsx";
-import Container from "@/shared/ui/container.ui.tsx";
-import Input from "@/shared/ui/input.ui.tsx";
-import AppLink from "@/shared/ui/link.ui.tsx";
+import { Badge } from "@/shared/ui/badges.tsx";
+import { Button } from "@/shared/ui/buttons.tsx";
+import { Card } from "@/shared/ui/cards.tsx";
+import { Container } from "@/shared/ui/containers.tsx";
+import { Input } from "@/shared/ui/inputs.tsx";
+import { AppLink } from "@/shared/ui/links.tsx";
 import { cn } from "@/shared/utils/cn.util.ts";
 
 describe("design system atoms", () => {

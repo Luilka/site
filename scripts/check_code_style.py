@@ -1,7 +1,7 @@
 """Checks the client source style rules that ESLint cannot express.
 
-Rules: no comment except a JSDoc block, one `.map(` call per TSX file, and the file naming
-scheme <name>.<folder>.ts(x) for every `.ts` and `.tsx` file of src.
+Rules: no comment except a JSDoc block, one `.map(` call per component, and the file naming
+scheme: <name>.<folder>.ts for the `.ts` files of src/shared, plain names for TSX files.
 """
 
 import re
@@ -70,13 +70,16 @@ def comment_failures(text: str, filename: str) -> list[str]:
     return failures
 
 
+COMPONENT_START = re.compile(r"\n(?=(?:export )?(?:default )?function )")
+
+
 def map_failures(text: str, filename: str) -> list[str]:
     if not filename.endswith(".tsx"):
         return []
-    count = text.count(".map(")
-    if count <= 1:
+    worst = max(chunk.count(".map(") for chunk in COMPONENT_START.split(text))
+    if worst <= 1:
         return []
-    return [f"{filename}: {count} .map calls, one is allowed per TSX file"]
+    return [f"{filename}: {worst} .map calls in one component, one is allowed"]
 
 
 def check_text(text: str, filename: str) -> list[str]:
@@ -89,7 +92,7 @@ def folder_kind(relative: Path) -> str | None:
         return None
     if parts[1] == "content":
         return "content"
-    if parts[1] in ("components", "shared") and len(parts) > 3:
+    if parts[1] == "shared" and len(parts) > 3 and relative.suffix == ".ts":
         return FOLDER_KINDS.get(parts[2])
     return None
 

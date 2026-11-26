@@ -87,9 +87,7 @@ def test_header_typography_follows_readable_sizes() -> None:
 
 def test_header_groups_logo_and_navigation_together() -> None:
     css = (ROOT / "src" / "globale.css").read_text(encoding="utf-8")
-    header = (ROOT / "src" / "components" / "layout" / "header.layout.tsx").read_text(
-        encoding="utf-8"
-    )
+    header = (ROOT / "src" / "components" / "layout.tsx").read_text(encoding="utf-8")
     assert "justify-between" in header
     assert "gap-8" in header
     assert "margin-left: 0" in css_rule(css, ".nav-links")
@@ -97,9 +95,7 @@ def test_header_groups_logo_and_navigation_together() -> None:
 
 
 def test_header_is_sticky_and_uses_utility_classes() -> None:
-    header = (ROOT / "src" / "components" / "layout" / "header.layout.tsx").read_text(
-        encoding="utf-8"
-    )
+    header = (ROOT / "src" / "components" / "layout.tsx").read_text(encoding="utf-8")
     assert "sticky top-0" in header
     assert "z-13" in header
     assert "max-w-7xl" in header

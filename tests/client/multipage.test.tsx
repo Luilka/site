@@ -1,7 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
-
-import Header from "@/components/layout/header.layout.tsx";
+import { Header } from "@/components/layout.tsx";
 import About from "@/routes/[lang]/about.tsx";
 import Blog from "@/routes/[lang]/blog/index.tsx";
 import Contact from "@/routes/[lang]/contact.tsx";

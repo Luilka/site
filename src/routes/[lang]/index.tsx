@@ -1,15 +1,7 @@
-import NotFoundPanel from "@/components/patterns/not-found-panel.pattern.tsx";
+import { NotFoundPanel, ProcessBand, ContactPanel, HeroAccent, QuoteLink } from "@/components/patterns.tsx";
 import { isSupportedLanguage, useContent } from "@/shared/i18n";
-import ProcessBand from "@/components/patterns/process-band.pattern.tsx";
-import ProductsSection from "@/components/sections/(home)/products.section.tsx";
-import ServicesSection from "@/components/sections/(home)/services.section.tsx";
-import ContactPanel from "@/components/patterns/contact-panel.pattern.tsx";
-import WorksSection from "@/components/sections/(home)/works.section.tsx";
-import ProcessSection from "@/components/sections/(home)/process.section.tsx";
-import HeroAccent from "@/components/patterns/hero-accent.pattern.tsx";
-import Container from "@/shared/ui/container.ui.tsx";
-import QuoteLink from "@/components/patterns/quote-link.pattern.tsx";
-import AboutSection from "@/components/sections/(home)/about.section.tsx";
+import { ProductsSection, ServicesSection, WorksSection, ProcessSection, AboutSection } from "@/components/sections.tsx";
+import { Container } from "@/shared/ui/containers.tsx";
 
 function HomeAbout() {
   const { pages, about, discover } = useContent();

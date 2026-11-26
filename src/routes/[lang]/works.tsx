@@ -1,5 +1,5 @@
-import PageFrame from "@/components/patterns/page-frame.pattern.tsx";
-import WorksSection from "@/components/sections/(home)/works.section.tsx";
+import { PageFrame } from "@/components/patterns.tsx";
+import { WorksSection } from "@/components/sections.tsx";
 import { useContent } from "@/shared/i18n";
 
 export default function Works() {

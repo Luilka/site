@@ -1,5 +1,4 @@
-import ContactPanel from "@/components/patterns/contact-panel.pattern.tsx";
-import PageHero from "@/components/patterns/page-hero.pattern.tsx";
+import { ContactPanel, PageHero } from "@/components/patterns.tsx";
 import { useContent } from "@/shared/i18n";
 
 export default function Contact() {

@@ -1,7 +1,6 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import { afterEach, describe, expect, it } from "vitest";
-
-import Header from "@/components/layout/header.layout.tsx";
+import { Header } from "@/components/layout.tsx";
 
 function openServices(pathname = "/fr") {
   (globalThis as Record<string, unknown>).__NEXY_LOCATION__ = {

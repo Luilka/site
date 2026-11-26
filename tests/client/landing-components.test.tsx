@@ -1,14 +1,8 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
-
-import IconSprite from "@/components/layout/icon-sprite.layout.tsx";
-import ProcessBand from "@/components/patterns/process-band.pattern.tsx";
-import ProductCard from "@/components/cards/product.card.tsx";
-import ServiceCard from "@/components/cards/service.card.tsx";
-import Footer from "@/components/layout/footer.layout.tsx";
-import Header from "@/components/layout/header.layout.tsx";
-import StepCard from "@/components/cards/step.card.tsx";
-import WorkCard from "@/components/cards/work.card.tsx";
+import { IconSprite, Footer, Header } from "@/components/layout.tsx";
+import { ProcessBand } from "@/components/patterns.tsx";
+import { ProductCard, ServiceCard, StepCard, WorkCard } from "@/components/cards.tsx";
 
 describe("landing components", () => {
   it("defines the reference icons", () => {

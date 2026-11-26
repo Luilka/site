@@ -7,7 +7,7 @@ type MotionBoxProps = Pick<HTMLMotionProps<"div">, "initial" | "animate" | "tran
   "data-testid"?: string;
 };
 
-export default function MotionBox({ initial, animate, transition, ...props }: MotionBoxProps) {
+export function MotionBox({ initial, animate, transition, ...props }: MotionBoxProps) {
   const reduced = useReducedMotion();
   if (reduced) return <div {...props} />;
   return <motion.div initial={initial} animate={animate} transition={transition} {...props} />;

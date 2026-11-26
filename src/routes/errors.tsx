@@ -1,5 +1,4 @@
-import StateCopy from "@/components/patterns/state-copy.pattern.tsx";
-import StatePanel from "@/components/patterns/state-panel.pattern.tsx";
+import { StateCopy, StatePanel } from "@/components/patterns.tsx";
 import { useContent } from "@/shared/i18n";
 
 type ErrorsProps = {

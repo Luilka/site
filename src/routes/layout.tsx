@@ -1,8 +1,6 @@
 import type { ReactNode } from "react";
 import { useUrlLanguage } from "@/shared/i18n";
-import Footer from "@/components/layout/footer.layout.tsx";
-import Header from "@/components/layout/header.layout.tsx";
-import IconSprite from "@/components/layout/icon-sprite.layout.tsx";
+import { Footer, Header, IconSprite } from "@/components/layout.tsx";
 
 const INTER = "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap";
 

@@ -1,1 +1,1 @@
-export { default } from "@/components/patterns/not-found-panel.pattern.tsx";
+export { NotFoundPanel as default } from "@/components/patterns.tsx";

@@ -1,11 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
-
-import IconSprite from "@/components/layout/icon-sprite.layout.tsx";
-import ProductCard from "@/components/cards/product.card.tsx";
-import ServiceCard from "@/components/cards/service.card.tsx";
-import Header from "@/components/layout/header.layout.tsx";
-import WorkCard from "@/components/cards/work.card.tsx";
+import { IconSprite, Header } from "@/components/layout.tsx";
+import { ProductCard, ServiceCard, WorkCard } from "@/components/cards.tsx";
 
 function iconClasses(container: HTMLElement, selector: string) {
   return Array.from(container.querySelectorAll(selector)).map((node) => node.getAttribute("class") ?? "");

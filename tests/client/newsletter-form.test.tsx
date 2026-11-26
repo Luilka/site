@@ -1,7 +1,6 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
-
-import NewsletterForm from "@/components/layout/newsletter-form.layout.tsx";
+import { NewsletterForm } from "@/components/layout.tsx";
 
 describe("newsletter form", () => {
   it("refuses an invalid address", () => {

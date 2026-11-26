@@ -1,5 +1,4 @@
 import type { ButtonHTMLAttributes } from "react";
-
 import { cn } from "@/shared/utils/cn.util.ts";
 
 export type ButtonVariant = "primary" | "outline" | "dark";
@@ -18,6 +17,6 @@ type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   variant?: ButtonVariant;
 };
 
-export default function Button({ variant = "primary", className, type = "button", ...props }: ButtonProps) {
+export function Button({ variant = "primary", className, type = "button", ...props }: ButtonProps) {
   return <button type={type} className={buttonClasses(variant, className)} {...props} />;
 }

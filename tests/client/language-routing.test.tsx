@@ -1,7 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { afterEach, describe, expect, it, vi } from "vitest";
-
-import Header from "@/components/layout/header.layout.tsx";
+import { Header } from "@/components/layout.tsx";
 import { languageFromPathname, localizedHref, pageFromPathname } from "@/shared/i18n";
 import About from "@/routes/[lang]/about.tsx";
 import Home from "@/routes/[lang]/index.tsx";

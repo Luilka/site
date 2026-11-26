@@ -1,8 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
-
-import HeroAccent from "@/components/patterns/hero-accent.pattern.tsx";
-
+import { HeroAccent } from "@/components/patterns.tsx";
 import { setReducedMotion } from "./setup";
 
 describe("HeroAccent", () => {
