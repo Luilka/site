@@ -1,11 +1,13 @@
 # Recherche : films de produit avec de vraies interfaces
 
-**Statut** : version 1, 26 novembre 2026. Direction proposée, rien n'est décidé. Complète [la proposition de vidéo du héros](proposition-video-heros.md).
+**Statut** : version 1, 26 novembre 2026. Direction proposée, rien n'est décidé. Complète [la proposition de vidéo du héros](proposition-video-heros.md) ; la pièce typographique du héros reste en place en attendant de vraies prises.
 **Propriétaire** : @Espoir-Loem
 **Documents liés** : [recherche UX](recherche-ux-confiance.md), [synthèse du thème](audit-theme.md)
-**Demande du titulaire** : des vidéos avec de vrais éléments de motion, du son, de vraies interfaces de ce que fait Luilka, un mouvement du plus haut niveau, humain, pas robotique, à la hauteur d'un studio de pointe en UX.
+**Demande du titulaire** : des films de l'agence, pas de présentation d'application. Il s'agit de montrer qui est Luilka et ce que l'agence fait (sa façon de travailler avec les gens), de manière humaine, avec du vrai mouvement et du son, au niveau d'un studio de pointe en UX.
 
 ## Ce que j'ai pu et n'ai pas pu faire
+
+**Correction de cap (26 novembre 2026).** La première version de ce document proposait des films d'interfaces d'applications. Le titulaire l'a écartée : le film présente l'agence et sa manière de travailler, pas un produit.
 
 - **Référence du titulaire** : la vidéo YouTube donnée s'intitule « Google, Welcome to the Gemini era » (titre lu par le service de métadonnées public de YouTube). Je ne peux pas la regarder : je ne connais ni son rythme, ni son montage, ni son son. À préciser par le titulaire : ce qui plaît (cadence, présence de personnes, sons d'interface, musique, transitions ?).
 - **Sources** : articles de blogs et de fabricants d'outils, donc intéressés, et aucun n'analyse les défauts typiques d'un mouvement fait par machine. Les principes de métier ci-dessous viennent de la pratique du motion design, pas d'une étude : ils sont à valider par un motion designer humain.
@@ -37,32 +39,81 @@
 | Données génériques (« Lorem », « John Doe ») | Données vraisemblables, dans la langue et le contexte du public (noms, lieux, montants, langue) |
 | Aucun silence | Des temps de pause pour respirer |
 
-## Direction proposée pour Luilka
+## Ce que disent les sources sur les films d'agence et de marque
 
-1. **De vraies interfaces, pas des maquettes.** Enregistrer les produits qui tournent vraiment dans Chrome, sur un téléphone simulé, avec un curseur et un toucher pilotés par un script de trajectoires humaines (arcs, hésitations, pauses), puis les composer avec des zooms de caméra sur les actions importantes.
-2. **Un parcours humain par film.** Une personne, un but, un contexte (par exemple suivre une tontine, trouver un artisan, publier une vidéo de travail) : la preuve avant la promesse, comme dans les principes de Pro.
-3. **Un son qui suit les gestes.** Sons d'interface (toucher, glisser, frappe), un lit musical phrasé, un silence avant le résultat, un mixage où les sons ne couvrent jamais le libellé. Le film reste compréhensible sans son.
-4. **Une identité sobre.** Palette de luxe (forêt, or, blanc), un seul trait doré, pas de lueur ni de particules ni de dégradés de maillage.
-5. **Court.** 20 à 45 secondes, une idée par film.
+| Constat | Source |
+|---|---|
+| Les films de manifeste de studios (SAGA, School of Motion, Aerospike) ancrent l'identité visuelle dans tout le film et durent d'environ 60 secondes à 3 minutes | [Abduzeedo, SAGA](https://abduzeedo.com/aga-officially-launches-cinematic-manifesto-film), [School of Motion](https://vimeo.com/360269073) |
+| Un film de marque de type documentaire dure 2 à 4 minutes pour une page d'accueil (jusqu'à 10 ailleurs) ; 2 à 3 vraies personnes, pas plus ; de vraies personnes plutôt que des acteurs quand la crédibilité compte | [Corcino](https://www.corcinoproductions.com/post/how-to-plan-a-documentary-style-brand-film), [Think Branded Media](https://thinkbrandedmedia.com/blog/how-to-tell-your-brand-story-through-video-documentary-filmmaking-techniques/) |
+| Des questions qui font raconter un moment précis (« raconte-moi le jour où... ») plutôt qu'un sentiment général | Mêmes sources |
+| Filmer les images de coupe avant et après l'entretien, dans le cadre réel du travail, sans scène jouée ; garder des marges de temps pour les moments vrais | [Hackstone](https://hackstone.com/documentary-style-video-content/) |
+| Un micro-cravate par personne pour qu'elle bouge librement ; garder les pauses et les phrases imparfaites | [Apres Visuals](https://www.apresvisuals.com/blog/brand-storytelling-documentary-style-video-production) |
+| Une image qui paraît négligée sans intention se lit comme un manque de moyens, pas comme de l'authenticité : la qualité doit servir le vrai | [Think Branded Media](https://thinkbrandedmedia.com/blog/why-authentic-storytelling-matters-more-than-production-quality-in-brand-videos/) |
+| Une publicité de Google, « New Home » (autre film que la référence), est jugée réussie parce que la technologie reste un appui et ne joue pas le sentiment à la place des gens | [TechRadar](https://www.techradar.com/ai-platforms-assistants/google-redeems-gemini-after-awkward-olympics-ad-in-a-super-bowl-spot-among-many-sentimental-ai-contenders) (la référence du titulaire elle-même n'a pas pu être analysée) |
 
-## Ce qui est possible ici, et ce qui ne l'est pas
+Les sources sont des sociétés de production et des médias : leurs conseils sont des opinions de métier, pas des mesures. Rien ne prouve ici qu'un film améliore la conversion de Luilka.
 
-- **Possible tout de suite :** un film du site Luilka lui-même, en vraie interface (menu mobile en feuille, cartes, transition de page, contact), sur téléphone simulé. C'est vrai, vérifiable, et cela montre la qualité de ce que Luilka livre.
-- **Possible avec votre accord :** les applications de vos projets, à condition que je puisse les lancer. Le dépôt Mitemo contient une application web et une application mobile : je ne l'ai pas cloné, car télécharger du code demande votre accord. Le dépôt local `luilka/pro` n'est qu'un gabarit d'application, pas le vrai produit Pro. Tala, Vuga et les projets clients n'ont pas d'interface lançable ici.
-- **Limites :** je synthétise les sons d'interface par code : ce n'est pas du bruitage enregistré. Je ne peux pas égaler un motion designer humain ni garantir qu'un œil expert ne verra pas l'origine du film. Je recommande une passe finale par un humain (montage, étalonnage, mixage) avant toute diffusion publique. Aucun test de visiteurs n'existe.
+## Ce qui fait « robot » et ce que fait un humain (pratique du métier)
+
+| Défaut typique | Ce que fait un humain |
+|---|---|
+| Voix de synthèse, rythme uniforme | Une vraie voix, des respirations, des silences, des hésitations gardés au montage |
+| Images de stock, personnes anonymes | De vraies personnes, nommées avec leur accord, dans leur lieu |
+| Mêmes entrées, mêmes courbes, même décalage | Chaque élément a son poids ; les mouvements se chevauchent ; une chose bouge à la fois |
+| Un « whoosh » sur chaque coupe | Le son naturel du lieu (ambiance, gestes, pas, voix), peu d'effets, jamais les mêmes deux fois |
+| Musique en boucle sans phrasé | Les coupes tombent sur les temps, avec un silence avant l'idée importante |
+| Témoignages écrits à l'avance | Paroles recueillies en entretien, non retouchées dans le sens |
+| Aucun silence | Des temps de respiration |
+
+## Direction proposée : « Pourquoi nous commençons par les gens »
+
+**Idée.** Luilka est un studio de design qui part des utilisateurs avant de dessiner. Le film le montre par des personnes réelles, pas par des promesses : il ne vante aucun produit.
+
+**Format.** Film principal de 90 à 120 secondes pour la page À propos et la chaîne YouTube, sous-titré en français et en anglais ; une version courte de 15 à 20 secondes pour le héros, qui reprend les mêmes règles (lecture à l'écran, son sur demande, image fixe, bouton Pause).
+
+**Structure** (une idée par séquence) :
+1. **Le lieu** (8 s) : noir, puis le son réel d'un lieu de vie, avant l'image. Un seul plan large.
+2. **La personne** (25 s) : 1 à 2 personnes réelles racontent, dans leurs mots, un moment précis où un produit ou un service les a mises en difficulté. Aucune parole écrite à leur place.
+3. **L'écoute** (25 s) : l'équipe de Luilka écoute et note, un entretien d'utilisateur à l'épaule, des esquisses, un test sur un téléphone avec une vraie personne.
+4. **La décision** (20 s) : un plan de la preuve qui devient un choix de design (un croquis qui change après un test), sans interface de produit en vitrine.
+5. **La frontière et la promesse** (15 s) : une phrase à l'écran, en lettres sobres : ce que Luilka fait et où elle s'arrête (position du dépôt).
+6. **L'invitation** (7 s) : « Nous contacter », le seul appel à l'action.
+
+**Image.** Caméra à hauteur d'humain, lumière du lieu, peu de mouvements de caméra, étalonnage chaud et sobre aux couleurs de la marque (vert forêt, or, blanc), un seul trait doré en titre. Les éléments de motion servent la lecture (titres, sous-titres, la phrase de frontière), jamais le spectacle.
+
+**Son.** Son direct des lieux et des voix (micro-cravate), ambiances réelles, une musique rare et phrasée qui entre tard, un silence avant la phrase importante. Le film reste compréhensible sans son grâce aux sous-titres.
+
+## Ce que je peux faire et ce que je ne peux pas
+
+| Je peux | Je ne peux pas |
+|---|---|
+| Écrire le traitement, le guide d'entretien, la liste de plans et le formulaire d'accord | Filmer des personnes, ni jouer le rôle d'une équipe ou d'utilisateurs |
+| Monter vos prises : coupe, sous-titres, étalonnage de base, titres animés dans la timeline de la marque, mixage, musique originale synthétique | Faire une voix humaine : une voix de synthèse serait le contraire de l'humain recherché |
+| Préparer la version courte du héros et son intégration | Inventer des témoignages (la règle du dépôt interdit les chiffres et citations sans source) |
+| Vérifier contrastes, sous-titres, poids, lecture à l'écran | Garantir qu'un œil expert ne verra pas l'origine du montage ; une passe finale par un monteur humain est recommandée |
+
+## Préparer le tournage (à faire par le titulaire)
+
+1. **Qui**: 2 ou 3 vraies personnes (utilisateurs ou membres de l'équipe), à nommer.
+2. **Accord**: formulaire de droit à l'image et à la voix, par écrit, avec la possibilité de se retirer (à nommer : qui le signe).
+3. **Matériel**: un téléphone récent suffit pour l'image (horizontal, 4K ou 1080p, 25 ou 30 images par seconde), un micro-cravate par personne, un lieu calme.
+4. **Questions d'entretien** (à poser, jamais à suggérer) : « Raconte-moi la dernière fois que [une application ou un service] t'a fait perdre du temps. » « Qu'est-ce que tu as fait à ce moment-là ? » « Qu'est-ce que tu aurais voulu qu'on te dise ou te montre ? » « Qu'est-ce qui t'a donné confiance, ou pas ? »
+5. **Images de coupe** (avant et après l'entretien) : mains qui esquissent, écran de téléphone dans une main, discussion à une table, marche vers le lieu, lumière à la fenêtre, gros plans de gestes.
+6. **Langues**: à décider (français, lingala, kituba) ; chaque langue parlée est sous-titrée.
 
 ## Plan
 
-1. Valider la direction et une référence précise (rythme, ambiance) : titulaire.
-2. Image clé et animatic minuté du premier film (30 secondes, le site), validés avant le rendu.
-3. Outil de curseur humain et de caméra, testé sur une séquence courte.
-4. Enregistrement de la vraie interface, composition, sons d'interface, lit musical, mixage.
-5. Intégration au héros sous les mêmes règles (à l'écran seulement, son sur demande, image fixe, bouton Pause).
-6. Films suivants sur les applications de projets, selon les interfaces disponibles.
+1. Valider la direction : titulaire.
+2. Choisir les personnes, le lieu, les dates : titulaire.
+3. Tournage : titulaire (ou un tiers), avec mon guide.
+4. Livraison des prises dans un dossier du dépôt ou hors dépôt (à décider : les vidéos brutes pèsent lourd et ne doivent pas être versionnées).
+5. Montage assisté, sous-titres, mixage : moi, avec relecture du titulaire.
+6. Intégration (page À propos, héros) et publication sur YouTube : titulaire (publication = action sortante).
 
 ## Décisions demandées
 
-1. Premier film : le site Luilka (possible aujourd'hui), ou attendre une application de projet ?
-2. Puis-je cloner Mitemo (dépôt public du titulaire) et essayer de le lancer pour l'enregistrer ?
-3. Quelle personne et quel but montrer (le parcours humain) ?
-4. Quel élément de la vidéo de référence faut-il retenir ?
+1. Cette direction (l'agence par les gens, sans interface de produit) convient-elle ?
+2. Qui apparaît (2 ou 3 personnes) et où tourner ?
+3. Langues parlées ?
+4. Souhaitez-vous que je prépare dès maintenant le dossier de tournage imprimable (traitement, questions, liste de plans, formulaire) ?
+5. Quel élément de la vidéo de référence faut-il retenir ?
