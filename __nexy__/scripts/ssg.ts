@@ -1,0 +1,114 @@
+// @ts-nocheck
+import { glob } from 'glob'
+import { getProjectFrameworks, checkFrameworks, globIgnore, c } from './utils'
+import { type Framework, type SSGResult, writeReport, flushSnippets } from './utils'
+import { JSDOM } from 'jsdom'
+import { DOCUMENT_FRAMEWORKS, readMode, writeDocuments } from '../document'
+
+async function run() {
+  const dom = new JSDOM('<!DOCTYPE html><html><body></body></html>')
+
+  Object.defineProperty(global, 'window', { value: dom.window, writable: true })
+  Object.defineProperty(global, 'document', { value: dom.window.document, writable: true })
+
+  Object.defineProperty(dom.window, 'matchMedia', {
+    writable: true,
+    value: (query: string) => ({
+      matches: false,
+      media: query,
+      onchange: null,
+      addListener: () => {},
+      removeListener: () => {},
+      addEventListener: () => {},
+      removeEventListener: () => {},
+      dispatchEvent: () => false,
+    })
+  })
+
+  global.localStorage = {
+    getItem: () => null,
+    setItem: () => {},
+    removeItem: () => {},
+    clear: () => {},
+    length: 0,
+    key: () => null
+  } as any
+  const usedFrameworks = getProjectFrameworks()
+  const installedFrameworks = checkFrameworks(usedFrameworks)
+  const results: SSGResult[] = []
+  const startMs = Date.now()
+
+  // In a client-routed project the root layout renders whole documents (see document.ts);
+  // per-file island snapshots would only duplicate that work.
+  const mode = readMode()
+  const documentMode = mode.csr && DOCUMENT_FRAMEWORKS.includes(mode.framework)
+
+  const hasTsx = !documentMode && glob.sync('**/*.{tsx,jsx,mdx}', {
+    cwd: process.cwd(),
+    ignore: globIgnore()
+  }).length > 0
+
+  const jobs: Promise<SSGResult>[] = []
+
+  if (hasTsx) {
+    const tsxInstalled = ['react', 'preact', 'solid'].filter(f =>
+      installedFrameworks.has(f as Framework)
+    ) as Framework[]
+
+    if (tsxInstalled.length === 1) {
+      const framework = tsxInstalled[0]
+      const { run } = await import(`./ssg.${framework}`)
+      jobs.push(run({ primary: true }))
+    } else if (tsxInstalled.length > 1) {
+      for (const framework of tsxInstalled) {
+        const { run } = await import(`./ssg.${framework}`)
+        jobs.push(run())
+      }
+    } else {
+      console.warn(`${c.yellow}warning:${c.reset} .tsx/.jsx/.mdx files found but no React/Preact/Solid framework detected - treating as client-only bundles${c.reset}`)
+      const { run } = await import('./ssg.html')
+      jobs.push(run())
+    }
+  }
+
+  if (!documentMode && usedFrameworks.has('vue')) {
+    if (installedFrameworks.has('vue')) {
+      const { run } = await import('./ssg.vue')
+      jobs.push(run())
+    } else {
+      console.warn(`${c.yellow} *.vue files found but vue is not installed. Install it with your package manager.${c.reset}`)
+    }
+  }
+
+  if (!documentMode && usedFrameworks.has('svelte')) {
+    if (installedFrameworks.has('svelte')) {
+      const { run } = await import('./ssg.svelte')
+      jobs.push(run())
+    } else {
+      console.warn(`${c.yellow} *.svelte files found but svelte is not installed. Install it with your package manager.${c.reset}`)
+    }
+  }
+
+  results.push(...await Promise.all(jobs))
+  await flushSnippets()
+
+  const documents = await writeDocuments()
+  if (documents) {
+    console.log(`Pre-rendered ${documents} document(s)`)
+  }
+
+  writeReport(results, Date.now() - startMs)
+
+  const all = results.flatMap(r => r.entries)
+  const success = all.filter(e => e.status === 'success').length
+  const failed = all.filter(e => e.status === 'failed').length
+  const notSupported = all.filter(e => e.status === 'not_supported').length
+  if (all.length) {
+    console.log(`Rendered ${success} component(s): ${failed} failed, ${notSupported} client-only`)
+  }
+}
+
+run().then(() => process.exit(0)).catch(err => {
+  console.error(' SSG failed:', err)
+  process.exit(1)
+})

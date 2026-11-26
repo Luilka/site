@@ -34,7 +34,7 @@ Ordre de prévalence en cas de divergence : `docs/Product/decisions.md`, puis l'
 
 ## 3. Décisions opposables et questions ouvertes
 
-Décisions retenues : D-001 à D-011. Questions ouvertes : Q-001, Q-002, Q-003 et Q-004.
+Décisions retenues : D-001 à D-012. Questions ouvertes : Q-001, Q-002, Q-003 et Q-004.
 
 Aucune question ouverte n'entre dans le code avant son inscription au registre avec date, motif, propriétaire et source. Toute demande qui contredit une décision retenue impose une réouverture écrite : nouvelle preuve, date, décision remplacée, documents touchés. Aucune modification silencieuse.
 
@@ -73,7 +73,7 @@ Les versions sont exactes. Les lockfiles sont commités. Aucune dépendance en `
 - React idiomatique : état dans `useState` et `useReducer`, effets dans `useEffect`, jamais de script DOM écrit à la main. Charger `nexy-react` pour tout fichier `.tsx`.
 - Tous les liens passent par `src/shared/ui/links.tsx`, l'adaptateur autour du `Link` de Nexy.
 - Avant de corriger un bug, lire le code de la librairie concernée et écrire un test qui le reproduit.
-- `__nexy__/` est généré : ne jamais l'éditer, ne jamais le commiter.
+- `__nexy__/` est généré par `nx build` : ne jamais l'éditer à la main. Il est commité (D-012) pour que l'hébergeur le trouve ; relancer `uv run nx build` avant de le commiter.
 
 ## 7. Structure du dépôt
 
