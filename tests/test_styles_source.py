@@ -71,7 +71,7 @@ def test_mega_cards_use_a_responsive_grid() -> None:
 def test_mega_image_fills_its_container_height() -> None:
     header = (SRC / "components" / "layout.tsx").read_text(encoding="utf-8")
     assert "h-[12rem]" in header
-    assert '<img className="h-full w-full object-cover"' in header
+    assert '<Image className="h-full w-full object-cover"' in header
 
 
 def test_mega_aside_links_have_separators() -> None:
