@@ -49,5 +49,3 @@ if RUNTIME_ROOT != ROOT:
     enter(RUNTIME_ROOT)
 
 app = import_module("nexy.app").app
-
-__all__ = ["app"]
