@@ -34,11 +34,13 @@ def test_contact_panel_is_shared_by_landing_and_contact_page() -> None:
 
 def test_styles_use_current_css_features() -> None:
     css = (SRC / "globale.css").read_text(encoding="utf-8")
-    assert "@layer components" in css
-    assert "&:hover" in css
+    assert "@layer base" in css
+    layout = (SRC / "components" / "layout.tsx").read_text(encoding="utf-8")
+    assert "hover:text-blue" in layout
     sections = (SRC / "components" / "sections.tsx").read_text(encoding="utf-8")
     assert "color-mix(" in sections
-    assert "text-wrap: balance" in css
+    patterns = (SRC / "components" / "patterns.tsx").read_text(encoding="utf-8")
+    assert "text-balance" in patterns
 
 
 def test_lucide_is_pinned() -> None:

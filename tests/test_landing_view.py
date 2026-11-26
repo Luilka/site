@@ -47,9 +47,12 @@ def test_design_tokens_match_the_reference() -> None:
     )
 
 
-def test_reference_class_names_are_defined() -> None:
-    css = (ROOT / "src" / "globale.css").read_text(encoding="utf-8")
-    assert all(name in css for name in (".nav", ".hero-grid", ".btn-outline"))
+def test_reference_layout_utilities_are_used() -> None:
+    layout = (ROOT / "src" / "components" / "layout.tsx").read_text(encoding="utf-8")
+    home = (ROOT / "src" / "routes" / "[lang]" / "index.tsx").read_text(encoding="utf-8")
+    assert "isolate" in layout
+    assert "grid-cols-[1fr_540px]" in home
+    assert "pill-shape" in (ROOT / "src" / "shared" / "ui" / "buttons.tsx").read_text(encoding="utf-8")
 
 
 def test_steps_and_about_sections_have_a_small_shared_gap() -> None:
@@ -62,20 +65,20 @@ def test_steps_and_about_sections_have_a_small_shared_gap() -> None:
 
 
 def test_header_typography_follows_readable_sizes() -> None:
-    css = (ROOT / "src" / "globale.css").read_text(encoding="utf-8")
-    assert "text-(length:--text-lg)" in css_rule(css, ".logo")
-    assert "size-6" in css_rule(css, ".logo svg")
-    assert "text-(length:--text-base)" in css_rule(css, ".nav-links")
-    assert "text-(length:--text-sm)" in css_rule(css, ".lang")
-    assert "text-(length:--text-sm)" in css_rule(css, ".btn-outline")
+    header = (ROOT / "src" / "components" / "layout.tsx").read_text(encoding="utf-8")
+    buttons = (ROOT / "src" / "shared" / "ui" / "buttons.tsx").read_text(encoding="utf-8")
+    assert "text-(length:--text-lg)" in header
+    assert "size-6" in header
+    assert "text-(length:--text-base) font-medium ml-0" in header
+    assert "text-(length:--text-sm) font-medium" in header
+    assert "text-(length:--text-sm) font-medium" in buttons
 
 
 def test_header_groups_logo_and_navigation_together() -> None:
-    css = (ROOT / "src" / "globale.css").read_text(encoding="utf-8")
     header = (ROOT / "src" / "components" / "layout.tsx").read_text(encoding="utf-8")
     assert "justify-between" in header
     assert "gap-8" in header
-    assert "ml-0" in css_rule(css, ".nav-links")
+    assert "ml-0" in header
     assert "gap-[36px] ml-auto" in header
 
 

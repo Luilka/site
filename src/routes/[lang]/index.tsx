@@ -12,8 +12,8 @@ function HomeAbout() {
 function HeroTitle() {
   const { home } = useContent();
   return (
-    <h1>
-      {home.prefix} <span className="b">{home.design}</span> {home.middle} <span className="p">{home.brand}</span>
+    <h1 className="text-(length:--text-3xl) leading-[1.15] font-semibold tracking-[-0.02em] max-w-[520px] max-[1000px]:text-(length:--text-2xl)">
+      {home.prefix} <span className="text-accent-blue">{home.design}</span> {home.middle} <span className="text-accent-purple">{home.brand}</span>
     </h1>
   );
 }
@@ -23,7 +23,7 @@ function HeroCopy() {
   return (
     <div>
       <HeroTitle />
-      <p>{hero}</p>
+      <p className="text-(length:--text-base) text-muted max-w-[470px] mt-[22px] mb-[28px] leading-[1.55]">{hero}</p>
       <QuoteLink />
     </div>
   );
@@ -31,10 +31,10 @@ function HeroCopy() {
 
 function HeroSection() {
   return (
-    <section className="hero">
-      <Container className="hero-grid">
+    <section className="pt-[72px] pb-[64px]">
+      <Container className="grid items-center grid-cols-[1fr_540px] gap-[6px] max-[1000px]:grid-cols-[1fr]">
         <HeroCopy />
-        <div className="hero-img"><HeroAccent /></div>
+        <div className="relative overflow-hidden h-[440px] rounded-[28px] bg-[linear-gradient(135deg,#2b2b30,#0f0f12_55%,#3a3a40)] before:absolute before:inset-0 before:content-[''] before:bg-[repeating-linear-gradient(115deg,rgb(255_255_255/12%)_0_42px,transparent_42px_90px)] after:absolute after:inset-0 after:content-[''] after:bg-[linear-gradient(160deg,rgb(255_255_255/18%),transparent_40%)]"><HeroAccent /></div>
       </Container>
     </section>
   );

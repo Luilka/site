@@ -126,6 +126,7 @@ La CI rejoue les mêmes contrôles sur `main`, `staging`, `develop` et chaque pu
 - Texte simple, en minuscules sauf la première lettre, avec des verbes clairs : « Enregistrer », pas « Soumettre ». Une action garde le même nom partout.
 - Une erreur dit ce qui s'est passé et ce qu'il faut faire. Elle ne s'excuse pas.
 - Une page, une tâche. Les URL, titres, libellés et intertitres s'accordent.
+- Le style s'écrit en utilitaires Tailwind dans le TSX. `src/globale.css` ne garde que les tokens, la base, les `@utility` partagés et ce que Tailwind ne couvre pas (`@keyframes`). Une chaîne d'utilitaires utilisée à plusieurs endroits devient une constante du fichier ou une variante de `buttonClasses`.
 - Dans `src/globale.css`, une propriété qui existe en classe Tailwind s'écrit avec `@apply` : `@apply text-muted gap-[12px]`, pas `color: var(--muted); gap: 12px;`. Le CSS brut ne garde que ce que Tailwind ne couvre pas. Une classe utilisée à un seul endroit s'écrit en utilitaires dans le JSX, pas dans le CSS.
 - Accessibilité WCAG 2.2 AA : cibles de 24 sur 24 pixels CSS au minimum, contraste 4,5:1 pour le texte courant et 3:1 pour les grands textes.
 - Éviter le texte robotique. Suivre `docs/Redaction/ia-defauts-et-tips.md`.

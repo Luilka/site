@@ -1,3 +1,4 @@
+import { buttonClasses } from "@/shared/ui/buttons.tsx";
 import { StateCopy, StatePanel } from "@/components/patterns.tsx";
 import { useContent } from "@/shared/i18n";
 import type { ErrorsProps } from "@/shared/types";
@@ -7,7 +8,7 @@ export default function Errors({ reset }: ErrorsProps) {
   return (
     <StatePanel>
       <StateCopy title={copy.title} description={copy.description} />
-      <button className="btn btn-dark state-action" type="button" onClick={reset}>{copy.action}</button>
+      <button className={buttonClasses("dark")} type="button" onClick={reset}>{copy.action}</button>
     </StatePanel>
   );
 }

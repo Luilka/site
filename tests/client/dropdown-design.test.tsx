@@ -14,7 +14,7 @@ function openServices(pathname = "/fr") {
   fireEvent.mouseEnter(trigger.parentElement!);
   return {
     trigger,
-    panel: trigger.parentElement?.querySelector(".mega-panel") as HTMLElement,
+    panel: trigger.parentElement?.querySelector("[id]") as HTMLElement,
   };
 }
 
@@ -27,7 +27,7 @@ describe("header mega menu design", () => {
     const { panel } = openServices();
     expect(panel.querySelector("h2")?.previousElementSibling?.textContent).toBeTruthy();
     expect(panel.querySelector("h2")?.textContent).toBeTruthy();
-    const cards = panel.querySelectorAll(".mega-card");
+    const cards = panel.querySelectorAll("a[href]:has(h3)");
     expect(cards).toHaveLength(4);
     for (const card of cards) {
       expect(card.querySelector("img")?.getAttribute("src")).toBeTruthy();
@@ -38,20 +38,20 @@ describe("header mega menu design", () => {
 
   it("names the four short services in French", () => {
     const { panel } = openServices();
-    const titles = Array.from(panel.querySelectorAll(".mega-card h3"), (node) => node.textContent);
+    const titles = Array.from(panel.querySelectorAll("a h3"), (node) => node.textContent);
     expect(titles).toEqual(["UX Design", "UI design", "Software", "COM"]);
   });
 
   it("names the four short services in English", () => {
     const { panel } = openServices("/en");
-    const titles = Array.from(panel.querySelectorAll(".mega-card h3"), (node) => node.textContent);
+    const titles = Array.from(panel.querySelectorAll("a h3"), (node) => node.textContent);
     expect(titles).toEqual(["UX Design", "UI design", "Software", "COM"]);
   });
 
   it("gives each card its own image", () => {
     const { panel } = openServices();
     const sources = new Set(
-      Array.from(panel.querySelectorAll(".mega-card img"), (image) => image.getAttribute("src") ?? ""),
+      Array.from(panel.querySelectorAll("a img"), (image) => image.getAttribute("src") ?? ""),
     );
     expect(sources.size).toBe(4);
   });
@@ -72,7 +72,7 @@ describe("header mega menu design", () => {
 
   it("offers a column of navigation links", () => {
     const { panel } = openServices();
-    const links = panel.querySelectorAll(".mega-aside a");
+    const links = panel.querySelectorAll("aside a");
     expect(links.length).toBeGreaterThanOrEqual(3);
     for (const link of links) {
       expect(link.getAttribute("href")).toBeTruthy();

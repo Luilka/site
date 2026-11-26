@@ -27,8 +27,8 @@ describe("site header dropdown navigation", () => {
     renderHeader();
     const trigger = screen.getByRole("link", { name: /Services/ });
     fireEvent.focus(trigger);
-    const panel = trigger.parentElement?.querySelector(".mega-panel");
-    expect(panel?.className).toContain("is-open");
+    const panel = trigger.parentElement?.querySelector("[id]");
+    expect(panel?.className).toContain("opacity-100");
     fireEvent.keyDown(trigger, { key: "Escape" });
     expect(expanded(/Services/)).toBe("false");
   });

@@ -1,3 +1,4 @@
+import { buttonClasses } from "@/shared/ui/buttons.tsx";
 import { Link } from "@/shared/ui/links.tsx";
 import { useContent, useLanguageSwitch, navigation } from "@/shared/i18n";
 import { Container } from "@/shared/ui/containers.tsx";
@@ -8,13 +9,20 @@ import { useId } from "react";
 import { useDismiss } from "@/shared/hooks/use-dismiss.hook.ts";
 import { useNewsletter } from "@/shared/hooks/use-newsletter.hook.ts";
 import { Input } from "@/shared/ui/inputs.tsx";
-import { Button } from "@/shared/ui/buttons.tsx";
 import type { FooterColumnProps, MegaAsideProps, MegaCardProps, MegaCardTextProps, MegaContentProps, MegaGridProps, MegaHeadProps, MegaPanelProps, NavDropdownProps, NavEntryProps, NavTriggerProps, NewsletterMessageProps, NewsletterSubmitProps } from "@/shared/types";
+
+const NAV_ITEM = "inline-flex items-center gap-1 rounded-lg min-h-[2.75rem] py-[0.5rem] px-[0.75rem] text-[#2a2a30] transition-[color,background-color] duration-160 ease-[ease] hover:text-blue hover:bg-soft";
+const NEWS_FORM = "flex gap-1.5 border border-[var(--border-ui)] rounded-[13px] p-[4px]";
+const NEWS_INPUT = "min-w-0 flex-1 border-0 outline-0 [font-family:inherit] leading-[inherit] text-(length:--text-sm) py-0 px-[10px]";
+const NEWS_BUTTON = "flex items-center gap-1.5 bg-[var(--night)] text-paper border-0 rounded-[10px] py-[9px] px-[14px] text-(length:--text-sm) font-medium";
+const MEGA_PANEL = "fixed left-0 right-0 z-12 bg-white/80 backdrop-blur top-[4.4375rem] border-y border-y-[var(--border-ui)] shadow-[0_18px_40px_rgb(0_0_0/12%)] transition-[opacity,transform,visibility] duration-160 ease-[ease] motion-reduce:transition-none";
+const MEGA_CLOSED = "opacity-0 invisible [transform:translateY(-0.375rem)] pointer-events-none";
+const MEGA_OPEN = "opacity-100 visible [transform:translateY(0)] pointer-events-auto";
 
 export function BrandMark() {
   return (
-    <Link className="logo" href="/" aria-label="Luilka, accueil">
-      <svg aria-hidden="true">
+    <Link className="row-center gap-[6px] font-semibold text-(length:--text-lg)" href="/" aria-label="Luilka, accueil">
+      <svg className="size-6 fill-current" aria-hidden="true">
         <use href="#finger" />
       </svg>
       Luilka
@@ -36,10 +44,10 @@ function SocialIcons() {
 function NewsletterNoScriptForm() {
   const { footer } = useContent();
   return (
-    <form action="/" method="post" encType="text/plain">
+    <form className={NEWS_FORM} action="/" method="post" encType="text/plain">
       <label htmlFor="newsletter-fallback" className="sr-only">{footer.emailLabel}</label>
-      <input id="newsletter-fallback" name="email" type="email" required />
-      <button type="submit" className="cursor-pointer">{footer.subscribe}</button>
+      <input id="newsletter-fallback" name="email" type="email" required className={NEWS_INPUT} />
+      <button type="submit" className={`cursor-pointer ${NEWS_BUTTON}`}>{footer.subscribe}</button>
     </form>
   );
 }
@@ -48,8 +56,8 @@ function NewsletterIntro() {
   const { footer } = useContent();
   return (
     <>
-      <h4>{footer.newsletterTitle}</h4>
-      <p>{footer.newsletterText}</p>
+      <h4 className="text-[length:16px] font-semibold mb-[12px]">{footer.newsletterTitle}</h4>
+      <p className="text-(length:--text-sm) text-muted mb-[22px] max-w-[300px]">{footer.newsletterText}</p>
     </>
   );
 }
@@ -64,7 +72,7 @@ function NewsletterFallback() {
 
 function FooterNewsletter() {
   return (
-    <div className="news">
+    <div>
       <NewsletterIntro />
       <NewsletterForm />
       <NewsletterFallback />
@@ -74,9 +82,9 @@ function FooterNewsletter() {
 
 function FooterColumn({ title, links }: FooterColumnProps) {
   return (
-    <div className="fcol">
-      <h4>{title}</h4>
-      {links.map((link) => <Link key={link.label} href={link.href}>{link.label}</Link>)}
+    <div>
+      <h4 className="text-[length:16px] font-semibold mb-[12px]">{title}</h4>
+      {links.map((link) => <Link key={link.label} className="block text-(length:--text-sm) text-muted mb-[12px]" href={link.href}>{link.label}</Link>)}
     </div>
   );
 }
@@ -94,9 +102,9 @@ function FooterColumns() {
 function FooterBrand() {
   const { footer } = useContent();
   return (
-    <div className="about-f">
+    <div>
       <BrandMark />
-      <p>{footer.description}</p>
+      <p className="text-(length:--text-sm) text-muted mt-[22px] mb-[24px] max-w-[300px] leading-[1.55]">{footer.description}</p>
       <SocialIcons />
     </div>
   );
@@ -114,8 +122,8 @@ function FooterCells() {
 
 function FooterMain() {
   return (
-    <footer>
-      <Container className="foot">
+    <footer className="pt-[60px] pb-[40px]">
+      <Container className="grid items-start grid-cols-[1.4fr_0.5fr_0.5fr_1.1fr] gap-[40px] max-[1000px]:grid-cols-[1fr_1fr]">
         <FooterCells />
       </Container>
     </footer>
@@ -125,8 +133,8 @@ function FooterMain() {
 function FooterCopyright() {
   const { footer } = useContent();
   return (
-    <div className="copy">
-      <Container>{footer.copyright}</Container>
+    <div className="bg-[#e9e9ee] py-[16px] px-0 text-(length:--text-sm) text-[#555]">
+      <div className="container mx-auto px-[32px]">{footer.copyright}</div>
     </div>
   );
 }
@@ -144,7 +152,7 @@ function MainNavigation() {
   const menu = useOpenMenu();
   const { navigationLabel } = useContent();
   return (
-    <nav className="nav-links" aria-label={navigationLabel} onMouseLeave={menu.close} onBlur={menu.onBlur}>
+    <nav className="row-center self-stretch gap-[0.5rem] text-(length:--text-base) font-medium ml-0 max-[1000px]:hidden" aria-label={navigationLabel} onMouseLeave={menu.close} onBlur={menu.onBlur}>
       {navigation.map((item) => <NavEntry key={item.href} item={item} menu={menu} />)}
     </nav>
   );
@@ -153,7 +161,7 @@ function MainNavigation() {
 function ContactLink() {
   const { contactAction } = useContent();
   return (
-    <Link className="btn-outline bg-transparent! border-gray-400!" href="/contact">
+    <Link className={buttonClasses("outline", "bg-transparent! border-gray-400!")} href="/contact">
       {contactAction}<CalendarDays size={14} strokeWidth={1.8} aria-hidden="true" />
     </Link>
   );
@@ -161,10 +169,10 @@ function ContactLink() {
 
 function FlagMark() {
   return (
-    <span className="flag" aria-hidden="true">
-      <i />
-      <i />
-      <i />
+    <span className="inline-flex items-center w-[14px] h-[10px] rounded-[2px] overflow-hidden" aria-hidden="true">
+      <i className="flex-1 bg-[var(--flag-blue)]" />
+      <i className="flex-1 bg-paper border border-[#eee]" />
+      <i className="flex-1 bg-[var(--flag-red)]" />
     </span>
   );
 }
@@ -172,7 +180,7 @@ function FlagMark() {
 function LanguageToggle() {
   const { language, next, label, page } = useLanguageSwitch();
   return (
-    <Link className="lang" href={page} language={next} aria-label={label}>
+    <Link className="row-center gap-[4px] text-(length:--text-sm) font-medium" href={page} language={next} aria-label={label}>
       <FlagMark />{language.toUpperCase()}<ChevronDown size={14} strokeWidth={2.5} aria-hidden="true" />
     </Link>
   );
@@ -191,7 +199,7 @@ export function Header() {
   return (
     <header className="sticky top-0 z-13 border-[0.04375rem] border-[#dee0e3]">
       <div className="absolute inset-0 -z-1 bg-white/80 backdrop-blur" aria-hidden="true" />
-      <div className="nav mx-auto flex h-17.75 w-full max-w-7xl flex-row items-center justify-between gap-8 px-6 lg:px-10">
+      <div className="isolate mx-auto flex h-17.75 w-full max-w-7xl flex-row items-center justify-between gap-8 px-6 lg:px-10">
         <BrandMark /><MainNavigation /><HeaderActions />
       </div>
     </header>
@@ -223,7 +231,7 @@ function MegaCardText({ item }: MegaCardTextProps) {
   return (
     <>
       <span className="uppercase text-(length:--text-xs) font-semibold tracking-[0.06em] text-muted">{item.eyebrow}</span>
-      <h3 className="mega-card-title">{item.label}</h3>
+      <h3 className="[margin:0.15rem_0_0.35rem] text-(length:--text-base) font-semibold leading-[1.25] group-hover:text-blue">{item.label}</h3>
       <p className="m-0 text-(length:--text-xs) text-muted leading-[1.45]">{item.description}</p>
       <span className="mt-2 inline-flex items-center gap-1 text-(length:--text-xs) font-semibold text-blue">{item.action}<ArrowUpRight size={12} strokeWidth={2} aria-hidden="true" /></span>
     </>
@@ -232,8 +240,8 @@ function MegaCardText({ item }: MegaCardTextProps) {
 
 function MegaCard({ item, onClose }: MegaCardProps) {
   return (
-    <Link className="mega-card" href={item.href} onClick={onClose}>
-      <div className="mega-media"><img src={item.image} alt="" /></div>
+    <Link className="group flex flex-col text-[#2a2a30] no-underline" href={item.href} onClick={onClose}>
+      <div className="mb-3 overflow-hidden h-[12rem] rounded-[0.75rem] bg-soft"><img className="h-full w-full object-cover" src={item.image} alt="" /></div>
       <MegaCardText item={item} />
     </Link>
   );
@@ -249,7 +257,7 @@ export function MegaGrid({ items, onClose }: MegaGridProps) {
 
 function NavTrigger({ item, id, open }: NavTriggerProps) {
   return (
-    <Link className="nav-trigger" href={item.href} aria-haspopup="true" aria-expanded={open} aria-controls={id}>
+    <Link className={`${NAV_ITEM} [&_svg]:transition-transform aria-expanded:[&_svg]:[transform:rotate(180deg)]`} href={item.href} aria-haspopup="true" aria-expanded={open} aria-controls={id}>
       {item.label}
       <ChevronDown size={16} strokeWidth={2.5} aria-hidden="true" />
     </Link>
@@ -278,20 +286,20 @@ function MegaContent({ menu, onClose }: MegaContentProps) {
 function MegaAside({ menu, onClose }: MegaAsideProps) {
   const dropdown = useContent().dropdowns[menu];
   return (
-    <aside className="mega-aside">
-      <h3>{dropdown.linksTitle}</h3>
-      {dropdown.links.map((link) => <Link key={link.label} href={link.href} onClick={onClose}>{link.label}</Link>)}
+    <aside className="flex w-56 shrink-0 flex-col border-l border-l-[var(--border-ui)] pl-[1.75rem]">
+      <h3 className="m-0 pb-2 text-(length:--text-sm) font-semibold">{dropdown.linksTitle}</h3>
+      {dropdown.links.map((link) => <Link key={link.label} className="block py-2 text-(length:--text-sm) text-[#2a2a30] no-underline hover:text-blue [a+&]:border-t [a+&]:border-t-[var(--border-ui)]" href={link.href} onClick={onClose}>{link.label}</Link>)}
     </aside>
   );
 }
 
 function MegaPanel({ id, menu = "services", open, onClose }: MegaPanelProps) {
   return (
-    <div id={id} className={`mega-panel${open ? " is-open" : ""}`}>
-      <div className="container flex items-stretch gap-8 pt-[1.5rem] [padding-bottom:1.75rem]">
+    <div id={id} className={`${MEGA_PANEL} ${open ? MEGA_OPEN : MEGA_CLOSED}`}>
+      <Container className="flex items-stretch gap-8 pt-[1.5rem] pb-[1.75rem]">
         <MegaContent menu={menu} onClose={onClose} />
         <MegaAside menu={menu} onClose={onClose} />
-      </div>
+      </Container>
     </div>
   );
 }
@@ -308,7 +316,7 @@ function NavDropdown({ item, open, onOpen, onClose }: NavDropdownProps) {
 }
 
 export function NavEntry({ item, menu }: NavEntryProps) {
-  if (!item.menu) return <Link href={item.href} onMouseEnter={menu.close}>{item.label}</Link>;
+  if (!item.menu) return <Link className={NAV_ITEM} href={item.href} onMouseEnter={menu.close}>{item.label}</Link>;
   const key = item.menu;
   return <NavDropdown item={item} open={menu.current === key} onOpen={() => menu.open(key)} onClose={menu.close} />;
 }
@@ -316,10 +324,10 @@ export function NavEntry({ item, menu }: NavEntryProps) {
 function NewsletterSubmit({ pending }: NewsletterSubmitProps) {
   const { footer } = useContent();
   return (
-    <Button type="submit" disabled={pending}>
+    <button type="submit" className={NEWS_BUTTON} disabled={pending}>
       {footer.subscribe}
       <ArrowUpRight size={16} strokeWidth={2} aria-hidden="true" />
-    </Button>
+    </button>
   );
 }
 
@@ -327,7 +335,7 @@ function NewsletterMessage({ state }: NewsletterMessageProps) {
   if (!state.message) return null;
   const Icon = state.valid ? CircleCheck : CircleAlert;
   return (
-    <p className="mt-2 flex items-center gap-1.5 text-sm" role={state.valid ? "status" : "alert"}>
+    <p className="mt-2 flex items-center gap-1.5 text-(length:--text-sm) text-muted mb-[22px] max-w-[300px]" role={state.valid ? "status" : "alert"}>
       <Icon size={16} strokeWidth={1.8} aria-hidden="true" />{state.message}
     </p>
   );
@@ -339,7 +347,7 @@ function NewsletterField() {
   return (
     <>
       <label htmlFor={id} className="sr-only">{footer.emailLabel}</label>
-      <Input id={id} name="email" type="email" placeholder="pixi@domaine.com" autoComplete="email" />
+      <Input id={id} className={NEWS_INPUT} name="email" type="email" placeholder="pixi@domaine.com" autoComplete="email" />
     </>
   );
 }
@@ -347,7 +355,7 @@ function NewsletterField() {
 export function NewsletterForm() {
   const [state, submit, pending] = useNewsletter();
   return (
-    <form action={submit} noValidate>
+    <form className={NEWS_FORM} action={submit} noValidate>
       <NewsletterField />
       <NewsletterSubmit pending={pending} />
       <NewsletterMessage state={state} />

@@ -15,7 +15,7 @@ describe("design system atoms", () => {
 
   it("renders the outline button with the reference class", () => {
     render(<Button variant="outline">En savoir plus</Button>);
-    expect(screen.getByRole("button", { name: "En savoir plus" }).className).toContain("btn-outline");
+    expect(screen.getByRole("button", { name: "En savoir plus" }).className).toContain("pill-shape");
   });
 
   it("renders a badge inside a card inside a container", () => {
@@ -26,7 +26,7 @@ describe("design system atoms", () => {
         </Card>
       </Container>,
     );
-    expect(container.querySelector(".container div span")?.className).toContain("pill-shape");
+    expect(container.querySelector("div span")?.className).toContain("pill-shape");
   });
 
   it("renders a typed email input", () => {

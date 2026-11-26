@@ -3,6 +3,7 @@ import { ActionLink, ContactPanel, PageHero, NotFoundPanel } from "@/components/
 import type { SectionProps } from "@/shared/types/section-props.type.ts";
 import { infoHref } from "@/shared/utils/info-href.util.ts";
 import type { AboutSectionProps, AboutTextProps, CardGridProps, CollectionSectionProps, DetailBackLinkProps, DetailBodyProps, DetailCardProps, DetailPageProps, DetailRouteViewProps, HeadingTextProps, InfoCard, InfoCardBodyProps, InfoCardProps, InfoSectionProps, ProcessSectionProps, SectionHeadingProps } from "@/shared/types";
+import { buttonClasses } from "@/shared/ui/buttons.tsx";
 import { Link } from "@/shared/ui/links.tsx";
 import { Card } from "@/shared/ui/cards.tsx";
 import { Badge } from "@/shared/ui/badges.tsx";
@@ -145,7 +146,7 @@ export function CollectionSection<T>({ id, className, gridClassName, items, getK
 
 function DetailBackLink({ detail }: DetailBackLinkProps) {
   return (
-    <Link className="btn-outline" href={detail.backHref}>
+    <Link className={buttonClasses("outline")} href={detail.backHref}>
       <ArrowLeft size={14} strokeWidth={1.8} aria-hidden="true" />{detail.backLabel}
     </Link>
   );

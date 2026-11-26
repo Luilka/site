@@ -36,7 +36,7 @@ describe("bilingual header", () => {
     expect(trigger.getAttribute("aria-expanded")).toBe("false");
     fireEvent.mouseEnter(wrapper!);
     expect(trigger.getAttribute("aria-expanded")).toBe("true");
-    expect(wrapper?.querySelector(".mega-panel")?.className).toContain("is-open");
+    expect(wrapper?.querySelector("[id]")?.className).toContain("opacity-100");
     fireEvent.mouseLeave(wrapper!);
     expect(trigger.getAttribute("aria-expanded")).toBe("false");
   });

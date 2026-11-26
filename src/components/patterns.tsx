@@ -24,10 +24,10 @@ export function ActionLink({ action, className }: ActionLinkProps) {
 function ContactCard() {
   const { contact } = useContent();
   return (
-    <div className="cta">
-      <h2>{contact.title}</h2>
-      <p>{contact.description}</p>
-      <QuoteLink variant="dark" className="py-[0.75rem] px-[1.125rem] text-(length:--text-sm)" />
+    <div className="bg-gray rounded-[22px] py-[70px] px-[60px] min-h-[300px]">
+      <h2 className="text-(length:--text-2xl) font-semibold mb-[22px]">{contact.title}</h2>
+      <p className="text-(length:--text-base) text-muted max-w-[440px] mb-[26px] leading-[1.7]">{contact.description}</p>
+      <QuoteLink variant="dark" />
     </div>
   );
 }
@@ -74,7 +74,7 @@ export function NotFoundPanel() {
     <StatePanel>
       <span className="mb-4 block text-[length:clamp(4rem,_12vw,_7rem)] font-bold leading-[1] text-blue" aria-hidden="true">{copy.code}</span>
       <StateCopy title={copy.title} description={copy.description} />
-      <Link className="btn btn-dark state-action" href="/">{copy.action}</Link>
+      <Link className={buttonClasses("dark")} href="/">{copy.action}</Link>
     </StatePanel>
   );
 }
@@ -94,15 +94,15 @@ function PageHeroText({ eyebrow, title, description }: PageHeroTextProps) {
   return (
     <>
       <Badge>{eyebrow}</Badge>
-      <h1>{title}</h1>
-      <p>{description}</p>
+      <h1 className="max-w-[46rem] text-balance">{title}</h1>
+      <p className="max-w-[42rem] text-(length:--text-base) text-muted">{description}</p>
     </>
   );
 }
 
 export function PageHero(props: PageHeroProps) {
   return (
-    <section className="page-hero">
+    <section className="pt-[clamp(3rem,7vw,5rem)] pb-[clamp(2rem,5vw,3.5rem)]">
       <Container><PageHeroText {...props} /></Container>
     </section>
   );
@@ -156,7 +156,7 @@ export function Reveal({ children, className }: RevealProps) {
 export function StateCopy({ title, description }: StateCopyProps) {
   return (
     <>
-      <h1>{title}</h1>
+      <h1 className="m-0 max-w-[34rem] text-(length:--text-3xl) leading-[1.15]">{title}</h1>
       <p className="mx-auto mt-4 mb-8 max-w-[32rem] text-muted leading-[1.6]">{description}</p>
     </>
   );
@@ -164,7 +164,7 @@ export function StateCopy({ title, description }: StateCopyProps) {
 
 export function StatePanel({ children, ...props }: HTMLAttributes<HTMLElement>) {
   return (
-    <section className="state-panel" {...props}>
+    <section className="flex flex-col items-center justify-center min-h-[26rem] text-center py-[clamp(3rem,8vw,6rem)] px-[1.5rem]" {...props}>
       <Container>{children}</Container>
     </section>
   );
