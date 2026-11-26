@@ -60,7 +60,7 @@ def test_mega_panel_matches_the_header_surface() -> None:
 
 def test_service_grid_fits_four_cards() -> None:
     sections = (SRC / "components" / "sections.tsx").read_text(encoding="utf-8")
-    assert "grid grid-cols-4 mt-[80px]" in sections
+    assert "grid grid-cols-4 not-first:mt-[80px]" in sections
 
 
 def test_mega_cards_use_a_responsive_grid() -> None:

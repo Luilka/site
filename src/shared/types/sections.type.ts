@@ -6,14 +6,14 @@ import type { Href } from "@/shared/ui/links.tsx";
 import type { ReactNode } from "react";
 
 export type AboutTextProps = {
-  title: string;
+  title?: string;
   paragraphs: readonly string[];
   action?: SectionAction;
 };
 
 export type AboutSectionProps = {
   id?: string;
-  title: string;
+  title?: string;
   paragraphs: readonly string[];
   action?: SectionAction;
 };
@@ -46,7 +46,7 @@ export type HeadingTextProps = {
 };
 
 export type SectionHeadingProps = {
-  title: string;
+  title?: string;
   description?: string;
   action?: SectionAction;
 };

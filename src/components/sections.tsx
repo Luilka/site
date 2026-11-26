@@ -14,6 +14,8 @@ import { ArrowLeft } from "lucide-react";
 import { useDetail } from "@/shared/hooks/use-detail.hook.ts";
 
 const SECTION_SPACING = "py-20 px-0";
+const LIST_SPACING = "pt-0 pb-20 has-[h2]:pt-20";
+const SHOWCASE_SPACING = "pt-0 pb-[90px] has-[h2]:pt-[80px]";
 const STACK = "max-[1000px]:grid-cols-[1fr_1fr] max-[640px]:grid-cols-[1fr]";
 const INFO_CARD = "min-w-0 p-[1.5rem] border border-[color-mix(in_srgb,var(--text)_12%,var(--paper))] rounded-[1.125rem] bg-paper";
 const INFO_TITLE = "mt-3 mb-2 text-(length:--text-xl)";
@@ -32,7 +34,7 @@ function AboutArt() {
 function AboutText({ title, paragraphs, action }: AboutTextProps) {
   return (
     <div className="pt-[36px]">
-      <h2 className="text-(length:--text-2xl) font-semibold mb-[28px]">{title}</h2>
+      {title ? <h2 className="text-(length:--text-2xl) font-semibold mb-[28px]">{title}</h2> : null}
       {paragraphs.map((paragraph) => <p key={paragraph} className="text-(length:--text-base) text-muted leading-[1.6] mb-[22px] max-w-[520px]">{paragraph}</p>)}
       {action ? <ActionLink action={action} /> : null}
     </div>
@@ -67,7 +69,7 @@ function InfoCard({ href, ...copy }: InfoCardProps) {
 
 export function InfoSection({ items, detail, ...section }: InfoSectionProps) {
   return (
-    <CollectionSection {...section} className={SECTION_SPACING} gridClassName={`mt-10 grid grid-cols-3 gap-4 ${STACK}`} items={items}
+    <CollectionSection {...section} className={LIST_SPACING} gridClassName={`not-first:mt-10 grid grid-cols-3 gap-4 ${STACK}`} items={items}
       getKey={(item) => item.title} render={(item) => <InfoCard {...item} href={infoHref(detail, item)} />} />
   );
 }
@@ -86,7 +88,7 @@ export function ProcessSection({ id }: ProcessSectionProps) {
 export function ProductsSection(props: SectionProps) {
   const { products } = useContent();
   return (
-    <CollectionSection {...props} className="pt-[80px] pb-[90px]" gridClassName={`grid grid-cols-3 gap-4 mt-[40px] ${STACK}`} items={products}
+    <CollectionSection {...props} className={SHOWCASE_SPACING} gridClassName={`grid grid-cols-3 gap-4 not-first:mt-[40px] ${STACK}`} items={products}
       getKey={(product) => product.slug} render={(product) => <ProductCard {...product} />} />
   );
 }
@@ -94,7 +96,7 @@ export function ProductsSection(props: SectionProps) {
 export function ServicesSection(props: SectionProps) {
   const { services } = useContent();
   return (
-    <CollectionSection {...props} className={SECTION_SPACING} gridClassName={`grid grid-cols-4 mt-[80px] ${STACK}`} items={services}
+    <CollectionSection {...props} className={LIST_SPACING} gridClassName={`grid grid-cols-4 not-first:mt-[80px] ${STACK}`} items={services}
       getKey={(service) => service.slug} render={(service) => <ServiceCard {...service} />} />
   );
 }
@@ -102,7 +104,7 @@ export function ServicesSection(props: SectionProps) {
 export function WorksSection(props: SectionProps) {
   const { works } = useContent();
   return (
-    <CollectionSection {...props} className="pt-[80px] pb-[90px]" gridClassName="grid grid-cols-2 gap-4 mt-[40px] max-[1000px]:grid-cols-[1fr]" items={works}
+    <CollectionSection {...props} className={SHOWCASE_SPACING} gridClassName="grid grid-cols-2 gap-4 not-first:mt-[40px] max-[1000px]:grid-cols-[1fr]" items={works}
       getKey={(work) => work.slug} render={(work) => <WorkCard {...work} />} />
   );
 }
@@ -117,6 +119,7 @@ function HeadingText({ title, description }: HeadingTextProps) {
 }
 
 function SectionHeading({ title, description, action }: SectionHeadingProps) {
+  if (!title) return null;
   return (
     <div className="flex items-start justify-between">
       <HeadingText title={title} description={description} />

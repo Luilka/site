@@ -94,8 +94,8 @@ function PageHeroText({ eyebrow, title, description }: PageHeroTextProps) {
   return (
     <>
       <Badge>{eyebrow}</Badge>
-      <h1 className="max-w-[46rem] text-balance">{title}</h1>
-      <p className="max-w-[42rem] text-(length:--text-base) text-muted">{description}</p>
+      <h1 className="max-w-[46rem] text-balance text-(length:--text-3xl) leading-[1.15] font-semibold tracking-[-0.02em] max-[1000px]:text-(length:--text-2xl)">{title}</h1>
+      <p className="mt-[22px] max-w-[42rem] text-(length:--text-base) text-muted leading-[1.55]">{description}</p>
     </>
   );
 }
