@@ -18,7 +18,7 @@
 | Documentation | `npm run check:docs` | Typographie, liens, index, ADR, notes, numérotation | Check documentation |
 | Tests Python | `uv run pytest` | Routes, structure, contenu | Run Python tests |
 | Tests client | `npm test` | Composants et hooks | Run client tests |
-| Build | `uv run nx build` | Le projet compile | Build project |
+| Build | `uv run nx build` | Le projet compile et génère `__nexy__/`, requis par les tests client | Build project |
 
 `uv run nx check` lance `ruff` et `mypy`. `uv run nx test` lance `pytest` puis les tests client.
 
