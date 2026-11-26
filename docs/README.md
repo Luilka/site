@@ -12,7 +12,7 @@ Cette documentation range les documents par métier, pour que chaque personne sa
 |---|---|---|---|
 | Racine de `docs/` | Navigation | `README.md` | Entrée unique de la documentation et règles de mise à jour |
 | `Product/` | Produit | `vision.md`, `decisions.md`, `kpi.md` | Dire pourquoi le site existe, ce qu'il montre, garder le registre des décisions et définir les KPI |
-| `UX/` | Design et recherche | `design-principles.md`, `audit-accueil.md`, `audit-pages-et-concurrence.md`, `propositions-couleurs.md`, `page-a-propos.md`, `propositions/accueil-actuelle.webp`, `propositions/accueil-option-a.webp`, `propositions/accueil-option-b.webp` | Principes opposables en revue d'interface, audit de la page d'accueil, audit des pages, des couleurs et des pages de détail face à la concurrence, propositions de couleur, page À propos |
+| `UX/` | Design et recherche | `design-principles.md`, `audit-accueil.md`, `audit-pages-et-concurrence.md`, `propositions-couleurs.md`, `audit-theme.md`, `theme/accueil-actuel.webp`, `theme/accueil-proposition.webp`, `page-a-propos.md`, `propositions/accueil-actuelle.webp`, `propositions/accueil-option-a.webp`, `propositions/accueil-option-b.webp` | Principes opposables en revue d'interface, audit de la page d'accueil, audit des pages, des couleurs et des pages de détail face à la concurrence, propositions de couleur, page À propos |
 | `Redaction/` | Rédaction et contenu | `ia-defauts-et-tips.md` | Garder une voix humaine et éviter les tics de rédaction automatique |
 | `Technique/` | Ingénierie | `README.md`, `architecture.md`, `controles.md`, `adr-001-dossier-shared.md`, `adr-002-regles-de-code.md`, `adr-003-noms-de-fichiers.md` | Décrire la structure du code, les contrôles et les décisions techniques |
 
