@@ -52,7 +52,8 @@ def test_reference_layout_utilities_are_used() -> None:
     home = (ROOT / "src" / "routes" / "[lang]" / "index.tsx").read_text(encoding="utf-8")
     assert "isolate" in layout
     assert "grid-cols-[1fr_540px]" in home
-    assert "pill-shape" in (ROOT / "src" / "shared" / "ui" / "buttons.tsx").read_text(encoding="utf-8")
+    buttons = (ROOT / "src" / "shared" / "ui" / "buttons.tsx").read_text(encoding="utf-8")
+    assert "pill-shape" in buttons
 
 
 def test_steps_and_about_sections_have_a_small_shared_gap() -> None:
