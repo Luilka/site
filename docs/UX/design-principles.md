@@ -60,7 +60,7 @@ Chaque principe a un énoncé, un contre-exemple et un lien vers sa source. Un �
 
 **Contre-exemple.** Une animation en boucle sur un bandeau, ou un contenu masqué tant que l'animation n'a pas fini.
 
-**Lien.** `src/shared/ui/motion-box.ui.tsx`, WCAG 2.2 critère 2.3.3.
+**Lien.** `src/shared/ui/motion-boxes.tsx`, WCAG 2.2 critère 2.3.3.
 
 ## 8. Un menu qui se lit au clavier
 
@@ -92,7 +92,7 @@ Chaque principe a un énoncé, un contre-exemple et un lien vers sa source. Un �
 
 **Contre-exemple.** Un vélo pour séparer les étapes d'un processus, ou trois icônes de réseaux sociaux qui ne mènent nulle part.
 
-**Lien.** `src/components/layout/finger-symbol.layout.tsx`, `tests/client/icons.test.tsx`, AGENTS.md section 10.
+**Lien.** `src/components/layout.tsx`, `tests/client/icons.test.tsx`, AGENTS.md section 10.
 
 ## 12. Des tokens, pas des valeurs
 

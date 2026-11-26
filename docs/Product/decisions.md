@@ -12,8 +12,8 @@
 | D-002 | Le site est bilingue, français et anglais, avec un préfixe `/fr` ou `/en`. La route `/` affiche l'accueil en français sans redirection. | 23 novembre 2026 | @Espoir-Loem | [audit](../UX/audit-accueil.md) |
 | D-003 | Le site garde le rendu client (`useCSR = True`). Le HTML servi est une coquille et le contenu arrive après hydratation. | 23 novembre 2026 | @Espoir-Loem | [audit](../UX/audit-accueil.md), Q-001 |
 | D-004 | Le code réutilisable vit dans `src/shared/`, TypeScript et Python dans les mêmes dossiers (`ui`, `hooks`, `utils`, `i18n`, `types`). Les composants sont rangés dans `layout`, `cards`, `patterns` et `sections`. | 26 novembre 2026 | @Espoir-Loem | [ADR 001](../Technique/adr-001-dossier-shared.md) |
-| D-005 | Une fonction ou un composant tient en 10 lignes. Aucune logique dans un fichier TSX. Un seul `.map()` par fichier TSX. Aucun commentaire sauf JSDoc. | 26 novembre 2026 | @Espoir-Loem | [ADR 002](../Technique/adr-002-regles-de-code.md) |
-| D-006 | Tout fichier `.ts` et `.tsx` de `src/` s'écrit `<nom>.<dossier>`, le dossier au singulier : `product.card.tsx`, `use-retry.hook.ts`. Un hook commence par `use-`. | 26 novembre 2026 | @Espoir-Loem | [ADR 003](../Technique/adr-003-noms-de-fichiers.md) |
+| D-005 | Une fonction ou un composant tient en 10 lignes. Aucune logique dans un fichier TSX. Un seul `.map()` par composant. Aucun commentaire sauf JSDoc. | 26 novembre 2026 | @Espoir-Loem | [ADR 002](../Technique/adr-002-regles-de-code.md) |
+| D-006 | Les fichiers TSX portent un nom simple et regroupent une famille de composants : `cards.tsx`, `buttons.tsx`. Les fichiers `.ts` de `shared/` s'écrivent `<nom>.<dossier>.ts` : `use-retry.hook.ts`. Un hook commence par `use-`. | 26 novembre 2026 | @Espoir-Loem | [ADR 003](../Technique/adr-003-noms-de-fichiers.md) |
 | D-007 | Les anciens « templates » s'appellent « sections ». | 26 novembre 2026 | @Espoir-Loem | [ADR 001](../Technique/adr-001-dossier-shared.md) |
 | D-008 | La documentation suit les critères du dépôt Pro : classement par métier, index complet, modèle d'ADR unique, notes datées, contrôle par script. | 26 novembre 2026 | @Espoir-Loem | [mémoire](../../memoires/2026-11-26-structure-shared.md) |
 | D-009 | Luilka se présente comme un studio de design qui conçoit, écrit et construit. Chaque service peut être commandé seul. | 23 novembre 2026 | @Espoir-Loem | [vision](vision.md) |
@@ -34,3 +34,4 @@
 - 26 novembre 2026 : création du registre. D-001 à D-009 inscrites, Q-001 à Q-003 ouvertes.
 - 26 novembre 2026 : D-010 inscrite pour les KPI, Q-004 ouverte pour l'outil de mesure.
 - 26 novembre 2026 : D-006 rouverte et remplacée par `<nom>.<dossier>` ([ADR 003](../Technique/adr-003-noms-de-fichiers.md)). D-004 précisée pour le Python. D-011 inscrite pour `utils`.
+- 26 novembre 2026 : D-006 rouverte une seconde fois à la demande du titulaire : les TSX ont des noms simples groupés par famille, le suffixe de dossier ne reste que pour les `.ts`. La règle du `.map()` passe du fichier au composant (D-005). [ADR 003](../Technique/adr-003-noms-de-fichiers.md).

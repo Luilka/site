@@ -1,6 +1,6 @@
 # ADR 002 : règles de code du client
 
-Décision retenue : 10 lignes par fonction, aucune logique dans les TSX, un seul `.map()` par fichier TSX, aucun commentaire sauf JSDoc.
+Décision retenue : 10 lignes par fonction, aucune logique dans les TSX, un seul `.map()` par composant, aucun commentaire sauf JSDoc.
 
 ## Titre
 
@@ -27,8 +27,8 @@ Le dépôt Pro fixe un niveau d'exigence mesurable et appliqué par des outils. 
 Retenir la deuxième option.
 
 - ESLint applique `max-lines-per-function` à 10, lignes vides et commentaires non comptés, signature et accolades comprises, et `no-inline-comments`.
-- `scripts/check_code_style.py` refuse tout commentaire autre qu'un bloc `/** ... */` et tout fichier TSX avec plus d'un appel `.map(`.
-- Un fichier TSX contient les composants d'une même intention, avec du rendu seulement, et un seul `.map()`. Un composant utilisé par un seul parent vit dans le fichier du parent. L'état et les événements viennent d'un hook.
+- `scripts/check_code_style.py` refuse tout commentaire autre qu'un bloc `/** ... */` et tout composant TSX avec plus d'un appel à `.map()`.
+- Un fichier TSX regroupe les composants d'une famille (`cards.tsx`, `layout.tsx`), avec du rendu seulement. Un composant déclaré pour un seul fichier vit dans ce fichier. Chaque composant a au plus un `.map()`.
 
 Historique : proposée et retenue le 26 novembre 2026.
 

@@ -31,7 +31,7 @@ Retenir la troisième option.
 - `utils` est le seul dossier d'utilitaires (D-011) : fonctions pures sans état. Il n'y a ni `lib/` ni `misc/`.
 - `src/components/` contient `layout`, `cards`, `patterns` et `sections`.
 - `templates/` devient `sections/`, y compris `(home)/` pour l'accueil.
-- Les trois collections de l'accueil partagent `collection.section.tsx`.
+- Les trois collections de l'accueil partagent `CollectionSection`.
 
 Historique : proposée et retenue le 26 novembre 2026.
 

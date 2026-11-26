@@ -68,7 +68,7 @@ tests/client/                  tests Vitest
 
 ## Liens
 
-Tous les liens passent par `src/shared/ui/link.ui.tsx`, un adaptateur autour du composant `Link` de Nexy. Il ajoute le curseur de pointeur et garde les props d'ancrage HTML.
+Tous les liens passent par `src/shared/ui/links.tsx`, un adaptateur autour du composant `Link` de Nexy. Il ajoute le curseur de pointeur et garde les props d'ancrage HTML.
 
 Le fichier `src/shared/types/nexy-client.d.ts` donne une signature TypeScript propre au composant `Link` genere. La correspondance dans `tsconfig.client.json` ne concerne que la verification des types. A l'execution, Vite utilise le `Link` de Nexy.
 
@@ -87,6 +87,6 @@ L'index est dans [docs/README.md](docs/README.md). Les regles pour les agents so
 
 - Une fonction ou un composant tient en 10 lignes au plus, signature et accolades comprises (ESLint `max-lines-per-function`).
 - Un fichier TSX regroupe les composants d'une même intention et ne contient que du rendu. La logique va dans un hook de `src/shared/hooks/` ou une fonction de `src/shared/utils/`.
-- Un seul appel a `.map()` par fichier TSX.
+- Un seul appel a `.map()` par composant.
 - Aucun commentaire, sauf un bloc JSDoc `/** ... */`. `scripts/check_code_style.py` le controle.
 - Ce qui sert a plusieurs endroits vit dans `src/shared/`. Une seule copie.

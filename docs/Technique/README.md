@@ -14,7 +14,7 @@
 | [controles.md](controles.md) | Quels contrôles tournent en local et en CI | @Espoir-Loem | retenue |
 | [adr-001-dossier-shared.md](adr-001-dossier-shared.md) | Où vit le code réutilisable, et pourquoi « sections » | @Espoir-Loem | retenue, D-004 et D-007 |
 | [adr-002-regles-de-code.md](adr-002-regles-de-code.md) | Quelles limites de taille, de logique et de commentaires | @Espoir-Loem | retenue, D-005 |
-| [adr-003-noms-de-fichiers.md](adr-003-noms-de-fichiers.md) | Quel suffixe de dossier porte chaque fichier (`.card`, `.section`, `.hook`) | @Espoir-Loem | retenue, D-006 |
+| [adr-003-noms-de-fichiers.md](adr-003-noms-de-fichiers.md) | Un fichier pluriel par famille de composants, suffixe de dossier pour les `.ts` | @Espoir-Loem | retenue, D-006 |
 
 ## Liens de cadrage
 
