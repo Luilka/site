@@ -31,7 +31,7 @@ const TEAM_GRID = "mt-16 grid grid-cols-3 gap-4 max-[1000px]:grid-cols-2 max-[64
 function AboutArt() {
   return (
     <div className="flex items-center justify-center bg-gray rounded-[22px] min-h-[400px]">
-      <Logo className="size-[140px] text-[#2a2a30]" />
+      <Logo className="size-[140px] text-text" />
     </div>
   );
 }

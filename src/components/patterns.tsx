@@ -25,10 +25,10 @@ export function ActionLink({ action, className }: ActionLinkProps) {
 function ContactCard() {
   const { contact } = useContent();
   return (
-    <div className="bg-gray rounded-[22px] py-[70px] px-[60px] min-h-[300px]">
+    <div className="bg-night text-paper rounded-[22px] py-[70px] px-[60px] min-h-[300px]">
       <h2 className="text-(length:--text-2xl) font-semibold mb-[22px]">{contact.title}</h2>
-      <p className="text-(length:--text-base) text-muted max-w-[440px] mb-[26px] leading-[1.7]">{contact.description}</p>
-      <QuoteLink variant="dark" />
+      <p className="text-(length:--text-base) text-paper/70 max-w-[440px] mb-[26px] leading-[1.7]">{contact.description}</p>
+      <QuoteLink variant="light" />
     </div>
   );
 }
@@ -202,7 +202,7 @@ export function ProcessBand({ reverse = false }: ProcessBandProps) {
   );
 }
 
-export function QuoteLink({ variant = "primary", className }: QuoteLinkProps) {
+export function QuoteLink({ variant = "dark", className }: QuoteLinkProps) {
   const { quote } = useContent();
   return (
     <a className={buttonClasses(variant, className)} href={CONTACT_MAILTO}>

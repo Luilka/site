@@ -39,13 +39,22 @@ def test_design_tokens_match_the_reference() -> None:
     assert all(
         token in css
         for token in (
-            "#2a4cb5",
+            "--text: #0a0a0a",
+            "--night: #0a0a0a",
+            "--gray: #e8e8e8",
+            "--bg-soft: #f5f5f5",
             "#2a2ae6",
             "#9b5de5",
-            "#cfd1db",
-            "#f6f6fa",
         )
     )
+
+
+def test_theme_is_black_and_white_with_free_accents() -> None:
+    css = (ROOT / "src" / "globale.css").read_text(encoding="utf-8")
+    for lavender in ("#cfd1db", "#f6f6fa", "#b4b6bf", "#2a4cb5", "#1a1a1f"):
+        assert lavender not in css
+    for name in ("--accent-blue", "--accent-purple"):
+        assert name in css
 
 
 def test_reference_layout_utilities_are_used() -> None:

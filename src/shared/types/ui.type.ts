@@ -9,7 +9,7 @@ export type BadgeProps = HTMLAttributes<HTMLSpanElement>;
 
 export type IconTileProps = HTMLAttributes<HTMLDivElement>;
 
-export type ButtonVariant = "primary" | "outline" | "dark";
+export type ButtonVariant = "primary" | "outline" | "dark" | "light";
 
 export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   variant?: ButtonVariant;

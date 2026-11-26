@@ -17,7 +17,7 @@ import { SocialIcon } from "@/shared/ui/social-icons.tsx";
 import { Input } from "@/shared/ui/inputs.tsx";
 import type { FooterColumnProps, MegaAsideProps, MegaCardProps, MegaCardTextProps, MegaContentProps, MegaGridProps, MegaHeadProps, MegaPanelProps, MobileMenuButtonProps, MobileMenuLinkProps, MobileMenuLinksProps, MobileSheetHeadProps, MobileSheetPanelProps, MobileSheetProps, NavDropdownProps, NavEntryProps, NavTriggerProps, NewsletterMessageProps, NewsletterSubmitProps, SocialProfileLinkProps } from "@/shared/types";
 
-const NAV_ITEM = "inline-flex items-center gap-1 rounded-lg min-h-[2.75rem] py-[0.5rem] px-[0.75rem] text-[#2a2a30] transition-[color,background-color] duration-160 ease-[ease] hover:text-blue hover:bg-soft";
+const NAV_ITEM = "inline-flex items-center gap-1 rounded-lg min-h-[2.75rem] py-[0.5rem] px-[0.75rem] text-text transition-[color,background-color] duration-160 ease-[ease] hover:text-blue hover:bg-soft";
 const NEWS_FORM = "flex gap-1.5 border border-[var(--border-ui)] rounded-[13px] p-[4px]";
 const NEWS_INPUT = "min-w-0 flex-1 border-0 outline-0 [font-family:inherit] leading-[inherit] text-(length:--text-sm) py-0 px-[10px]";
 const NEWS_BUTTON = "flex items-center gap-1.5 bg-[var(--night)] text-paper border-0 rounded-[10px] py-[9px] px-[14px] text-(length:--text-sm) font-medium";
@@ -25,11 +25,11 @@ const MEGA_PANEL = "fixed left-0 right-0 z-12 bg-white/80 backdrop-blur top-[4.4
 const MEGA_CLOSED = "opacity-0 invisible [transform:translateY(-0.375rem)] pointer-events-none";
 const MEGA_OPEN = "opacity-100 visible [transform:translateY(0)] pointer-events-auto";
 const SOCIAL_LINK = "row-center justify-center size-11 rounded-full border border-[var(--border-ui)] hover:bg-soft hover:text-text";
-const MOBILE_BUTTON = "row-center justify-center size-11 rounded-lg cursor-pointer text-[#2a2a30] hover:bg-soft";
+const MOBILE_BUTTON = "row-center justify-center size-11 rounded-lg cursor-pointer text-text hover:bg-soft";
 const SHEET_ROOT = "fixed inset-0 z-50 transition-[opacity,visibility] duration-250 ease-[ease] motion-reduce:transition-none";
 const OVERLAY = "absolute inset-0 bg-night/55 backdrop-blur-sm bg-[image:linear-gradient(to_right,rgb(255_255_255/9%)_1px,transparent_1px),linear-gradient(to_bottom,rgb(255_255_255/9%)_1px,transparent_1px)] bg-size-[12px_12px]";
 const SHEET = "absolute inset-y-0 right-0 flex w-[min(86vw,22rem)] flex-col bg-paper shadow-[-18px_0_40px_rgb(0_0_0/18%)] outline-none transition-transform duration-250 ease-[ease] motion-reduce:transition-none";
-const MOBILE_LINK = "flex min-h-[3rem] items-center px-6 text-(length:--text-lg) font-medium text-[#2a2a30] hover:bg-soft hover:text-blue";
+const MOBILE_LINK = "flex min-h-[3rem] items-center px-6 text-(length:--text-lg) font-medium text-text hover:bg-soft hover:text-blue";
 
 export function BrandMark() {
   const { homeLabel } = useContent();
@@ -160,7 +160,7 @@ function FooterMain() {
 function FooterCopyright() {
   const copyright = useCopyright();
   return (
-    <div className="bg-[#e9e9ee] py-[16px] px-0 text-(length:--text-sm) text-[#555]">
+    <div className="bg-night py-[16px] px-0 text-(length:--text-sm) text-paper/70">
       <div className="container mx-auto px-[32px]">{copyright}</div>
     </div>
   );
@@ -304,7 +304,7 @@ function HeaderActions() {
 
 export function Header() {
   return (
-    <header className="sticky top-0 z-13 border-[0.04375rem] border-[#dee0e3] [view-transition-name:site-header]">
+    <header className="sticky top-0 z-13 border-[0.04375rem] border-[var(--border-ui)] [view-transition-name:site-header]">
       <div className="absolute inset-0 -z-1 bg-white/80 backdrop-blur" aria-hidden="true" />
       <div className="isolate mx-auto flex h-17.75 w-full max-w-7xl flex-row items-center justify-between gap-3 px-6 min-[641px]:gap-8 lg:px-10">
         <BrandMark /><MainNavigation /><HeaderActions />
@@ -326,7 +326,7 @@ function MegaCardText({ item }: MegaCardTextProps) {
 
 function MegaCard({ item, onClose }: MegaCardProps) {
   return (
-    <Link className="group flex flex-col text-[#2a2a30] no-underline" href={item.href} onClick={onClose}>
+    <Link className="group flex flex-col text-text no-underline" href={item.href} onClick={onClose}>
       <div className="mb-3 overflow-hidden h-[12rem] rounded-[0.75rem] bg-soft"><Image className="h-full w-full object-cover" src={item.image} alt="" width={320} height={320} /></div>
       <MegaCardText item={item} />
     </Link>
@@ -374,7 +374,7 @@ function MegaAside({ menu, onClose }: MegaAsideProps) {
   return (
     <aside className="flex w-56 shrink-0 flex-col border-l border-l-[var(--border-ui)] pl-[1.75rem]">
       <h3 className="m-0 pb-2 text-(length:--text-sm) font-semibold">{dropdown.linksTitle}</h3>
-      {dropdown.links.map((link) => <Link key={link.label} className="block py-2 text-(length:--text-sm) text-[#2a2a30] no-underline hover:text-blue [a+&]:border-t [a+&]:border-t-[var(--border-ui)]" href={link.href} onClick={onClose}>{link.label}</Link>)}
+      {dropdown.links.map((link) => <Link key={link.label} className="block py-2 text-(length:--text-sm) text-text no-underline hover:text-blue [a+&]:border-t [a+&]:border-t-[var(--border-ui)]" href={link.href} onClick={onClose}>{link.label}</Link>)}
     </aside>
   );
 }
