@@ -85,7 +85,7 @@ function NewsletterFallback() {
 
 function FooterNewsletter() {
   return (
-    <div>
+    <div className="max-[1000px]:col-span-2">
       <NewsletterIntro />
       <NewsletterForm />
       <NewsletterFallback />
@@ -115,7 +115,7 @@ function FooterColumns() {
 function FooterBrand() {
   const { footer } = useContent();
   return (
-    <div>
+    <div className="max-[1000px]:col-span-2">
       <BrandMark />
       <p className="text-(length:--text-sm) text-muted mt-[22px] mb-[24px] max-w-[300px] leading-[1.55]">{footer.description}</p>
       <SocialIcons />
@@ -136,7 +136,7 @@ function FooterCells() {
 function FooterMain() {
   return (
     <footer className="pt-[60px] pb-[40px]">
-      <Container className="grid items-start grid-cols-[1.4fr_0.5fr_0.5fr_1.1fr] gap-[40px] max-[1000px]:grid-cols-[1fr_1fr]">
+      <Container className="grid items-start grid-cols-[1.4fr_0.5fr_0.5fr_1.1fr] gap-[40px] max-[1000px]:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
         <FooterCells />
       </Container>
     </footer>
