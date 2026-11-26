@@ -25,22 +25,32 @@ describe("labels follow the language of the page", () => {
     renderAt("/fr/about");
     const names = ["À propos", "Services", "Produits", "Réalisations", "Blog", "Carrières"];
     for (const name of names) {
-      expect(mainNavigation("Navigation principale").getByRole("link", { name })).toBeTruthy();
+      expect(mainNavigation("Navigation principale").getAllByRole("link", { name }).length).toBeGreaterThan(0);
     }
   });
 
   it("keeps the English navigation labels of the shared source on an English page", () => {
     renderAt("/en/about");
     for (const item of navigation) {
-      expect(mainNavigation("Main navigation").getByRole("link", { name: item.label })).toBeTruthy();
+      expect(mainNavigation("Main navigation").getAllByRole("link", { name: item.label }).length).toBeGreaterThan(0);
     }
   });
 
   it("keeps the word Blog unchanged in both languages", () => {
     renderAt("/fr/about");
-    expect(mainNavigation("Navigation principale").getByRole("link", { name: "Blog" }).getAttribute("href")).toBe("/fr/blog");
+    for (const link of mainNavigation("Navigation principale").getAllByRole("link", { name: "Blog" })) {
+      expect(link.getAttribute("href")).toBe("/fr/blog");
+    }
     expect(dictionaries.fr.pages.blog.eyebrow).toBe("Blog");
     expect(dictionaries.en.pages.blog.eyebrow).toBe("Blog");
+  });
+
+  it("names the blog Blog in the footer and in the products menu, in both languages", () => {
+    for (const language of ["fr", "en"] as const) {
+      const copy = dictionaries[language];
+      expect(copy.footer.more.some((link) => link.href === "/blog" && link.label === "Blog")).toBe(true);
+      expect(copy.dropdowns.products.links.some((link) => link.href === "/blog" && link.label === "Blog")).toBe(true);
+    }
   });
 
   it("translates the contact action of the header", () => {

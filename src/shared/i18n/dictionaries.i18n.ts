@@ -76,7 +76,7 @@ const dropdownCopy: Record<Language, Record<MenuKey, DropdownCopy>> = {
       eyebrows: ["Décisions", "Recherche", "Projets"],
       links: [
         { label: "Tous nos produits", href: "/products" },
-        { label: "Le journal", href: "/blog" },
+        { label: "Blog", href: "/blog" },
         { label: "Parlons de votre projet", href: "/contact" },
       ],
     },
@@ -104,7 +104,7 @@ const dropdownCopy: Record<Language, Record<MenuKey, DropdownCopy>> = {
       eyebrows: ["Decisions", "Research", "Projects"],
       links: [
         { label: "All our products", href: "/products" },
-        { label: "Journal", href: "/blog" },
+        { label: "Blog", href: "/blog" },
         { label: "Tell us about your project", href: "/contact" },
       ],
     },
@@ -287,7 +287,7 @@ const footerLinksFr: readonly FooterLink[] = [
 const footerMoreFr: readonly FooterLink[] = [
   { label: "Notre approche", href: "/about" },
   { label: "Nos produits", href: "/products" },
-  { label: "Le journal", href: "/blog" },
+  { label: "Blog", href: "/blog" },
 ];
 
 const footerLinksEn: readonly FooterLink[] = [
@@ -300,7 +300,7 @@ const footerLinksEn: readonly FooterLink[] = [
 const footerMoreEn: readonly FooterLink[] = [
   { label: "Our approach", href: "/about" },
   { label: "Our products", href: "/products" },
-  { label: "Journal", href: "/blog" },
+  { label: "Blog", href: "/blog" },
 ];
 
 const fr: Dictionary = {

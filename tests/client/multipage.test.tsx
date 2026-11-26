@@ -61,7 +61,8 @@ describe("multipage site", () => {
       ["Carrières", "/fr/job"],
     ];
     for (const [label, href] of expected) {
-      expect(screen.getByRole("link", { name: label }).getAttribute("href")).toBe(href);
+      const links = screen.getAllByRole("link", { name: label });
+      expect(links.every((link) => link.getAttribute("href") === href)).toBe(true);
     }
   });
 
