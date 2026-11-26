@@ -3,6 +3,7 @@ import { describe, expect, it } from "vitest";
 import { findDetail, isKnownDetailSlug } from "@/content/detail-models.content.ts";
 import { detailHref } from "@/shared/utils/detail-href.util.ts";
 import { infoHref } from "@/shared/utils/info-href.util.ts";
+import { copyrightText } from "@/shared/utils/copyright-text.util.ts";
 import { newsletterState } from "@/shared/utils/newsletter-state.util.ts";
 import { pageKey } from "@/shared/utils/page-key.util.ts";
 import { isValidEmail } from "@/shared/utils/validate-email.util.ts";
@@ -34,6 +35,10 @@ describe("shared lib", () => {
     expect(infoHref("blog", { slug: "a" })).toBe("/blog/a");
     expect(infoHref("blog", { title: "a" })).toBeUndefined();
     expect(infoHref(undefined, { slug: "a" })).toBeUndefined();
+  });
+
+  it("writes the year of the date in the copyright template", () => {
+    expect(copyrightText("Copyright {year} Luilka", new Date("2027-01-15"))).toBe("Copyright 2027 Luilka");
   });
 
   it("turns a page address into the key of its dictionary entry", () => {

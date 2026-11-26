@@ -1,8 +1,12 @@
 import { render, screen } from "@testing-library/react";
-import { describe, expect, it } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
 import { IconSprite, Footer, Header } from "@/components/layout.tsx";
 import { ProcessBand } from "@/components/patterns.tsx";
 import { ProductCard, ServiceCard, StepCard, WorkCard } from "@/components/cards.tsx";
+
+afterEach(() => {
+  vi.useRealTimers();
+});
 
 describe("landing components", () => {
   it("defines the reference icons", () => {
@@ -49,8 +53,9 @@ describe("landing components", () => {
     expect(screen.getByText("Yano")).toBeTruthy();
   });
 
-  it("renders the copyright line", () => {
+  it("renders the copyright line with the current year", () => {
+    vi.useFakeTimers({ toFake: ["Date"], now: new Date("2031-06-15") });
     render(<Footer />);
-    expect(screen.getByText(/Tous droits réservés à Luilka/)).toBeTruthy();
+    expect(screen.getByText("Copyright 2031 Luilka. Tous droits réservés.")).toBeTruthy();
   });
 });

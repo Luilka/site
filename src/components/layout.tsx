@@ -7,6 +7,7 @@ import { CONTACT_MAILTO } from "@/shared/utils/contact-mailto.util.ts";
 import { useOpenMenu } from "@/shared/hooks/use-open-menu.hook.ts";
 import { useId } from "react";
 import { useDismiss } from "@/shared/hooks/use-dismiss.hook.ts";
+import { useCopyright } from "@/shared/hooks/use-copyright.hook.ts";
 import { useNewsletter } from "@/shared/hooks/use-newsletter.hook.ts";
 import { Image } from "@/shared/ui/images.tsx";
 import { Input } from "@/shared/ui/inputs.tsx";
@@ -139,10 +140,10 @@ function FooterMain() {
 }
 
 function FooterCopyright() {
-  const { footer } = useContent();
+  const copyright = useCopyright();
   return (
     <div className="bg-[#e9e9ee] py-[16px] px-0 text-(length:--text-sm) text-[#555]">
-      <div className="container mx-auto px-[32px]">{footer.copyright}</div>
+      <div className="container mx-auto px-[32px]">{copyright}</div>
     </div>
   );
 }
