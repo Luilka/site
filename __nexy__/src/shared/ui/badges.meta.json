@@ -1,0 +1,1 @@
+{"framework": "react", "ext": ".tsx", "component_name": "Badges", "func_name": "Badges", "py_path": "__nexy__/src/shared/ui/badges.py", "html_path": "__nexy__/src/shared/ui/badges.html", "pathname": "/src/shared/ui/badges", "symbol": "Badge", "source": "src/shared/ui/badges.tsx", "global_src": "/src/shared/ui/badges.tsx", "key_hash": "5be9debe52ac07027cd7a16b44cae684"}

@@ -1,0 +1,1 @@
+import{j as r}from"./jsx-runtime-u17CrQMm.js";import{c as t}from"./cn.util-2dOUpm6k.js";function a({className:x,...o}){return r.jsx("div",{className:t("container mx-auto px-[64px] max-[1000px]:px-[24px]",x),...o})}export{a as Container};

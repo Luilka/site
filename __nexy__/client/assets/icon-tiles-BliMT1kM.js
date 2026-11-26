@@ -1,0 +1,1 @@
+import{j as t}from"./jsx-runtime-u17CrQMm.js";import{c as o}from"./cn.util-2dOUpm6k.js";function s({className:e,...r}){return t.jsx("div",{className:o("icon-tile grid size-11 place-content-center rounded-xl border border-gray-900 bg-black text-white",e),...r})}export{s as IconTile};

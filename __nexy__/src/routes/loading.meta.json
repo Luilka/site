@@ -1,0 +1,1 @@
+{"framework": "react", "ext": ".tsx", "component_name": "Loading", "func_name": "Loading", "py_path": "__nexy__/src/routes/loading.py", "html_path": "__nexy__/src/routes/loading.html", "pathname": "/loading", "symbol": "default", "source": "src/routes/loading.tsx", "global_src": "/src/routes/loading.tsx", "key_hash": "4221ea02b565e255eedb7695a0f16618"}

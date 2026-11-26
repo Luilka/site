@@ -1,0 +1,1 @@
+{"framework": "react", "ext": ".tsx", "component_name": "Notfound", "func_name": "Notfound", "py_path": "__nexy__/src/routes/notfound.py", "html_path": "__nexy__/src/routes/notfound.html", "pathname": "/notfound", "symbol": "Notfound", "source": "src/routes/notfound.tsx", "global_src": "/src/routes/notfound.tsx", "key_hash": "3aad67fa072a40db61d2cd7c93303b56"}

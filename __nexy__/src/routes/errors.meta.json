@@ -1,0 +1,1 @@
+{"framework": "react", "ext": ".tsx", "component_name": "Errors", "func_name": "Errors", "py_path": "__nexy__/src/routes/errors.py", "html_path": "__nexy__/src/routes/errors.html", "pathname": "/errors", "symbol": "default", "source": "src/routes/errors.tsx", "global_src": "/src/routes/errors.tsx", "key_hash": "cfc6ab75cdbad02795080427bd5c7239"}
