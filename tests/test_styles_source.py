@@ -77,3 +77,9 @@ def test_mega_image_fills_its_container_height() -> None:
 def test_mega_aside_links_have_separators() -> None:
     header = (SRC / "components" / "layout.tsx").read_text(encoding="utf-8")
     assert "[a+&]:border-t" in header
+
+
+def test_marquee_animation_is_defined_once_in_the_theme() -> None:
+    css = (SRC / "globale.css").read_text(encoding="utf-8")
+    assert "--animate-marquee:" in css
+    assert css.count("@keyframes marquee") == 1

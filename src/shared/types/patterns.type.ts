@@ -32,6 +32,10 @@ export type PageHeroProps = {
   description: string;
 };
 
+export type ProcessStageListProps = {
+  className: string;
+};
+
 export type ProcessStageProps = {
   label: string;
   last: boolean;

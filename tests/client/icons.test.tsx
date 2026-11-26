@@ -22,7 +22,7 @@ describe("icons", () => {
   it("separates the process stages with a chevron", () => {
     const { container } = render(<ProcessBand />);
     expect(iconNames(container).every((name) => name.includes("lucide-chevron-right"))).toBe(true);
-    expect(container.querySelectorAll("svg")).toHaveLength(5);
+    expect(container.querySelectorAll("svg")).toHaveLength(12);
   });
 
   it("shows a check icon with the valid newsletter message", () => {
