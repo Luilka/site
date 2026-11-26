@@ -52,7 +52,7 @@ Chaque principe a un énoncé, un contre-exemple et un lien vers sa source. Un �
 
 **Contre-exemple.** Un libellé écrit en français sur la page anglaise, ou « Devis » dans le hero et « Contact » dans le pied de page pour la même action.
 
-**Lien.** D-002, Q-002, [architecture](../Technique/architecture.md).
+**Lien.** D-002, D-013, [architecture](../Technique/architecture.md).
 
 ## 7. Un mouvement discret
 

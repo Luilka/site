@@ -20,13 +20,13 @@
 | D-010 | Les KPI du site sont définis dans `kpi.md`, avec identifiant, formule, source, propriétaire, cible et disponibilité. Une cible est « À nommer » ou cite sa règle. | 26 novembre 2026 | @Espoir-Loem | [kpi.md](kpi.md) |
 | D-011 | `src/shared/utils/` est le seul dossier d'utilitaires : fonctions pures sans état, TypeScript et Python côte à côte. Il n'existe pas de dossier `lib/` ni `misc/`. | 26 novembre 2026 | @Espoir-Loem | [ADR 001](../Technique/adr-001-dossier-shared.md) |
 | D-012 | Le dossier `__nexy__/` produit par `nx build` est versionné, comme dans le dépôt NexyPy/docs (branche `v2`), pour que l'hébergeur le trouve au déploiement. Il ne s'édite jamais à la main. Ses `__pycache__`, son dossier `.temp` et `build-cache.json` (chemins locaux) restent ignorés. | 26 novembre 2026 | @Espoir-Loem | [dépôt NexyPy/docs, branche v2](https://github.com/NexyPy/docs/tree/v2) |
+| D-013 | Tout libellé visible suit la langue de la page : navigation, pastilles de page, pied de page, action de contact et nom accessible du logo viennent du dictionnaire. La page française dit « Nous contacter », « À propos », « Produits », « Réalisations », « Journal » et « Carrières ». La page anglaise garde ses libellés. | 26 novembre 2026 | @Espoir-Loem | [audit des pages](../UX/audit-pages-et-concurrence.md) |
 
 ## Questions ouvertes
 
 | Id | Question | Déclencheur | Propriétaire |
 |---|---|---|---|
 | Q-001 | Faut-il servir le contenu rendu côté serveur pour le référencement et la lecture sans JavaScript ? | Le HTML initial ne contient que l'en-tête et le pied de page | à trancher |
-| Q-002 | Le libellé de l'action de contact de l'en-tête reste « Contact us » sur la page française. Faut-il le traduire ? | Texte repris tel quel dans le dictionnaire le 26 novembre 2026 | à trancher |
 | Q-003 | Le `<title>` du document est fixe. Faut-il le localiser et le varier par page ? | `src/routes/layout.tsx` | à trancher |
 | Q-004 | Quel outil de mesure d'usage, sans identifiant permanent de visiteur, alimente les mesures `SITE`, `PERF` et `SEO` ? | 15 mesures de `kpi.md` sont à instrumenter | à trancher |
 
@@ -37,3 +37,4 @@
 - 26 novembre 2026 : D-006 rouverte et remplacée par `<nom>.<dossier>` ([ADR 003](../Technique/adr-003-noms-de-fichiers.md)). D-004 précisée pour le Python. D-011 inscrite pour `utils`.
 - 26 novembre 2026 : D-006 rouverte une seconde fois à la demande du titulaire : les TSX ont des noms simples groupés par famille, le suffixe de dossier ne reste que pour les `.ts`. La règle du `.map()` passe du fichier au composant (D-005). [ADR 003](../Technique/adr-003-noms-de-fichiers.md).
 - 26 novembre 2026 : D-012 inscrite. La règle « `__nexy__/` n'est jamais commité » est rouverte à la demande du titulaire. Preuve : le dépôt NexyPy/docs versionne ce dossier. Documents touchés : `AGENTS.md`, `.gitignore`, `pyproject.toml` (exclusion de `ruff`), `docs/Technique/controles.md`.
+- 26 novembre 2026 : D-013 inscrite. La question Q-002 est close : le libellé « Contact us » de la page française est traduit, et la règle vaut pour tous les libellés visibles. Elle s'appuie sur la demande du titulaire de corriger les constats de l'audit des pages. Documents touchés : `AGENTS.md`, `docs/UX/design-principles.md`, `docs/UX/audit-accueil.md`.
