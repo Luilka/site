@@ -1,158 +1,99 @@
-# Audit du thème et proposition de coloration
+# Synthèse du thème : confiance, sérieux, conversion
 
-**Statut** : version 1, 26 novembre 2026. Proposition, rien n'est appliqué au-delà de D-018.
+**Statut** : version 2, 26 novembre 2026. Remplace la version 1 (accent jaune-vert), écartée par le titulaire. D-018 reste la base.
 **Propriétaire** : @Espoir-Loem
-**Documents liés** : [décisions](../Product/decisions.md) (D-018), [propositions de couleur](propositions-couleurs.md), [audit des pages](audit-pages-et-concurrence.md), [vision](../Product/vision.md)
-**Sources** : notes de `research_notes/Positionnement design Luilka Afrique Congo/` (en particulier `white_space_positionnement.md`), palettes mesurées le 26 novembre 2026 sur treize sites de studios, calculs de contraste WCAG 2.2 sur les valeurs du dépôt.
+**Documents liés** : [décisions](../Product/decisions.md), [audit des pages](audit-pages-et-concurrence.md), [principes de design](design-principles.md), [vision](../Product/vision.md)
+**Sources** : notes de `research_notes/Positionnement design Luilka Afrique Congo/`, palettes de 12 sites mesurées le 26 novembre 2026, calculs de contraste WCAG 2.2.
 
-## Verdict
+## Objectif du titulaire
 
-La base noir et blanc (D-018) est la bonne : elle est sobre, lisible et elle laisse la place à une preuve. Ce qui ne tient pas, c'est la couleur vive. Le site porte aujourd'hui deux accents (bleu `#2a2ae6` et violet `#9b5de5`) plus un troisième bleu dans les illustrations (`#2a4cb5`), sans règle d'emploi. Ce duo bleu et violet est la palette par défaut des produits numériques : il ne dit rien du positionnement de Luilka et il ressemble à celui d'un studio produit de grande taille (ustwo emploie `#2306eb` et `#9913ff`).
+Le site doit inspirer **confiance**, **professionnalisme** et **respect**, et il doit **convertir** le visiteur en client et le faire s'engager. Le thème est un moyen : chaque choix se juge à ces cinq mots.
 
-La proposition tient en une phrase : **noir, blanc, gris neutres, et un seul accent « marqueur » jaune-vert, employé comme un surligneur sur ce que Luilka a prouvé**.
+## Ce que font les studios et les marques de référence
 
-![Accueil actuel et proposition](theme/accueil-proposition.webp)
-
-Image ci-dessus : la proposition. Le site actuel est dans `theme/accueil-actuel.webp`.
-
-## Cadre
-
-Qui arrive : un responsable produit ou marketing qui compare des studios, souvent sur téléphone, et juge le niveau en moins d'une minute.
-
-Travail à faire : reconnaître un studio sérieux, sûr de sa méthode, qui montre des preuves.
-
-Motif de départ : un site qui a la couleur de tous les produits numériques et ne se distingue pas.
-
-Chose à rendre facile : voir où est la preuve. La couleur doit guider l'œil vers elle.
-
-## Ce que dit le positionnement
-
-Les notes de recherche concluent que presque tous les territoires génériques sont occupés (créativité, standard mondial, IA, « user-centric », « prêt à développer »). Le terrain défendable est de transformer une preuve utilisateur en décision d'interface et de s'arrêter là explicitement : la force est dans la traçabilité et dans la frontière assumée, pas dans l'adjectif. Les notes écartent aussi toute revendication d'identité géographique.
-
-Conséquences pour la couleur :
-
-1. **Pas de couleur qui promet une identité** (drapeau, terre, savane) : le positionnement l'exclut.
-2. **Une couleur qui marque la preuve.** Un surligneur sur un texte, un état « validé », la livraison : c'est le geste du chercheur qui annote. La couleur sert la traçabilité.
-3. **Une frontière nette.** Noir et blanc francs, sans dégradé : le périmètre est assumé comme la couleur.
-
-## Ce que font les studios (mesure)
-
-Couleurs les plus fréquentes dans le HTML et les feuilles de style, relevées le 26 novembre 2026. C'est un indice, pas une charte :
-
-| Studio | Neutres | Accent vif |
+| Référence | Philosophie visible | Traduction dans l'interface |
 |---|---|---|
-| Pentagram | blanc, `#1a1a1a`, gris | rouge `#e61428` |
-| Trionn | noir, `#d8d8d8` | rouge orangé `#d9432b` |
-| Work & Co | noir, blanc | rouge `#ff3029` |
-| Instrument | noir `#070708`, `#f2f8fa` | bleu `#003399` (discret) |
-| Fantasy | noir, blanc | jaune `#ffff00` (rare) |
-| Immersive Garden | `#030303`, `#e8e8e8` | jaune `#ffff00` |
-| IDEO | bleu nuit `#151f27` | jaune-vert `#d9ff00` |
-| ustwo | `#2b2b2b`, `#f6f6f6` | bleu `#2306eb`, violet `#9913ff`, orange `#ff4d00` |
-| Luilka, actuel | `#0a0a0a`, `#e8e8e8` | bleu `#2a2ae6`, violet `#9b5de5` |
+| Apple | Le produit est le héros, l'interface s'efface | Neutres purs, un seul bleu réservé à l'action, très grandes images |
+| Pentagram | Le travail signé parle, les auteurs sont nommés | Blanc, texte noir, un rouge rare, projets en grand dès l'accueil |
+| IDEO | La méthode centrée sur les personnes est la marque | Récits de cas, photos de personnes, une couleur vive tenue |
+| Linear, Vercel | Précision, vitesse, rigueur | Presque noir, typographie nette, aucune couleur décorative |
+| Stripe | Confiance financière par la clarté | Neutres, une couleur de marque très localisée, preuves chiffrées |
+| Andela, Qoder | Crédibilité entreprise, appel clair | Fond clair, boutons sombres, un vert sobre, capture produit en grand |
 
-Lecture : les studios monochromes tiennent **un** accent. Le rouge est le plus fréquent (Pentagram, Trionn, Work & Co), donc le plus encombré. Le jaune ou jaune-vert apparaît chez Immersive Garden, Fantasy et IDEO et n'est pas le signe d'un studio africain ou d'un studio de produit : il reste disponible. Deux accents bleu et violet ensemble ne se trouvent que chez les studios produit généralistes. Koto et Deadwater n'ont pas pu être lus (accès refusé).
+Ce que les studios admirés ont en commun : **peu de couleurs, une seule action évidente, et la preuve (travail, personnes, résultats) en grand.** Ce sont des constats sur leur apparence, pas une mesure de leur efficacité commerciale.
 
-## Audit de l'existant
+## Ce que la recherche en psychologie permet de dire
 
-### Jetons et contrastes
+Prudence : l'effet d'une couleur dépend du contexte et de la culture, et les études sont moins solides que les slogans. Seuls les points suivants sont assez établis pour guider un choix.
 
-| Paire | Rapport | Constat |
-|---|---|---|
-| Texte `#0a0a0a` sur blanc | 19,8 | Très bon |
-| Texte secondaire `#404040` sur blanc | 10,4 | Bon |
-| Texte secondaire sur gris `#e8e8e8` | 8,5 | Bon |
-| Texte secondaire sur gris-2 `#d4d4d4` (bas des cartes produit) | 7,0 | Bon |
-| Blanc sur bleu `#2a2ae6` | 8,2 | Bon |
-| Blanc sur violet `#9b5de5` | 4,1 | **Sous 4,5 pour du texte courant** |
-| Violet `#9b5de5` sur blanc (mot du titre) | 4,1 | Passe en grand texte seulement |
-| Copyright blanc 70 % sur noir | 9,8 | Bon |
+1. **Le jugement est rapide.** Les visiteurs forment une opinion sur l'allure d'un site en une fraction de seconde (Lindgaard et collègues, 2006, environ 50 millisecondes). Le haut de l'accueil doit donc déjà paraître ordonné et sûr.
+2. **Ce qui est beau paraît plus utilisable et plus fiable.** C'est l'effet d'esthétique et d'utilisabilité (Kurosu et Kashimura, 1995, prolongé par Tractinsky). Il joue sur la confiance, pas sur la fiabilité réelle : il faut tenir la promesse.
+3. **La fluidité de lecture rassure.** Un contenu facile à traiter est jugé plus vrai et plus agréable. Contraste élevé, peu de styles, espaces réguliers.
+4. **L'élément isolé attire l'œil.** Effet d'isolation de Von Restorff : une couleur employée rarement signale l'action principale. Si trois couleurs rivalisent, aucune ne guide.
+5. **Moins de choix, plus de décision.** Loi de Hick : un seul appel à l'action par écran accélère le passage au contact.
+6. **Le noir et le blanc évoquent le raffinement, le bleu la compétence, le rouge l'excitation** (Labrecque et Milne, 2012, sur des marques). Ce sont des associations moyennes, pas des lois.
+7. **La confiance vient surtout des preuves** : travaux réels, noms, visages, délais, périmètre assumé. Aucune couleur n'y supplée.
 
-### Défauts
+## Verdict sur le thème
 
-1. **Trois bleus et un violet sans règle.** `--accent-blue`, `--accent-purple`, et `#2a4cb5` encore présent 34 fois dans les illustrations alors que le jeton a disparu en D-018. Les illustrations contredisent le thème.
-2. **Quatre étapes en quatre couleurs sans lien entre elles.** Noir, bleu, violet, gris : la couleur n'exprime ni l'ordre ni la progression. Le violet porte du texte à 4,1 pour 1 en petit.
-3. **Le dégradé bleu vers violet de l'ancien thème a disparu, mais le duo reste** dans le titre de l'accueil : deux mots, deux couleurs, aucune raison de sens.
-4. **Pas de couleur de focus propre.** Le focus suit la couleur du texte ; il n'est pas affirmé comme élément d'identité.
-5. **Aucun mode sombre ni section sombre réglée.** Le noir est employé par touches (bandeau, contact, copyright) sans règle sur la proportion.
-6. **Valeurs écrites en dur** dans le panneau rayé de l'accueil (`#2b2b30`, `#0f0f12`, `#3a3a40`) : des quasi-noirs qui n'existent pas dans les jetons.
+- **Confiance et respect.** Noir, blanc et gris neutres, sans dégradé ni effet : franc, sobre, sans enjeu d'identité géographique (exclu par le positionnement).
+- **Professionnalisme.** Peu de couleurs, grille régulière, contraste fort (texte noir sur blanc 19,8 pour 1, blanc sur noir 19,8).
+- **Conversion.** Une seule couleur d'action, la même partout : le bouton de contact. Le reste est neutre pour que cette action soit la plus visible. Aujourd'hui l'accueil en a quatre (noir, bleu, violet, gris) : l'œil ne sait pas où aller.
+- **Engagement.** Il vient du contenu : réalisations en grand, un cas raconté, un visage de l'équipe, une réponse promise. Pas de la couleur.
 
 ## Proposition
 
-### Principe : 90 pour cent de neutres, 10 pour cent de marqueur
+### Palette
 
-| Rôle | Jeton | Valeur | Emploi |
-|---|---|---|---|
-| Papier | `--paper` | `#ffffff` | Fond des pages |
-| Encre | `--text`, `--night` | `#0a0a0a` | Texte, boutons, sections sombres |
-| Graphite | `--graphite` | `#262626` | Second noir : cartes sombres, étape intermédiaire |
-| Texte secondaire | `--muted` | `#404040` | Sous-titres, descriptions |
-| Gris | `--gray` | `#e8e8e8` | Cartes, fonds neutres |
-| Filets | `--border-ui` | `#e2e2e2` | Bordures fines |
-| **Marqueur** | `--signal` | `#d9ff40` | La preuve : voir règles ci-dessous |
-
-Le bleu `#2a2ae6` et le violet `#9b5de5` sortent de l'interface. Ils ne sont pas supprimés des projets clients : un projet peut garder ses couleurs dans son visuel.
-
-### Règles d'emploi du marqueur
-
-1. **Toujours en aplat avec du texte noir dessus**, jamais en texte sur fond blanc (1,15 pour 1). Sur noir ou graphite, il peut servir de texte ou de trait (17,3 et 13,2 pour 1).
-2. **Un seul emploi fort par écran** : un surlignage de titre, la livraison, une bande, un état validé.
-3. **Il marque une preuve ou un résultat** : le mot clé du titre, l'étape « Livraison », le bandeau incliné, l'état de succès du formulaire, le focus. Jamais un simple décor.
-4. **Le focus est un contour noir de 2 px avec un liseré marqueur**, visible sur blanc comme sur noir.
-
-### Application aux éléments actuels
-
-| Élément | Aujourd'hui | Proposition |
+| Rôle | Valeur | Emploi |
 |---|---|---|
-| Titre de l'accueil | « design » bleu, « marque » violet | Même texte noir, deux mots surlignés au marqueur |
-| Bandeau d'icônes | Noir, icônes blanches | Inchangé |
-| Fond incliné du bandeau | Gris à lignes grises | Aplat marqueur à lignes noires : le seul grand éclat de la page |
-| Quatre étapes | Noir, bleu, violet, gris | Noir, graphite, gris, marqueur : de l'encre vers le résultat. La livraison est la seule étape colorée |
-| Boutons | Noirs | Inchangés, avec le marqueur au survol |
-| Bloc de contact | Noir, bouton blanc | Inchangé, bouton au marqueur au survol |
-| Illustrations | Bleu, violet | À redessiner en noir, graphite, gris et marqueur |
-| Panneau rayé de l'accueil | Quasi-noirs écrits en dur | Dégradé `--night` vers `--graphite` |
+| Papier | `#ffffff` | Fonds |
+| Encre | `#0a0a0a` | Texte, boutons, sections sombres |
+| Graphite | `#262626` | Second noir |
+| Gris | `#e8e8e8` | Cartes |
+| Texte secondaire | `#404040` | Descriptions (10,4 sur blanc) |
+| **Accent d'action** | à trancher | Un seul, pour le contact et l'étape finale |
 
-### Contrastes de la proposition
+Accent proposé : **vert profond `#0c5a41`** (blanc dessus : 8,2 pour 1). Il est sobre comme chez Andela et Qoder, évoque la réussite sans l'excitation du rouge, et il n'est ni le bleu des produits génériques ni un code de marque déjà saturé chez les studios. Alternative : aucun accent, comme Linear et Vercel, le bouton noir seul portant l'action. Le choix est un choix d'identité, non mesuré auprès de visiteurs.
 
-| Paire | Rapport |
-|---|---|
-| Noir sur marqueur | 17,3 |
-| Marqueur sur noir | 17,3 |
-| Marqueur sur graphite | 13,2 |
-| Blanc sur graphite | 15,1 |
-| Noir sur gris | 16,2 |
-| Texte secondaire sur gris | 8,5 |
+### Règles
 
-Tout passe AA et AAA pour le texte courant. Aucune paire ne dépend du violet.
+1. Une couleur d'accent seulement, jamais en texte courant sur blanc sans vérifier 4,5 pour 1.
+2. Un seul appel à l'action fort par écran, toujours au même libellé.
+3. Le noir sert à poser l'autorité : bandeau, contact, pied de page. Le blanc sert la lecture.
+4. Pas de couleur décorative : le violet et le bleu vif sortent de l'interface.
 
-## Plan de migration
+### Illustrations
 
-Un commit par unité, test d'abord.
+Les illustrations actuelles sont bleu et violet (le bleu `#2a4cb5` revient 34 fois), ce qui contredit le thème. Règles pour les refaire, en attendant de vraies captures :
 
-1. Jetons : ajouter `--graphite` et `--signal`, retirer `--accent-blue`, `--accent-purple` et `--blue`. Mettre à jour le test des jetons.
-2. Titre de l'accueil : surlignage par un élément `mark` stylé avec `--signal`.
-3. Bandeau incliné et étapes : couleurs ci-dessus, avec test.
-4. Focus visible et survol des boutons.
-5. Panneau rayé en jetons.
-6. Illustrations : redessiner les 11 fichiers `svg` (réalisations, produits, À propos) dans la nouvelle palette.
-7. Mise à jour de D-018 par une nouvelle décision (D-019) et des principes de design.
+1. **Montrer l'artefact, pas une métaphore** : fragments d'interface (liste, fil de décisions, diagramme de planning), en noir, graphite et gris, avec l'accent seul sur l'élément « validé ». Cela illustre la position « une preuve devient une décision d'interface ».
+2. **Formes simples et rythme régulier** : la fluidité de lecture (point 3) vaut pour les images aussi.
+3. **Pas de visage ni de scène inventés** : une personne dans une illustration doit être réelle, avec son accord.
+4. **Remplacer dès que possible par de vraies captures** de Tala, Vuga, Pro et des projets. La preuve réelle l'emporte sur toute illustration.
 
-## Ce que la proposition ne dit pas
+## Ce que le thème ne fait pas
 
-- Le jaune-vert n'a pas été testé auprès de visiteurs. Le choix d'un accent reste une décision d'identité, pas une mesure.
-- Une couleur ne remplace pas la preuve : sans réalisations montrées, le marqueur surligne peu de choses.
-- L'accent est une hypothèse : le rouge, plus sûr mais plus encombré, reste une alternative.
+- Il ne remplace pas le contenu : sans travaux montrés ni noms de clients, aucune couleur ne donne confiance.
+- Aucun test de visiteurs n'a été fait. Les effets décrits sont des tendances de la littérature, pas des résultats pour Luilka. Un test A/B ou 5 entretiens sur l'accueil le diraient (à nommer : titulaire et date).
+- Le chiffre de conversion visé reste « À nommer » (voir [kpi.md](../Product/kpi.md)).
+
+## Plan
+
+1. Trancher l'accent (vert profond ou aucun) : titulaire @Espoir-Loem.
+2. Jetons : retirer `--accent-blue`, `--accent-purple`, `--blue` ; ajouter `--graphite` et l'accent.
+3. Quatre étapes : noir, graphite, gris, accent sur « Livraison ».
+4. Bandeau incliné : gris uni. Bouton de contact : accent au survol.
+5. Redessiner les 11 illustrations selon les règles ci-dessus.
+6. Nouvelle décision D-019 et mise à jour des principes de design.
 
 ## Limites
 
-- Palettes lues dans le HTML et les trois premières feuilles de style de chaque site, sur la page d'accueil seulement. Les sites rendus par JavaScript sont sous-comptés.
-- Treize studios, dont deux inaccessibles. Aucun test d'usage.
-- La capture de la proposition est obtenue en remplaçant les styles dans Chrome, pas par un build.
+- Palettes lues dans le HTML et trois feuilles de style par site, accueil seulement. Instagram, Koto et Deadwater n'ont pas pu être lus.
+- Les références de psychologie sont citées de mémoire d'auteur et d'année, sans relecture des articles dans cette session : à vérifier avant publication.
 
 ## Sources
 
 - Notes de recherche : `research_notes/Positionnement design Luilka Afrique Congo/white_space_positionnement.md`.
-- Pages consultées le 26 novembre 2026 : pentagram.com, trionn.com, instrument.com, work.co, fantasy.co, immersive-g.com, pigment.studio, ideo.com, ustwo.com, ojustudio.com, yux.design, nakacreatives.com, studiobao.africa.
-- Galeries consultées : [A1 Gallery, noir et blanc](https://www.a1.gallery/style/black-and-white), [A1 Gallery, agences minimalistes](https://www.a1.gallery/websites/minimal-agency).
+- Sites consultés le 26 novembre 2026 : andela.com, qoder.com, apple.com, linear.app, stripe.com, vercel.com, figma.com, framer.com, pentagram.com, work.co, instrument.com, fantasy.co.
 - Contrastes : formule de luminance relative de WCAG 2.2.
