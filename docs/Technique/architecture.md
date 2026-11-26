@@ -2,7 +2,7 @@
 
 **Statut.** Retenue, 26 novembre 2026.
 **Propriétaire.** @Espoir-Loem.
-**Décisions liées.** D-002, D-003, D-004, D-006, D-007, D-012, D-013, D-014, D-015.
+**Décisions liées.** D-002, D-003, D-004, D-006, D-007, D-012, D-013, D-014, D-015, D-016.
 
 ## Flux d'une URL à l'écran
 
@@ -31,7 +31,7 @@ Le serveur Python valide la langue et le slug avec `notFound()` de Nexy, à part
 | `src/server.py` | Le point d'entrée FastAPI `app`, pour les hébergeurs qui lancent une application FastAPI sans `nx start` (Vercel). Il réexporte `nexy.app.app` et, si le dossier est en lecture seule, démarre depuis une copie dans `/tmp` | `uvicorn src.server:app` |
 | `src/shared/ui/` | Les atomes sans connaissance du site, un fichier pluriel chacun | `buttons.tsx`, `links.tsx`, `images.tsx`, `logos.tsx`, `panels.tsx`, `social-icons.tsx` |
 | `src/shared/hooks/` | La logique d'interface réutilisable | `use-open-menu.hook.ts`, `use-mobile-menu.hook.ts`, `use-social-links.hook.ts`, `use-copyright.hook.ts` |
-| `src/shared/utils/` | Les fonctions pures, TypeScript et Python | `detail-href.util.ts`, `initials.util.ts`, `validate-email.util.ts`, `detail_slugs.py` |
+| `src/shared/utils/` | Les fonctions pures, TypeScript et Python | `detail-href.util.ts`, `github.util.ts`, `initials.util.ts`, `validate-email.util.ts`, `detail_slugs.py` |
 | `src/shared/i18n/` | La langue et le contenu | `dictionaries.i18n.ts`, `use-content.i18n.ts` |
 | `src/shared/types/` | Les types partagés | `detail.type.ts`, `site.type.ts` |
 | `src/content/` | Les données partagées avec Python | `details.json`, `navigation.json`, `images.json`, `social.json` |
@@ -79,7 +79,7 @@ Aucune page ne défile de côté à 320 pixels : `ProcessBand` coupe son défile
 
 Elle suit la maquette du titulaire (D-015, [page-a-propos.md](../UX/page-a-propos.md)). `src/routes/[lang]/about.tsx` compose `AboutHero`, `MissionSection`, `ValuesSection` et `TeamSection` de `sections.tsx`, puis le bloc de contact. `Breadcrumb` est dans `patterns.tsx`, `ValueCard` et `TeamCard` dans `cards.tsx`. La première valeur est la tuile centrale de la mosaïque, sur le panneau rayé de l'accueil (`StripedPanel`, `shared/ui/panels.tsx`).
 
-Le texte vient du dictionnaire (`aboutPage` : mission, valeurs, équipe, visuels). Une liste vide masque sa section. Une carte d'équipe sans photo affiche les initiales de la personne (`initials.util.ts`). Ajouter une valeur ou une personne se fait dans le dictionnaire, sans toucher aux composants.
+Le texte vient du dictionnaire (`aboutPage` : mission, valeurs, équipe, visuels). Une liste vide masque sa section. Le portrait d'une personne est son avatar GitHub (`github.util.ts`, D-016), avec ses initiales derrière (`initials.util.ts`), et le bouton rond de sa carte mène à son profil GitHub. La grille de l'équipe est sur trois colonnes : six profils font deux rangées. Ajouter une valeur ou une personne (nom, rôle, compte GitHub) se fait dans le dictionnaire, sans toucher aux composants.
 
 ## Contenu et langue
 

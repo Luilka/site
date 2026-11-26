@@ -9,12 +9,13 @@
 - La page À propos suit la maquette du titulaire (D-015) : fil d'Ariane, en-tête avec visuel, mission, valeurs en mosaïque, équipe, puis contact.
 - Quatre illustrations abstraites en `svg` pour l'en-tête et la mission, listées dans `src/content/images.json`.
 - Trois atomes partagés à la place de copies : `Picture`, `StripedPanel`, `PageTitle` et `PageLead`.
+- Le portrait d'une personne de l'équipe est son avatar GitHub, avec le bouton rond de la maquette vers son profil (D-016). La première carte porte le rôle « Founder » : il n'y a pas encore de CEO.
 - Les liens du pied de page deviennent des boutons ronds bordés, comme sur la maquette.
 - Les trois autres libellés « Journal » du pied de page et du menu Produits disent « Blog » (D-013).
 
 ## Ce qui n'est pas repris de la maquette
 
-Son texte parle de PossaCode, une association de développeurs : la vision interdit de présenter Luilka ainsi. Seule la mise en page est reprise. Les cinq cartes d'équipe en double, le bouton rond des cartes et les quatre cartes d'étapes ne sont pas repris.
+Son texte parle de PossaCode, une association de développeurs : la vision interdit de présenter Luilka ainsi. Seule la mise en page est reprise. Les cinq cartes d'équipe en double et les quatre cartes d'étapes ne sont pas reprises : la grille est prête pour six profils, mais une seule personne existe.
 
 ## Défauts évités au passage
 
