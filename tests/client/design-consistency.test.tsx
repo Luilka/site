@@ -29,7 +29,7 @@ describe("design consistency", () => {
 
   it("keeps both dropdowns without punctuation in their labels", () => {
     render(<Header />);
-    for (const label of ["Services", "Products"]) {
+    for (const label of ["Services", "Produits"]) {
       const trigger = screen.getByRole("link", { name: label });
       expect(trigger.getAttribute("aria-haspopup")).toBe("true");
     }

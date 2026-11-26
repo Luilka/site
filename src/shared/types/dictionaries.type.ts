@@ -110,6 +110,7 @@ export type Dictionary = {
   switchLanguage: string;
   contactAction: string;
   navigationLabel: string;
+  homeLabel: string;
   home: HomeCopy;
   sectionTitles: SectionTitles;
   sectionDescriptions: SectionDescriptions;
@@ -159,6 +160,7 @@ export type Dictionary = {
     newsletterTitle: string;
     newsletterText: string;
     emailLabel: string;
+    emailPlaceholder: string;
     subscribe: string;
     copyright: string;
     links: readonly FooterLink[];

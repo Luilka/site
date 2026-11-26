@@ -29,12 +29,12 @@ describe("multipage site", () => {
   it("links the reference navigation to real pages", () => {
     render(<Header />);
     const expected: Array<[string, string]> = [
-      ["About", "/fr/about"],
+      ["À propos", "/fr/about"],
       ["Services", "/fr/services"],
-      ["Products", "/fr/products"],
-      ["Works", "/fr/works"],
-      ["Blog", "/fr/blog"],
-      ["Job", "/fr/job"],
+      ["Produits", "/fr/products"],
+      ["Réalisations", "/fr/works"],
+      ["Journal", "/fr/blog"],
+      ["Carrières", "/fr/job"],
     ];
     for (const [label, href] of expected) {
       expect(screen.getByRole("link", { name: label }).getAttribute("href")).toBe(href);
@@ -43,6 +43,6 @@ describe("multipage site", () => {
 
   it("keeps the contact action on every page through the layout", () => {
     render(<Header />);
-    expect(screen.getByRole("link", { name: /Contact us/ }).getAttribute("href")).toBe("/fr/contact");
+    expect(screen.getByRole("link", { name: /Nous contacter/ }).getAttribute("href")).toBe("/fr/contact");
   });
 });

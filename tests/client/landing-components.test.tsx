@@ -21,7 +21,7 @@ describe("landing components", () => {
 
   it("renders every reference navigation label", () => {
     render(<Header />);
-    expect(screen.getByText("Job")).toBeTruthy();
+    expect(screen.getByText("Carrières")).toBeTruthy();
   });
 
   it("renders the process band", () => {

@@ -16,11 +16,11 @@ describe("site header dropdown navigation", () => {
     const nav = screen.getByRole("navigation", { name: /Navigation principale/ });
     fireEvent.mouseEnter(screen.getByRole("link", { name: /Services/ }).parentElement!);
     expect(expanded(/Services/)).toBe("true");
-    fireEvent.mouseEnter(screen.getByRole("link", { name: /Products/ }).parentElement!);
+    fireEvent.mouseEnter(screen.getByRole("link", { name: /Produits/ }).parentElement!);
     expect(expanded(/Services/)).toBe("false");
-    expect(expanded(/Products/)).toBe("true");
+    expect(expanded(/Produits/)).toBe("true");
     fireEvent.mouseLeave(nav);
-    expect(expanded(/Products/)).toBe("false");
+    expect(expanded(/Produits/)).toBe("false");
   });
 
   it("uses an animated panel that closes on Escape", () => {

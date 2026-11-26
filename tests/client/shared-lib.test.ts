@@ -4,6 +4,7 @@ import { findDetail, isKnownDetailSlug } from "@/content/detail-models.content.t
 import { detailHref } from "@/shared/utils/detail-href.util.ts";
 import { infoHref } from "@/shared/utils/info-href.util.ts";
 import { newsletterState } from "@/shared/utils/newsletter-state.util.ts";
+import { pageKey } from "@/shared/utils/page-key.util.ts";
 import { isValidEmail } from "@/shared/utils/validate-email.util.ts";
 
 const copy = { invalid: "Invalid", valid: "Valid" };
@@ -33,6 +34,11 @@ describe("shared lib", () => {
     expect(infoHref("blog", { slug: "a" })).toBe("/blog/a");
     expect(infoHref("blog", { title: "a" })).toBeUndefined();
     expect(infoHref(undefined, { slug: "a" })).toBeUndefined();
+  });
+
+  it("turns a page address into the key of its dictionary entry", () => {
+    expect(pageKey("/about")).toBe("about");
+    expect(pageKey("/contact")).toBe("contact");
   });
 
   it("finds a known detail in each language", () => {

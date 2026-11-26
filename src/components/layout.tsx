@@ -1,6 +1,6 @@
 import { buttonClasses } from "@/shared/ui/buttons.tsx";
 import { Link } from "@/shared/ui/links.tsx";
-import { useContent, useLanguageSwitch, navigation } from "@/shared/i18n";
+import { useContent, useLanguageSwitch, useNavigation } from "@/shared/i18n";
 import { Container } from "@/shared/ui/containers.tsx";
 import { Mail, ChevronDown, CalendarDays, ArrowUpRight, CircleAlert, CircleCheck } from "lucide-react";
 import { CONTACT_MAILTO } from "@/shared/utils/contact-mailto.util.ts";
@@ -20,12 +20,19 @@ const MEGA_PANEL = "fixed left-0 right-0 z-12 bg-white/80 backdrop-blur top-[4.4
 const MEGA_CLOSED = "opacity-0 invisible [transform:translateY(-0.375rem)] pointer-events-none";
 const MEGA_OPEN = "opacity-100 visible [transform:translateY(0)] pointer-events-auto";
 
-export function BrandMark() {
+function BrandIcon() {
   return (
-    <Link className="row-center gap-[6px] font-semibold text-(length:--text-lg)" href="/" aria-label="Luilka, accueil">
-      <svg className="size-6 fill-current" aria-hidden="true">
-        <use href="#finger" />
-      </svg>
+    <svg className="size-6 fill-current" aria-hidden="true">
+      <use href="#finger" />
+    </svg>
+  );
+}
+
+export function BrandMark() {
+  const { homeLabel } = useContent();
+  return (
+    <Link className="row-center gap-[6px] font-semibold text-(length:--text-lg)" href="/" aria-label={homeLabel}>
+      <BrandIcon />
       Luilka
     </Link>
   );
@@ -151,6 +158,7 @@ export function Footer() {
 
 function MainNavigation() {
   const menu = useOpenMenu();
+  const navigation = useNavigation();
   const { navigationLabel } = useContent();
   return (
     <nav className="row-center self-stretch gap-[0.5rem] text-(length:--text-base) font-medium ml-0 max-[1000px]:hidden" aria-label={navigationLabel} onMouseLeave={menu.close} onBlur={menu.onBlur}>
@@ -348,7 +356,7 @@ function NewsletterField() {
   return (
     <>
       <label htmlFor={id} className="sr-only">{footer.emailLabel}</label>
-      <Input id={id} className={NEWS_INPUT} name="email" type="email" placeholder="pixi@domaine.com" autoComplete="email" />
+      <Input id={id} className={NEWS_INPUT} name="email" type="email" placeholder={footer.emailPlaceholder} autoComplete="email" />
     </>
   );
 }

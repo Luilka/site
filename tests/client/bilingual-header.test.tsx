@@ -43,7 +43,7 @@ describe("bilingual header", () => {
 
   it("keeps the dropdown reachable by keyboard", () => {
     renderApp();
-    const trigger = screen.getByRole("link", { name: /Products/ });
+    const trigger = screen.getByRole("link", { name: /Produits/ });
     fireEvent.focus(trigger);
     expect(trigger.getAttribute("aria-expanded")).toBe("true");
     fireEvent.keyDown(trigger, { key: "Escape" });

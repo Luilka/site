@@ -273,7 +273,7 @@ const worksEn: readonly Work[] = withSlugs(
 );
 
 const footerLinksFr: readonly FooterLink[] = [
-  { label: "A propos", href: "/about" },
+  { label: "À propos", href: "/about" },
   { label: "Services", href: "/services" },
   { label: "Réalisations", href: "/works" },
   { label: "Contact", href: "/contact" },
@@ -305,8 +305,9 @@ const fr: Dictionary = {
   quote: "J'ai besoin d'un devis",
   discover: "Découvrir plus",
   switchLanguage: "Passer en anglais",
-  contactAction: "Contact us",
+  contactAction: "Nous contacter",
   navigationLabel: "Navigation principale",
+  homeLabel: "Luilka, accueil",
   home: {
     prefix: "Agence de",
     design: "design",
@@ -337,7 +338,7 @@ const fr: Dictionary = {
   },
   pages: {
     about: {
-      eyebrow: "A propos",
+      eyebrow: "À propos",
       title: "Un studio de design centré sur l'utilisateur",
       description:
         "Luilka réunit designers et chercheurs autour d'une méthode centrée utilisateur : observer, dessiner les parcours de l'app puis livrer des interfaces cohérentes.",
@@ -349,31 +350,31 @@ const fr: Dictionary = {
         "Du premier croquis au système de composants, nous accompagnons les équipes produit et marketing à chaque étape du design.",
     },
     products: {
-      eyebrow: "Products",
+      eyebrow: "Produits",
       title: "Nos produits",
       description:
         "Trois outils nés du studio pour garder vos décisions de design, vos utilisateurs et vos projets au même endroit.",
     },
     works: {
-      eyebrow: "Works",
+      eyebrow: "Réalisations",
       title: "Nos réalisations",
       description:
         "Des projets menés avec des partenaires qui ont accepté de mesurer l'impact de chaque décision de design.",
     },
     blog: {
-      eyebrow: "Blog",
+      eyebrow: "Journal",
       title: "Le journal de Luilka",
       description:
         "Des notes courtes sur le design, le produit et la façon de construire des équipes techniques durables.",
     },
     job: {
-      eyebrow: "Job",
+      eyebrow: "Carrières",
       title: "Rejoignez l'équipe",
       description:
         "Nous cherchons des personnes qui aiment livrer, expliquer leurs choix et apprendre avec les autres.",
     },
     contact: {
-      eyebrow: "Contact us",
+      eyebrow: "Nous contacter",
       title: "Parlons de votre projet",
       description:
         "Décrivez votre besoin en quelques lignes. Nous revenons vers vous avec une première réponse et un créneau d'échange.",
@@ -482,10 +483,11 @@ const fr: Dictionary = {
     description:
       "Un studio de design qui réunit les équipes produit et marketing autour d'interfaces claires et utiles.",
     linksTitle: "Liens",
-    moreTitle: "More",
-    newsletterTitle: "Subscribe to our newsletter",
-    newsletterText: "Stay updated on new releases and features, guides, and case studies.",
+    moreTitle: "Plus",
+    newsletterTitle: "Abonnez-vous à notre lettre d'information",
+    newsletterText: "Recevez les nouveautés, les guides et les études de cas.",
     emailLabel: "Adresse email",
+    emailPlaceholder: "pixi@domaine.com",
     subscribe: "S'abonner",
     copyright: "Copyright 2025, Tous droits réservés à Luilka.",
     links: footerLinksFr,
@@ -502,6 +504,7 @@ const en: Dictionary = {
   switchLanguage: "Switch to French",
   contactAction: "Contact us",
   navigationLabel: "Main navigation",
+  homeLabel: "Luilka, home",
   home: {
     prefix: "Creative",
     design: "design",
@@ -677,6 +680,7 @@ const en: Dictionary = {
     newsletterTitle: "Subscribe to our newsletter",
     newsletterText: "Stay updated on new releases, guides and case studies.",
     emailLabel: "Email address",
+    emailPlaceholder: "pixi@domain.com",
     subscribe: "Subscribe",
     copyright: "Copyright 2025, All rights reserved to Luilka.",
     links: footerLinksEn,
