@@ -7,7 +7,14 @@ import tempfile
 from importlib import import_module
 from pathlib import Path
 
-PROJECT_ITEMS = ("src", "__nexy__", "public", "nexyconfig.py", "pyproject.toml")
+PROJECT_ITEMS = (
+    "src",
+    "__nexy__",
+    "public",
+    "nexyconfig.py",
+    "pyproject.toml",
+    "vite.config.ts",
+)
 
 
 def copy_item(source: Path, target: Path) -> None:

@@ -4,6 +4,7 @@ import { Badge } from "@/shared/ui/badges.tsx";
 import { Button } from "@/shared/ui/buttons.tsx";
 import { Card } from "@/shared/ui/cards.tsx";
 import { Container } from "@/shared/ui/containers.tsx";
+import { Image } from "@/shared/ui/images.tsx";
 import { Input } from "@/shared/ui/inputs.tsx";
 import { Link } from "@/shared/ui/links.tsx";
 import { cn } from "@/shared/utils/cn.util.ts";
@@ -27,6 +28,14 @@ describe("design system atoms", () => {
       </Container>,
     );
     expect(container.querySelector("div span")?.className).toContain("pill-shape");
+  });
+
+  it("renders an image with its size, lazy and async", () => {
+    render(<Image src="/case.webp" alt="Cas" width={640} height={360} />);
+    const image = screen.getByRole("img", { name: "Cas" });
+    expect(image.getAttribute("width")).toBe("640");
+    expect(image.getAttribute("loading")).toBe("lazy");
+    expect(image.getAttribute("decoding")).toBe("async");
   });
 
   it("renders a typed email input", () => {

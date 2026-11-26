@@ -46,6 +46,10 @@ Les dépendances vont dans un seul sens : `routes` vers `sections`, puis `cards`
 - Les mouvements utilisent `motion.div` de Motion directement. `MotionConfig reducedMotion="user"` dans `src/routes/layout.tsx` respecte `prefers-reduced-motion` pour toute la page.
 - Les textes viennent du dictionnaire. Un texte visible écrit en dur dans un composant est un défaut.
 
+## Images
+
+Les images des projets vont dans `public/`, en `webp` ou `avif` (le `svg` pour les illustrations), à la taille affichée. `npm run check:images` refuse le `png`, le `jpg` et le `gif`, et un fichier de plus de 200 ko (50 ko pour un `svg`). Elles s'affichent avec `Image` de `src/shared/ui/images.tsx` : `width` et `height` obligatoires pour que la page ne bouge pas, `alt` obligatoire, chargement différé et décodage asynchrone par défaut. Une image visible dès l'ouverture de la page passe `loading="eager"`. `vercel.json` met en cache un an les fichiers de `assets/` (noms hachés) et un jour les images de `public/`.
+
 ## Contenu et langue
 
 `src/shared/i18n/dictionaries.i18n.ts` porte les deux langues avec le même type `Dictionary`. La navigation vient de `src/content/navigation.json`, lue aussi par `BrandService` côté Python. La langue se lit dans le premier segment de l'URL.
