@@ -31,7 +31,7 @@ Prudence : l'effet d'une couleur dépend du contexte et de la culture, et les é
 3. **La fluidité de lecture rassure.** Un contenu facile à traiter est jugé plus vrai et plus agréable. Contraste élevé, peu de styles, espaces réguliers.
 4. **L'élément isolé attire l'œil.** Effet d'isolation de Von Restorff : une couleur employée rarement signale l'action principale. Si trois couleurs rivalisent, aucune ne guide.
 5. **Moins de choix, plus de décision.** Loi de Hick : un seul appel à l'action par écran accélère le passage au contact.
-6. **Le noir et le blanc évoquent le raffinement, le bleu la compétence, le rouge l'excitation** (Labrecque et Milne, 2012, sur des marques). Ce sont des associations moyennes, pas des lois.
+6. **Les couleurs ont des associations de marque mesurables** : le bleu est associé à la compétence et le rouge à l'excitation (Labrecque et Milne, *Journal of the Academy of Marketing Science*, 2012). L'association du noir au raffinement n'a pas été vérifiée dans cette session : ne pas l'invoquer.
 7. **La confiance vient surtout des preuves** : travaux réels, noms, visages, délais, périmètre assumé. Aucune couleur n'y supplée.
 
 ## Verdict sur le thème
@@ -115,7 +115,7 @@ Les illustrations actuelles sont bleu et violet (le bleu `#2a4cb5` revient 34 fo
 ## Limites
 
 - Palettes lues dans le HTML et trois feuilles de style par site, accueil seulement. Instagram, Koto et Deadwater n'ont pas pu être lus.
-- Les références de psychologie sont citées de mémoire d'auteur et d'année, sans relecture des articles dans cette session : à vérifier avant publication.
+- Les références de psychologie ont été vérifiées sur leurs notices le 26 novembre 2026 (voir [la recherche UX](recherche-ux-confiance.md)), pas sur les articles complets.
 
 ## Sources
 
