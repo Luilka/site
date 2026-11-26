@@ -1,4 +1,4 @@
-import { ArrowUpRight, ChevronRight, CalendarDays, Code, FlaskConical, Lightbulb, LayoutDashboard, PenTool, Rocket, type LucideIcon } from "lucide-react";
+import { ArrowUpRight, ChevronRight, Pause, Play, CalendarDays, Code, FlaskConical, Lightbulb, LayoutDashboard, PenTool, Rocket, type LucideIcon } from "lucide-react";
 import { buttonClasses } from "@/shared/ui/buttons.tsx";
 import { Link, ErrorBoundary } from "@/shared/ui/links.tsx";
 import { Container } from "@/shared/ui/containers.tsx";
@@ -7,11 +7,13 @@ import type { HTMLAttributes } from "react";
 import { useRetry } from "@/shared/hooks/use-retry.hook.ts";
 import Errors from "@/routes/errors.tsx";
 import { motion } from "motion/react";
+import { Picture } from "@/shared/ui/images.tsx";
+import { useReel } from "@/shared/hooks/use-reel.hook.ts";
 import { Badge } from "@/shared/ui/badges.tsx";
 import { cn } from "@/shared/utils/cn.util.ts";
 import { PROCESS_STAGES } from "@/shared/utils/process-stages.util.ts";
 import { CONTACT_MAILTO } from "@/shared/utils/contact-mailto.util.ts";
-import type { ActionLinkProps, BreadcrumbProps, ContactPanelProps, FeedbackBoundaryProps, PageFrameProps, PageHeroProps, PageHeroTextProps, PageLeadProps, PageTitleProps, ProcessBandProps, ProcessStageListProps, ProcessStageProps, QuoteLinkProps, RevealProps, StateCopyProps } from "@/shared/types";
+import type { ActionLinkProps, BreadcrumbProps, ContactPanelProps, FeedbackBoundaryProps, PageFrameProps, PageHeroProps, PageHeroTextProps, PageLeadProps, PageTitleProps, ProcessBandProps, ReelSlideProps, ReelSlidesProps, ReelToggleProps, ProcessStageListProps, ProcessStageProps, QuoteLinkProps, RevealProps, StateCopyProps } from "@/shared/types";
 
 export function ActionLink({ action, className }: ActionLinkProps) {
   return (
@@ -52,20 +54,37 @@ export function FeedbackBoundary({ children }: FeedbackBoundaryProps) {
   );
 }
 
-const ENTRANCE = {
-  initial: { opacity: 0, scale: 0.8 },
-  animate: { opacity: 1, scale: 1 },
-  transition: { duration: 0.6 },
-};
+const REEL_FRAME = "relative h-[440px] overflow-hidden rounded-[28px] bg-night";
+const REEL_BUTTON = "absolute bottom-3 right-3 row-center justify-center size-11 rounded-full bg-paper/80 text-text backdrop-blur-md cursor-pointer";
 
-export function HeroAccent() {
+function ReelSlide({ image, active, first }: ReelSlideProps) {
+  const fade = active ? "opacity-100" : "opacity-0";
+  return <Picture className={`absolute inset-0 size-full transition-opacity duration-700 motion-reduce:transition-none ${fade}`} image={image} loading={first ? "eager" : "lazy"} />;
+}
+
+function ReelSlides({ images, index }: ReelSlidesProps) {
   return (
-    <motion.div
-      data-testid="motion-accent"
-      aria-hidden="true"
-      className="absolute inset-6 rounded-full border border-white/20"
-      {...ENTRANCE}
-    />
+    <div aria-hidden="true">
+      {images.map((image, position) => <ReelSlide key={image.src} image={image} active={position === index} first={position === 0} />)}
+    </div>
+  );
+}
+
+function ReelToggle({ paused, onToggle }: ReelToggleProps) {
+  const { reelPause, reelPlay } = useContent();
+  const Icon = paused ? Play : Pause;
+  return <button type="button" className={REEL_BUTTON} aria-label={paused ? reelPlay : reelPause} onClick={onToggle}><Icon size={20} strokeWidth={1.8} aria-hidden="true" /></button>;
+}
+
+/** A silent, decorative reel of the realisation covers for the home hero, still when the visitor asks for less motion. */
+export function HeroReel() {
+  const { works } = useContent();
+  const reel = useReel(works.length);
+  return (
+    <div className={REEL_FRAME}>
+      <ReelSlides images={works.map((work) => work.image)} index={reel.index} />
+      <ReelToggle paused={reel.paused} onToggle={reel.toggle} />
+    </div>
   );
 }
 

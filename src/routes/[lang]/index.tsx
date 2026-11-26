@@ -1,8 +1,7 @@
-import { NotFoundPanel, ProcessBand, ContactPanel, HeroAccent, QuoteLink } from "@/components/patterns.tsx";
+import { NotFoundPanel, ProcessBand, ContactPanel, HeroReel, QuoteLink } from "@/components/patterns.tsx";
 import { isSupportedLanguage, useContent } from "@/shared/i18n";
 import { ProductsSection, ServicesSection, WorksSection, ProcessSection, AboutSection } from "@/components/sections.tsx";
 import { Container } from "@/shared/ui/containers.tsx";
-import { StripedPanel } from "@/shared/ui/panels.tsx";
 import type { HomeProps } from "@/shared/types";
 
 function HomeAbout() {
@@ -35,7 +34,7 @@ function HeroSection() {
     <section className="pt-[72px] pb-[64px]">
       <Container className="grid items-center grid-cols-[1fr_540px] gap-[6px] max-[1000px]:grid-cols-[1fr]">
         <HeroCopy />
-        <StripedPanel className="h-[440px]"><HeroAccent /></StripedPanel>
+        <HeroReel />
       </Container>
     </section>
   );

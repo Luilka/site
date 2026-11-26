@@ -159,6 +159,8 @@ export type Dictionary = {
   homeLabel: string;
   menuLabel: string;
   closeLabel: string;
+  reelPause: string;
+  reelPlay: string;
   mobileNavigationLabel: string;
   breadcrumb: BreadcrumbCopy;
   home: HomeCopy;

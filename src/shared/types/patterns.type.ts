@@ -1,3 +1,4 @@
+import type { DetailImage } from "./detail.type.ts";
 import type { PageKey, SectionAction } from "./dictionaries.type.ts";
 import type { ReactNode } from "react";
 import type { ButtonVariant } from "./ui.type.ts";
@@ -52,6 +53,22 @@ export type ProcessStageListProps = {
 export type ProcessStageProps = {
   label: string;
   last: boolean;
+};
+
+export type ReelSlideProps = {
+  image: DetailImage;
+  active: boolean;
+  first: boolean;
+};
+
+export type ReelSlidesProps = {
+  images: readonly DetailImage[];
+  index: number;
+};
+
+export type ReelToggleProps = {
+  paused: boolean;
+  onToggle: () => void;
 };
 
 export type ProcessBandProps = {

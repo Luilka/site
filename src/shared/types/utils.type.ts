@@ -9,3 +9,5 @@ export type NewsletterCopy = {
   invalid: string;
   valid: string;
 };
+
+export type SaveDataConnection = { saveData?: boolean };

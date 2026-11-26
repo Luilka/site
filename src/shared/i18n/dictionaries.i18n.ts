@@ -313,6 +313,8 @@ const fr: Dictionary = {
   homeLabel: "Luilka, accueil",
   menuLabel: "Menu",
   closeLabel: "Fermer",
+  reelPause: "Mettre en pause le diaporama",
+  reelPlay: "Reprendre le diaporama",
   mobileNavigationLabel: "Navigation mobile",
   breadcrumb: { label: "Fil d'Ariane", home: "Accueil" },
   home: {
@@ -534,6 +536,8 @@ const en: Dictionary = {
   homeLabel: "Luilka, home",
   menuLabel: "Menu",
   closeLabel: "Close",
+  reelPause: "Pause the slideshow",
+  reelPlay: "Resume the slideshow",
   mobileNavigationLabel: "Mobile navigation",
   breadcrumb: { label: "Breadcrumb", home: "Home" },
   home: {

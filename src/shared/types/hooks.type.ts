@@ -1,5 +1,11 @@
 import type { FocusEvent, KeyboardEvent, RefObject } from "react";
 
+export type ReelState = {
+  index: number;
+  paused: boolean;
+  toggle: () => void;
+};
+
 export type MobileMenuState = {
   open: boolean;
   close: () => void;
