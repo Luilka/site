@@ -308,6 +308,8 @@ const fr: Dictionary = {
   contactAction: "Nous contacter",
   navigationLabel: "Navigation principale",
   homeLabel: "Luilka, accueil",
+  menuLabel: "Menu",
+  mobileNavigationLabel: "Navigation mobile",
   home: {
     prefix: "Agence de",
     design: "design",
@@ -505,6 +507,8 @@ const en: Dictionary = {
   contactAction: "Contact us",
   navigationLabel: "Main navigation",
   homeLabel: "Luilka, home",
+  menuLabel: "Menu",
+  mobileNavigationLabel: "Mobile navigation",
   home: {
     prefix: "Creative",
     design: "design",

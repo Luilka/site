@@ -111,6 +111,8 @@ export type Dictionary = {
   contactAction: string;
   navigationLabel: string;
   homeLabel: string;
+  menuLabel: string;
+  mobileNavigationLabel: string;
   home: HomeCopy;
   sectionTitles: SectionTitles;
   sectionDescriptions: SectionDescriptions;

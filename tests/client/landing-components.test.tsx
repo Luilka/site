@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { IconSprite, Footer, Header } from "@/components/layout.tsx";
 import { ProcessBand } from "@/components/patterns.tsx";
@@ -25,7 +25,8 @@ describe("landing components", () => {
 
   it("renders every reference navigation label", () => {
     render(<Header />);
-    expect(screen.getByText("Carrières")).toBeTruthy();
+    const navigation = within(screen.getByRole("navigation", { name: "Navigation principale" }));
+    expect(navigation.getByRole("link", { name: "Carrières" })).toBeTruthy();
   });
 
   it("renders the process band", () => {

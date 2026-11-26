@@ -2,16 +2,17 @@ import { buttonClasses } from "@/shared/ui/buttons.tsx";
 import { Link } from "@/shared/ui/links.tsx";
 import { useContent, useLanguageSwitch, useNavigation } from "@/shared/i18n";
 import { Container } from "@/shared/ui/containers.tsx";
-import { Mail, ChevronDown, CalendarDays, ArrowUpRight, CircleAlert, CircleCheck } from "lucide-react";
+import { Mail, Menu, X, ChevronDown, CalendarDays, ArrowUpRight, CircleAlert, CircleCheck } from "lucide-react";
 import { CONTACT_MAILTO } from "@/shared/utils/contact-mailto.util.ts";
 import { useOpenMenu } from "@/shared/hooks/use-open-menu.hook.ts";
 import { useId } from "react";
 import { useDismiss } from "@/shared/hooks/use-dismiss.hook.ts";
 import { useCopyright } from "@/shared/hooks/use-copyright.hook.ts";
+import { useMobileMenu } from "@/shared/hooks/use-mobile-menu.hook.ts";
 import { useNewsletter } from "@/shared/hooks/use-newsletter.hook.ts";
 import { Image } from "@/shared/ui/images.tsx";
 import { Input } from "@/shared/ui/inputs.tsx";
-import type { FooterColumnProps, MegaAsideProps, MegaCardProps, MegaCardTextProps, MegaContentProps, MegaGridProps, MegaHeadProps, MegaPanelProps, NavDropdownProps, NavEntryProps, NavTriggerProps, NewsletterMessageProps, NewsletterSubmitProps } from "@/shared/types";
+import type { FooterColumnProps, MegaAsideProps, MegaCardProps, MegaCardTextProps, MegaContentProps, MegaGridProps, MegaHeadProps, MegaPanelProps, MobileMenuButtonProps, MobileMenuLinkProps, MobileMenuLinksProps, MobileMenuPanelProps, NavDropdownProps, NavEntryProps, NavTriggerProps, NewsletterMessageProps, NewsletterSubmitProps } from "@/shared/types";
 
 const NAV_ITEM = "inline-flex items-center gap-1 rounded-lg min-h-[2.75rem] py-[0.5rem] px-[0.75rem] text-[#2a2a30] transition-[color,background-color] duration-160 ease-[ease] hover:text-blue hover:bg-soft";
 const NEWS_FORM = "flex gap-1.5 border border-[var(--border-ui)] rounded-[13px] p-[4px]";
@@ -20,6 +21,9 @@ const NEWS_BUTTON = "flex items-center gap-1.5 bg-[var(--night)] text-paper bord
 const MEGA_PANEL = "fixed left-0 right-0 z-12 bg-white/80 backdrop-blur top-[4.4375rem] border-y border-y-[var(--border-ui)] shadow-[0_18px_40px_rgb(0_0_0/12%)] transition-[opacity,transform,visibility] duration-160 ease-[ease] motion-reduce:transition-none";
 const MEGA_CLOSED = "opacity-0 invisible [transform:translateY(-0.375rem)] pointer-events-none";
 const MEGA_OPEN = "opacity-100 visible [transform:translateY(0)] pointer-events-auto";
+const MOBILE_BUTTON = "row-center justify-center size-11 rounded-lg cursor-pointer text-[#2a2a30] hover:bg-soft";
+const MOBILE_PANEL = "fixed inset-x-0 top-[4.4375rem] z-12 max-h-[calc(100dvh-4.4375rem)] overflow-y-auto border-y border-y-[var(--border-ui)] bg-white py-2 shadow-[0_18px_40px_rgb(0_0_0/12%)]";
+const MOBILE_LINK = "flex min-h-[3rem] items-center px-6 text-(length:--text-lg) font-medium text-[#2a2a30] hover:bg-soft hover:text-blue";
 
 function BrandIcon() {
   return (
@@ -162,7 +166,7 @@ function MainNavigation() {
   const navigation = useNavigation();
   const { navigationLabel } = useContent();
   return (
-    <nav className="row-center self-stretch gap-[0.5rem] text-(length:--text-base) font-medium ml-0 max-[1000px]:hidden" aria-label={navigationLabel} onMouseLeave={menu.close} onBlur={menu.onBlur}>
+    <nav className="row-center self-stretch gap-[0.5rem] text-(length:--text-base) font-medium ml-0 max-[1140px]:hidden" aria-label={navigationLabel} onMouseLeave={menu.close} onBlur={menu.onBlur}>
       {navigation.map((item) => <NavEntry key={item.href} item={item} menu={menu} />)}
     </nav>
   );
@@ -171,8 +175,8 @@ function MainNavigation() {
 function ContactLink() {
   const { contactAction } = useContent();
   return (
-    <Link className={buttonClasses("outline", "bg-transparent! border-gray-400!")} href="/contact">
-      {contactAction}<CalendarDays size={14} strokeWidth={1.8} aria-hidden="true" />
+    <Link className={buttonClasses("outline", "bg-transparent! border-gray-400! max-[440px]:size-11 max-[440px]:justify-center max-[440px]:p-0")} href="/contact">
+      <span className="max-[440px]:sr-only">{contactAction}</span><CalendarDays size={14} strokeWidth={1.8} aria-hidden="true" />
     </Link>
   );
 }
@@ -196,11 +200,69 @@ function LanguageToggle() {
   );
 }
 
+function MobileMenuLink({ item, onClose }: MobileMenuLinkProps) {
+  return (
+    <li>
+      <Link className={MOBILE_LINK} href={item.href} onClick={onClose}>{item.label}</Link>
+    </li>
+  );
+}
+
+function MobileMenuLinks({ onClose }: MobileMenuLinksProps) {
+  const navigation = useNavigation();
+  return (
+    <ul>
+      {navigation.map((item) => <MobileMenuLink key={item.href} item={item} onClose={onClose} />)}
+    </ul>
+  );
+}
+
+function MobileMenuContact({ onClose }: MobileMenuLinksProps) {
+  const { contactAction } = useContent();
+  return (
+    <div className="px-6 pt-3 pb-4">
+      <Link className={buttonClasses("dark", "w-full justify-center")} href="/contact" onClick={onClose}>{contactAction}</Link>
+    </div>
+  );
+}
+
+function MobileMenuPanel({ id, open, onClose }: MobileMenuPanelProps) {
+  const { mobileNavigationLabel } = useContent();
+  return (
+    <nav id={id} className={MOBILE_PANEL} hidden={!open} aria-label={mobileNavigationLabel}>
+      <MobileMenuLinks onClose={onClose} />
+      <MobileMenuContact onClose={onClose} />
+    </nav>
+  );
+}
+
+function MobileMenuButton({ id, menu }: MobileMenuButtonProps) {
+  const { menuLabel } = useContent();
+  const Icon = menu.open ? X : Menu;
+  return (
+    <button ref={menu.trigger} type="button" className={MOBILE_BUTTON} aria-expanded={menu.open} aria-controls={id} aria-label={menuLabel} onClick={menu.toggle}>
+      <Icon size={24} strokeWidth={1.8} aria-hidden="true" />
+    </button>
+  );
+}
+
+function MobileMenu() {
+  const id = useId();
+  const menu = useMobileMenu();
+  return (
+    <div className="min-[1140px]:hidden" onBlur={menu.onBlur} onKeyDown={menu.onKeyDown}>
+      <MobileMenuButton id={id} menu={menu} />
+      <MobileMenuPanel id={id} open={menu.open} onClose={menu.close} />
+    </div>
+  );
+}
+
 function HeaderActions() {
   return (
-    <div className="row-center gap-[36px] ml-auto">
+    <div className="row-center gap-[36px] ml-auto max-[1140px]:gap-[16px]">
       <LanguageToggle />
       <ContactLink />
+      <MobileMenu />
     </div>
   );
 }
@@ -209,7 +271,7 @@ export function Header() {
   return (
     <header className="sticky top-0 z-13 border-[0.04375rem] border-[#dee0e3]">
       <div className="absolute inset-0 -z-1 bg-white/80 backdrop-blur" aria-hidden="true" />
-      <div className="isolate mx-auto flex h-17.75 w-full max-w-7xl flex-row items-center justify-between gap-8 px-6 lg:px-10">
+      <div className="isolate mx-auto flex h-17.75 w-full max-w-7xl flex-row items-center justify-between gap-3 px-6 min-[641px]:gap-8 lg:px-10">
         <BrandMark /><MainNavigation /><HeaderActions />
       </div>
     </header>
