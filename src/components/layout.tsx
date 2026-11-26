@@ -9,11 +9,13 @@ import { useId } from "react";
 import { useDismiss } from "@/shared/hooks/use-dismiss.hook.ts";
 import { useCopyright } from "@/shared/hooks/use-copyright.hook.ts";
 import { useMobileMenu } from "@/shared/hooks/use-mobile-menu.hook.ts";
+import { useSocialLinks } from "@/shared/hooks/use-social-links.hook.ts";
 import { useNewsletter } from "@/shared/hooks/use-newsletter.hook.ts";
 import { Image } from "@/shared/ui/images.tsx";
 import { Logo } from "@/shared/ui/logos.tsx";
+import { SocialIcon } from "@/shared/ui/social-icons.tsx";
 import { Input } from "@/shared/ui/inputs.tsx";
-import type { FooterColumnProps, MegaAsideProps, MegaCardProps, MegaCardTextProps, MegaContentProps, MegaGridProps, MegaHeadProps, MegaPanelProps, MobileMenuButtonProps, MobileMenuLinkProps, MobileMenuLinksProps, MobileMenuPanelProps, NavDropdownProps, NavEntryProps, NavTriggerProps, NewsletterMessageProps, NewsletterSubmitProps } from "@/shared/types";
+import type { FooterColumnProps, MegaAsideProps, MegaCardProps, MegaCardTextProps, MegaContentProps, MegaGridProps, MegaHeadProps, MegaPanelProps, MobileMenuButtonProps, MobileMenuLinkProps, MobileMenuLinksProps, MobileMenuPanelProps, NavDropdownProps, NavEntryProps, NavTriggerProps, NewsletterMessageProps, NewsletterSubmitProps, SocialProfileLinkProps } from "@/shared/types";
 
 const NAV_ITEM = "inline-flex items-center gap-1 rounded-lg min-h-[2.75rem] py-[0.5rem] px-[0.75rem] text-[#2a2a30] transition-[color,background-color] duration-160 ease-[ease] hover:text-blue hover:bg-soft";
 const NEWS_FORM = "flex gap-1.5 border border-[var(--border-ui)] rounded-[13px] p-[4px]";
@@ -22,6 +24,7 @@ const NEWS_BUTTON = "flex items-center gap-1.5 bg-[var(--night)] text-paper bord
 const MEGA_PANEL = "fixed left-0 right-0 z-12 bg-white/80 backdrop-blur top-[4.4375rem] border-y border-y-[var(--border-ui)] shadow-[0_18px_40px_rgb(0_0_0/12%)] transition-[opacity,transform,visibility] duration-160 ease-[ease] motion-reduce:transition-none";
 const MEGA_CLOSED = "opacity-0 invisible [transform:translateY(-0.375rem)] pointer-events-none";
 const MEGA_OPEN = "opacity-100 visible [transform:translateY(0)] pointer-events-auto";
+const SOCIAL_LINK = "row-center justify-center size-11 rounded-lg hover:bg-soft hover:text-text";
 const MOBILE_BUTTON = "row-center justify-center size-11 rounded-lg cursor-pointer text-[#2a2a30] hover:bg-soft";
 const MOBILE_PANEL = "fixed inset-x-0 top-[4.4375rem] z-12 max-h-[calc(100dvh-4.4375rem)] overflow-y-auto border-y border-y-[var(--border-ui)] bg-white py-2 shadow-[0_18px_40px_rgb(0_0_0/12%)]";
 const MOBILE_LINK = "flex min-h-[3rem] items-center px-6 text-(length:--text-lg) font-medium text-[#2a2a30] hover:bg-soft hover:text-blue";
@@ -36,13 +39,29 @@ export function BrandMark() {
   );
 }
 
-function SocialIcons() {
+function MailLink() {
   const { quote } = useContent();
   return (
-    <div className="flex gap-3 text-muted">
-      <a href={CONTACT_MAILTO} aria-label={quote}>
-        <Mail size={18} strokeWidth={1.5} aria-hidden="true" />
-      </a>
+    <a className={SOCIAL_LINK} href={CONTACT_MAILTO} aria-label={quote}>
+      <Mail size={18} strokeWidth={1.5} aria-hidden="true" />
+    </a>
+  );
+}
+
+function SocialProfileLink({ link }: SocialProfileLinkProps) {
+  return (
+    <a className={SOCIAL_LINK} href={link.href} aria-label={link.label} target="_blank" rel="noopener noreferrer">
+      <SocialIcon network={link.network} className="size-5" />
+    </a>
+  );
+}
+
+function SocialIcons() {
+  const links = useSocialLinks();
+  return (
+    <div className="flex gap-1 text-muted">
+      <MailLink />
+      {links.map((link) => <SocialProfileLink key={link.network} link={link} />)}
     </div>
   );
 }

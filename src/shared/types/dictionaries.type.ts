@@ -1,5 +1,6 @@
 import type { DetailImage } from "./detail.type.ts";
 import type { PageHref } from "./site.type.ts";
+import type { SocialNetwork } from "./social.type.ts";
 export type MenuKey = "services" | "products";
 
 export type NavigationItem = {
@@ -165,6 +166,7 @@ export type Dictionary = {
     newsletterText: string;
     emailLabel: string;
     emailPlaceholder: string;
+    social: Record<SocialNetwork, string>;
     subscribe: string;
     copyright: string;
     links: readonly FooterLink[];

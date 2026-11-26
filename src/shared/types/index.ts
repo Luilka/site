@@ -10,5 +10,6 @@ export type * from "./routes.type.ts";
 export type * from "./section-props.type.ts";
 export type * from "./sections.type.ts";
 export type * from "./site.type.ts";
+export type * from "./social.type.ts";
 export type * from "./ui.type.ts";
 export type * from "./utils.type.ts";
