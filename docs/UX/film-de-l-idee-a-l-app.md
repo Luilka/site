@@ -1,53 +1,52 @@
 # Film « De l'idée à l'app » : chronologie en motion design
 
-**Statut** : version 1, 27 novembre 2026. Film produit en français et en anglais, à relire par le titulaire avant toute publication.
+**Statut** : version 2, 27 novembre 2026. Remplace la version 1, jugée trop proche du thème du site, sans photo humaine et trop « IA » par le titulaire. À relire et à écouter par le titulaire avant toute publication.
 **Propriétaire** : @Espoir-Loem
 **Documents liés** : [recherche vidéo](recherche-video-motion.md), [proposition de vidéo du héros](proposition-video-heros.md), [décisions](../Product/decisions.md) (D-022)
 
 ## Ce que c'est
 
-Un film de motion design de 32 secondes qui raconte, comme une chronologie de formes, de textes et d'écrans, le chemin de l'idée à l'app. Il présente l'agence et sa façon de travailler, pas un produit. Les textes sont ceux du site (les quatre étapes et la phrase d'accroche), sans chiffre ni promesse de résultat.
+Un film de motion design de 32 secondes qui raconte, comme une chronologie, le chemin de l'idée à l'app, avec des formes, du texte, des écrans d'exemple, une voix et du son. Il présente l'agence et sa façon de travailler, pas un produit. Les textes sont ceux du site, sans chiffre ni promesse de résultat.
+
+## Ce qui a changé depuis la version 1
+
+| Reproche | Réponse de la version 2 |
+|---|---|
+| Trop le thème du site (fond blanc, grille de points parfaite) | Identité propre : fond vert très sombre et chaud, grain de pellicule différent à chaque image, vignette, caméra qui respire de quelques pixels, polices à contraste fort, aplats de couleur pleine page |
+| Zéro photo humaine | Le vrai portrait GitHub d'Espoir LOEMBA, avec son nom et son rôle, en tirage collé au ruban. Deux emplacements (`scene-1.jpg`, `scene-2.jpg` dans `motion/idea-to-app/photos/`) attendent d'autres photos réelles |
+| Trop « IA » | Scènes de durées inégales (3,4 s à 8 s), mise en page différente par scène (texte à gauche ou à droite, aplats pleine page, grille de composants légèrement inclinés), annotations tracées à main levée, un seul vrai rebond (le point de départ), silences réels dans le son, un temps d'arrêt avant la signature |
+| Voix de synthèse robotique | Voix de Veyla (outil du titulaire, voix Piper « siwis », style « chaud », niveau YouTube) au lieu d'une voix générique ; la musique baisse sous la voix |
 
 ## Format
 
 - 1920 sur 1080, 24 images par seconde, 32 secondes, H.264 avec son.
-- Deux versions : `de-l-idee-a-l-app-fr.mp4` et `de-l-idee-a-l-app-en.mp4` (environ 2,3 Mo chacune).
-- Fichiers dans `motion/idea-to-app/out/` (non versionnés : ils se régénèrent depuis la source).
-- Source : `motion/idea-to-app/timeline.html` (langue choisie par `?lang=fr` ou `?lang=en`) et `motion/idea-to-app/sound.py`.
+- Fichier : `motion/idea-to-app/out/de-l-idee-a-l-app-fr.mp4` (environ 57 Mo : le grain pèse). La version anglaise (`-en.mp4`, sans voix) suit.
+- Source : `motion/idea-to-app/timeline.html` (langue par `?lang=fr` ou `?lang=en`, photos dans `photos/`) et `motion/idea-to-app/sound.py`. Les fichiers rendus ne sont pas versionnés.
 
 ## Chronologie
 
-Une caméra se déplace de station en station le long d'une chronologie fixe en bas de l'écran. Les points de repère de la chronologie s'allument à l'arrivée de chaque étape.
+Une caméra se déplace de station en station, avec une chronologie discrète en bas de l'écran.
 
 | Temps | Station | Ce qui se passe |
 |---|---|---|
-| 0,8 s | Idée | Un point apparaît, une onde s'étend, trois formes (cercle, carré, triangle) se mettent à tourner autour |
-| 6,0 s | Cadrage | Cinq personnes arrivent l'une après l'autre, des fils pointillés les relient au besoin, une bulle de parole apparaît |
-| 11,2 s | Direction visuelle | Quatre pastilles de couleur entrent de directions différentes, deux « Aa » (serif et sans serif) montent, une règle se trace |
-| 16,4 s | Design d'interface | Un téléphone se dessine, l'interface d'exemple se compose, un curseur trace un arc, survole puis clique ; une personne donne un retour validé |
-| 22,0 s | Livraison | Le téléphone se décompose en six composants posés dans une grille |
-| 26,6 s | App | Le téléphone revient animé, trois bascules s'activent, des ondes dorées s'étendent, la signature « Luilka » et « Nous contacter » apparaissent |
+| 0,6 s | Idée (3,4 s) | Un disque doré apparaît avec un rebond marqué, une onde, trois formes en orbite qui s'en vont ; titre à gauche |
+| 4,0 s | Cadrage (7,2 s) | Le tirage d'Espoir LOEMBA se pose, cinq personnes arrivent à des rythmes différents, fils pointillés tracés à la main vers le besoin, une bulle de parole |
+| 11,2 s | Direction visuelle (3,6 s) | Quatre aplats de couleur montent à des vitesses différentes, « Aa » en serif, sans serif et italique ; titre en bas |
+| 14,8 s | Design d'interface (8,0 s) | Un téléphone se dessine à gauche, trois annotations tracées à la main, un curseur trace un arc, hésite, appuie ; une personne approuve |
+| 22,8 s | Livraison (4,4 s) | Six composants arrivent en désordre, légèrement inclinés |
+| 27,2 s | App (4,8 s) | Le téléphone reste immobile un instant, des bascules s'activent, puis la signature « Luilka » et « Nous contacter » |
 
-## Travail du mouvement
+## Voix et son
 
-- Chaque élément a sa courbe, sa durée et son décalage : entrées en `easeOutExpo` pour les textes, dépassement `easeOutBack` pour les points et les pastilles, déplacements de caméra en `easeInOutCubic`.
-- Les titres montent derrière un masque mot à mot, le sous-titre suit après un battement.
-- Le curseur suit un arc de Bézier avec un freinage, une pause avant le clic, un léger retrait au moment de l'appui, une onde après.
-- Les formes de la première station sortent en accélérant pendant le déplacement de caméra.
-- La grille de points du fond défile à 55 % de la vitesse de la caméra pour donner de la profondeur.
-- Interface d'exemple : c'est un écran d'exemple, étiqueté « Interface d'exemple » ou « Example interface ». Ce n'est le travail d'aucun client.
-
-## Son
-
-Synthétisé par code, un événement par geste, à partir de la même liste d'événements que l'image (la timeline exporte ses repères, donc le son ne peut pas dériver) : nappe grave, déplacements de caméra en souffle doux, bulles pour les personnes, petites cloches pour les pastilles, clics et glissements pour l'interface, une note montante au succès, un accord de cloches à la fin. Il commence et finit dans le silence.
-
-Il n'a été que mesuré (crête 0,70, niveau moyen environ moins 21 dB), pas écouté par un humain. Il se mixe à plat : c'est un son d'interface synthétique, pas du bruitage enregistré.
+- **Voix** : générée par Veyla (`veyla say`, style `chaud`, niveau `youtube`, 48 kHz 24 bits), six courtes phrases tirées des textes du site, calées sur chaque station. La dernière dit « Du design à l'application. Luilka. ».
+- **Vérification** : relue par le Vosk de Veyla, elle est compréhensible. Une relecture automatique ne remplace pas l'écoute humaine : à écouter par le titulaire. « Luilka » n'a pas pu être confirmé ; sa prononciation est à valider.
+- **Bande-son** : une vingtaine de repères seulement, avec de vrais silences, une nappe grave, un bruit de pièce continu pour ne jamais tomber au silence numérique, des barres frappées légèrement désaccordées plutôt que des sinus purs. Les repères viennent de la timeline, donc le son ne dérive pas de l'image. La musique est abaissée de 60 pour cent sous la voix.
+- **Anglais** : pas de voix (Veyla n'a que la voix française installée). Une voix anglaise demanderait un modèle anglais ou un clonage de la voix du titulaire avec son consentement, selon le régime de Veyla.
 
 ## Limites et suite
 
-- Je ne peux pas garantir qu'un œil expert ne reconnaîtra pas un film fait par code. Une passe finale par un monteur ou un motion designer humain (rythme, mixage, étalonnage) est recommandée avant diffusion publique.
-- Le film montre la méthode, pas les réalisations de clients. Il peut s'enrichir de vos écrans réels avec l'accord des clients.
-- Aucune voix, aucune musique d'auteur, aucun visage réel.
-- Aucun test auprès de visiteurs.
-- La publication sur YouTube est une action du titulaire.
-- Une version courte pour le héros de l'accueil pourra en être tirée.
+- Le film reste fait par code : je ne garantis pas qu'un œil expert ne le reconnaîtra pas. Une passe finale par un monteur humain (rythme, mixage, étalonnage) est recommandée avant diffusion publique.
+- Une seule photo humaine réelle. Pour plus d'humain, envoyer 2 ou 3 photos du titulaire au travail ou de son espace (avec leur accord), qui prendront les emplacements prévus.
+- Le film montre la méthode, pas les réalisations de clients. L'écran est un exemple, étiqueté « Interface d'exemple ».
+- Le fichier est lourd à cause du grain : une version pour le site serait recompressée.
+- Aucun test auprès de visiteurs. La publication sur YouTube est une action du titulaire.
