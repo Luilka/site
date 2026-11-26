@@ -83,6 +83,31 @@ Les sources sont des sociétés de production et des médias : leurs conseils so
 
 **Son.** Son direct des lieux et des voix (micro-cravate), ambiances réelles, une musique rare et phrasée qui entre tard, un silence avant la phrase importante. Le film reste compréhensible sans son grâce aux sous-titres.
 
+## Variante recommandée si vous tournez seul : « la voix d'abord »
+
+Le dossier de tournage suppose une équipe (une personne devant la caméra, une autre pour filmer et écouter). Si vous êtes seul, une autre construction garde ce qui compte (votre vraie voix, de vraies images, aucun faux) sans demander un tournage à deux.
+
+| Choix | Ce que c'est | Effort pour vous | Risque |
+|---|---|---|---|
+| A. Entretien à deux | Le plan du dossier de tournage : vous face caméra, quelqu'un d'autre filme | Élevé : une autre personne, un lieu, une journée | Dépend d'un tiers ; un entretien seul face à une caméra fixe paraît raide |
+| **B. La voix d'abord** | Vous enregistrez **seulement votre voix**, en français puis en anglais, en racontant. Vous filmez seul, au téléphone, des images de coupe : vos mains qui esquissent, un écran, la rue, la lumière. Je monte le tout et je construis les titres animés et le son | **Faible** : un micro ou le téléphone, 30 à 40 minutes de voix, une demi-journée d'images de coupe | Moins de présence à l'image : la voix et les gestes portent le film |
+| C. Film typographique seul | Ce qui existe dans le héros : titres et mouvement, sans personne | Nul | Le moins humain des trois : à garder pour la boucle du héros, pas pour le film de l'agence |
+
+**Pourquoi B est meilleur dans votre situation**
+1. **La voix est ce qui rend un film humain.** Une voix réelle, avec ses respirations et ses hésitations, est ce qu'un spectateur ne confond pas avec une synthèse. Une voix seule s'enregistre sans équipe.
+2. **Moins de dépendances.** Pas de tiers à trouver, pas d'accord de droit à l'image d'autres personnes à gérer au départ : seul le vôtre, que vous donnez vous-même.
+3. **Je peux faire la partie qui demande du savoir-faire de montage** : titres et mouvement de la marque, sous-titres français et anglais, ambiances, musique rare, mixage calé sur votre voix.
+4. **Évolutif.** Si vous trouvez plus tard des personnes à filmer, leurs séquences s'ajoutent au même montage.
+
+**Ce que vous faites (une demi-journée au total)**
+- Enregistrer votre voix (deux passages : français, puis anglais, avec vos propres mots) avec les cinq questions du dossier, que vous vous posez à voix haute ou qu'un proche vous lit hors caméra. Un lieu calme, un micro-cravate ou le micro du téléphone à 20 centimètres, un silence de 30 secondes à la fin pour l'ambiance.
+- Filmer seul, au téléphone sur appui, les plans de coupe 4, 7, 8, 10, 11, 13 et 14 de la liste (mains, esquisses, écran sans données réelles, lumière), plus quelques plans de rue sans visages reconnaissables.
+- Déposer les fichiers hors du dépôt et me dire où.
+
+**Ce que je fais** : tri des meilleures phrases (jamais modifiées dans leur sens), montage image et voix, titres animés dans la timeline de la marque, sous-titres des deux langues, ambiances et musique, mixage, deux versions (française et anglaise), puis la version courte du héros.
+
+**Limites** : une voix enregistrée seul sonne mieux avec un micro correct et un lieu sans écho ; sans cela, le son sera le premier défaut visible. Je ne peux pas corriger un mauvais enregistrement au point de le rendre professionnel. Aucun test d'audience n'a été fait.
+
 ## Ce que je peux faire et ce que je ne peux pas
 
 | Je peux | Je ne peux pas |
