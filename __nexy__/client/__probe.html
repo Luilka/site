@@ -1,0 +1,14 @@
+<!doctype html><meta charset="utf-8"><body style="margin:0"><pre id="out" style="position:absolute;left:-9999px">x</pre><script>
+const q=new URLSearchParams(location.search);const w=+q.get("w")||390,h=+q.get("h")||800,r=q.get("r")||"/fr";
+const wait=ms=>new Promise(o=>setTimeout(o,ms));
+(async()=>{const f=document.createElement("iframe");f.style.cssText=`width:${w}px;height:${h}px;border:0;display:block`;f.src=r;document.body.appendChild(f);
+await new Promise(o=>f.onload=o);await wait(1500);const d=f.contentDocument,v=f.contentWindow;
+if(q.get("bottom")){v.scrollTo(0,d.documentElement.scrollHeight);await wait(300)}
+const click=q.get("click");let vt=null;let vtlog=null;if(q.get("anims")&&d.startViewTransition){const orig=d.startViewTransition.bind(d);v.__vt={calls:0,ready:0,done:0,err:""};d.startViewTransition=(cb)=>{v.__vt.calls++;const t=orig(cb);t.ready.then(()=>{v.__vt.ready++}).catch(e=>{v.__vt.err=String(e)});t.finished.then(()=>{v.__vt.done++}).catch(()=>{});return t}}
+if(click){const el=d.querySelector(click);if(el)el.click();if(q.get("anims")){vt=[];for(const ms of [80,150,250]){await wait(ms===80?80:ms===150?70:100);vt.push(ms+"ms: "+[...new Set(d.getAnimations({subtree:true}).map(a=>String(a.effect&&a.effect.pseudoElement)+":"+(a.animationName||a.constructor.name)))].slice(0,8).join(" | "))}vt.push("path:"+v.location.pathname)}await wait(900);if(v.__vt)vtlog=v.__vt}
+const over=[];for(const el of d.querySelectorAll("body *")){const b=el.getBoundingClientRect();if(b.width>0&&b.right>v.innerWidth+0.5&&getComputedStyle(el).position!=="fixed"){over.push(`${el.tagName}.${(el.className&&el.className.baseVal===undefined?el.className:"").toString().slice(0,50)} right=${Math.round(b.right)}`)}}
+const hdr=[...d.querySelectorAll("header a, header button")].map(e=>{const b=e.getBoundingClientRect();return `${(e.getAttribute("aria-label")||e.textContent||"").trim().slice(0,18)} ${Math.round(b.left)}-${Math.round(b.right)} w${Math.round(b.width)} h${Math.round(b.height)}`});
+const tr=d.querySelector(".animate-marquee");let anim=null;if(tr){const a1=v.getComputedStyle(tr).transform;await wait(2000);const a2=v.getComputedStyle(tr).transform;anim={name:v.getComputedStyle(tr).animationName,t1:a1,t2:a2,w:Math.round(tr.getBoundingClientRect().width),lists:[...tr.children].map(c=>Math.round(c.getBoundingClientRect().width))}}
+let hmax=0;for(const e of d.querySelectorAll("header a, header button")){const b=e.getBoundingClientRect();if(b.width>0)hmax=Math.max(hmax,Math.round(b.right))}
+document.getElementById("out").textContent="M"+JSON.stringify({vt,vtlog,anim,iw:v.innerWidth,sw:d.documentElement.scrollWidth,hmax,over:over.filter(o=>!o.includes("bg-gray-200")).slice(0,8),hdr})+"E"})();
+</script>

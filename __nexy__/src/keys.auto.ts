@@ -22,6 +22,7 @@ export const __NEXY_KEYS: Record<string,string> = {
   "19cb6bc65bd219c006a4099d99462db5": "/src/routes/[lang]/services/index.tsx",
   "008986f025b7e193ef83f51b5cbb26f8": "/src/routes/[lang]/services/[slug].tsx",
   "5cd56a474c58a20cecb7a052bb28ce62": "/src/shared/ui/containers.tsx",
+  "05fc2c1f77c25d4d0fec695cb937f728": "/src/shared/ui/logos.tsx",
   "5be9debe52ac07027cd7a16b44cae684": "/src/shared/ui/badges.tsx",
   "956e12aa8ff9ca18977336179fa905a1": "/src/shared/ui/icon-tiles.tsx",
   "5aafa177e07d1857ef889bb875026c2d": "/src/shared/ui/images.tsx",
