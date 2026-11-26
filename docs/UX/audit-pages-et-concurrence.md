@@ -198,6 +198,7 @@ Mise à jour du 26 novembre 2026, à la demande du titulaire. Chaque ligne renvo
 | P1 | Réalisations sans images | Couvertures abstraites en attendant les vraies images. `tests/test_content_images.py` |
 | P1 | Contrastes | Fait pour les deux textes concernés. `tests/client/design-consistency.test.tsx` |
 | P2 | Couleur signature | À décider. Voir les décisions à prendre. |
+| Demande | Page À propos | Refaite d'après la maquette du titulaire, D-015. Voir [page-a-propos.md](page-a-propos.md). `tests/client/about-page.test.tsx` |
 | P2 | Un texte propre par section | Fait sur les pages intérieures, qui n'ont plus le paragraphe générique. |
 | P2 | Pages de service avec déroulé et projet associé | À faire. |
 | P3 | Bandeau de processus | Gardé, comme le design de l'accueil. Il défile en boucle et porte un motif de lignes obliques, D-014. |
