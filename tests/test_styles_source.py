@@ -123,3 +123,11 @@ def test_cards_and_detail_pages_share_the_cover_transition_name() -> None:
     assert "viewTransitionName" in cards
     assert "viewTransitionName: cover.name" in sections
     assert "coverName(kind, raw.slug)" in detail
+
+
+def test_focus_ring_stays_visible_on_black_and_white_sections() -> None:
+    css = (ROOT / "src" / "globale.css").read_text(encoding="utf-8")
+    focus = css[css.index(":focus-visible"):]
+    focus = focus[: focus.index("}")]
+    assert "var(--text)" in focus
+    assert "box-shadow: 0 0 0 5px var(--paper)" in focus
