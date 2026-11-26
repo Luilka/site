@@ -83,3 +83,40 @@ def test_marquee_animation_is_defined_once_in_the_theme() -> None:
     css = (SRC / "globale.css").read_text(encoding="utf-8")
     assert "--animate-marquee:" in css
     assert css.count("@keyframes marquee") == 1
+
+
+def test_old_page_leaves_quickly_and_the_new_one_rises_into_view() -> None:
+    css = (SRC / "globale.css").read_text(encoding="utf-8")
+    assert "::view-transition-old(root)" in css
+    assert "@keyframes page-out" in css
+    assert "::view-transition-new(root)" in css
+    assert "@keyframes page-in" in css
+
+
+def test_shared_covers_keep_their_proportions_while_they_move() -> None:
+    css = (SRC / "globale.css").read_text(encoding="utf-8")
+    assert "::view-transition-old(*)" in css
+    assert "object-cover" in css
+
+
+def test_page_transitions_stop_when_the_visitor_prefers_less_motion() -> None:
+    css = (SRC / "globale.css").read_text(encoding="utf-8")
+    reduced = css[css.index("prefers-reduced-motion: reduce") :]
+    assert "::view-transition-group(*)" in reduced
+    assert "animation: none" in reduced
+
+
+def test_header_keeps_its_place_during_page_transitions() -> None:
+    header = (SRC / "components" / "layout.tsx").read_text(encoding="utf-8")
+    assert "[view-transition-name:site-header]" in header
+
+
+def test_cards_and_detail_pages_share_the_cover_transition_name() -> None:
+    cards = (SRC / "components" / "cards.tsx").read_text(encoding="utf-8")
+    sections = (SRC / "components" / "sections.tsx").read_text(encoding="utf-8")
+    detail = (SRC / "content" / "detail-models.content.ts").read_text(encoding="utf-8")
+    assert cards.count("coverName(") == 2
+    assert "viewTransitionName" in cards
+    assert "viewTransitionName: cover.name" in sections
+    assert "coverName(kind, raw.slug)" in detail
+
