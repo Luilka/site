@@ -91,7 +91,7 @@ def test_header_groups_logo_and_navigation_together() -> None:
     assert "justify-between" in header
     assert "gap-8" in header
     assert "ml-0" in css_rule(css, ".nav-links")
-    assert "ml-auto" in css_rule(css, ".nav-right")
+    assert "gap-[36px] ml-auto" in header
 
 
 def test_header_is_sticky_and_uses_utility_classes() -> None:
@@ -99,4 +99,4 @@ def test_header_is_sticky_and_uses_utility_classes() -> None:
     assert "sticky top-0" in header
     assert "z-13" in header
     assert "max-w-7xl" in header
-    assert 'className="header-surface bg-white/80 backdrop-blur"' in header
+    assert 'className="absolute inset-0 -z-1 bg-white/80 backdrop-blur"' in header

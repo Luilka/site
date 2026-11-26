@@ -27,14 +27,14 @@ function ContactCard() {
     <div className="cta">
       <h2>{contact.title}</h2>
       <p>{contact.description}</p>
-      <QuoteLink variant="dark" className="btn-cta" />
+      <QuoteLink variant="dark" className="py-[0.75rem] px-[1.125rem] text-(length:--text-sm)" />
     </div>
   );
 }
 
 export function ContactPanel({ id = "contact" }: ContactPanelProps) {
   return (
-    <section className="cta-wrap" id={id}>
+    <section className="bg-soft py-[90px] px-0 mt-[20px]" id={id}>
       <Container>
         <ContactCard />
       </Container>
@@ -72,7 +72,7 @@ export function NotFoundPanel() {
   const copy = useContent().states.notfound;
   return (
     <StatePanel>
-      <span className="state-code" aria-hidden="true">{copy.code}</span>
+      <span className="mb-4 block text-[length:clamp(4rem,_12vw,_7rem)] font-bold leading-[1] text-blue" aria-hidden="true">{copy.code}</span>
       <StateCopy title={copy.title} description={copy.description} />
       <Link className="btn btn-dark state-action" href="/">{copy.action}</Link>
     </StatePanel>
@@ -157,7 +157,7 @@ export function StateCopy({ title, description }: StateCopyProps) {
   return (
     <>
       <h1>{title}</h1>
-      <p className="state-text">{description}</p>
+      <p className="mx-auto mt-4 mb-8 max-w-[32rem] text-muted leading-[1.6]">{description}</p>
     </>
   );
 }

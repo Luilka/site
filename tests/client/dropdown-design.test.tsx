@@ -25,14 +25,14 @@ afterEach(() => {
 describe("header mega menu design", () => {
   it("shows a labelled panel with one image card per service", () => {
     const { panel } = openServices();
-    expect(panel.querySelector(".mega-eyebrow")?.textContent).toBeTruthy();
-    expect(panel.querySelector(".mega-title")?.textContent).toBeTruthy();
+    expect(panel.querySelector("h2")?.previousElementSibling?.textContent).toBeTruthy();
+    expect(panel.querySelector("h2")?.textContent).toBeTruthy();
     const cards = panel.querySelectorAll(".mega-card");
     expect(cards).toHaveLength(4);
     for (const card of cards) {
       expect(card.querySelector("img")?.getAttribute("src")).toBeTruthy();
-      expect(card.querySelector(".mega-card-description")?.textContent?.trim()).toBeTruthy();
-      expect(card.querySelector(".mega-card-action")?.textContent?.trim()).toBeTruthy();
+      expect(card.querySelector("p")?.textContent?.trim()).toBeTruthy();
+      expect(card.querySelector("span:last-of-type")?.textContent?.trim()).toBeTruthy();
     }
   });
 

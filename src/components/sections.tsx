@@ -104,16 +104,16 @@ function HeadingText({ title, description }: HeadingTextProps) {
   return (
     <div>
       <h2 className="sec">{title}</h2>
-      {description ? <p className="sec-p">{description}</p> : null}
+      {description ? <p className="text-(length:--text-base) text-muted max-w-[520px] mt-[22px] leading-[1.6]">{description}</p> : null}
     </div>
   );
 }
 
 function SectionHeading({ title, description, action }: SectionHeadingProps) {
   return (
-    <div className="sec-head">
+    <div className="flex items-start justify-between">
       <HeadingText title={title} description={description} />
-      {action ? <ActionLink action={action} className="section-action" /> : null}
+      {action ? <ActionLink action={action} className="mt-0" /> : null}
     </div>
   );
 }

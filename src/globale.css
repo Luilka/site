@@ -110,10 +110,6 @@ textarea {
     @apply isolate;
   }
 
-  .nav-item {
-    @apply relative flex items-center;
-  }
-
   .nav-trigger,
   .nav-links > a {
     @apply inline-flex items-center gap-1 rounded-lg min-h-[2.75rem] py-[0.5rem] px-[0.75rem];
@@ -151,32 +147,6 @@ textarea {
       pointer-events: auto;
     }
 
-    .mega-inner {
-      @apply flex items-stretch gap-8 pt-[1.5rem];
-      padding-bottom: 1.75rem;
-    }
-
-    .mega-content {
-      @apply min-w-0 flex-1;
-    }
-
-    .mega-head {
-      @apply mb-5;
-    }
-
-    .mega-eyebrow {
-      @apply block uppercase text-(length:--text-xs) font-semibold tracking-[0.08em] text-blue;
-    }
-
-    .mega-title {
-      margin: 0.25rem 0 0;
-      @apply text-(length:--text-xl) font-semibold leading-[1.2];
-    }
-
-    .mega-grid {
-      @apply grid grid-cols-[repeat(auto-fit,_minmax(13rem,_1fr))] gap-[1rem];
-    }
-
     .mega-card {
       @apply flex flex-col text-text no-underline;
 
@@ -194,21 +164,9 @@ textarea {
       }
     }
 
-    .mega-card-eyebrow {
-      @apply uppercase text-(length:--text-xs) font-semibold tracking-[0.06em] text-muted;
-    }
-
     .mega-card-title {
       margin: 0.15rem 0 0.35rem;
       @apply text-(length:--text-base) font-semibold leading-[1.25];
-    }
-
-    .mega-card-description {
-      @apply m-0 text-(length:--text-xs) text-muted leading-[1.45];
-    }
-
-    .mega-card-action {
-      @apply mt-2 inline-flex items-center gap-1 text-(length:--text-xs) font-semibold text-blue;
     }
 
     .mega-aside {
@@ -265,14 +223,6 @@ textarea {
     }
   }
 
-  .btn-cta {
-    @apply py-[0.75rem] px-[1.125rem] text-(length:--text-sm);
-  }
-
-  .section-action {
-    @apply mt-0;
-  }
-
   .card {
     @apply min-w-0;
   }
@@ -286,14 +236,6 @@ textarea {
       @apply m-0 max-w-[34rem] text-(length:--text-3xl) leading-[1.15];
     }
 
-    .state-code {
-      @apply mb-4 block text-[length:clamp(4rem,_12vw,_7rem)] font-bold leading-[1] text-blue;
-    }
-
-    .state-text {
-      @apply mx-auto mt-4 mb-8 max-w-[32rem] text-muted leading-[1.6];
-    }
-
     .state-progress {
       @apply block w-[3rem] h-[0.25rem] mb-[1.5rem] rounded-[999px];
       background: linear-gradient(90deg, var(--blue), var(--accent-purple));
@@ -301,9 +243,6 @@ textarea {
     }
   }
 
-  .field {
-    font: inherit;
-  }
 }
 
 @keyframes state-pulse {
@@ -333,11 +272,6 @@ textarea {
   fill: currentColor;
 }
 
-.header-surface {
-  @apply absolute inset-0 bg-white/80 backdrop-blur;
-  z-index: -1;
-}
-
 .nav-links {
   @apply row-center;
   align-self: stretch;
@@ -346,10 +280,6 @@ textarea {
 
 .nav-links a {
   @apply text-[#2a2a30];
-}
-
-.nav-right {
-  @apply row-center gap-[36px] ml-auto;
 }
 
 .lang {
@@ -389,10 +319,6 @@ textarea {
   @apply py-[14px] px-[22px] text-[length:14px] font-medium;
 }
 
-.btn-gray {
-  @apply bg-gray text-text;
-}
-
 .btn-dark {
   @apply bg-[var(--night)] text-paper;
 }
@@ -403,12 +329,6 @@ textarea {
 
 .hero-grid {
   @apply grid items-center grid-cols-[1fr_540px] gap-[6px];
-}
-
-.badge {
-  @apply pill-shape;
-  border: 1px solid #d9d9e0;
-  @apply text-(length:--text-xs) py-[2px] px-[9px] text-[#444] mb-[34px];
 }
 
 .hero h1 {
@@ -514,14 +434,6 @@ h2.sec {
   @apply text-2xl font-semibold;
 }
 
-.sec-p {
-  @apply text-(length:--text-base) text-muted max-w-[520px] mt-[22px] leading-[1.6];
-}
-
-.sec-head {
-  @apply flex items-start justify-between;
-}
-
 .svc-grid {
   @apply grid grid-cols-4 mt-[80px];
 }
@@ -623,16 +535,6 @@ h2.sec {
   @apply text-(length:--text-xs) text-[#4d4d55] block;
 }
 
-.pill {
-  @apply pill-shape gap-1.5;
-  border: 1px solid #8f919b;
-  @apply text-(length:--text-xs) py-[4px] px-[10px] text-[#333];
-}
-
-.cta-wrap {
-  @apply bg-soft py-[90px] px-0 mt-[20px];
-}
-
 .cta {
   @apply bg-gray rounded-[22px] py-[70px] px-[60px] min-h-[300px];
 }
@@ -657,10 +559,6 @@ footer {
   @apply text-(length:--text-sm) text-muted;
   margin: 22px 0 24px;
   @apply max-w-[300px] leading-[1.55];
-}
-
-.soc {
-  @apply flex gap-3 text-muted;
 }
 
 .fcol h4,

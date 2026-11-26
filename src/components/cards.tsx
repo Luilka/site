@@ -102,7 +102,7 @@ function WorkInfo({ name, kind, caseLabel }: WorkInfoProps) {
   return (
     <div className="info">
       <WorkWho name={name} kind={kind} />
-      <span className="pill">{caseLabel}<ArrowUpRight size={8} strokeWidth={1.5} aria-hidden="true" /></span>
+      <span className="pill-shape gap-1.5 border border-[#8f919b] text-(length:--text-xs) py-[4px] px-[10px] text-[#333]">{caseLabel}<ArrowUpRight size={8} strokeWidth={1.5} aria-hidden="true" /></span>
     </div>
   );
 }

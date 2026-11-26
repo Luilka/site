@@ -25,7 +25,7 @@ export function BrandMark() {
 function SocialIcons() {
   const { quote } = useContent();
   return (
-    <div className="soc">
+    <div className="flex gap-3 text-muted">
       <a href={CONTACT_MAILTO} aria-label={quote}>
         <Mail size={18} strokeWidth={1.5} aria-hidden="true" />
       </a>
@@ -180,7 +180,7 @@ function LanguageToggle() {
 
 function HeaderActions() {
   return (
-    <div className="nav-right">
+    <div className="row-center gap-[36px] ml-auto">
       <LanguageToggle />
       <ContactLink />
     </div>
@@ -190,7 +190,7 @@ function HeaderActions() {
 export function Header() {
   return (
     <header className="sticky top-0 z-13 border-[0.04375rem] border-[#dee0e3]">
-      <div className="header-surface bg-white/80 backdrop-blur" aria-hidden="true" />
+      <div className="absolute inset-0 -z-1 bg-white/80 backdrop-blur" aria-hidden="true" />
       <div className="nav mx-auto flex h-17.75 w-full max-w-7xl flex-row items-center justify-between gap-8 px-6 lg:px-10">
         <BrandMark /><MainNavigation /><HeaderActions />
       </div>
@@ -222,10 +222,10 @@ export function IconSprite() {
 function MegaCardText({ item }: MegaCardTextProps) {
   return (
     <>
-      <span className="mega-card-eyebrow">{item.eyebrow}</span>
+      <span className="uppercase text-(length:--text-xs) font-semibold tracking-[0.06em] text-muted">{item.eyebrow}</span>
       <h3 className="mega-card-title">{item.label}</h3>
-      <p className="mega-card-description">{item.description}</p>
-      <span className="mega-card-action">{item.action}<ArrowUpRight size={12} strokeWidth={2} aria-hidden="true" /></span>
+      <p className="m-0 text-(length:--text-xs) text-muted leading-[1.45]">{item.description}</p>
+      <span className="mt-2 inline-flex items-center gap-1 text-(length:--text-xs) font-semibold text-blue">{item.action}<ArrowUpRight size={12} strokeWidth={2} aria-hidden="true" /></span>
     </>
   );
 }
@@ -241,7 +241,7 @@ function MegaCard({ item, onClose }: MegaCardProps) {
 
 export function MegaGrid({ items, onClose }: MegaGridProps) {
   return (
-    <div className="mega-grid">
+    <div className="grid grid-cols-[repeat(auto-fit,_minmax(13rem,_1fr))] gap-[1rem]">
       {items.map((item) => <MegaCard key={item.label} item={item} onClose={onClose} />)}
     </div>
   );
@@ -258,9 +258,9 @@ function NavTrigger({ item, id, open }: NavTriggerProps) {
 
 function MegaHead({ eyebrow, title }: MegaHeadProps) {
   return (
-    <div className="mega-head">
-      <span className="mega-eyebrow">{eyebrow}</span>
-      <h2 className="mega-title">{title}</h2>
+    <div className="mb-5">
+      <span className="block uppercase text-(length:--text-xs) font-semibold tracking-[0.08em] text-blue">{eyebrow}</span>
+      <h2 className="[margin:0.25rem_0_0] text-(length:--text-xl) font-semibold leading-[1.2]">{title}</h2>
     </div>
   );
 }
@@ -268,7 +268,7 @@ function MegaHead({ eyebrow, title }: MegaHeadProps) {
 function MegaContent({ menu, onClose }: MegaContentProps) {
   const dropdown = useContent().dropdowns[menu];
   return (
-    <div className="mega-content">
+    <div className="min-w-0 flex-1">
       <MegaHead eyebrow={dropdown.eyebrow} title={dropdown.title} />
       <MegaGrid items={dropdown.items} onClose={onClose} />
     </div>
@@ -288,7 +288,7 @@ function MegaAside({ menu, onClose }: MegaAsideProps) {
 function MegaPanel({ id, menu = "services", open, onClose }: MegaPanelProps) {
   return (
     <div id={id} className={`mega-panel${open ? " is-open" : ""}`}>
-      <div className="container mega-inner">
+      <div className="container flex items-stretch gap-8 pt-[1.5rem] [padding-bottom:1.75rem]">
         <MegaContent menu={menu} onClose={onClose} />
         <MegaAside menu={menu} onClose={onClose} />
       </div>
@@ -300,7 +300,7 @@ function NavDropdown({ item, open, onOpen, onClose }: NavDropdownProps) {
   const id = useId();
   const dismiss = useDismiss(onClose);
   return (
-    <div className="nav-item" onMouseEnter={onOpen} onFocus={onOpen} {...dismiss}>
+    <div className="relative flex items-center" onMouseEnter={onOpen} onFocus={onOpen} {...dismiss}>
       <NavTrigger item={item} id={id} open={open} />
       <MegaPanel id={id} menu={item.menu} open={open} onClose={onClose} />
     </div>

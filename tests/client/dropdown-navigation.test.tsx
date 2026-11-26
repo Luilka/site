@@ -36,7 +36,7 @@ describe("site header dropdown navigation", () => {
   it("keeps the blurred surface out of the panel's backdrop root", () => {
     const { container } = renderHeader();
     const header = container.querySelector("header");
-    const surface = header?.querySelector(".header-surface");
+    const surface = header?.querySelector("div[aria-hidden='true']");
     expect(header?.className).toContain("sticky top-0");
     expect(header?.className).not.toContain("backdrop-blur");
     expect(surface?.className).toContain("bg-white/80");

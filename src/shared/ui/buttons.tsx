@@ -2,7 +2,7 @@ import { cn } from "@/shared/utils/cn.util.ts";
 import type { ButtonProps, ButtonVariant } from "@/shared/types";
 
 const VARIANTS: Record<ButtonVariant, string> = {
-  primary: "btn btn-gray",
+  primary: "btn bg-gray text-text",
   outline: "btn-outline",
   dark: "btn btn-dark",
 };

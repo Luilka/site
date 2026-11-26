@@ -49,12 +49,8 @@ def test_mega_panel_spans_the_viewport() -> None:
 
 
 def test_header_surface_sits_behind_the_navigation() -> None:
-    css = (SRC / "globale.css").read_text(encoding="utf-8")
-    surface = re.search(r"(?ms)^\.header-surface \{(.*?)^\}", css)
-    assert surface is not None
-    assert "bg-white/80" in surface.group(1)
-    assert "backdrop-blur" in surface.group(1)
-    assert "z-index: -1;" in surface.group(1)
+    header = (SRC / "components" / "layout.tsx").read_text(encoding="utf-8")
+    assert "-z-1 bg-white/80 backdrop-blur" in header
 
 
 def test_mega_panel_matches_the_header_surface() -> None:
@@ -74,11 +70,8 @@ def test_service_grid_fits_four_cards() -> None:
 
 
 def test_mega_cards_use_a_responsive_grid() -> None:
-    css = (SRC / "globale.css").read_text(encoding="utf-8")
-    grid = re.search(r"(?ms)^    \.mega-grid \{(.*?)^    \}", css)
-    assert grid is not None
-    assert "repeat(auto-fit" in grid.group(1)
-    assert "minmax(13rem,_1fr)" in grid.group(1)
+    header = (SRC / "components" / "layout.tsx").read_text(encoding="utf-8")
+    assert "grid-cols-[repeat(auto-fit,_minmax(13rem,_1fr))]" in header
 
 
 def test_mega_image_fills_its_container_height() -> None:
