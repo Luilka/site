@@ -1,21 +1,16 @@
 import { ArrowUpRight, ChevronRight, CalendarDays } from "lucide-react";
-import type { SectionAction } from "@/shared/i18n";
-import { buttonClasses, type ButtonVariant } from "@/shared/ui/buttons.tsx";
+import { buttonClasses } from "@/shared/ui/buttons.tsx";
 import { AppLink, ErrorBoundary } from "@/shared/ui/links.tsx";
 import { Container } from "@/shared/ui/containers.tsx";
-import { useContent, type PageKey } from "@/shared/i18n";
-import type { ReactNode, HTMLAttributes } from "react";
+import { useContent } from "@/shared/i18n";
+import type { HTMLAttributes } from "react";
 import { useRetry } from "@/shared/hooks/use-retry.hook.ts";
 import Errors from "@/routes/errors.tsx";
 import { MotionBox } from "@/shared/ui/motion-boxes.tsx";
 import { Badge } from "@/shared/ui/badges.tsx";
 import { PROCESS_STAGES } from "@/shared/utils/process-stages.util.ts";
 import { CONTACT_MAILTO } from "@/shared/utils/contact-mailto.util.ts";
-
-type ActionLinkProps = {
-  action: SectionAction;
-  className?: string;
-};
+import type { ActionLinkProps, ContactPanelProps, FeedbackBoundaryProps, PageFrameProps, PageHeroProps, PageHeroTextProps, ProcessBandProps, ProcessStageProps, QuoteLinkProps, RevealProps, StateCopyProps } from "@/shared/types";
 
 export function ActionLink({ action, className }: ActionLinkProps) {
   return (
@@ -37,10 +32,6 @@ function ContactCard() {
   );
 }
 
-type ContactPanelProps = {
-  id?: string;
-};
-
 export function ContactPanel({ id = "contact" }: ContactPanelProps) {
   return (
     <section className="cta-wrap" id={id}>
@@ -50,10 +41,6 @@ export function ContactPanel({ id = "contact" }: ContactPanelProps) {
     </section>
   );
 }
-
-type FeedbackBoundaryProps = {
-  children: ReactNode;
-};
 
 export function FeedbackBoundary({ children }: FeedbackBoundaryProps) {
   const { attempt, retry } = useRetry();
@@ -92,11 +79,6 @@ export function NotFoundPanel() {
   );
 }
 
-type PageFrameProps = {
-  page: PageKey;
-  children: ReactNode;
-};
-
 export function PageFrame({ page, children }: PageFrameProps) {
   const intro = useContent().pages[page];
   return (
@@ -108,12 +90,6 @@ export function PageFrame({ page, children }: PageFrameProps) {
   );
 }
 
-type PageHeroTextProps = {
-  eyebrow: string;
-  title: string;
-  description: string;
-};
-
 function PageHeroText({ eyebrow, title, description }: PageHeroTextProps) {
   return (
     <>
@@ -124,12 +100,6 @@ function PageHeroText({ eyebrow, title, description }: PageHeroTextProps) {
   );
 }
 
-type PageHeroProps = {
-  eyebrow: string;
-  title: string;
-  description: string;
-};
-
 export function PageHero(props: PageHeroProps) {
   return (
     <section className="page-hero">
@@ -137,11 +107,6 @@ export function PageHero(props: PageHeroProps) {
     </section>
   );
 }
-
-type ProcessStageProps = {
-  label: string;
-  last: boolean;
-};
 
 function ProcessStage({ label, last }: ProcessStageProps) {
   return (
@@ -161,10 +126,6 @@ function ProcessStages() {
   );
 }
 
-type ProcessBandProps = {
-  reverse?: boolean;
-};
-
 export function ProcessBand({ reverse = false }: ProcessBandProps) {
   return (
     <div className="relative" aria-hidden="true">
@@ -173,11 +134,6 @@ export function ProcessBand({ reverse = false }: ProcessBandProps) {
     </div>
   );
 }
-
-type QuoteLinkProps = {
-  variant?: ButtonVariant;
-  className?: string;
-};
 
 export function QuoteLink({ variant = "primary", className }: QuoteLinkProps) {
   const { quote } = useContent();
@@ -189,11 +145,6 @@ export function QuoteLink({ variant = "primary", className }: QuoteLinkProps) {
   );
 }
 
-type RevealProps = {
-  children: ReactNode;
-  className?: string;
-};
-
 export function Reveal({ children, className }: RevealProps) {
   return (
     <MotionBox className={className} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
@@ -201,11 +152,6 @@ export function Reveal({ children, className }: RevealProps) {
     </MotionBox>
   );
 }
-
-type StateCopyProps = {
-  title: string;
-  description: string;
-};
 
 export function StateCopy({ title, description }: StateCopyProps) {
   return (

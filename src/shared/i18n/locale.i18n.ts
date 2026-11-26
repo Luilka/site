@@ -1,6 +1,6 @@
+import type { Language, PageHref } from "@/shared/types";
 import { usePathname, type Href } from "@nexy/client";
 
-import type { Language, PageHref } from "./dictionaries.i18n.ts";
 
 export function isSupportedLanguage(value: string | undefined): value is Language {
   return value === "fr" || value === "en";

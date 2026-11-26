@@ -1,4 +1,4 @@
-import type { SectionAction } from "@/shared/i18n";
+import type { SectionAction } from "./dictionaries.type.ts";
 
 export type SectionProps = {
   id?: string;

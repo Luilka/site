@@ -1,15 +1,14 @@
-import type { SectionAction, InfoCard as InfoCardData } from "@/shared/i18n";
 import { Container } from "@/shared/ui/containers.tsx";
 import { ActionLink, ContactPanel, PageHero, NotFoundPanel } from "@/components/patterns.tsx";
 import type { SectionProps } from "@/shared/types/section-props.type.ts";
 import { infoHref } from "@/shared/utils/info-href.util.ts";
-import type { DetailKind, DetailModel, DetailRouteProps } from "@/shared/types";
-import { AppLink, type Href } from "@/shared/ui/links.tsx";
+import type { AboutSectionProps, AboutTextProps, CardGridProps, CollectionSectionProps, DetailBackLinkProps, DetailBodyProps, DetailCardProps, DetailPageProps, DetailRouteViewProps, HeadingTextProps, InfoCard, InfoCardBodyProps, InfoCardProps, InfoSectionProps, ProcessSectionProps, SectionHeadingProps } from "@/shared/types";
+import { AppLink } from "@/shared/ui/links.tsx";
 import { Card } from "@/shared/ui/cards.tsx";
 import { Badge } from "@/shared/ui/badges.tsx";
 import { StepCard, ProductCard, ServiceCard, WorkCard } from "@/components/cards.tsx";
 import { useContent } from "@/shared/i18n";
-import { Fragment, type ReactNode } from "react";
+import { Fragment } from "react";
 import { ArrowLeft } from "lucide-react";
 import { useDetail } from "@/shared/hooks/use-detail.hook.ts";
 
@@ -23,12 +22,6 @@ function AboutArt() {
   );
 }
 
-type AboutTextProps = {
-  title: string;
-  paragraphs: readonly string[];
-  action?: SectionAction;
-};
-
 function AboutText({ title, paragraphs, action }: AboutTextProps) {
   return (
     <div className="about-txt">
@@ -38,13 +31,6 @@ function AboutText({ title, paragraphs, action }: AboutTextProps) {
     </div>
   );
 }
-
-type AboutSectionProps = {
-  id?: string;
-  title: string;
-  paragraphs: readonly string[];
-  action?: SectionAction;
-};
 
 export function AboutSection({ id, ...text }: AboutSectionProps) {
   return (
@@ -57,12 +43,6 @@ export function AboutSection({ id, ...text }: AboutSectionProps) {
   );
 }
 
-type InfoCardBodyProps = {
-  title: string;
-  meta: string;
-  description: string;
-};
-
 function InfoCardBody({ title, meta, description }: InfoCardBodyProps) {
   return (
     <>
@@ -73,22 +53,10 @@ function InfoCardBody({ title, meta, description }: InfoCardBodyProps) {
   );
 }
 
-type InfoCardProps = {
-  title: string;
-  meta: string;
-  description: string;
-  href?: Href;
-};
-
 function InfoCard({ href, ...copy }: InfoCardProps) {
   if (!href) return <Card className="info-card"><InfoCardBody {...copy} /></Card>;
   return <AppLink className="card info-card" href={href}><InfoCardBody {...copy} /></AppLink>;
 }
-
-type InfoSectionProps = SectionProps & {
-  items: readonly InfoCardData[];
-  detail?: DetailKind;
-};
 
 export function InfoSection({ items, detail, ...section }: InfoSectionProps) {
   return (
@@ -96,10 +64,6 @@ export function InfoSection({ items, detail, ...section }: InfoSectionProps) {
       getKey={(item) => item.title} render={(item) => <InfoCard {...item} href={infoHref(detail, item)} />} />
   );
 }
-
-type ProcessSectionProps = {
-  id?: string;
-};
 
 export function ProcessSection({ id }: ProcessSectionProps) {
   const { steps } = useContent();
@@ -136,11 +100,6 @@ export function WorksSection(props: SectionProps) {
   );
 }
 
-type HeadingTextProps = {
-  title: string;
-  description?: string;
-};
-
 function HeadingText({ title, description }: HeadingTextProps) {
   return (
     <div>
@@ -149,12 +108,6 @@ function HeadingText({ title, description }: HeadingTextProps) {
     </div>
   );
 }
-
-type SectionHeadingProps = {
-  title: string;
-  description?: string;
-  action?: SectionAction;
-};
 
 function SectionHeading({ title, description, action }: SectionHeadingProps) {
   return (
@@ -165,13 +118,6 @@ function SectionHeading({ title, description, action }: SectionHeadingProps) {
   );
 }
 
-type CardGridProps<T> = {
-  className: string;
-  items: readonly T[];
-  getKey: (item: T) => string;
-  render: (item: T) => ReactNode;
-};
-
 function CardGrid<T>({ className, items, getKey, render }: CardGridProps<T>) {
   return (
     <div className={className}>
@@ -179,14 +125,6 @@ function CardGrid<T>({ className, items, getKey, render }: CardGridProps<T>) {
     </div>
   );
 }
-
-type CollectionSectionProps<T> = SectionProps & {
-  className: string;
-  gridClassName: string;
-  items: readonly T[];
-  getKey: (item: T) => string;
-  render: (item: T) => ReactNode;
-};
 
 export function CollectionSection<T>({ id, className, gridClassName, items, getKey, render, ...heading }: CollectionSectionProps<T>) {
   return (
@@ -199,10 +137,6 @@ export function CollectionSection<T>({ id, className, gridClassName, items, getK
   );
 }
 
-type DetailBackLinkProps = {
-  detail: DetailModel;
-};
-
 function DetailBackLink({ detail }: DetailBackLinkProps) {
   return (
     <AppLink className="btn-outline" href={detail.backHref}>
@@ -210,11 +144,6 @@ function DetailBackLink({ detail }: DetailBackLinkProps) {
     </AppLink>
   );
 }
-
-type DetailCardProps = {
-  title: string;
-  body: string;
-};
 
 function DetailCard({ title, body }: DetailCardProps) {
   return (
@@ -227,10 +156,6 @@ function DetailCard({ title, body }: DetailCardProps) {
   );
 }
 
-type DetailBodyProps = {
-  detail: DetailModel;
-};
-
 function DetailBody({ detail }: DetailBodyProps) {
   return (
     <section className="services">
@@ -242,10 +167,6 @@ function DetailBody({ detail }: DetailBodyProps) {
   );
 }
 
-type DetailPageProps = {
-  detail: DetailModel;
-};
-
 export function DetailPage({ detail }: DetailPageProps) {
   return (
     <>
@@ -255,10 +176,6 @@ export function DetailPage({ detail }: DetailPageProps) {
     </>
   );
 }
-
-type DetailRouteViewProps = DetailRouteProps & {
-  kind: DetailKind;
-};
 
 export function DetailRoute({ kind, lang, slug }: DetailRouteViewProps) {
   const detail = useDetail(kind, lang, slug);

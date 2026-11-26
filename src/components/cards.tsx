@@ -3,6 +3,7 @@ import { detailHref } from "@/shared/utils/detail-href.util.ts";
 import { AppLink } from "@/shared/ui/links.tsx";
 import { IconTile } from "@/shared/ui/icon-tiles.tsx";
 import { Card } from "@/shared/ui/cards.tsx";
+import type { CardIconProps, CardWatermarkProps, ProductCardProps, ProductHeaderProps, ProductTitleProps, ServiceCardProps, StepCardProps, StepTextProps, WorkCardProps, WorkInfoProps, WorkWhoProps } from "@/shared/types";
 
 const ICONS: Record<string, LucideIcon> = {
   "UX Design": PenTool,
@@ -18,20 +19,10 @@ const ICONS: Record<string, LucideIcon> = {
   "Privatis Capital Invest": Layers3,
 };
 
-type CardIconProps = {
-  name: string;
-  size?: number;
-  strokeWidth?: number;
-};
-
 export function CardIcon({ name, size = 22, strokeWidth = 2 }: CardIconProps) {
   const Icon = ICONS[name] ?? ImageIcon;
   return <Icon size={size} strokeWidth={strokeWidth} aria-hidden="true" />;
 }
-
-type CardWatermarkProps = {
-  name: string;
-};
 
 export function CardWatermark({ name }: CardWatermarkProps) {
   return (
@@ -40,10 +31,6 @@ export function CardWatermark({ name }: CardWatermarkProps) {
     </div>
   );
 }
-
-type ProductTitleProps = {
-  name: string;
-};
 
 function ProductTitle({ name }: ProductTitleProps) {
   return (
@@ -54,10 +41,6 @@ function ProductTitle({ name }: ProductTitleProps) {
   );
 }
 
-type ProductHeaderProps = {
-  name: string;
-};
-
 function ProductHeader({ name }: ProductHeaderProps) {
   return (
     <div className="top">
@@ -66,12 +49,6 @@ function ProductHeader({ name }: ProductHeaderProps) {
     </div>
   );
 }
-
-type ProductCardProps = {
-  slug: string;
-  name: string;
-  description: string;
-};
 
 export function ProductCard({ slug, name, description }: ProductCardProps) {
   return (
@@ -84,13 +61,6 @@ export function ProductCard({ slug, name, description }: ProductCardProps) {
   );
 }
 
-type ServiceCardProps = {
-  slug: string;
-  title: string;
-  description: string;
-  shape?: string;
-};
-
 export function ServiceCard({ slug, title, description, shape }: ServiceCardProps) {
   return (
     <AppLink className="card svc" href={detailHref("services", slug)}>
@@ -101,11 +71,6 @@ export function ServiceCard({ slug, title, description, shape }: ServiceCardProp
   );
 }
 
-type StepTextProps = {
-  title: string;
-  description: string;
-};
-
 function StepText({ title, description }: StepTextProps) {
   return (
     <div className="t p-8">
@@ -114,12 +79,6 @@ function StepText({ title, description }: StepTextProps) {
     </div>
   );
 }
-
-type StepCardProps = {
-  number: string;
-  title: string;
-  description: string;
-};
 
 export function StepCard({ number, title, description }: StepCardProps) {
   return (
@@ -130,11 +89,6 @@ export function StepCard({ number, title, description }: StepCardProps) {
   );
 }
 
-type WorkWhoProps = {
-  name: string;
-  kind: string;
-};
-
 function WorkWho({ name, kind }: WorkWhoProps) {
   return (
     <div className="who">
@@ -144,12 +98,6 @@ function WorkWho({ name, kind }: WorkWhoProps) {
   );
 }
 
-type WorkInfoProps = {
-  name: string;
-  kind: string;
-  caseLabel: string;
-};
-
 function WorkInfo({ name, kind, caseLabel }: WorkInfoProps) {
   return (
     <div className="info">
@@ -158,13 +106,6 @@ function WorkInfo({ name, kind, caseLabel }: WorkInfoProps) {
     </div>
   );
 }
-
-type WorkCardProps = {
-  slug: string;
-  name: string;
-  kind?: string;
-  caseLabel?: string;
-};
 
 export function WorkCard({ slug, name, kind = "Particulier", caseLabel = "Cas d'étude" }: WorkCardProps) {
   return (

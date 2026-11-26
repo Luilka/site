@@ -1,9 +1,5 @@
-import type { Language } from "./dictionaries.i18n.ts";
 import { useUrlLanguage } from "./locale.i18n.ts";
-
-type LanguageValue = {
-  language: Language;
-};
+import type { LanguageValue } from "@/shared/types";
 
 export function useLanguage(): LanguageValue {
   return { language: useUrlLanguage() };

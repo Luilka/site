@@ -1,4 +1,4 @@
-type ClassValue = string | false | null | undefined;
+import type { ClassValue } from "@/shared/types";
 
 export function cn(...values: ClassValue[]): string {
   return values.filter(Boolean).join(" ");

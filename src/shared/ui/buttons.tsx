@@ -1,7 +1,5 @@
-import type { ButtonHTMLAttributes } from "react";
 import { cn } from "@/shared/utils/cn.util.ts";
-
-export type ButtonVariant = "primary" | "outline" | "dark";
+import type { ButtonProps, ButtonVariant } from "@/shared/types";
 
 const VARIANTS: Record<ButtonVariant, string> = {
   primary: "btn btn-gray",
@@ -12,10 +10,6 @@ const VARIANTS: Record<ButtonVariant, string> = {
 export function buttonClasses(variant: ButtonVariant = "primary", className?: string) {
   return cn("cursor-pointer", VARIANTS[variant], className);
 }
-
-type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
-  variant?: ButtonVariant;
-};
 
 export function Button({ variant = "primary", className, type = "button", ...props }: ButtonProps) {
   return <button type={type} className={buttonClasses(variant, className)} {...props} />;

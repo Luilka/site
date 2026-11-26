@@ -1,14 +1,5 @@
 import { isValidEmail } from "./validate-email.util.ts";
-
-export type NewsletterState = {
-  message: string;
-  valid: boolean;
-};
-
-export type NewsletterCopy = {
-  invalid: string;
-  valid: string;
-};
+import type { NewsletterCopy, NewsletterState } from "@/shared/types";
 
 export const INITIAL_NEWSLETTER_STATE: NewsletterState = { message: "", valid: false };
 

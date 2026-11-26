@@ -1,3 +1,4 @@
+import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -98,5 +99,16 @@ def test_component_files_use_named_exports() -> None:
         str(path.relative_to(ROOT))
         for path in files
         if "export default" in path.read_text(encoding="utf-8")
+    ]
+    assert offenders == []
+
+
+def test_every_type_lives_in_shared_types() -> None:
+    offenders = [
+        str(path.relative_to(ROOT))
+        for path in SRC.rglob("*.ts*")
+        if "types" not in path.parts and not path.name.endswith(".d.ts")
+        if re.search(r"^(export )?(type|interface) \w+ ", path.read_text(encoding="utf-8"), re.M)
+        and "export type {" not in path.read_text(encoding="utf-8")
     ]
     assert offenders == []

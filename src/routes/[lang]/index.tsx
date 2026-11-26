@@ -2,6 +2,7 @@ import { NotFoundPanel, ProcessBand, ContactPanel, HeroAccent, QuoteLink } from 
 import { isSupportedLanguage, useContent } from "@/shared/i18n";
 import { ProductsSection, ServicesSection, WorksSection, ProcessSection, AboutSection } from "@/components/sections.tsx";
 import { Container } from "@/shared/ui/containers.tsx";
+import type { HomeProps } from "@/shared/types";
 
 function HomeAbout() {
   const { pages, about, discover } = useContent();
@@ -88,10 +89,6 @@ function HomeOffer() {
     </>
   );
 }
-
-type HomeProps = {
-  lang?: string;
-};
 
 export default function Home({ lang }: HomeProps) {
   if (lang !== undefined && !isSupportedLanguage(lang)) return <NotFoundPanel />;

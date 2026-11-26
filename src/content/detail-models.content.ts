@@ -1,22 +1,8 @@
-import { dictionaries, type Dictionary, type Language, type PageKey } from "@/shared/i18n/dictionaries.i18n.ts";
-import type { DetailKind, DetailModel, DetailSlugs, PageHref } from "@/shared/types";
+import { dictionaries } from "@/shared/i18n/dictionaries.i18n.ts";
+import type { DetailKind, DetailModel, DetailSlugs, DetailSpec, Dictionary, Language, RawDetail } from "@/shared/types";
 import slugSource from "./details.json";
 
 export const detailSlugs: DetailSlugs = slugSource;
-
-type RawDetail = {
-  slug: string;
-  title: string;
-  description: string;
-  body: string;
-  eyebrow?: string;
-};
-
-type DetailSpec = {
-  page: PageKey;
-  backHref: PageHref;
-  entries: (content: Dictionary) => readonly RawDetail[];
-};
 
 const SPECS: Record<DetailKind, DetailSpec> = {
   blog: {

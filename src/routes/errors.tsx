@@ -1,9 +1,6 @@
 import { StateCopy, StatePanel } from "@/components/patterns.tsx";
 import { useContent } from "@/shared/i18n";
-
-type ErrorsProps = {
-  reset?: () => void;
-};
+import type { ErrorsProps } from "@/shared/types";
 
 export default function Errors({ reset }: ErrorsProps) {
   const copy = useContent().states.error;

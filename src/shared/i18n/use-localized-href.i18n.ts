@@ -1,6 +1,6 @@
+import type { Language } from "@/shared/types";
 import type { Href } from "@nexy/client";
 
-import type { Language } from "./dictionaries.i18n.ts";
 import { localizedHref } from "./locale.i18n.ts";
 import { useLanguage } from "./use-language.i18n.ts";
 

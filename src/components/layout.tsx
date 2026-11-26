@@ -1,17 +1,15 @@
 import { AppLink } from "@/shared/ui/links.tsx";
-import { useContent, useLanguageSwitch, navigation, type MenuKey } from "@/shared/i18n";
+import { useContent, useLanguageSwitch, navigation } from "@/shared/i18n";
 import { Container } from "@/shared/ui/containers.tsx";
-import type { FooterLink, DropdownItem, NavigationItem } from "@/shared/i18n";
 import { Mail, ChevronDown, CalendarDays, ArrowUpRight, CircleAlert, CircleCheck } from "lucide-react";
 import { CONTACT_MAILTO } from "@/shared/utils/contact-mailto.util.ts";
 import { useOpenMenu } from "@/shared/hooks/use-open-menu.hook.ts";
-import type { OpenMenu } from "@/shared/hooks/use-open-menu.hook.ts";
 import { useId } from "react";
 import { useDismiss } from "@/shared/hooks/use-dismiss.hook.ts";
 import { useNewsletter } from "@/shared/hooks/use-newsletter.hook.ts";
 import { Input } from "@/shared/ui/inputs.tsx";
-import type { NewsletterState } from "@/shared/utils/newsletter-state.util.ts";
 import { Button } from "@/shared/ui/buttons.tsx";
+import type { FooterColumnProps, MegaAsideProps, MegaCardProps, MegaCardTextProps, MegaContentProps, MegaGridProps, MegaHeadProps, MegaPanelProps, NavDropdownProps, NavEntryProps, NavTriggerProps, NewsletterMessageProps, NewsletterSubmitProps } from "@/shared/types";
 
 export function BrandMark() {
   return (
@@ -73,11 +71,6 @@ function FooterNewsletter() {
     </div>
   );
 }
-
-type FooterColumnProps = {
-  title: string;
-  links: readonly FooterLink[];
-};
 
 function FooterColumn({ title, links }: FooterColumnProps) {
   return (
@@ -226,10 +219,6 @@ export function IconSprite() {
   );
 }
 
-type MegaCardTextProps = {
-  item: DropdownItem;
-};
-
 function MegaCardText({ item }: MegaCardTextProps) {
   return (
     <>
@@ -241,11 +230,6 @@ function MegaCardText({ item }: MegaCardTextProps) {
   );
 }
 
-type MegaCardProps = {
-  item: DropdownItem;
-  onClose: () => void;
-};
-
 function MegaCard({ item, onClose }: MegaCardProps) {
   return (
     <AppLink className="mega-card" href={item.href} onClick={onClose}>
@@ -255,11 +239,6 @@ function MegaCard({ item, onClose }: MegaCardProps) {
   );
 }
 
-type MegaGridProps = {
-  items: readonly DropdownItem[];
-  onClose: () => void;
-};
-
 export function MegaGrid({ items, onClose }: MegaGridProps) {
   return (
     <div className="mega-grid">
@@ -267,12 +246,6 @@ export function MegaGrid({ items, onClose }: MegaGridProps) {
     </div>
   );
 }
-
-type NavTriggerProps = {
-  item: NavigationItem;
-  id: string;
-  open: boolean;
-};
 
 function NavTrigger({ item, id, open }: NavTriggerProps) {
   return (
@@ -283,11 +256,6 @@ function NavTrigger({ item, id, open }: NavTriggerProps) {
   );
 }
 
-type MegaHeadProps = {
-  eyebrow: string;
-  title: string;
-};
-
 function MegaHead({ eyebrow, title }: MegaHeadProps) {
   return (
     <div className="mega-head">
@@ -296,11 +264,6 @@ function MegaHead({ eyebrow, title }: MegaHeadProps) {
     </div>
   );
 }
-
-type MegaContentProps = {
-  menu: MenuKey;
-  onClose: () => void;
-};
 
 function MegaContent({ menu, onClose }: MegaContentProps) {
   const dropdown = useContent().dropdowns[menu];
@@ -312,11 +275,6 @@ function MegaContent({ menu, onClose }: MegaContentProps) {
   );
 }
 
-type MegaAsideProps = {
-  menu: MenuKey;
-  onClose: () => void;
-};
-
 function MegaAside({ menu, onClose }: MegaAsideProps) {
   const dropdown = useContent().dropdowns[menu];
   return (
@@ -326,13 +284,6 @@ function MegaAside({ menu, onClose }: MegaAsideProps) {
     </aside>
   );
 }
-
-type MegaPanelProps = {
-  id: string;
-  menu?: MenuKey;
-  open: boolean;
-  onClose: () => void;
-};
 
 function MegaPanel({ id, menu = "services", open, onClose }: MegaPanelProps) {
   return (
@@ -345,13 +296,6 @@ function MegaPanel({ id, menu = "services", open, onClose }: MegaPanelProps) {
   );
 }
 
-type NavDropdownProps = {
-  item: NavigationItem;
-  open: boolean;
-  onOpen: () => void;
-  onClose: () => void;
-};
-
 function NavDropdown({ item, open, onOpen, onClose }: NavDropdownProps) {
   const id = useId();
   const dismiss = useDismiss(onClose);
@@ -363,20 +307,11 @@ function NavDropdown({ item, open, onOpen, onClose }: NavDropdownProps) {
   );
 }
 
-type NavEntryProps = {
-  item: NavigationItem;
-  menu: OpenMenu;
-};
-
 export function NavEntry({ item, menu }: NavEntryProps) {
   if (!item.menu) return <AppLink href={item.href} onMouseEnter={menu.close}>{item.label}</AppLink>;
   const key = item.menu;
   return <NavDropdown item={item} open={menu.current === key} onOpen={() => menu.open(key)} onClose={menu.close} />;
 }
-
-type NewsletterSubmitProps = {
-  pending: boolean;
-};
 
 function NewsletterSubmit({ pending }: NewsletterSubmitProps) {
   const { footer } = useContent();
@@ -387,10 +322,6 @@ function NewsletterSubmit({ pending }: NewsletterSubmitProps) {
     </Button>
   );
 }
-
-type NewsletterMessageProps = {
-  state: NewsletterState;
-};
 
 function NewsletterMessage({ state }: NewsletterMessageProps) {
   if (!state.message) return null;

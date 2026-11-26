@@ -56,9 +56,9 @@ def test_types_folder_holds_the_dynamic_models() -> None:
     assert (types / "index.ts").is_file()
     assert (types / "site.type.ts").is_file()
     assert (types / "detail.type.ts").is_file()
-    index = (types / "index.ts").read_text(encoding="utf-8")
-    assert "DetailModel" in index
-    assert "DetailRouteProps" in index
+    detail = (types / "detail.type.ts").read_text(encoding="utf-8")
+    assert "DetailModel" in detail
+    assert "DetailRouteProps" in detail
 
 
 def test_server_validation_uses_the_shared_slug_source() -> None:

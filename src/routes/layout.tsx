@@ -1,13 +1,9 @@
 import type { ReactNode } from "react";
 import { useUrlLanguage } from "@/shared/i18n";
 import { Footer, Header, IconSprite } from "@/components/layout.tsx";
+import type { DocumentProps, RootLayoutProps } from "@/shared/types";
 
 const INTER = "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap";
-
-type DocumentProps = {
-  language: string;
-  children: ReactNode;
-};
 
 function FontLinks() {
   return (
@@ -49,10 +45,6 @@ function Document({ language, children }: DocumentProps) {
     </html>
   );
 }
-
-type RootLayoutProps = {
-  children: ReactNode;
-};
 
 export default function RootLayout({ children }: RootLayoutProps) {
   return <Document language={useUrlLanguage()}>{children}</Document>;

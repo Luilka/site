@@ -1,13 +1,7 @@
 import { useState } from "react";
+import type { OpenMenu } from "@/shared/types";
 
 import { useDismiss } from "./use-dismiss.hook.ts";
-
-export type OpenMenu = {
-  current: string | null;
-  open: (menu: string) => void;
-  close: () => void;
-  onBlur: ReturnType<typeof useDismiss>["onBlur"];
-};
 
 /** Tracks which navigation menu is open, if any. */
 export function useOpenMenu(): OpenMenu {
