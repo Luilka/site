@@ -28,7 +28,7 @@ Le serveur Python valide la langue et le slug avec `notFound()` de Nexy, à part
 | `src/components/cards.tsx` | Les cartes qui représentent un élément | `ProductCard`, `WorkCard` |
 | `src/components/patterns.tsx` | Les blocs réutilisés par plusieurs pages | `PageFrame`, `ContactPanel` |
 | `src/components/layout.tsx` | Ce qui entoure toutes les pages | `Header`, `Footer`, `NavEntry` |
-| `src/server.py` | Le point d'entrée FastAPI `app`, pour les hébergeurs qui lancent une application FastAPI sans `nx start` (Vercel). Il réexporte `nexy.app.app` | `uvicorn src.server:app` |
+| `src/server.py` | Le point d'entrée FastAPI `app`, pour les hébergeurs qui lancent une application FastAPI sans `nx start` (Vercel). Il réexporte `nexy.app.app` et, si le dossier est en lecture seule, démarre depuis une copie dans `/tmp` | `uvicorn src.server:app` |
 | `src/shared/ui/` | Les atomes sans connaissance du site, un fichier pluriel chacun | `buttons.tsx`, `links.tsx` |
 | `src/shared/hooks/` | La logique d'interface réutilisable | `use-open-menu.hook.ts`, `use-newsletter.hook.ts` |
 | `src/shared/utils/` | Les fonctions pures, TypeScript et Python | `detail-href.util.ts`, `validate-email.util.ts`, `detail_slugs.py` |
