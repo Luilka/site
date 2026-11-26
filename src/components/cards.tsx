@@ -97,16 +97,18 @@ function StepText({ title, description }: StepTextProps) {
   return (
     <div className="p-8">
       <h3 className="text-(length:--text-lg) font-semibold mb-[6px]">{title}</h3>
-      <p className="text-(length:--text-sm) text-muted leading-[1.5]">{description}</p>
+      <p className="text-(length:--text-sm) opacity-85 leading-[1.5]">{description}</p>
     </div>
   );
 }
 
-export function StepCard({ number, title, description }: StepCardProps) {
+const STEP_TONES: readonly string[] = ["bg-night text-paper", "bg-accent-blue text-paper", "bg-accent-purple text-text", "bg-gray text-text"];
+
+export function StepCard({ number, title, description, index = 0 }: StepCardProps) {
   return (
-    <Card className="flex flex-col bg-gray rounded-[18px] p-[4px]">
+    <Card className={`flex flex-col rounded-[18px] p-[4px] ${STEP_TONES[index % STEP_TONES.length]}`}>
       <StepText title={title} description={description} />
-      <div className="bg-paper border-2 border-paper outline-1 outline-[var(--border-ui)] rounded-[16px] h-[180px] flex items-center justify-center text-[length:96px] font-medium tracking-[-0.02em] mt-auto shadow-[0_2px_8px_rgb(0_0_0/5%)]">{number}</div>
+      <div className="bg-paper text-text border-2 border-paper outline-1 outline-[var(--border-ui)] rounded-[16px] h-[180px] flex items-center justify-center text-[length:96px] font-medium tracking-[-0.02em] mt-auto shadow-[0_2px_8px_rgb(0_0_0/5%)]">{number}</div>
     </Card>
   );
 }

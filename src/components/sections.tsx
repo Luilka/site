@@ -84,7 +84,7 @@ export function ProcessSection({ id }: ProcessSectionProps) {
   return (
     <section className="pt-[70px] pb-[20px]" id={id}>
       <Container className={`grid grid-cols-4 gap-4 ${STACK}`}>
-        {steps.map((step) => <StepCard key={step.number} {...step} />)}
+        {steps.map((step, index) => <StepCard key={step.number} {...step} index={index} />)}
       </Container>
     </section>
   );

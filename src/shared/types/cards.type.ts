@@ -81,6 +81,7 @@ export type StepTextProps = {
 };
 
 export type StepCardProps = {
+  index?: number;
   number: string;
   title: string;
   description: string;

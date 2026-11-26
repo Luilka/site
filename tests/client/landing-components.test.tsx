@@ -2,6 +2,7 @@ import { render, screen, within } from "@testing-library/react";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { Footer, Header } from "@/components/layout.tsx";
 import { ProcessBand } from "@/components/patterns.tsx";
+import { ProcessSection } from "@/components/sections.tsx";
 import { ProductCard, ServiceCard, StepCard, WorkCard } from "@/components/cards.tsx";
 import { SAMPLE_IMAGE } from "./fixtures.ts";
 
@@ -66,6 +67,17 @@ describe("landing components", () => {
     expect(tilted).toContain("motion-reduce:animate-none");
     const reversed = render(<ProcessBand reverse />).container.querySelector('[class*="rotate-2"]')?.className ?? "";
     expect(reversed).toContain("[animation-direction:reverse]");
+  });
+
+  it("gives each of the four steps its own colour on the home page", () => {
+    const { container } = render(<ProcessSection />);
+    const cards = Array.from(container.querySelectorAll("section > div > div"), (card) => card.className);
+    expect(cards).toHaveLength(4);
+    expect(new Set(cards).size).toBe(4);
+    expect(cards[0]).toContain("bg-night");
+    expect(cards[1]).toContain("bg-accent-blue");
+    expect(cards[2]).toContain("bg-accent-purple");
+    expect(cards[3]).toContain("bg-gray");
   });
 
   it("renders a numbered stage", () => {
