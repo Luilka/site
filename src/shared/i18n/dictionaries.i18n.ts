@@ -1,6 +1,7 @@
 import navigationData from "@/content/navigation.json";
 import detailSlugs from "@/content/details.json";
-import type { Dictionary, Dropdown, DropdownBaseItem, DropdownCopy, DropdownItem, FooterLink, Language, MenuKey, NamedCard, NavigationItem, Service, Work } from "@/shared/types";
+import imageSource from "@/content/images.json";
+import type { DetailImage, Dictionary, Dropdown, DropdownBaseItem, DropdownCopy, DropdownItem, FooterLink, Language, MenuKey, NamedCard, NavigationItem, Service, Work } from "@/shared/types";
 
 export const navigation: readonly NavigationItem[] = navigationData as readonly NavigationItem[];
 
@@ -150,6 +151,10 @@ function withSlugs<T>(items: readonly T[], slugs: readonly string[]): readonly (
   return items.map((item, index) => ({ ...item, slug: slugs[index] }));
 }
 
+function withImages<T extends { slug: string }>(items: readonly T[], covers: Record<string, DetailImage>): readonly (T & { image: DetailImage })[] {
+  return items.map((item) => ({ ...item, image: covers[item.slug] }));
+}
+
 const servicesFr: readonly Service[] = withSlugs(
   [
   {
@@ -179,7 +184,7 @@ const servicesFr: readonly Service[] = withSlugs(
   detailSlugs.services,
 );
 
-const productsFr: readonly NamedCard[] = withSlugs(
+const productsFr: readonly NamedCard[] = withImages(withSlugs(
   [
   {
     name: "Tala",
@@ -195,9 +200,9 @@ const productsFr: readonly NamedCard[] = withSlugs(
   },
   ],
   detailSlugs.products,
-);
+), imageSource.products);
 
-const worksFr: readonly Work[] = withSlugs(
+const worksFr: readonly Work[] = withImages(withSlugs(
   [
   { name: "Yano", kind: "UX Design: mobile App", caseLabel: "Voir le projet" },
   { name: "Vox Congo", kind: "UX Design & UI design : Mobile App", caseLabel: "Voir le projet" },
@@ -209,7 +214,7 @@ const worksFr: readonly Work[] = withSlugs(
   },
   ],
   detailSlugs.work,
-);
+), imageSource.work);
 
 const servicesEn: readonly Service[] = withSlugs(
   [
@@ -240,7 +245,7 @@ const servicesEn: readonly Service[] = withSlugs(
   detailSlugs.services,
 );
 
-const productsEn: readonly NamedCard[] = withSlugs(
+const productsEn: readonly NamedCard[] = withImages(withSlugs(
   [
   {
     name: "Tala",
@@ -256,9 +261,9 @@ const productsEn: readonly NamedCard[] = withSlugs(
   },
   ],
   detailSlugs.products,
-);
+), imageSource.products);
 
-const worksEn: readonly Work[] = withSlugs(
+const worksEn: readonly Work[] = withImages(withSlugs(
   [
   { name: "Yano", kind: "UX Design: Mobile App", caseLabel: "View project" },
   { name: "Vox Congo", kind: "UX Design & UI Design: Mobile App", caseLabel: "View project" },
@@ -270,7 +275,7 @@ const worksEn: readonly Work[] = withSlugs(
   },
   ],
   detailSlugs.work,
-);
+), imageSource.work);
 
 const footerLinksFr: readonly FooterLink[] = [
   { label: "À propos", href: "/about" },
@@ -300,8 +305,6 @@ const footerMoreEn: readonly FooterLink[] = [
 
 const fr: Dictionary = {
   hero: "Du design à l'app : nous partons des utilisateurs, dessinons le produit et livrons une interface prête à construire.",
-  section:
-    "Notre stratégie est centrée sur l'utilisateur : nous comprenons les besoins réels avant de dessiner, puis nous livrons le design de l'app.",
   quote: "J'ai besoin d'un devis",
   discover: "Découvrir plus",
   switchLanguage: "Passer en anglais",
@@ -499,8 +502,6 @@ const fr: Dictionary = {
 
 const en: Dictionary = {
   hero: "From design to app: we start with the people who will use it, shape the product and hand over an interface ready to build.",
-  section:
-    "Our strategy is user-centric: we understand real needs before we draw, then we deliver the design of the app.",
   quote: "I need a quote",
   discover: "Learn more",
   switchLanguage: "Switch to French",

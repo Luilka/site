@@ -2,10 +2,11 @@ import { Container } from "@/shared/ui/containers.tsx";
 import { ActionLink, ContactPanel, PageHero, NotFoundPanel } from "@/components/patterns.tsx";
 import type { SectionProps } from "@/shared/types/section-props.type.ts";
 import { infoHref } from "@/shared/utils/info-href.util.ts";
-import type { AboutSectionProps, AboutTextProps, CardGridProps, CollectionSectionProps, DetailBackLinkProps, DetailBodyProps, DetailCardProps, DetailPageProps, DetailRouteViewProps, HeadingTextProps, InfoCard, InfoCardBodyProps, InfoCardProps, InfoSectionProps, ProcessSectionProps, SectionHeadingProps } from "@/shared/types";
+import type { AboutSectionProps, AboutTextProps, CardGridProps, CollectionSectionProps, DetailBackLinkProps, DetailBodyProps, DetailMediaProps, DetailPageProps, DetailRouteViewProps, HeadingTextProps, InfoCard, InfoCardBodyProps, InfoCardProps, InfoSectionProps, ProcessSectionProps, SectionHeadingProps } from "@/shared/types";
 import { buttonClasses } from "@/shared/ui/buttons.tsx";
 import { Link } from "@/shared/ui/links.tsx";
 import { Card } from "@/shared/ui/cards.tsx";
+import { Image } from "@/shared/ui/images.tsx";
 import { Logo } from "@/shared/ui/logos.tsx";
 import { Badge } from "@/shared/ui/badges.tsx";
 import { StepCard, ProductCard, ServiceCard, WorkCard } from "@/components/cards.tsx";
@@ -14,7 +15,6 @@ import { Fragment } from "react";
 import { ArrowLeft } from "lucide-react";
 import { useDetail } from "@/shared/hooks/use-detail.hook.ts";
 
-const SECTION_SPACING = "py-20 px-0";
 const LIST_SPACING = "pt-0 pb-20 has-[h2]:pt-20";
 const SHOWCASE_SPACING = "pt-0 pb-[90px] has-[h2]:pt-[80px]";
 const STACK = "max-[1000px]:grid-cols-[1fr_1fr] max-[640px]:grid-cols-[1fr]";
@@ -154,22 +154,17 @@ function DetailBackLink({ detail }: DetailBackLinkProps) {
   );
 }
 
-function DetailCard({ title, body }: DetailCardProps) {
+function DetailMedia({ cover }: DetailMediaProps) {
   return (
-    <div className={`mt-10 grid grid-cols-3 gap-4 ${STACK}`}>
-      <article className={INFO_CARD}>
-        <h3 className={INFO_TITLE}>{title}</h3>
-        <p className={INFO_TEXT}>{body}</p>
-      </article>
-    </div>
+    <Image className="w-full h-auto rounded-[22px]" src={cover.src} width={cover.width} height={cover.height} alt="" loading="eager" fetchPriority="high" style={{ viewTransitionName: cover.name }} />
   );
 }
 
 function DetailBody({ detail }: DetailBodyProps) {
   return (
-    <section className={SECTION_SPACING}>
-      <Container>
-        <DetailCard title={detail.title} body={detail.body} />
+    <section className="pb-20">
+      <Container className="flex flex-col items-start gap-10">
+        {detail.cover ? <DetailMedia cover={detail.cover} /> : null}
         <DetailBackLink detail={detail} />
       </Container>
     </section>

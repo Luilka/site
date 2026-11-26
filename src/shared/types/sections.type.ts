@@ -1,5 +1,5 @@
 import type { InfoCard } from "./dictionaries.type.ts";
-import type { DetailKind, DetailModel, DetailRouteProps } from "./detail.type.ts";
+import type { DetailCover, DetailKind, DetailModel, DetailRouteProps } from "./detail.type.ts";
 import type { SectionProps } from "./section-props.type.ts";
 import type { SectionAction } from "./dictionaries.type.ts";
 import type { Href } from "@/shared/ui/links.tsx";
@@ -70,9 +70,8 @@ export type DetailBackLinkProps = {
   detail: DetailModel;
 };
 
-export type DetailCardProps = {
-  title: string;
-  body: string;
+export type DetailMediaProps = {
+  cover: DetailCover;
 };
 
 export type DetailBodyProps = {

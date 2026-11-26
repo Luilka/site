@@ -3,6 +3,7 @@ import { describe, expect, it } from "vitest";
 import { ProcessBand } from "@/components/patterns.tsx";
 import { WorkCard } from "@/components/cards.tsx";
 import Home from "@/routes/[lang]/index.tsx";
+import { SAMPLE_IMAGE } from "./fixtures.ts";
 
 describe("design-first home content", () => {
   it("tells the story of a studio that designs, writes and builds", () => {
@@ -112,7 +113,7 @@ describe("design-first home content", () => {
   });
 
   it("uses a heading for the name of a case study", () => {
-    render(<WorkCard slug="work" name="Yano" />);
+    render(<WorkCard slug="work" name="Yano" image={SAMPLE_IMAGE} />);
     expect(screen.getByRole("heading", { level: 3, name: "Yano" })).toBeTruthy();
   });
 });

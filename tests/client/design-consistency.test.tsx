@@ -2,6 +2,7 @@ import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import { Header } from "@/components/layout.tsx";
 import { ProductCard, ServiceCard, WorkCard } from "@/components/cards.tsx";
+import { SAMPLE_IMAGE } from "./fixtures.ts";
 
 function iconClasses(container: HTMLElement, selector: string) {
   return Array.from(container.querySelectorAll(selector)).map((node) => node.getAttribute("class") ?? "");
@@ -30,8 +31,8 @@ describe("design consistency", () => {
   it("keeps the small text of the product and case cards above the AA contrast", () => {
     const { container } = render(
       <>
-        <ProductCard slug="product" name="Tala" description="Texte" />
-        <WorkCard slug="work" name="Yano" kind="UX Design" />
+        <ProductCard slug="product" name="Tala" description="Texte" image={SAMPLE_IMAGE} />
+        <WorkCard slug="work" name="Yano" kind="UX Design" image={SAMPLE_IMAGE} />
       </>,
     );
     expect(container.querySelector("small")?.className).toContain("text-muted");
@@ -61,16 +62,16 @@ describe("design consistency", () => {
   it("gives each product a distinct design icon", () => {
     const { container } = render(
       <>
-        <ProductCard slug="product" name="Tala" description="a" />
-        <ProductCard slug="product" name="Vuga" description="b" />
-        <ProductCard slug="product" name="Pro" description="c" />
+        <ProductCard slug="product" name="Tala" description="a" image={SAMPLE_IMAGE} />
+        <ProductCard slug="product" name="Vuga" description="b" image={SAMPLE_IMAGE} />
+        <ProductCard slug="product" name="Pro" description="c" image={SAMPLE_IMAGE} />
       </>,
     );
     expect(new Set(iconClasses(container, "a .icon-tile svg")).size).toBe(3);
   });
 
   it("uses a readable project icon beside the work name", () => {
-    const { container } = render(<WorkCard slug="work" name="Yano" />);
+    const { container } = render(<WorkCard slug="work" name="Yano" image={SAMPLE_IMAGE} />);
     const icon = container.querySelector("a > div:last-child > div:first-child > div:first-child svg");
     expect(icon?.getAttribute("width")).toBe("22");
   });
@@ -78,10 +79,10 @@ describe("design consistency", () => {
   it("gives each case study a distinct design icon", () => {
     const { container } = render(
       <>
-        <WorkCard slug="work" name="Yano" />
-        <WorkCard slug="work" name="Vox Congo" />
-        <WorkCard slug="work" name="Mitemo" />
-        <WorkCard slug="work" name="Privatis Capital Invest" />
+        <WorkCard slug="work" name="Yano" image={SAMPLE_IMAGE} />
+        <WorkCard slug="work" name="Vox Congo" image={SAMPLE_IMAGE} />
+        <WorkCard slug="work" name="Mitemo" image={SAMPLE_IMAGE} />
+        <WorkCard slug="work" name="Privatis Capital Invest" image={SAMPLE_IMAGE} />
       </>,
     );
     expect(new Set(iconClasses(container, "a > div:last-child > div:first-child > div:first-child svg")).size).toBe(4);

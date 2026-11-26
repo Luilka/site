@@ -3,6 +3,7 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import { Footer, Header } from "@/components/layout.tsx";
 import { ProcessBand } from "@/components/patterns.tsx";
 import { ProductCard, ServiceCard, StepCard, WorkCard } from "@/components/cards.tsx";
+import { SAMPLE_IMAGE } from "./fixtures.ts";
 
 afterEach(() => {
   vi.useRealTimers();
@@ -57,12 +58,12 @@ describe("landing components", () => {
   });
 
   it("renders a product", () => {
-    render(<ProductCard slug="product" name="Tala" description="Texte" />);
+    render(<ProductCard slug="product" name="Tala" description="Texte" image={SAMPLE_IMAGE} />);
     expect(screen.getByText("Tala")).toBeTruthy();
   });
 
   it("renders a case study", () => {
-    render(<WorkCard slug="work" name="Yano" />);
+    render(<WorkCard slug="work" name="Yano" image={SAMPLE_IMAGE} />);
     expect(screen.getByText("Yano")).toBeTruthy();
   });
 

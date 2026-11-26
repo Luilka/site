@@ -9,7 +9,6 @@ const detail: DetailModel = {
   eyebrow: "Produit",
   title: "Tala",
   description: "Texte",
-  body: "Texte",
   backHref: "/products",
   backLabel: "Produits",
 };

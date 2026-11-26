@@ -1,11 +1,12 @@
 import type { PageHref } from "./site.type.ts";
+import type { DetailImage } from "./detail.type.ts";
 import type { Dictionary, PageKey } from "./dictionaries.type.ts";
 
 export type RawDetail = {
   slug: string;
   title: string;
   description: string;
-  body: string;
+  image?: DetailImage;
   eyebrow?: string;
 };
 

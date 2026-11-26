@@ -1,11 +1,15 @@
+import type { DetailImage } from "./detail.type.ts";
+
 export type CardIconProps = {
   name: string;
   size?: number;
   strokeWidth?: number;
 };
 
-export type CardWatermarkProps = {
+export type CardCoverProps = {
+  image: DetailImage;
   name: string;
+  className: string;
 };
 
 export type ProductTitleProps = {
@@ -20,6 +24,7 @@ export type ProductCardProps = {
   slug: string;
   name: string;
   description: string;
+  image: DetailImage;
 };
 
 export type ServiceCardProps = {
@@ -56,4 +61,5 @@ export type WorkCardProps = {
   name: string;
   kind?: string;
   caseLabel?: string;
+  image: DetailImage;
 };

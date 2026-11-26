@@ -1,3 +1,4 @@
+import type { DetailImage } from "./detail.type.ts";
 import type { PageHref } from "./site.type.ts";
 export type MenuKey = "services" | "products";
 
@@ -56,6 +57,7 @@ export type NamedCard = {
   slug: string;
   name: string;
   description: string;
+  image: DetailImage;
 };
 
 export type Work = {
@@ -63,6 +65,7 @@ export type Work = {
   name: string;
   kind: string;
   caseLabel: string;
+  image: DetailImage;
 };
 
 export type InfoCard = {
@@ -104,7 +107,6 @@ export type FooterLink = {
 
 export type Dictionary = {
   hero: string;
-  section: string;
   quote: string;
   discover: string;
   switchLanguage: string;
