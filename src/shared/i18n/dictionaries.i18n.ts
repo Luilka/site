@@ -312,6 +312,7 @@ const fr: Dictionary = {
   navigationLabel: "Navigation principale",
   homeLabel: "Luilka, accueil",
   menuLabel: "Menu",
+  closeLabel: "Fermer",
   mobileNavigationLabel: "Navigation mobile",
   breadcrumb: { label: "Fil d'Ariane", home: "Accueil" },
   home: {
@@ -532,6 +533,7 @@ const en: Dictionary = {
   navigationLabel: "Main navigation",
   homeLabel: "Luilka, home",
   menuLabel: "Menu",
+  closeLabel: "Close",
   mobileNavigationLabel: "Mobile navigation",
   breadcrumb: { label: "Breadcrumb", home: "Home" },
   home: {

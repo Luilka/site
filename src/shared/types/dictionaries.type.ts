@@ -158,6 +158,7 @@ export type Dictionary = {
   navigationLabel: string;
   homeLabel: string;
   menuLabel: string;
+  closeLabel: string;
   mobileNavigationLabel: string;
   breadcrumb: BreadcrumbCopy;
   home: HomeCopy;

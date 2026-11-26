@@ -7,6 +7,7 @@ export type MobileMenuState = {
   onBlur: (event: FocusEvent<HTMLElement>) => void;
   onKeyDown: (event: KeyboardEvent<HTMLElement>) => void;
   trigger: RefObject<HTMLButtonElement | null>;
+  panel: RefObject<HTMLDivElement | null>;
 };
 
 export type OpenMenu = {

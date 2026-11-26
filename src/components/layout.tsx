@@ -15,7 +15,7 @@ import { Image } from "@/shared/ui/images.tsx";
 import { Logo } from "@/shared/ui/logos.tsx";
 import { SocialIcon } from "@/shared/ui/social-icons.tsx";
 import { Input } from "@/shared/ui/inputs.tsx";
-import type { FooterColumnProps, MegaAsideProps, MegaCardProps, MegaCardTextProps, MegaContentProps, MegaGridProps, MegaHeadProps, MegaPanelProps, MobileMenuButtonProps, MobileMenuLinkProps, MobileMenuLinksProps, MobileMenuPanelProps, NavDropdownProps, NavEntryProps, NavTriggerProps, NewsletterMessageProps, NewsletterSubmitProps, SocialProfileLinkProps } from "@/shared/types";
+import type { FooterColumnProps, MegaAsideProps, MegaCardProps, MegaCardTextProps, MegaContentProps, MegaGridProps, MegaHeadProps, MegaPanelProps, MobileMenuButtonProps, MobileMenuLinkProps, MobileMenuLinksProps, MobileSheetHeadProps, MobileSheetPanelProps, MobileSheetProps, NavDropdownProps, NavEntryProps, NavTriggerProps, NewsletterMessageProps, NewsletterSubmitProps, SocialProfileLinkProps } from "@/shared/types";
 
 const NAV_ITEM = "inline-flex items-center gap-1 rounded-lg min-h-[2.75rem] py-[0.5rem] px-[0.75rem] text-[#2a2a30] transition-[color,background-color] duration-160 ease-[ease] hover:text-blue hover:bg-soft";
 const NEWS_FORM = "flex gap-1.5 border border-[var(--border-ui)] rounded-[13px] p-[4px]";
@@ -26,7 +26,9 @@ const MEGA_CLOSED = "opacity-0 invisible [transform:translateY(-0.375rem)] point
 const MEGA_OPEN = "opacity-100 visible [transform:translateY(0)] pointer-events-auto";
 const SOCIAL_LINK = "row-center justify-center size-11 rounded-full border border-[var(--border-ui)] hover:bg-soft hover:text-text";
 const MOBILE_BUTTON = "row-center justify-center size-11 rounded-lg cursor-pointer text-[#2a2a30] hover:bg-soft";
-const MOBILE_PANEL = "fixed inset-x-0 top-[4.4375rem] z-12 max-h-[calc(100dvh-4.4375rem)] overflow-y-auto border-y border-y-[var(--border-ui)] bg-white py-2 shadow-[0_18px_40px_rgb(0_0_0/12%)]";
+const SHEET_ROOT = "fixed inset-0 z-50 transition-[opacity,visibility] duration-250 ease-[ease] motion-reduce:transition-none";
+const OVERLAY = "absolute inset-0 bg-night/55 backdrop-blur-sm bg-[image:linear-gradient(to_right,rgb(255_255_255/9%)_1px,transparent_1px),linear-gradient(to_bottom,rgb(255_255_255/9%)_1px,transparent_1px)] bg-size-[12px_12px]";
+const SHEET = "absolute inset-y-0 right-0 flex w-[min(86vw,22rem)] flex-col bg-paper shadow-[-18px_0_40px_rgb(0_0_0/18%)] outline-none transition-transform duration-250 ease-[ease] motion-reduce:transition-none";
 const MOBILE_LINK = "flex min-h-[3rem] items-center px-6 text-(length:--text-lg) font-medium text-[#2a2a30] hover:bg-soft hover:text-blue";
 
 export function BrandMark() {
@@ -232,19 +234,40 @@ function MobileMenuLinks({ onClose }: MobileMenuLinksProps) {
 function MobileMenuContact({ onClose }: MobileMenuLinksProps) {
   const { contactAction } = useContent();
   return (
-    <div className="px-6 pt-3 pb-4">
+    <div className="mt-auto px-6 pt-3 pb-6">
       <Link className={buttonClasses("dark", "w-full justify-center")} href="/contact" onClick={onClose}>{contactAction}</Link>
     </div>
   );
 }
 
-function MobileMenuPanel({ id, open, onClose }: MobileMenuPanelProps) {
+function MobileSheetHead({ onClose }: MobileSheetHeadProps) {
+  const { menuLabel, closeLabel } = useContent();
+  return (
+    <div className="flex h-17.75 shrink-0 items-center justify-between border-b border-b-[var(--border-ui)] pr-3 pl-6">
+      <span className="text-(length:--text-sm) font-semibold uppercase tracking-[0.06em] text-muted">{menuLabel}</span>
+      <button type="button" className={MOBILE_BUTTON} aria-label={closeLabel} onClick={onClose}><X size={24} strokeWidth={1.8} aria-hidden="true" /></button>
+    </div>
+  );
+}
+
+function MobileSheetPanel({ menu }: MobileSheetPanelProps) {
   const { mobileNavigationLabel } = useContent();
   return (
-    <nav id={id} className={MOBILE_PANEL} hidden={!open} aria-label={mobileNavigationLabel}>
-      <MobileMenuLinks onClose={onClose} />
-      <MobileMenuContact onClose={onClose} />
-    </nav>
+    <div ref={menu.panel} tabIndex={-1} className={`${SHEET} ${menu.open ? "translate-x-0" : "translate-x-full"}`}>
+      <MobileSheetHead onClose={menu.close} />
+      <nav aria-label={mobileNavigationLabel}><MobileMenuLinks onClose={menu.close} /></nav>
+      <MobileMenuContact onClose={menu.close} />
+    </div>
+  );
+}
+
+function MobileSheet({ id, menu }: MobileSheetProps) {
+  const { menuLabel } = useContent();
+  return (
+    <div id={id} role="dialog" aria-modal="true" aria-label={menuLabel} aria-hidden={!menu.open} inert={!menu.open} className={`${SHEET_ROOT} ${menu.open ? "visible opacity-100" : "invisible opacity-0"}`}>
+      <div className={OVERLAY} onClick={menu.close} aria-hidden="true" />
+      <MobileSheetPanel menu={menu} />
+    </div>
   );
 }
 
@@ -264,7 +287,7 @@ function MobileMenu() {
   return (
     <div className="min-[1140px]:hidden" onBlur={menu.onBlur} onKeyDown={menu.onKeyDown}>
       <MobileMenuButton id={id} menu={menu} />
-      <MobileMenuPanel id={id} open={menu.open} onClose={menu.close} />
+      <MobileSheet id={id} menu={menu} />
     </div>
   );
 }

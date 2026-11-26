@@ -10,6 +10,7 @@
   --color-accent-blue: var(--accent-blue);
   --color-accent-purple: var(--accent-purple);
   --color-soft: var(--bg-soft);
+  --color-night: var(--night);
   --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", "Inter", system-ui, sans-serif;
   --text-xs: 0.75rem;
   --text-sm: 0.875rem;
