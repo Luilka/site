@@ -51,7 +51,7 @@ describe("mobile menu", () => {
   it("closes when a link is chosen", () => {
     renderAt("/fr");
     fireEvent.click(menuButton());
-    fireEvent.click(within(mobileNavigation()).getByRole("link", { name: "Journal" }));
+    fireEvent.click(within(mobileNavigation()).getByRole("link", { name: "Blog" }));
     expect(menuButton().getAttribute("aria-expanded")).toBe("false");
   });
 

@@ -57,7 +57,7 @@ describe("multipage site", () => {
       ["Services", "/fr/services"],
       ["Produits", "/fr/products"],
       ["Réalisations", "/fr/works"],
-      ["Journal", "/fr/blog"],
+      ["Blog", "/fr/blog"],
       ["Carrières", "/fr/job"],
     ];
     for (const [label, href] of expected) {

@@ -364,7 +364,7 @@ const fr: Dictionary = {
         "Des projets menés avec des partenaires qui ont accepté de mesurer l'impact de chaque décision de design.",
     },
     blog: {
-      eyebrow: "Journal",
+      eyebrow: "Blog",
       title: "Le journal de Luilka",
       description:
         "Des notes courtes sur le design, le produit et la façon de construire des équipes techniques durables.",
