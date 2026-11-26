@@ -1,6 +1,6 @@
 import { render, screen, within } from "@testing-library/react";
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { IconSprite, Footer, Header } from "@/components/layout.tsx";
+import { Footer, Header } from "@/components/layout.tsx";
 import { ProcessBand } from "@/components/patterns.tsx";
 import { ProductCard, ServiceCard, StepCard, WorkCard } from "@/components/cards.tsx";
 
@@ -9,20 +9,6 @@ afterEach(() => {
 });
 
 describe("landing components", () => {
-  it("defines the reference icons", () => {
-    const { container } = render(<IconSprite />);
-    expect(container.querySelector("symbol#finger")).not.toBeNull();
-  });
-
-  it("uses the supplied solid fingerprint as the logo", () => {
-    const { container } = render(<IconSprite />);
-    const path = container.querySelector("symbol#finger path");
-    expect(path?.getAttribute("d")?.startsWith("M12 3.75a6.715 6.715 0 0 0-3.722 1.118")).toBe(true);
-    expect(path?.getAttribute("fill")).toBe("currentColor");
-    expect(path?.getAttribute("fill-rule")).toBe("evenodd");
-    expect(path?.getAttribute("stroke")).toBeNull();
-  });
-
   it("renders every reference navigation label", () => {
     render(<Header />);
     const navigation = within(screen.getByRole("navigation", { name: "Navigation principale" }));

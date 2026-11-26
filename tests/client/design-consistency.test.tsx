@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
-import { IconSprite, Header } from "@/components/layout.tsx";
+import { Header } from "@/components/layout.tsx";
 import { ProductCard, ServiceCard, WorkCard } from "@/components/cards.tsx";
 
 function iconClasses(container: HTMLElement, selector: string) {
@@ -74,11 +74,5 @@ describe("design consistency", () => {
       </>,
     );
     expect(new Set(iconClasses(container, "a > div:last-child > div:first-child > div:first-child svg")).size).toBe(4);
-  });
-
-  it("keeps only the supplied fingerprint in the sprite", () => {
-    const { container } = render(<IconSprite />);
-    expect(container.querySelectorAll("symbol")).toHaveLength(1);
-    expect(container.querySelector("symbol#finger")).not.toBeNull();
   });
 });

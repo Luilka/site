@@ -6,6 +6,7 @@ import type { AboutSectionProps, AboutTextProps, CardGridProps, CollectionSectio
 import { buttonClasses } from "@/shared/ui/buttons.tsx";
 import { Link } from "@/shared/ui/links.tsx";
 import { Card } from "@/shared/ui/cards.tsx";
+import { Logo } from "@/shared/ui/logos.tsx";
 import { Badge } from "@/shared/ui/badges.tsx";
 import { StepCard, ProductCard, ServiceCard, WorkCard } from "@/components/cards.tsx";
 import { useContent } from "@/shared/i18n";
@@ -24,9 +25,7 @@ const INFO_TEXT = "text-sm text-muted leading-[1.6]";
 function AboutArt() {
   return (
     <div className="flex items-center justify-center bg-gray rounded-[22px] min-h-[400px]">
-      <svg className="w-[140px] h-[140px] fill-[#2a2a30]" viewBox="0 0 24 24" aria-hidden="true">
-        <use href="#finger" />
-      </svg>
+      <Logo className="size-[140px] text-[#2a2a30]" />
     </div>
   );
 }

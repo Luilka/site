@@ -30,7 +30,8 @@ def test_root_layout_declares_the_french_document() -> None:
 
 def test_root_layout_renders_the_reference_chrome() -> None:
     body = DOCUMENT.read_text(encoding="utf-8")
-    assert all(name in body for name in ("IconSprite", "Header", "Footer", "<main>"))
+    assert all(name in body for name in ("Header", "Footer", "<main>"))
+    assert "IconSprite" not in body
 
 
 def test_design_tokens_match_the_reference() -> None:
