@@ -21,8 +21,12 @@ def test_every_work_and_product_has_a_cover() -> None:
         assert sorted(REGISTRY[kind]) == sorted(SLUGS[kind])
 
 
-def test_only_works_and_products_have_covers() -> None:
-    assert sorted(REGISTRY) == ["products", "work"]
+def test_only_works_products_and_the_about_page_have_pictures() -> None:
+    assert sorted(REGISTRY) == ["about", "products", "work"]
+
+
+def test_the_about_page_names_its_four_pictures() -> None:
+    assert sorted(REGISTRY["about"]) == ["detailA", "detailB", "hero", "mission"]
 
 
 def test_each_cover_file_is_in_public() -> None:

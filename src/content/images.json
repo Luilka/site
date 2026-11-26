@@ -1,13 +1,63 @@
 {
   "work": {
-    "yano": { "src": "/images/work/yano.svg", "width": 1200, "height": 750 },
-    "vox-congo": { "src": "/images/work/vox-congo.svg", "width": 1200, "height": 750 },
-    "mitemo": { "src": "/images/work/mitemo.svg", "width": 1200, "height": 750 },
-    "privatis-capital-invest": { "src": "/images/work/privatis-capital-invest.svg", "width": 1200, "height": 750 }
+    "yano": {
+      "src": "/images/work/yano.svg",
+      "width": 1200,
+      "height": 750
+    },
+    "vox-congo": {
+      "src": "/images/work/vox-congo.svg",
+      "width": 1200,
+      "height": 750
+    },
+    "mitemo": {
+      "src": "/images/work/mitemo.svg",
+      "width": 1200,
+      "height": 750
+    },
+    "privatis-capital-invest": {
+      "src": "/images/work/privatis-capital-invest.svg",
+      "width": 1200,
+      "height": 750
+    }
   },
   "products": {
-    "tala": { "src": "/images/products/tala.svg", "width": 1200, "height": 750 },
-    "vuga": { "src": "/images/products/vuga.svg", "width": 1200, "height": 750 },
-    "pro": { "src": "/images/products/pro.svg", "width": 1200, "height": 750 }
+    "tala": {
+      "src": "/images/products/tala.svg",
+      "width": 1200,
+      "height": 750
+    },
+    "vuga": {
+      "src": "/images/products/vuga.svg",
+      "width": 1200,
+      "height": 750
+    },
+    "pro": {
+      "src": "/images/products/pro.svg",
+      "width": 1200,
+      "height": 750
+    }
+  },
+  "about": {
+    "hero": {
+      "src": "/images/about/hero.svg",
+      "width": 1200,
+      "height": 940
+    },
+    "mission": {
+      "src": "/images/about/mission.svg",
+      "width": 1200,
+      "height": 1010
+    },
+    "detailA": {
+      "src": "/images/about/detail-a.svg",
+      "width": 1000,
+      "height": 1000
+    },
+    "detailB": {
+      "src": "/images/about/detail-b.svg",
+      "width": 1000,
+      "height": 1000
+    }
   }
 }
