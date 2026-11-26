@@ -1,4 +1,4 @@
-import { fireEvent, render, screen, within } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor, within } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import { Header } from "@/components/layout.tsx";
 
@@ -82,6 +82,12 @@ describe("mobile menu", () => {
     fireEvent.click(menuButton());
     const contact = within(sheet()).getByRole("link", { name: "Nous contacter" });
     expect(contact.getAttribute("href")).toBe("/fr/contact");
+  });
+
+  it("moves the focus into the sheet once it is shown", async () => {
+    renderAt("/fr");
+    fireEvent.click(menuButton());
+    await waitFor(() => expect(document.activeElement).toBe(sheet().lastElementChild));
   });
 
   it("keeps the page from scrolling behind the open sheet", () => {

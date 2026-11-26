@@ -6,8 +6,8 @@ import { useDismiss } from "./use-dismiss.hook.ts";
 function useSheetEffects(open: boolean, panel: RefObject<HTMLDivElement | null>): void {
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
-    if (open) panel.current?.focus();
-    return () => { document.body.style.overflow = ""; };
+    const timer = setTimeout(() => open && panel.current?.focus(), 50);
+    return () => { clearTimeout(timer); document.body.style.overflow = ""; };
   }, [open, panel]);
 }
 
