@@ -150,6 +150,7 @@ async function init() {
         const born = eOutCubic(seg(u, 1.4 + k * 0.3, 2.0 + k * 0.3));
         const a = ph + u * sp;
         setT(s, ox + 420 + Math.cos(a) * rx + eInCubic(seg(u, 2.5, 3.3)) * 1300, 540 + Math.sin(a) * ry, Math.max(0.001, born), u * 35 * (k + 1));
+        s.setAttribute("opacity", 1 - seg(u, 2.6, 3.2));
       });
     };
   }

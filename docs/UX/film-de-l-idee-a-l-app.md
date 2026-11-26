@@ -20,7 +20,7 @@ Un film de motion design de 32 secondes qui raconte, comme une chronologie, le c
 ## Format
 
 - 1920 sur 1080, 24 images par seconde, 32 secondes, H.264 avec son.
-- Fichier : `motion/idea-to-app/out/de-l-idee-a-l-app-fr.mp4` (environ 57 Mo : le grain pèse). La version anglaise (`-en.mp4`, sans voix) suit.
+- Fichiers : `motion/idea-to-app/out/de-l-idee-a-l-app-fr.mp4` (avec voix) et `de-l-idee-a-l-app-en.mp4` (sans voix), environ 5 Mo chacun, encodés en H.264 (`crf 30`). Le grain est atténué par la compression.
 - Source : `motion/idea-to-app/timeline.html` (langue par `?lang=fr` ou `?lang=en`, photos dans `photos/`) et `motion/idea-to-app/sound.py`. Les fichiers rendus ne sont pas versionnés.
 
 ## Chronologie
@@ -48,5 +48,5 @@ Une caméra se déplace de station en station, avec une chronologie discrète en
 - Le film reste fait par code : je ne garantis pas qu'un œil expert ne le reconnaîtra pas. Une passe finale par un monteur humain (rythme, mixage, étalonnage) est recommandée avant diffusion publique.
 - Une seule photo humaine réelle. Pour plus d'humain, envoyer 2 ou 3 photos du titulaire au travail ou de son espace (avec leur accord), qui prendront les emplacements prévus.
 - Le film montre la méthode, pas les réalisations de clients. L'écran est un exemple, étiqueté « Interface d'exemple ».
-- Le fichier est lourd à cause du grain : une version pour le site serait recompressée.
+- Le grain de pellicule se voit moins après compression : un encodage moins agressif le garderait, au prix d'un fichier bien plus lourd (de 50 à 115 Mo mesurés).
 - Aucun test auprès de visiteurs. La publication sur YouTube est une action du titulaire.
