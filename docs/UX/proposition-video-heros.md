@@ -1,6 +1,6 @@
 # Proposition : une vidéo de réalisations dans le héros
 
-**Statut** : proposition du 26 novembre 2026, non décidée. Sur accord, elle devient D-019.
+**Statut** : chemin B retenu et appliqué le 26 novembre 2026 (D-019). Le chemin A reste à venir.
 **Propriétaire** : @Espoir-Loem
 **Documents liés** : [recherche UX](recherche-ux-confiance.md), [synthèse du thème](audit-theme.md), [audit des pages](audit-pages-et-concurrence.md)
 

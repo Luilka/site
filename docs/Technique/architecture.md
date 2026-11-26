@@ -56,6 +56,10 @@ Les images des projets vont dans `public/`, en `webp` ou `avif` (le `svg` pour l
 
 Les couvertures actuelles sont des illustrations abstraites en `svg` (`public/images/work/` et `public/images/products/`), dessinées sans texte et sans faux écran, en attendant les vraies images. Pour remplacer une couverture : déposer le fichier `webp` dans `public/images/`, puis changer `src`, `width` et `height` de son entrée dans `images.json`. Aucun composant ne change.
 
+## Héros de l'accueil
+
+`HeroReel` (`patterns.tsx`) empile les couvertures des réalisations et fait un fondu de l'une à l'autre toutes les 4 secondes (`use-reel.hook.ts`). Le diaporama est décoratif, masqué aux lecteurs d'écran, et s'arrête sous `prefers-reduced-motion` et avec l'économie de données (`prefers-still.util.ts`). Un bouton Pause nommé le contrôle. Une boucle vidéo viendra dans le même composant (D-019).
+
 ## Cartes de réalisations et de produits
 
 La couverture occupe toute la carte (`absolute inset-0`, `object-cover`) et le texte est posé en absolu sur un panneau translucide flou. Les illustrations des produits gardent leur sujet dans la partie centrale du cadre, que le recadrage conserve.
