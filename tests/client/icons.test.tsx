@@ -35,7 +35,7 @@ describe("icons", () => {
 
   it("offers a real mail link in the footer", () => {
     render(<Footer />);
-    const link = screen.getByRole("link", { name: /devis/i });
+    const link = screen.getByRole("link", { name: /email/i });
     expect(link.getAttribute("href")).toBe("mailto:bonjour@luilka.cd");
     expect(link.querySelector(".lucide-mail")).not.toBeNull();
   });

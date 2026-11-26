@@ -41,20 +41,25 @@ def test_design_tokens_match_the_reference() -> None:
         for token in (
             "--text: #0a0a0a",
             "--night: #0a0a0a",
+            "--graphite: #262626",
             "--gray: #e8e8e8",
             "--bg-soft: #f5f5f5",
-            "#2a2ae6",
-            "#9b5de5",
+            "--accent: #0c5a41",
         )
     )
 
 
-def test_theme_is_black_and_white_with_free_accents() -> None:
+def test_theme_is_black_and_white_with_one_green_accent() -> None:
     css = (ROOT / "src" / "globale.css").read_text(encoding="utf-8")
-    for lavender in ("#cfd1db", "#f6f6fa", "#b4b6bf", "#2a4cb5", "#1a1a1f"):
-        assert lavender not in css
-    for name in ("--accent-blue", "--accent-purple"):
-        assert name in css
+    for old in ("#cfd1db", "#f6f6fa", "#b4b6bf", "#2a4cb5", "#1a1a1f", "#2a2ae6", "#9b5de5", "--blue:", "--accent-blue", "--accent-purple"):
+        assert old not in css
+
+
+def test_no_source_or_illustration_keeps_the_old_blue_and_violet() -> None:
+    old = ("#2a4cb5", "#2a2ae6", "#9b5de5", "accent-blue", "accent-purple", "text-blue", "var(--blue)")
+    files = [*ROOT.joinpath("src").rglob("*.ts*"), *ROOT.joinpath("public", "images").rglob("*.svg")]
+    offenders = [str(f) for f in files if any(token in f.read_text(encoding="utf-8") for token in old)]
+    assert offenders == []
 
 
 def test_reference_layout_utilities_are_used() -> None:

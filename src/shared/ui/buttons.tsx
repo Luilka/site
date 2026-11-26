@@ -7,7 +7,8 @@ const OUTLINE = "pill-shape gap-[8px] border border-text bg-paper py-[8px] px-[1
 const VARIANTS: Record<ButtonVariant, string> = {
   primary: `${SOLID} bg-gray text-text`,
   outline: OUTLINE,
-  dark: `${SOLID} bg-[var(--night)] text-paper`,
+  dark: `${SOLID} bg-[var(--night)] text-paper hover:bg-accent`,
+  accent: `${SOLID} bg-accent text-paper hover:bg-graphite`,
   light: `${SOLID} bg-paper text-text`,
 };
 

@@ -1,4 +1,4 @@
-import { NotFoundPanel, ProcessBand, ContactPanel, HeroReel, QuoteLink } from "@/components/patterns.tsx";
+import { NotFoundPanel, ProcessBand, ContactPanel, HeroReel, ContactButton } from "@/components/patterns.tsx";
 import { isSupportedLanguage, useContent } from "@/shared/i18n";
 import { ProductsSection, ServicesSection, WorksSection, ProcessSection, AboutSection } from "@/components/sections.tsx";
 import { Container } from "@/shared/ui/containers.tsx";
@@ -13,7 +13,7 @@ function HeroTitle() {
   const { home } = useContent();
   return (
     <h1 className="text-(length:--text-3xl) leading-[1.15] font-semibold tracking-[-0.02em] max-w-[520px] max-[1000px]:text-(length:--text-2xl)">
-      {home.prefix} <span className="text-accent-blue">{home.design}</span> {home.middle} <span className="text-accent-purple">{home.brand}</span>
+      {home.prefix} {home.design} {home.middle} {home.brand}
     </h1>
   );
 }
@@ -24,7 +24,7 @@ function HeroCopy() {
     <div>
       <HeroTitle />
       <p className="text-(length:--text-base) text-muted max-w-[470px] mt-[22px] mb-[28px] leading-[1.55]">{hero}</p>
-      <QuoteLink />
+      <ContactButton />
     </div>
   );
 }

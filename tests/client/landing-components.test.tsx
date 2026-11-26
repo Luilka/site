@@ -61,7 +61,7 @@ describe("landing components", () => {
     const { container } = render(<ProcessBand />);
     expect(container.querySelector(".animate-marquee-right")?.parentElement?.className).toContain("bg-night");
     const tilted = container.querySelector('[class*="rotate-2"]')?.className ?? "";
-    expect(tilted).toContain("bg-gray-200");
+    expect(tilted.split(" ")).toContain("bg-gray");
     expect(tilted).not.toContain("bg-night");
     expect(tilted).toContain("animate-stripes");
     expect(tilted).toContain("motion-reduce:animate-none");
@@ -69,15 +69,15 @@ describe("landing components", () => {
     expect(reversed).toContain("[animation-direction:reverse]");
   });
 
-  it("gives each of the four steps its own colour on the home page", () => {
+  it("takes the four steps from ink to the one accent, which marks the delivery", () => {
     const { container } = render(<ProcessSection />);
     const cards = Array.from(container.querySelectorAll("section > div > div"), (card) => card.className);
     expect(cards).toHaveLength(4);
     expect(new Set(cards).size).toBe(4);
     expect(cards[0]).toContain("bg-night");
-    expect(cards[1]).toContain("bg-accent-blue");
-    expect(cards[2]).toContain("bg-accent-purple");
-    expect(cards[3]).toContain("bg-gray");
+    expect(cards[1]).toContain("bg-graphite");
+    expect(cards[2]).toContain("bg-gray");
+    expect(cards[3]).toContain("bg-accent text-paper");
   });
 
   it("renders a numbered stage", () => {

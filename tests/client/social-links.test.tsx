@@ -47,7 +47,7 @@ describe("social links of the footer", () => {
 
   it("draws every footer link as a round button with a thin border, like the mockup", () => {
     renderAt("/fr");
-    const mail = screen.getByRole("link", { name: "J'ai besoin d'un devis" });
+    const mail = screen.getByRole("link", { name: "Écrire un email à Luilka" });
     for (const link of [mail, screen.getByRole("link", { name: "Luilka sur LinkedIn" })]) {
       expect(link.className).toContain("rounded-full");
       expect(link.className).toContain("border-[var(--border-ui)]");
@@ -56,7 +56,7 @@ describe("social links of the footer", () => {
 
   it("keeps the email link first and gives every link a target of 44 pixels", () => {
     renderAt("/fr");
-    const group = screen.getByRole("link", { name: "J'ai besoin d'un devis" }).parentElement;
+    const group = screen.getByRole("link", { name: "Écrire un email à Luilka" }).parentElement;
     expect(within(group as HTMLElement).getAllByRole("link")).toHaveLength(3);
     expect(screen.getByRole("link", { name: "Luilka sur LinkedIn" }).className).toContain("size-11");
   });

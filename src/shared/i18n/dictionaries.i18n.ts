@@ -305,7 +305,7 @@ const footerMoreEn: readonly FooterLink[] = [
 
 const fr: Dictionary = {
   hero: "Du design à l'app : nous partons des utilisateurs, dessinons le produit et livrons une interface prête à construire.",
-  quote: "J'ai besoin d'un devis",
+  emailLabel: "Écrire un email à Luilka",
   discover: "Découvrir plus",
   switchLanguage: "Passer en anglais",
   contactAction: "Nous contacter",
@@ -528,7 +528,7 @@ const fr: Dictionary = {
 
 const en: Dictionary = {
   hero: "From design to app: we start with the people who will use it, shape the product and hand over an interface ready to build.",
-  quote: "I need a quote",
+  emailLabel: "Email Luilka",
   discover: "Learn more",
   switchLanguage: "Switch to French",
   contactAction: "Contact us",

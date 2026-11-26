@@ -12,8 +12,7 @@ import { useReel } from "@/shared/hooks/use-reel.hook.ts";
 import { Badge } from "@/shared/ui/badges.tsx";
 import { cn } from "@/shared/utils/cn.util.ts";
 import { PROCESS_STAGES } from "@/shared/utils/process-stages.util.ts";
-import { CONTACT_MAILTO } from "@/shared/utils/contact-mailto.util.ts";
-import type { ActionLinkProps, BreadcrumbProps, ContactPanelProps, FeedbackBoundaryProps, PageFrameProps, PageHeroProps, PageHeroTextProps, PageLeadProps, PageTitleProps, ProcessBandProps, ReelSlideProps, ReelSlidesProps, ReelToggleProps, ProcessStageListProps, ProcessStageProps, QuoteLinkProps, RevealProps, StateCopyProps } from "@/shared/types";
+import type { ActionLinkProps, BreadcrumbProps, ContactPanelProps, FeedbackBoundaryProps, PageFrameProps, PageHeroProps, PageHeroTextProps, PageLeadProps, PageTitleProps, ProcessBandProps, ReelSlideProps, ReelSlidesProps, ReelToggleProps, ProcessStageListProps, ProcessStageProps, ContactButtonProps, RevealProps, StateCopyProps } from "@/shared/types";
 
 export function ActionLink({ action, className }: ActionLinkProps) {
   return (
@@ -30,7 +29,7 @@ function ContactCard() {
     <div className="bg-night text-paper rounded-[22px] py-[70px] px-[60px] min-h-[300px]">
       <h2 className="text-(length:--text-2xl) font-semibold mb-[22px]">{contact.title}</h2>
       <p className="text-(length:--text-base) text-paper/70 max-w-[440px] mb-[26px] leading-[1.7]">{contact.description}</p>
-      <QuoteLink variant="light" />
+      <ContactButton variant="light" />
     </div>
   );
 }
@@ -92,7 +91,7 @@ export function NotFoundPanel() {
   const copy = useContent().states.notfound;
   return (
     <StatePanel>
-      <span className="mb-4 block text-[length:clamp(4rem,_12vw,_7rem)] font-bold leading-[1] text-blue" aria-hidden="true">{copy.code}</span>
+      <span className="mb-4 block text-[length:clamp(4rem,_12vw,_7rem)] font-bold leading-[1] text-accent" aria-hidden="true">{copy.code}</span>
       <StateCopy title={copy.title} description={copy.description} />
       <Link className={buttonClasses("dark")} href="/">{copy.action}</Link>
     </StatePanel>
@@ -171,7 +170,7 @@ const LIST = "flex min-w-[max(100vw,1280px)] shrink-0 items-center justify-aroun
 const LIST_COPY = `${LIST} motion-reduce:hidden`;
 const CHEVRON = "opacity-50 motion-reduce:max-[1000px]:hidden";
 const CHEVRON_LAST = `${CHEVRON} motion-reduce:hidden`;
-const TILT = "absolute inset-0 -left-0.5 -right-0.5 bg-gray-200 animate-stripes motion-reduce:animate-none bg-[repeating-linear-gradient(45deg,transparent_0_8px,color-mix(in_srgb,var(--text)_18%,transparent)_8px_10px)] bg-size-[14.1421px_14.1421px]";
+const TILT = "absolute inset-0 -left-0.5 -right-0.5 bg-gray animate-stripes motion-reduce:animate-none bg-[repeating-linear-gradient(45deg,transparent_0_8px,color-mix(in_srgb,var(--text)_18%,transparent)_8px_10px)] bg-size-[14.1421px_14.1421px]";
 
 const STAGE_ICONS: Record<string, LucideIcon> = {
   Concept: Lightbulb,
@@ -221,13 +220,13 @@ export function ProcessBand({ reverse = false }: ProcessBandProps) {
   );
 }
 
-export function QuoteLink({ variant = "dark", className }: QuoteLinkProps) {
-  const { quote } = useContent();
+export function ContactButton({ variant = "accent", className }: ContactButtonProps) {
+  const { contactAction } = useContent();
   return (
-    <a className={buttonClasses(variant, className)} href={CONTACT_MAILTO}>
-      {quote}
+    <Link className={buttonClasses(variant, className)} href="/contact">
+      {contactAction}
       <CalendarDays size={16} strokeWidth={1.8} aria-hidden="true" />
-    </a>
+    </Link>
   );
 }
 

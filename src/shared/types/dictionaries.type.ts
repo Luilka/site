@@ -151,7 +151,7 @@ export type FooterLink = {
 
 export type Dictionary = {
   hero: string;
-  quote: string;
+  emailLabel: string;
   discover: string;
   switchLanguage: string;
   contactAction: string;

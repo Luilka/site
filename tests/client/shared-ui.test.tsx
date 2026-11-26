@@ -1,9 +1,17 @@
 import { render } from "@testing-library/react";
+import { buttonClasses } from "@/shared/ui/buttons.tsx";
 import { describe, expect, it } from "vitest";
 import { PageLead, PageTitle } from "@/components/patterns.tsx";
 import { Picture } from "@/shared/ui/images.tsx";
 import { StripedPanel } from "@/shared/ui/panels.tsx";
 import { SAMPLE_IMAGE } from "./fixtures.ts";
+
+describe("accent button", () => {
+  it("is the single green action, and the dark button turns green on hover", () => {
+    expect(buttonClasses("accent")).toContain("bg-accent text-paper");
+    expect(buttonClasses("dark")).toContain("hover:bg-accent");
+  });
+});
 
 describe("Picture", () => {
   it("shows a decorative image with the size of its file, loaded late", () => {

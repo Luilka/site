@@ -67,9 +67,17 @@ describe("landing page", () => {
     expect(container.querySelectorAll("a[href*='/work/'] p")).toHaveLength(0);
   });
 
-  it("offers two quote actions", () => {
+  it("offers the same contact action twice, in the hero and in the contact block, both to the contact page", () => {
     render(<Home />);
-    expect(screen.getAllByText("J'ai besoin d'un devis")).toHaveLength(2);
+    const links = screen.getAllByRole("link", { name: /Nous contacter/ });
+    expect(links).toHaveLength(2);
+    for (const link of links) expect(link.getAttribute("href")?.endsWith("/contact")).toBe(true);
+    expect(screen.queryByText(/devis/i)).toBeNull();
+  });
+
+  it("writes the hero title in ink, without coloured words", () => {
+    const { container } = render(<Home />);
+    expect(container.querySelector("h1 span")).toBeNull();
   });
 
   it("keeps the contact section", () => {

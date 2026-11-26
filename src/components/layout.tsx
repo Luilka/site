@@ -17,7 +17,7 @@ import { SocialIcon } from "@/shared/ui/social-icons.tsx";
 import { Input } from "@/shared/ui/inputs.tsx";
 import type { FooterColumnProps, MegaAsideProps, MegaCardProps, MegaCardTextProps, MegaContentProps, MegaGridProps, MegaHeadProps, MegaPanelProps, MobileMenuButtonProps, MobileMenuLinkProps, MobileMenuLinksProps, MobileSheetHeadProps, MobileSheetPanelProps, MobileSheetProps, NavDropdownProps, NavEntryProps, NavTriggerProps, NewsletterMessageProps, NewsletterSubmitProps, SocialProfileLinkProps } from "@/shared/types";
 
-const NAV_ITEM = "inline-flex items-center gap-1 rounded-lg min-h-[2.75rem] py-[0.5rem] px-[0.75rem] text-text transition-[color,background-color] duration-160 ease-[ease] hover:text-blue hover:bg-soft";
+const NAV_ITEM = "inline-flex items-center gap-1 rounded-lg min-h-[2.75rem] py-[0.5rem] px-[0.75rem] text-text transition-[color,background-color] duration-160 ease-[ease] hover:text-accent hover:bg-soft";
 const NEWS_FORM = "flex gap-1.5 border border-[var(--border-ui)] rounded-[13px] p-[4px]";
 const NEWS_INPUT = "min-w-0 flex-1 border-0 outline-0 [font-family:inherit] leading-[inherit] text-(length:--text-sm) py-0 px-[10px]";
 const NEWS_BUTTON = "flex items-center gap-1.5 bg-[var(--night)] text-paper border-0 rounded-[10px] py-[9px] px-[14px] text-(length:--text-sm) font-medium";
@@ -29,7 +29,7 @@ const MOBILE_BUTTON = "row-center justify-center size-11 rounded-lg cursor-point
 const SHEET_ROOT = "fixed inset-0 z-50 transition-[opacity,visibility] duration-250 ease-[ease] motion-reduce:transition-none";
 const OVERLAY = "absolute inset-0 bg-night/55 backdrop-blur-sm bg-[image:linear-gradient(to_right,rgb(255_255_255/9%)_1px,transparent_1px),linear-gradient(to_bottom,rgb(255_255_255/9%)_1px,transparent_1px)] bg-size-[12px_12px]";
 const SHEET = "absolute inset-y-0 right-0 flex w-[min(86vw,22rem)] flex-col bg-paper shadow-[-18px_0_40px_rgb(0_0_0/18%)] outline-none transition-transform duration-250 ease-[ease] motion-reduce:transition-none";
-const MOBILE_LINK = "flex min-h-[3rem] items-center px-6 text-(length:--text-lg) font-medium text-text hover:bg-soft hover:text-blue";
+const MOBILE_LINK = "flex min-h-[3rem] items-center px-6 text-(length:--text-lg) font-medium text-text hover:bg-soft hover:text-accent";
 
 export function BrandMark() {
   const { homeLabel } = useContent();
@@ -42,9 +42,9 @@ export function BrandMark() {
 }
 
 function MailLink() {
-  const { quote } = useContent();
+  const { emailLabel } = useContent();
   return (
-    <a className={SOCIAL_LINK} href={CONTACT_MAILTO} aria-label={quote}>
+    <a className={SOCIAL_LINK} href={CONTACT_MAILTO} aria-label={emailLabel}>
       <Mail size={18} strokeWidth={1.5} aria-hidden="true" />
     </a>
   );
@@ -235,7 +235,7 @@ function MobileMenuContact({ onClose }: MobileMenuLinksProps) {
   const { contactAction } = useContent();
   return (
     <div className="mt-auto px-6 pt-3 pb-6">
-      <Link className={buttonClasses("dark", "w-full justify-center")} href="/contact" onClick={onClose}>{contactAction}</Link>
+      <Link className={buttonClasses("accent", "w-full justify-center")} href="/contact" onClick={onClose}>{contactAction}</Link>
     </div>
   );
 }
@@ -317,9 +317,9 @@ function MegaCardText({ item }: MegaCardTextProps) {
   return (
     <>
       <span className="uppercase text-(length:--text-xs) font-semibold tracking-[0.06em] text-muted">{item.eyebrow}</span>
-      <h3 className="[margin:0.15rem_0_0.35rem] text-(length:--text-base) font-semibold leading-[1.25] group-hover:text-blue">{item.label}</h3>
+      <h3 className="[margin:0.15rem_0_0.35rem] text-(length:--text-base) font-semibold leading-[1.25] group-hover:text-accent">{item.label}</h3>
       <p className="m-0 text-(length:--text-xs) text-muted leading-[1.45]">{item.description}</p>
-      <span className="mt-2 inline-flex items-center gap-1 text-(length:--text-xs) font-semibold text-blue">{item.action}<ArrowUpRight size={12} strokeWidth={2} aria-hidden="true" /></span>
+      <span className="mt-2 inline-flex items-center gap-1 text-(length:--text-xs) font-semibold text-accent">{item.action}<ArrowUpRight size={12} strokeWidth={2} aria-hidden="true" /></span>
     </>
   );
 }
@@ -353,7 +353,7 @@ function NavTrigger({ item, id, open }: NavTriggerProps) {
 function MegaHead({ eyebrow, title }: MegaHeadProps) {
   return (
     <div className="mb-5">
-      <span className="block uppercase text-(length:--text-xs) font-semibold tracking-[0.08em] text-blue">{eyebrow}</span>
+      <span className="block uppercase text-(length:--text-xs) font-semibold tracking-[0.08em] text-accent">{eyebrow}</span>
       <h2 className="[margin:0.25rem_0_0] text-(length:--text-xl) font-semibold leading-[1.2]">{title}</h2>
     </div>
   );
@@ -374,7 +374,7 @@ function MegaAside({ menu, onClose }: MegaAsideProps) {
   return (
     <aside className="flex w-56 shrink-0 flex-col border-l border-l-[var(--border-ui)] pl-[1.75rem]">
       <h3 className="m-0 pb-2 text-(length:--text-sm) font-semibold">{dropdown.linksTitle}</h3>
-      {dropdown.links.map((link) => <Link key={link.label} className="block py-2 text-(length:--text-sm) text-text no-underline hover:text-blue [a+&]:border-t [a+&]:border-t-[var(--border-ui)]" href={link.href} onClick={onClose}>{link.label}</Link>)}
+      {dropdown.links.map((link) => <Link key={link.label} className="block py-2 text-(length:--text-sm) text-text no-underline hover:text-accent [a+&]:border-t [a+&]:border-t-[var(--border-ui)]" href={link.href} onClick={onClose}>{link.label}</Link>)}
     </aside>
   );
 }

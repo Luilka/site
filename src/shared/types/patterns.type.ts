@@ -75,7 +75,7 @@ export type ProcessBandProps = {
   reverse?: boolean;
 };
 
-export type QuoteLinkProps = {
+export type ContactButtonProps = {
   variant?: ButtonVariant;
   className?: string;
 };

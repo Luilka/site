@@ -3,12 +3,10 @@
 @theme {
   --color-paper: var(--paper);
   --color-gray: var(--gray);
-  --color-gray-2: var(--gray-2);
-  --color-blue: var(--blue);
+  --color-graphite: var(--graphite);
+  --color-accent: var(--accent);
   --color-text: var(--text);
   --color-muted: var(--muted);
-  --color-accent-blue: var(--accent-blue);
-  --color-accent-purple: var(--accent-purple);
   --color-soft: var(--bg-soft);
   --color-night: var(--night);
   --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", "Inter", system-ui, sans-serif;
@@ -61,13 +59,10 @@
 :root {
   --paper: #ffffff;
   --gray: #e8e8e8;
-  --gray-2: #d4d4d4;
-  --gray-3: #bdbdbd;
-  --blue: #0a0a0a;
+  --graphite: #262626;
+  --accent: #0c5a41;
   --text: #0a0a0a;
   --muted: #404040;
-  --accent-blue: #2a2ae6;
-  --accent-purple: #9b5de5;
   --bg-soft: #f5f5f5;
   --border-ui: #e2e2e2;
   --night: #0a0a0a;
