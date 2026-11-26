@@ -1,4 +1,4 @@
-import { ArrowUpRight, ChevronRight, CalendarDays } from "lucide-react";
+import { ArrowUpRight, ChevronRight, CalendarDays, Code, FlaskConical, Lightbulb, LayoutDashboard, PenTool, Rocket, type LucideIcon } from "lucide-react";
 import { buttonClasses } from "@/shared/ui/buttons.tsx";
 import { Link, ErrorBoundary } from "@/shared/ui/links.tsx";
 import { Container } from "@/shared/ui/containers.tsx";
@@ -147,17 +147,27 @@ export function PageHero(props: PageHeroProps) {
   );
 }
 
-const TRACK = "flex w-max animate-marquee hover:[animation-play-state:paused] motion-reduce:w-auto motion-reduce:animate-none";
+const TRACK = "flex w-max hover:[animation-play-state:paused] motion-reduce:w-auto motion-reduce:animate-none";
 const LIST = "flex min-w-[100vw] shrink-0 items-center justify-around gap-12 px-6 motion-reduce:w-full motion-reduce:min-w-0 motion-reduce:shrink motion-reduce:flex-wrap motion-reduce:justify-center motion-reduce:gap-x-6 motion-reduce:gap-y-2";
 const LIST_COPY = `${LIST} motion-reduce:hidden`;
 const CHEVRON = "opacity-50 motion-reduce:max-[1000px]:hidden";
 const CHEVRON_LAST = `${CHEVRON} motion-reduce:hidden`;
 const TILT = "absolute inset-0 -left-0.5 -right-0.5 bg-gray-200 bg-[repeating-linear-gradient(45deg,transparent_0_8px,color-mix(in_srgb,var(--text)_18%,transparent)_8px_10px)]";
 
+const STAGE_ICONS: Record<string, LucideIcon> = {
+  Concept: Lightbulb,
+  "UX Design": PenTool,
+  "UI Design": LayoutDashboard,
+  Code: Code,
+  Test: FlaskConical,
+  Production: Rocket,
+};
+
 function ProcessStage({ label, last }: ProcessStageProps) {
+  const Icon = STAGE_ICONS[label];
   return (
     <>
-      <span className="inline-block">{label}</span>
+      <Icon size={30} strokeWidth={1.6} aria-hidden="true" />
       <ChevronRight size={22} strokeWidth={1.5} aria-hidden="true" className={last ? CHEVRON_LAST : CHEVRON} />
     </>
   );
@@ -172,10 +182,10 @@ function ProcessStageList({ className }: ProcessStageListProps) {
   );
 }
 
-function ProcessStages() {
+function ProcessStages({ reverse }: ProcessBandProps) {
   return (
     <div className="relative z-2 overflow-x-clip bg-gray-300 py-7 font-medium">
-      <div className={TRACK}>
+      <div className={`${TRACK} ${reverse ? "animate-marquee" : "animate-marquee-right"}`}>
         <ProcessStageList className={LIST} />
         <ProcessStageList className={LIST_COPY} />
       </div>
@@ -187,7 +197,7 @@ export function ProcessBand({ reverse = false }: ProcessBandProps) {
   return (
     <div className="relative overflow-x-clip" aria-hidden="true">
       <div className={`${TILT} ${reverse ? "rotate-2" : "-rotate-2"}`}></div>
-      <ProcessStages />
+      <ProcessStages reverse={reverse} />
     </div>
   );
 }

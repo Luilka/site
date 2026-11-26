@@ -17,20 +17,29 @@ describe("landing components", () => {
   });
 
   it("renders the process band", () => {
-    render(<ProcessBand />);
-    expect(screen.getAllByText("Production")).toHaveLength(2);
+    const { container } = render(<ProcessBand />);
+    expect(container.querySelectorAll("svg.lucide-rocket")).toHaveLength(2);
+    expect(container.textContent).toBe("");
+  });
+
+  it("scrolls to the right, and a reversed band scrolls to the left", () => {
+    const forward = render(<ProcessBand />).container;
+    expect(forward.querySelector(".animate-marquee-right")).not.toBeNull();
+    expect(forward.querySelector(".animate-marquee")).toBeNull();
+    const reversed = render(<ProcessBand reverse />).container;
+    expect(reversed.querySelector(".animate-marquee")).not.toBeNull();
   });
 
   it("loops the band as a marquee that reduced motion turns off", () => {
     const { container } = render(<ProcessBand />);
-    const track = container.querySelector(".animate-marquee");
+    const track = container.querySelector(".animate-marquee-right");
     expect(track?.className).toContain("motion-reduce:animate-none");
     expect(track?.className).toContain("hover:[animation-play-state:paused]");
   });
 
   it("repeats the stages once for a seamless loop and shows them once without motion", () => {
     const { container } = render(<ProcessBand />);
-    const track = container.querySelector(".animate-marquee");
+    const track = container.querySelector(".animate-marquee-right");
     expect(track?.children).toHaveLength(2);
     expect(track?.children[0].className).not.toContain("motion-reduce:hidden");
     expect(track?.children[1].className).toContain("motion-reduce:hidden");

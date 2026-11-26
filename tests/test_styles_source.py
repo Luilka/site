@@ -82,7 +82,9 @@ def test_mega_aside_links_have_separators() -> None:
 def test_marquee_animation_is_defined_once_in_the_theme() -> None:
     css = (SRC / "globale.css").read_text(encoding="utf-8")
     assert "--animate-marquee:" in css
-    assert css.count("@keyframes marquee") == 1
+    assert css.count("@keyframes marquee {") == 1
+    assert "--animate-marquee-right:" in css
+    assert css.count("@keyframes marquee-right {") == 1
 
 
 def test_old_page_leaves_quickly_and_the_new_one_rises_into_view() -> None:
