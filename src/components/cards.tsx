@@ -90,9 +90,9 @@ const MINT = "radial-gradient(50% 50% at 50% 50%, rgba(57, 247, 155, 0.9) 0%, rg
 
 const SERVICE_TILES: Record<string, CSSProperties> = {
   "UX Design": { background: PURPLE, boxShadow: "0px 4px 24px rgba(54, 48, 242, 0.4)", borderRadius: "99px 0px 99px 99px", color: "var(--paper)" },
-  "UI design": { background: OCEAN, boxShadow: "0px 4px 24px rgba(11, 87, 168, 0.4)", borderRadius: "99px 99px 32px 32px", color: "var(--text)" },
-  Software: { background: PURPLE, boxShadow: "0px 4px 24px rgba(54, 48, 242, 0.4)", borderRadius: "32px 99px 99px 99px", color: "var(--paper)" },
-  COM: { background: MINT, boxShadow: "0px 4px 24px rgba(19, 176, 98, 0.4)", borderRadius: "99px", color: "var(--text)" },
+  "UI design": { background: OCEAN, boxShadow: "0px 4px 24px rgba(11, 87, 168, 0.4)", borderRadius: "99px", color: "var(--text)" },
+  Software: { background: PURPLE, boxShadow: "0px 4px 24px rgba(54, 48, 242, 0.4)", borderRadius: "99px 99px 32px 32px", color: "var(--paper)" },
+  COM: { background: MINT, boxShadow: "0px 4px 24px rgba(19, 176, 98, 0.4)", borderRadius: "32px 99px 99px 99px", color: "var(--text)" },
 };
 
 export function ServiceCard({ slug, title, description }: ServiceCardProps) {

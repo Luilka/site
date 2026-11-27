@@ -70,7 +70,7 @@ describe("design consistency", () => {
     );
     const tiles = [...container.querySelectorAll<HTMLElement>("a > div:first-child")];
     expect(tiles.every((tile) => tile.style.background.includes("radial-gradient") && tile.style.boxShadow !== "")).toBe(true);
-    expect(Array.from(tiles, (tile) => tile.style.borderRadius)).toEqual(["99px 0px 99px 99px", "99px 99px 32px 32px", "32px 99px 99px", "99px"]);
+    expect(Array.from(tiles, (tile) => tile.style.borderRadius)).toEqual(["99px 0px 99px 99px", "99px", "99px 99px 32px 32px", "32px 99px 99px"]);
     expect(tiles.every((tile) => tile.className.includes("size-[58px]"))).toBe(true);
   });
 
