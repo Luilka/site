@@ -99,8 +99,8 @@ describe("landing components", () => {
   it("gives a work card the height of a showcase, taller on large screens than on phones", () => {
     const { container } = render(<WorkCard slug="work" name="Yano" image={SAMPLE_IMAGE} />);
     const classes = container.querySelector("a")?.className ?? "";
-    expect(classes).toContain("h-[640px]");
-    expect(classes).toContain("max-[640px]:h-[480px]");
+    expect(classes).toContain("h-[500px]");
+    expect(classes).toContain("max-[640px]:h-[380px]");
   });
 
   it("renders a service", () => {
