@@ -12,6 +12,12 @@ describe("mascots", () => {
     expect(drawings.every((html) => html.includes('aria-hidden="true"'))).toBe(true);
   });
 
+  it("paints the body with a gradient and gives it two hands and two feet", () => {
+    const { container } = render(<Mascot index={0} />);
+    expect(container.querySelector("#mascot-body")).not.toBeNull();
+    expect(container.querySelectorAll('[fill="url(#mascot-warm)"]').length).toBeGreaterThanOrEqual(4);
+  });
+
   it("replaces the step number by the mascot of the card", () => {
     const { container } = render(<StepCard number="01" title="Cadrage" description="Texte" index={2} />);
     expect(screen.queryByText("01")).toBeNull();

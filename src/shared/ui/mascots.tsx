@@ -1,10 +1,36 @@
 import type { ReactNode } from "react";
 import type { MascotProps } from "@/shared/types";
 
+const GRADIENTS = (
+  <defs>
+    <linearGradient id="mascot-body" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" className="[stop-color:color-mix(in_srgb,var(--accent)_45%,var(--paper))]" />
+      <stop offset="1" className="[stop-color:var(--accent)]" />
+    </linearGradient>
+    <linearGradient id="mascot-warm" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" className="[stop-color:var(--gold)]" />
+      <stop offset="1" className="[stop-color:color-mix(in_srgb,var(--gold)_55%,var(--night))]" />
+    </linearGradient>
+  </defs>
+);
+
+const FEET = (
+  <>
+    <ellipse cx="45" cy="108" rx="12" ry="7" fill="url(#mascot-warm)" />
+    <ellipse cx="75" cy="108" rx="12" ry="7" fill="url(#mascot-warm)" />
+  </>
+);
+
+const LEFT_HAND = <circle cx="19" cy="84" r="8" fill="url(#mascot-warm)" />;
+const RIGHT_HAND = <circle cx="80" cy="92" r="8" fill="url(#mascot-warm)" />;
+
 const BODY = (
   <>
+    {GRADIENTS}
     <ellipse cx="60" cy="116" rx="30" ry="4" className="fill-night/10" />
-    <circle cx="60" cy="62" r="40" className="fill-accent" />
+    {FEET}
+    <path d="M24 78q-6 4-5 6" className="fill-none stroke-accent" strokeWidth="6" strokeLinecap="round" />
+    <circle cx="60" cy="62" r="40" fill="url(#mascot-body)" />
     <circle cx="46" cy="58" r="4" className="fill-night" />
     <circle cx="74" cy="58" r="4" className="fill-night" />
     <circle cx="47.5" cy="56.5" r="1.4" className="fill-paper" />
@@ -51,7 +77,9 @@ export function Mascot({ index, className }: MascotProps) {
   return (
     <svg className={className} viewBox="0 0 120 124" aria-hidden="true">
       {BODY}
+      {LEFT_HAND}
       {ACCESSORIES[index]}
+      {RIGHT_HAND}
     </svg>
   );
 }
