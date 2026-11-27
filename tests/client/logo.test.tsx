@@ -36,6 +36,11 @@ describe("logo", () => {
     expect(text?.className).not.toContain("pt-[36px]");
   });
 
+  it("keeps the learn more button as wide as its label", () => {
+    const { container } = render(<AboutSection title="Titre" paragraphs={["Texte"]} action={{ label: "En savoir plus", href: "/about" }} image={SAMPLE_IMAGE} />);
+    expect(container.querySelector("a")?.className).toContain("w-fit");
+  });
+
   it("is not repeated in the home about section, which shows a studio picture instead", () => {
     const { container } = render(<AboutSection paragraphs={["Texte"]} image={SAMPLE_IMAGE} />);
     expect(container.querySelector("use")).toBeNull();

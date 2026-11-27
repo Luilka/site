@@ -40,7 +40,7 @@ function AboutText({ title, paragraphs, action }: AboutTextProps) {
     <div className="flex flex-col justify-center">
       {title ? <h2 className="text-(length:--text-2xl) font-semibold mb-[28px]">{title}</h2> : null}
       {paragraphs.map((paragraph) => <p key={paragraph} className="text-(length:--text-base) text-muted leading-[1.6] mb-[22px] max-w-[520px]">{paragraph}</p>)}
-      {action ? <ActionLink action={action} /> : null}
+      {action ? <ActionLink action={action} className="w-fit" /> : null}
     </div>
   );
 }
