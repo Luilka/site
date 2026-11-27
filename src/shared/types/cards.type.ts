@@ -72,7 +72,6 @@ export type ServiceCardProps = {
   slug: string;
   title: string;
   description: string;
-  shape?: string;
 };
 
 export type StepTextProps = {

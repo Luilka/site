@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react";
 import { BadgeCheck, Blocks, Boxes, Eye, Grid2X2, ImageIcon, Layers3, MessageSquare, PenLine, PenTool, ShieldCheck, Sparkles, Users, type LucideIcon, ArrowUpRight } from "lucide-react";
 import { detailHref } from "@/shared/utils/detail-href.util.ts";
 import { Link } from "@/shared/ui/links.tsx";
@@ -83,10 +84,21 @@ export function ProductCard({ slug, name, description, image }: ProductCardProps
   );
 }
 
-export function ServiceCard({ slug, title, description, shape }: ServiceCardProps) {
+const PURPLE = "radial-gradient(50% 50% at 50% 50%, rgba(144, 140, 248, 0.9) 0%, rgba(54, 48, 242, 0.9) 100%)";
+const OCEAN = "radial-gradient(50% 50% at 50% 50%, rgba(140, 248, 182, 0.9) 0%, rgba(11, 87, 168, 0.9) 100%)";
+const MINT = "radial-gradient(50% 50% at 50% 50%, rgba(57, 247, 155, 0.9) 0%, rgba(19, 176, 98, 0.9) 100%)";
+
+const SERVICE_TILES: Record<string, CSSProperties> = {
+  "UX Design": { background: PURPLE, boxShadow: "0px 4px 24px rgba(54, 48, 242, 0.4)", borderRadius: "99px 0px 99px 99px", color: "var(--paper)" },
+  "UI design": { background: OCEAN, boxShadow: "0px 4px 24px rgba(11, 87, 168, 0.4)", borderRadius: "99px 99px 32px 32px", color: "var(--text)" },
+  Software: { background: PURPLE, boxShadow: "0px 4px 24px rgba(54, 48, 242, 0.4)", borderRadius: "32px 99px 99px 99px", color: "var(--paper)" },
+  COM: { background: MINT, boxShadow: "0px 4px 24px rgba(19, 176, 98, 0.4)", borderRadius: "99px", color: "var(--text)" },
+};
+
+export function ServiceCard({ slug, title, description }: ServiceCardProps) {
   return (
     <Link className="min-w-0 text-center py-0 px-[28px] border-l border-l-[var(--border-ui)] first:border-l-0 max-[640px]:border-l-0 max-[640px]:mb-[30px]" href={detailHref("services", slug)}>
-      <div className="mx-auto flex items-center justify-center w-[48px] h-[48px] rounded-[50%_50%_50%_8px] bg-gray mb-[22px] text-[#2a2a30]" style={shape ? { borderRadius: shape } : undefined}><CardIcon name={title} /></div>
+      <div className="mx-auto mb-[22px] flex size-[58px] items-center justify-center" style={SERVICE_TILES[title] ?? SERVICE_TILES["UX Design"]}><CardIcon name={title} /></div>
       <h3 className="text-(length:--text-xl) font-semibold mb-[18px]">{title}</h3>
       <p className="text-(length:--text-base) text-muted leading-[1.9] py-0 px-[6px]">{description}</p>
     </Link>

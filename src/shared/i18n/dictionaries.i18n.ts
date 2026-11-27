@@ -166,19 +166,16 @@ const servicesFr: readonly Service[] = withSlugs(
     title: "UI design",
     description:
       "Nous concevons des écrans clairs, avec leurs états et des composants accessibles. Les mots sont intégrés dès la première maquette.",
-    shape: "50%",
   },
   {
     title: "Software",
     description:
       "Nous construisons l'application : interface, états et parcours jusqu'à la mise en ligne. Ce service peut aussi être commandé seul.",
-    shape: "50% 50% 8px 50%",
   },
   {
     title: "COM",
     description:
       "Nous écrivons la page produit qui donne envie d'acheter, le ton et les messages utiles au quotidien. Ce service peut aussi être commandé seul.",
-    shape: "50%",
   },
   ],
   detailSlugs.services,
@@ -227,19 +224,16 @@ const servicesEn: readonly Service[] = withSlugs(
     title: "UI design",
     description:
       "We design clear screens, states and accessible components. Words are part of the first draft.",
-    shape: "50%",
   },
   {
     title: "Software",
     description:
       "We build the app: interface, states and flows through to release. This service can also be booked on its own.",
-    shape: "50% 50% 8px 50%",
   },
   {
     title: "COM",
     description:
       "We write the product page that makes people want to buy, the tone and the messages people use every day. This service can also be booked on its own.",
-    shape: "50%",
   },
   ],
   detailSlugs.services,

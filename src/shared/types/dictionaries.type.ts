@@ -113,7 +113,6 @@ export type Service = {
   slug: string;
   title: string;
   description: string;
-  shape?: string;
 };
 
 export type NamedCard = {
