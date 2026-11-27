@@ -5,11 +5,13 @@ const BODY = (
   <>
     <ellipse cx="60" cy="116" rx="30" ry="4" className="fill-night/10" />
     <circle cx="60" cy="62" r="40" className="fill-accent" />
-    <circle cx="46" cy="56" r="7" className="fill-paper" />
-    <circle cx="74" cy="56" r="7" className="fill-paper" />
-    <circle cx="47" cy="57" r="3" className="fill-night" />
-    <circle cx="75" cy="57" r="3" className="fill-night" />
-    <path d="M48 74q12 11 24 0" className="fill-none stroke-paper" strokeWidth="3" strokeLinecap="round" />
+    <circle cx="46" cy="58" r="4" className="fill-night" />
+    <circle cx="74" cy="58" r="4" className="fill-night" />
+    <circle cx="47.5" cy="56.5" r="1.4" className="fill-paper" />
+    <circle cx="75.5" cy="56.5" r="1.4" className="fill-paper" />
+    <circle cx="36" cy="70" r="5" className="fill-gold/40" />
+    <circle cx="84" cy="70" r="5" className="fill-gold/40" />
+    <path d="M50 72q10 9 20 0" className="fill-none stroke-paper" strokeWidth="3" strokeLinecap="round" />
   </>
 );
 
