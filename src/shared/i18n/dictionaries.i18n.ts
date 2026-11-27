@@ -333,9 +333,8 @@ const fr: Dictionary = {
       "Chaque projet commence par une question claire et se termine par une interface que les gens savent utiliser.",
   },
   about: [
-    "Luilka fait du design to app : nous accompagnons une idée depuis la recherche utilisateur jusqu'aux écrans de l'application. Notre stratégie est centrée sur l'utilisateur, pas sur la technologie.",
-    "Chaque choix, de l'identité visuelle au design system, part d'un besoin observé et se vérifie avec les gens qui utiliseront le produit.",
-    "Nous ne concevons pas que des applications. Luilka conçoit aussi d'autres produits, numériques comme physiques : le regard reste le même, celui de la personne qui s'en servira, qu'elle tienne un objet ou un écran.",
+    "Luilka fait du design to app : de la recherche utilisateur jusqu'aux écrans, chaque choix part d'un besoin observé et se vérifie avec les personnes qui utiliseront le produit.",
+    "Le studio conçoit aussi d'autres produits, numériques ou physiques, avec le même point de départ : la personne qui s'en servira.",
   ],
   contact: {
     title: "Donnons forme à votre prochaine idée.",
@@ -575,9 +574,8 @@ const en: Dictionary = {
     works: "Every project starts with a clear question and ends with an interface people know how to use.",
   },
   about: [
-    "Luilka works design to app: we take an idea from user research to the app's screens. Our strategy is user-centric, not technology-first.",
-    "Every choice, from visual identity to design system, starts from an observed need and is checked with the people who will use the product.",
-    "We do not only design apps. Luilka also designs other products, digital or physical: the approach stays the same, starting from the person who will use it, whether they hold an object or a screen.",
+    "Luilka works design to app: from user research to the final screens, every choice starts from an observed need and is checked with the people who will use the product.",
+    "The studio also designs other products, digital or physical, from the same starting point: the person who will use them.",
   ],
   contact: {
     title: "Let's shape your next idea.",

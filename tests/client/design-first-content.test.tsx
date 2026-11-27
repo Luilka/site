@@ -56,13 +56,20 @@ describe("design-first home content", () => {
     const { container } = render(<Home />);
     const text = container.textContent ?? "";
     expect(text).toContain("design to app");
-    expect(text).toContain("centrée sur l'utilisateur");
+    expect(text).toContain("centré sur l'utilisateur");
+  });
+
+  it("keeps the home about text to two short paragraphs", () => {
+    const { container } = render(<Home />);
+    const paragraphs = [...container.querySelectorAll("#about p")];
+    expect(paragraphs).toHaveLength(2);
+    expect(paragraphs.join(" ").split(/\s+/).length).toBeLessThan(80);
   });
 
   it("says that Luilka designs other products too, digital or physical", () => {
     const { container } = render(<Home />);
     const text = container.textContent ?? "";
-    expect(text).toContain("d'autres produits, numériques comme physiques");
+    expect(text).toContain("d'autres produits, numériques ou physiques");
   });
 
   it("gives each section of the home page its own description", () => {
