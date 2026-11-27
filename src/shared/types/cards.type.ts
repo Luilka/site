@@ -76,7 +76,6 @@ export type ServiceCardProps = {
 };
 
 export type StepTextProps = {
-  number: string;
   title: string;
   description: string;
 };

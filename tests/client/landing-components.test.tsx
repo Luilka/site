@@ -83,7 +83,7 @@ describe("landing components", () => {
   it("renders a stage with its title", () => {
     render(<StepCard number="01" title="Cadrage" description="Texte" />);
     expect(screen.getByText("Cadrage")).toBeTruthy();
-    expect(screen.getByText("01")).toBeTruthy();
+    expect(screen.getByText("01").className).toContain("text-[length:96px]");
   });
 
   it("draws no picture inside a stage", () => {

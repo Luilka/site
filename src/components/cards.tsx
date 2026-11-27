@@ -93,22 +93,24 @@ export function ServiceCard({ slug, title, description, shape }: ServiceCardProp
   );
 }
 
-const STEP_TONES: readonly string[] = ["bg-night text-paper", "bg-gold text-night", "bg-gray text-text", "bg-accent text-paper"];
-
-function StepText({ number, title, description }: StepTextProps) {
+function StepText({ title, description }: StepTextProps) {
   return (
-    <>
-      <span className="text-(length:--text-sm) font-semibold opacity-70">{number}</span>
-      <h3 className="text-(length:--text-lg) font-semibold mt-[48px] mb-[6px]">{title}</h3>
+    <div className="p-8">
+      <h3 className="text-(length:--text-lg) font-semibold mb-[6px]">{title}</h3>
       <p className="text-(length:--text-sm) opacity-85 leading-[1.5]">{description}</p>
-    </>
+    </div>
   );
 }
 
+const STEP_TONES: readonly string[] = ["bg-night text-paper", "bg-gold text-night", "bg-gray text-text", "bg-accent text-paper"];
+
+const STEP_NUMBER = "bg-paper text-text border-2 border-paper outline-1 outline-[var(--border-ui)] rounded-[16px] h-[180px] flex items-center justify-center font-medium tracking-[-0.02em] mt-auto shadow-[0_2px_8px_rgb(0_0_0/5%)]";
+
 export function StepCard({ number, title, description, index = 0 }: StepCardProps) {
   return (
-    <Card className={`flex flex-col rounded-[18px] p-8 ${STEP_TONES[index % STEP_TONES.length]}`}>
-      <StepText number={number} title={title} description={description} />
+    <Card className={`flex flex-col rounded-[18px] p-[4px] ${STEP_TONES[index % STEP_TONES.length]}`}>
+      <StepText title={title} description={description} />
+      <div className={STEP_NUMBER}><span className="text-[length:96px]">{number}</span></div>
     </Card>
   );
 }
