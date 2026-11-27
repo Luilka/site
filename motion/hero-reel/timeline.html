@@ -2,91 +2,299 @@
 <html lang="fr">
 <head>
 <meta charset="utf-8">
-<title>Luilka, boucle du héros</title>
-<style>html,body{margin:0;background:#000}svg{display:block}</style>
+<title>Luilka, du premier contact à l'application</title>
+<style>html,body{margin:0;background:#07070a}svg{display:block}</style>
 </head>
 <body>
 <svg id="stage" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1200" height="880" viewBox="0 0 1200 880"></svg>
 <script>
-const W = 1200, H = 880, FPS = 24, DURATION = 8, STEP = 2, OFFSET = 0.3, FADE = 0.7;
-const IMG = { w: 1320, h: 968 };
-const SAFE_X = 280;
-const STEPS = [
-  { n: "01", label: "Cadrage", line: "Le problème, les personnes, l'objectif." },
-  { n: "02", label: "Design", line: "Parcours, langage visuel et écrans." },
-  { n: "03", label: "Construction", line: "De l'interface à la mise en ligne." },
-  { n: "04", label: "Lancement", line: "La page produit, le ton, les messages." },
-];
+const W = 1200, H = 880, FPS = 24, DURATION = 18;
+const CX = 600, CY = 440, SAFE_X = 280;
+const A1 = "#7a5cff", A2 = "#2f8bff", INK = "#07070a", GLASS = "#15151d";
+const FONT = "Noto Sans Display, Helvetica, Arial, sans-serif", MONO = "DejaVu Sans Mono, monospace";
+const FINGERPRINT = "M12 3.75a6.715 6.715 0 0 0-3.722 1.118.75.75 0 1 1-.828-1.25 8.25 8.25 0 0 1 12.8 6.883c0 3.014-.574 5.897-1.62 8.543a.75.75 0 0 1-1.395-.551A21.69 21.69 0 0 0 18.75 10.5 6.75 6.75 0 0 0 12 3.75ZM6.157 5.739a.75.75 0 0 1 .21 1.04A6.715 6.715 0 0 0 5.25 10.5c0 1.613-.463 3.12-1.265 4.393a.75.75 0 0 1-1.27-.8A6.715 6.715 0 0 0 3.75 10.5c0-1.68.503-3.246 1.367-4.55a.75.75 0 0 1 1.04-.211ZM12 7.5a3 3 0 0 0-3 3c0 3.1-1.176 5.927-3.105 8.056a.75.75 0 1 1-1.112-1.008A10.459 10.459 0 0 0 7.5 10.5a4.5 4.5 0 1 1 9 0c0 .547-.022 1.09-.067 1.626a.75.75 0 0 1-1.495-.123c.041-.495.062-.996.062-1.503a3 3 0 0 0-3-3Zm0 2.25a.75.75 0 0 1 .75.75c0 3.908-1.424 7.485-3.781 10.238a.75.75 0 0 1-1.14-.975A14.19 14.19 0 0 0 11.25 10.5a.75.75 0 0 1 .75-.75Zm3.239 5.183a.75.75 0 0 1 .515.927 19.417 19.417 0 0 1-2.585 5.544.75.75 0 0 1-1.243-.84 17.915 17.915 0 0 0 2.386-5.116.75.75 0 0 1 .927-.515Z";
+
 const clamp = (v) => Math.min(1, Math.max(0, v));
 const seg = (t, a, b) => clamp((t - a) / (b - a));
-const easeOutQuart = (x) => 1 - Math.pow(1 - x, 4);
-const easeInOutCubic = (x) => (x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2);
-const easeInOutSine = (x) => -(Math.cos(Math.PI * x) - 1) / 2;
+const lerp = (a, b, k) => a + (b - a) * k;
+const outExpo = (x) => (x >= 1 ? 1 : 1 - Math.pow(2, -10 * x));
+const outQuart = (x) => 1 - Math.pow(1 - x, 4);
+const inOut = (x) => (x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2);
+const outBack = (x) => { const c = 1.9; return 1 + (c + 1) * Math.pow(x - 1, 3) + c * Math.pow(x - 1, 2); };
+const sine = (x) => -(Math.cos(Math.PI * x) - 1) / 2;
+const win = (t, a, b, c, d) => seg(t, a, b) * (1 - seg(t, c, d));
 
 const NS = "http://www.w3.org/2000/svg";
 const el = (tag, attrs = {}, parent) => {
-  const node = document.createElementNS(NS, tag);
-  for (const [k, v] of Object.entries(attrs)) node.setAttribute(k, v);
-  if (parent) parent.appendChild(node);
-  return node;
+  const n = document.createElementNS(NS, tag);
+  for (const [k, v] of Object.entries(attrs)) n.setAttribute(k, v);
+  if (parent) parent.appendChild(n);
+  return n;
 };
+const set = (n, attrs) => { for (const [k, v] of Object.entries(attrs)) n.setAttribute(k, v); };
+const tf = (x, y, s = 1, r = 0) => `translate(${x} ${y}) rotate(${r}) scale(${s})`;
+
 const stage = document.getElementById("stage");
 const defs = el("defs", {}, stage);
+const grad = el("linearGradient", { id: "acc", x1: 0, y1: 0, x2: 1, y2: 1 }, defs);
+el("stop", { offset: 0, "stop-color": A1 }, grad);
+el("stop", { offset: 1, "stop-color": A2 }, grad);
+const glow = el("radialGradient", { id: "glow", cx: "50%", cy: "50%", r: "50%" }, defs);
+el("stop", { offset: 0, "stop-color": A1, "stop-opacity": 0.5 }, glow);
+el("stop", { offset: 1, "stop-color": A1, "stop-opacity": 0 }, glow);
 const shade = el("linearGradient", { id: "shade", x1: 0, y1: 0, x2: 0, y2: 1 }, defs);
-el("stop", { offset: "0.5", "stop-color": "#000", "stop-opacity": 0 }, shade);
-el("stop", { offset: "1", "stop-color": "#000", "stop-opacity": 0.88 }, shade);
-const topShade = el("linearGradient", { id: "top", x1: 0, y1: 0, x2: 0, y2: 1 }, defs);
-el("stop", { offset: "0", "stop-color": "#000", "stop-opacity": 0.35 }, topShade);
-el("stop", { offset: "0.25", "stop-color": "#000", "stop-opacity": 0 }, topShade);
-el("rect", { width: W, height: H, fill: "#000" }, stage);
+el("stop", { offset: 0.42, "stop-color": "#000", "stop-opacity": 0 }, shade);
+el("stop", { offset: 1, "stop-color": "#000", "stop-opacity": 0.92 }, shade);
+const clipScreen = el("clipPath", { id: "screen" }, defs);
+const clipScreenRect = el("rect", {}, clipScreen);
+const clipCore = el("clipPath", { id: "corefull" }, defs);
+const clipCoreRect = el("rect", {}, clipCore);
 
-const FONT = "Noto Sans Display, Helvetica, Arial, sans-serif";
-const scenes = STEPS.map((step, i) => {
+el("rect", { width: W, height: H, fill: INK }, stage);
+const halo = el("circle", { cx: CX, cy: CY, r: 420, fill: "url(#glow)", opacity: 0 }, stage);
+
+// Shapes that sit behind the phone: exploded layers of the build step.
+const layers = [0, 1].map((k) => {
   const g = el("g", {}, stage);
-  const photo = el("g", {}, g);
-  const img = el("image", { href: `photos/step-${i + 1}.jpg`, x: (W - IMG.w) / 2, y: (H - IMG.h) / 2, width: IMG.w, height: IMG.h, preserveAspectRatio: "xMidYMid slice" }, photo);
-  el("rect", { width: W, height: H, fill: "url(#shade)" }, g);
-  el("rect", { width: W, height: H, fill: "url(#top)" }, g);
-  const text = el("g", {}, g);
-  const label = el("text", { x: SAFE_X, y: 760, "font-family": FONT, "font-size": 78, "font-weight": 600, "letter-spacing": -2.5, fill: "#fff" }, text);
-  label.textContent = step.label;
-  const line = el("text", { x: SAFE_X + 3, y: 806, "font-family": FONT, "font-size": 27, "font-weight": 400, fill: "#fff", "fill-opacity": 0.82 }, text);
-  line.textContent = step.line;
-  const number = el("text", { x: SAFE_X + 3, y: 700, "font-family": FONT, "font-size": 22, "font-weight": 600, "letter-spacing": 4, fill: "#fff", "fill-opacity": 0.7 }, text);
-  number.textContent = step.n;
-  return { g, photo, img, label, line, number };
+  const body = el("rect", { fill: "#1d1d29", stroke: "#fff", "stroke-opacity": 0.3, "stroke-width": 2 }, g);
+  const content = el("g", {}, g);
+  return { g, body, content };
+});
+const TILES = [[0, 0], [1, 0], [0, 1], [1, 1]].map(([c, r]) => el("rect", { fill: "url(#acc)", opacity: 0.9 }, layers[0].content));
+const TOGGLE = el("rect", { fill: "#fff", opacity: 0.85 }, layers[0].content);
+const KNOB = el("circle", { fill: A2 }, layers[0].content);
+const CODE = [0.8, 0.55, 0.7, 0.4, 0.62, 0.3, 0.74].map((w, i) => el("rect", { fill: [A1, A2, "#fff", A2, A1, "#fff", A1][i], opacity: 0.85, rx: 4, height: 10 }, layers[1].content));
+const layerLabels = ["Interface", "Composants", "Code"].map((txt) => {
+  const g = el("g", {}, stage);
+  el("line", { stroke: "#fff", "stroke-opacity": 0.3 }, g);
+  el("text", { "font-family": FONT, "font-size": 19, fill: "#fff", "fill-opacity": 0.8 }, g).textContent = txt;
+  return g;
 });
 
+// The core shape: dot, circle, logo tile, hub, phone, full frame.
+const coreGradient = el("rect", { fill: "url(#acc)" }, stage);
+const coreGlass = el("rect", { fill: GLASS, stroke: "#fff", "stroke-opacity": 0.22, "stroke-width": 2 }, stage);
+const logo = el("g", {}, stage);
+el("path", { d: FINGERPRINT, fill: "#fff", "fill-rule": "evenodd", transform: "translate(-12 -12)" }, logo);
+const word = el("text", { x: CX, y: 650, "text-anchor": "middle", "font-family": FONT, "font-size": 34, "font-weight": 500, fill: "#fff" }, stage);
+word.textContent = "LUILKA";
+
+// Screens inside the phone, clipped to its rounded screen.
+const screens = el("g", { "clip-path": "url(#screen)" }, stage);
+const wire = el("g", {}, screens);
+const screenRent = el("image", { href: "photos/screen-rent.jpg", preserveAspectRatio: "xMidYMid slice" }, screens);
+const screenStream = el("image", { href: "photos/screen-stream.jpg", preserveAspectRatio: "xMidYMid slice" }, screens);
+const wireParts = [
+  el("rect", { fill: "#fff", "fill-opacity": 0.14, rx: 8 }, wire),
+  el("rect", { fill: "#fff", "fill-opacity": 0.1, rx: 18 }, wire),
+  el("rect", { fill: "#fff", "fill-opacity": 0.14, rx: 5 }, wire),
+  el("rect", { fill: "#fff", "fill-opacity": 0.14, rx: 5 }, wire),
+  el("rect", { fill: "#fff", "fill-opacity": 0.1, rx: 5 }, wire),
+  el("rect", { fill: "url(#acc)", rx: 22 }, wire),
+];
+const wireCross = el("path", { stroke: "#fff", "stroke-opacity": 0.2, "stroke-width": 2, fill: "none" }, wire);
+const notch = el("rect", { fill: INK, rx: 14 }, stage);
+
+// Acquisition: prospects that reach the hub, and the brief they send.
+const NODES = [[345, 300, "face"], [855, 285, 0], [320, 585, 1], [880, 590, 2]];
+const HUES = [["#ff7a59", "#ffb347"], ["#34d399", "#2f8bff"], ["#f472b6", "#7a5cff"]];
+const nodeEls = NODES.map(([x, y, kind], i) => {
+  const g = el("g", {}, stage);
+  const line = el("line", { stroke: "url(#acc)", "stroke-width": 2, "stroke-dasharray": "4 7", "stroke-linecap": "round" }, stage);
+  const pulse = el("circle", { r: 6, fill: "#fff" }, stage);
+  if (kind === "face") {
+    const c = el("clipPath", { id: "faceclip" }, defs);
+    el("circle", { r: 46 }, c);
+    el("image", { href: "photos/face.jpg", x: -46, y: -46, width: 92, height: 92, "clip-path": "url(#faceclip)", preserveAspectRatio: "xMidYMid slice" }, g);
+    el("circle", { r: 46, fill: "none", stroke: "#fff", "stroke-width": 3 }, g);
+  } else {
+    const gr = el("linearGradient", { id: `hue${kind}`, x1: 0, y1: 0, x2: 1, y2: 1 }, defs);
+    el("stop", { offset: 0, "stop-color": HUES[kind][0] }, gr);
+    el("stop", { offset: 1, "stop-color": HUES[kind][1] }, gr);
+    const c = el("clipPath", { id: `hueclip${kind}` }, defs);
+    el("circle", { r: 46 }, c);
+    const inner = el("g", { "clip-path": `url(#hueclip${kind})` }, g);
+    el("circle", { r: 46, fill: `url(#hue${kind})` }, inner);
+    el("circle", { cy: -8, r: 15, fill: "#fff", "fill-opacity": 0.92 }, inner);
+    el("path", { d: "M-32 46C-32 22 -18 12 0 12S32 22 32 46Z", fill: "#fff", "fill-opacity": 0.92 }, inner);
+    el("circle", { r: 46, fill: "none", stroke: "#fff", "stroke-width": 3 }, g);
+  }
+  return { g, line, pulse, x, y };
+});
+const bubble = el("g", {}, stage);
+el("rect", { x: -150, y: -34, width: 300, height: 68, rx: 34, fill: "#fff" }, bubble);
+el("path", { d: "M-20 33L-4 52L8 33Z", fill: "#fff" }, bubble);
+const dots = [-18, 0, 18].map((x) => el("circle", { cx: x, cy: 0, r: 5.5, fill: "#9a9aab" }, bubble));
+const bubbleText = el("text", { x: 0, y: 8, "text-anchor": "middle", "font-family": FONT, "font-size": 21, "font-weight": 500, fill: INK }, bubble);
+bubbleText.textContent = "Nous voulons une application.";
+const tick = el("g", {}, stage);
+el("circle", { r: 24, fill: "#22c55e" }, tick);
+el("path", { d: "M-10 1L-3 8L11 -8", fill: "none", stroke: "#fff", "stroke-width": 5, "stroke-linecap": "round", "stroke-linejoin": "round" }, tick);
+
+// Design: palette and type that join the wireframe.
+const chips = ["#7a5cff", "#2f8bff", "#34d399", "#fbbf24"].map((c) => el("circle", { r: 20, fill: c }, stage));
+const aa = el("text", { "font-family": FONT, "font-size": 108, "font-weight": 600, fill: "#fff", "letter-spacing": -4 }, stage);
+aa.textContent = "Aa";
+
+// Build: a tap on the live screen.
+const ripple = el("circle", { r: 10, fill: "none", stroke: "#fff", "stroke-width": 3 }, stage);
+const finger = el("circle", { r: 15, fill: "#fff", "fill-opacity": 0.92 }, stage);
+
+// Launch: the full frame mockup.
+const photoGroup = el("g", { "clip-path": "url(#corefull)" }, stage);
+const photo = el("image", { href: "photos/mockup.jpg", x: 0, y: 0, width: 1320, height: 968, preserveAspectRatio: "xMidYMid slice" }, photoGroup);
+const photoShade = el("rect", { width: W, height: H, fill: "url(#shade)" }, photoGroup);
+
+// Captions and progress, kept in the middle of the frame so a phone crop never cuts them.
+const STEPS = [
+  { n: "01", label: "ACQUISITION", title: "Un client nous contacte.", from: 3.4, to: 7.3 },
+  { n: "02", label: "CADRAGE ET DESIGN", title: "Nous dessinons son produit.", from: 7.4, to: 11.3 },
+  { n: "03", label: "CONSTRUCTION", title: "Nous le construisons.", from: 11.4, to: 15.1 },
+  { n: "04", label: "LANCEMENT", title: "Du premier contact à l'application.", from: 15.2, to: 17.4 },
+];
+const captions = STEPS.map((s) => {
+  const g = el("g", {}, stage);
+  const n = el("text", { x: SAFE_X, y: 748, "font-family": FONT, "font-size": 20, "font-weight": 600, "letter-spacing": 5, fill: "#fff", "fill-opacity": 0.65 }, g);
+  n.textContent = `${s.n}  ${s.label}`;
+  const t = el("text", { x: SAFE_X - 2, y: 808, "font-family": FONT, "font-size": 56, "font-weight": 600, "letter-spacing": -1.8, fill: "#fff" }, g);
+  t.textContent = s.title;
+  return { g, n, t };
+});
 const bars = STEPS.map((_, i) => {
   const x = SAFE_X + i * 150;
-  el("rect", { x, y: 56, width: 130, height: 3, rx: 1.5, fill: "#fff", "fill-opacity": 0.28 }, stage);
+  el("rect", { x, y: 56, width: 130, height: 3, rx: 1.5, fill: "#fff", "fill-opacity": 0.25 }, stage);
   return el("rect", { x, y: 56, width: 0, height: 3, rx: 1.5, fill: "#fff" }, stage);
 });
+const fade = el("rect", { width: W, height: H, fill: INK, opacity: 0 }, stage);
 
-function drawScene(i, t) {
-  const s = scenes[i];
-  const u = ((t - i * STEP + FADE) % DURATION + DURATION) % DURATION - FADE;
-  const enter = easeInOutCubic(seg(u, -FADE, 0));
-  const leave = easeInOutCubic(seg(u, STEP - FADE, STEP));
-  const alive = u <= STEP ? 1 : 0;
-  const zoom = 1.02 + 0.09 * easeInOutSine(clamp((u + FADE) / (STEP + FADE)));
-  const drift = (u - STEP / 2) * -10;
-  s.g.setAttribute("opacity", alive * enter * (1 - leave * (i === 3 ? 0 : 1)));
-  s.photo.setAttribute("transform", `translate(${W / 2 + drift} ${H / 2}) scale(${zoom}) translate(${-W / 2} ${-H / 2})`);
-  const rise = (a, size) => (1 - easeOutQuart(seg(u, a, a + 0.8))) * size;
-  s.number.setAttribute("transform", `translate(0 ${rise(0.05, 24)})`);
-  s.label.setAttribute("transform", `translate(0 ${rise(0.12, 36)})`);
-  s.line.setAttribute("transform", `translate(0 ${rise(0.22, 28)})`);
-  const textIn = seg(u, 0.05, 0.5), textOut = 1 - seg(u, STEP - 0.45, STEP - 0.1);
-  [s.number, s.label, s.line].forEach((node) => node.setAttribute("opacity", clamp(textIn) * clamp(textOut)));
+const CORE = [
+  [0.2, 0, 0, 0], [0.9, 22, 22, 11], [1.8, 250, 250, 125], [2.7, 250, 250, 68],
+  [3.7, 176, 176, 48], [7.0, 176, 176, 48], [8.2, 250, 500, 50],
+  [15.0, 250, 500, 50], [16.4, 1200, 880, 0], [18, 1200, 880, 0],
+];
+function core(t) {
+  let i = 0;
+  while (i < CORE.length - 2 && t >= CORE[i + 1][0]) i++;
+  const [t0, w0, h0, r0] = CORE[i], [t1, w1, h1, r1] = CORE[i + 1];
+  const k = i < 2 ? outExpo(seg(t, t0, t1)) : inOut(seg(t, t0, t1));
+  return { w: lerp(w0, w1, k), h: lerp(h0, h1, k), rx: lerp(r0, r1, k) };
+}
+
+function drawCore(t) {
+  const c = core(t);
+  const x = CX - c.w / 2, y = CY - c.h / 2;
+  const phone = seg(t, 7.0, 7.8);
+  set(coreGradient, { x, y, width: c.w, height: c.h, rx: c.rx, opacity: 1 - phone });
+  set(coreGlass, { x, y, width: c.w, height: c.h, rx: c.rx, opacity: phone * (1 - seg(t, 15.4, 16.2)) });
+  set(clipCoreRect, { x, y, width: c.w, height: c.h, rx: c.rx });
+  set(clipScreenRect, { x: x + 14, y: y + 14, width: Math.max(0, c.w - 28), height: Math.max(0, c.h - 28), rx: Math.max(0, c.rx - 12) });
+  set(halo, { opacity: win(t, 1.0, 2.2, 6.6, 8.0) * 0.8, transform: tf(0, 0) });
+  set(logo, { transform: tf(CX, CY, (c.w / 250) * 6.2), opacity: seg(t, 1.9, 2.7) * (1 - seg(t, 7.0, 7.5)) });
+  set(word, { opacity: win(t, 2.2, 3.0, 3.3, 3.8), "letter-spacing": lerp(26, 9, outQuart(seg(t, 2.2, 3.2))) });
+  set(notch, { x: CX - 40, y: y + 24, width: 80, height: 26, opacity: phone * (1 - seg(t, 15.2, 15.8)) });
+  return { c, x, y };
+}
+
+function drawAcquisition(t) {
+  nodeEls.forEach((n, i) => {
+    const at = 3.5 + i * 0.3;
+    const pop = outBack(seg(t, at, at + 0.6));
+    const gone = inOut(seg(t, 6.7, 7.2));
+    const s = pop * (1 - gone);
+    const px = lerp(n.x, CX, gone), py = lerp(n.y, CY, gone);
+    set(n.g, { transform: tf(px, py, Math.max(0, s)) });
+    const line = seg(t, at + 0.3, at + 1.0) * (1 - gone);
+    set(n.line, { x1: px, y1: py, x2: CX, y2: CY, opacity: line * 0.9 });
+    const loop = ((t - at - 1.0) / 1.1) % 1;
+    const run = t > at + 1.0 && t < 6.7 ? (loop + 1) % 1 : 0;
+    set(n.pulse, { cx: lerp(px, CX, run), cy: lerp(py, CY, run), opacity: run > 0 ? Math.sin(run * Math.PI) : 0 });
+  });
+  const b = outBack(seg(t, 5.3, 5.8)) * (1 - seg(t, 6.6, 6.9));
+  set(bubble, { transform: tf(CX, CY - 150, Math.max(0, b)) });
+  const typing = seg(t, 5.3, 5.5) * (1 - seg(t, 5.9, 6.0));
+  dots.forEach((d, i) => set(d, { opacity: typing, cy: -Math.abs(Math.sin(t * 9 + i * 1.1)) * 6 }));
+  set(bubbleText, { opacity: seg(t, 5.95, 6.15) });
+  const k = outBack(seg(t, 6.2, 6.7)) * (1 - seg(t, 6.95, 7.3));
+  set(tick, { transform: tf(CX + 80, CY - 80, Math.max(0, k)) });
+}
+
+function drawDesign(t, geo) {
+  const px = geo.x, py = geo.y, inx = px + 28, iw = geo.c.w - 56;
+  const grow = (a) => outQuart(seg(t, a, a + 0.7));
+  const base = 1 - seg(t, 9.6, 10.3);
+  const parts = [
+    [inx, py + 66, iw * 0.5, 14, 7.9], [inx, py + 92, iw, 120, 8.1],
+    [inx, py + 232, iw * 0.9, 12, 8.4], [inx, py + 256, iw * 0.7, 12, 8.55],
+    [inx, py + 280, iw * 0.8, 12, 8.7], [inx, py + 410, iw, 44, 8.9],
+  ];
+  wireParts.forEach((p, i) => set(p, { x: parts[i][0], y: parts[i][1], width: Math.max(0.01, parts[i][2] * grow(parts[i][4])), height: parts[i][3], opacity: base }));
+  const cx0 = inx, cy0 = py + 92;
+  set(wireCross, { d: `M${cx0} ${cy0}L${cx0 + iw} ${cy0 + 120}M${cx0 + iw} ${cy0}L${cx0} ${cy0 + 120}`, opacity: base * grow(8.3) * 0.7 });
+  chips.forEach((c, i) => {
+    const s = outBack(seg(t, 8.5 + i * 0.18, 9.0 + i * 0.18)) * (1 - seg(t, 10.8, 11.2));
+    set(c, { cx: 830, cy: 300 + i * 66, transform: `translate(0 0) scale(${Math.max(0, s)})`, "transform-origin": `830px ${300 + i * 66}px` });
+  });
+  set(aa, { x: 262, y: 400, opacity: win(t, 8.3, 8.9, 10.7, 11.2) });
+  set(screenRent, { x: geo.x + 14, y: geo.y + 14, width: geo.c.w - 28, height: geo.c.h - 28, opacity: seg(t, 9.6, 10.3), transform: tf(0, 0) });
+}
+
+function drawBuild(t, geo) {
+  const ex = inOut(seg(t, 11.5, 12.5)) * (1 - inOut(seg(t, 13.4, 14.0)));
+  const w = geo.c.w, h = geo.c.h;
+  const OFF = [-175, 175];
+  layers.forEach((l, i) => {
+    set(l.body, { x: geo.x + OFF[i] * ex, y: geo.y - 18 * ex, width: w, height: h, rx: 50 });
+    set(l.g, { opacity: ex > 0.01 ? Math.min(1, ex * 1.6) : 0 });
+  });
+  const lx = geo.x + OFF[0] * ex, ly = geo.y - 18 * ex;
+  TILES.forEach((r, i) => set(r, { x: lx + 22 + (i % 2) * 108, y: ly + 60 + Math.floor(i / 2) * 108, width: 96, height: 96, rx: 22 }));
+  set(TOGGLE, { x: lx + 22, y: ly + 300, width: 110, height: 52, rx: 26 });
+  set(KNOB, { cx: lx + 22 + 26 + 58 * seg(t, 12.2, 12.9), cy: ly + 326, r: 20 });
+  const rx0 = geo.x + OFF[1] * ex, ry0 = geo.y - 18 * ex;
+  CODE.forEach((r, i) => {
+    const len = [0.8, 0.55, 0.7, 0.4, 0.62, 0.3, 0.74][i] * (w - 56) * seg(t, 12.0 + i * 0.12, 12.6 + i * 0.12);
+    set(r, { x: rx0 + 28, y: ry0 + 70 + i * 46, width: len, rx: 4 });
+  });
+  const centres = [lx + w / 2, geo.x + w / 2, rx0 + w / 2];
+  layerLabels.forEach((g, i) => {
+    set(g, { opacity: clamp(ex * 2 - 0.4) });
+    set(g.children[0], { opacity: 0 });
+    set(g.children[1], { x: centres[[1, 0, 2][i] ], y: geo.y - 36, "text-anchor": "middle" });
+  });
+  const live = seg(t, 13.9, 14.3);
+  const tapIn = seg(t, 14.15, 14.4), tapOut = seg(t, 14.4, 14.9);
+  set(finger, { cx: lerp(geo.x + 180, geo.x + 130, tapIn), cy: lerp(geo.y + 560, geo.y + 280, inOut(seg(t, 13.9, 14.3))), opacity: win(t, 13.9, 14.1, 14.7, 14.95) });
+  set(ripple, { cx: geo.x + 130, cy: geo.y + 280, r: 10 + 44 * tapOut, opacity: tapIn * (1 - tapOut) * 0.9 });
+  set(screenStream, { x: geo.x + 14, y: geo.y + 14, width: w - 28, height: h - 28, opacity: inOut(seg(t, 14.4, 14.9)), transform: tf(0, 0) });
+  return live;
+}
+
+function drawLaunch(t) {
+  const k = inOut(seg(t, 15.7, 16.5));
+  set(photo, { transform: tf(0, 0, 1 + 0.07 * sine(seg(t, 15.2, 18))), "transform-origin": "600px 440px", opacity: k });
+  set(photoShade, { opacity: k });
+  [screenRent, screenStream, wire].forEach((n) => n.setAttribute("opacity", Number(n.getAttribute("opacity") || 1) * (1 - seg(t, 15.0, 15.9))));
+}
+
+function drawText(t) {
+  STEPS.forEach((s, i) => {
+    const a = win(t, s.from, s.from + 0.6, s.to - 0.3, s.to);
+    const r = (1 - outQuart(seg(t, s.from, s.from + 0.8))) * 34;
+    set(captions[i].n, { opacity: a, transform: tf(0, r * 0.6) });
+    set(captions[i].t, { opacity: a, transform: tf(0, r) });
+    set(bars[i], { width: 130 * seg(t, s.from, s.to) });
+  });
 }
 
 window.draw = (clock) => {
-  const t = ((clock - OFFSET) % DURATION + DURATION) % DURATION;
-  STEPS.forEach((_, i) => {
-    drawScene(i, t);
-    bars[i].setAttribute("width", 130 * clamp((t - i * STEP) / STEP));
-  });
+  const t = Math.min(Math.max(clock, 0), DURATION - 0.001);
+  const geo = drawCore(t);
+  drawAcquisition(t);
+  drawDesign(t, geo);
+  drawBuild(t, geo);
+  drawLaunch(t);
+  drawText(t);
+  set(fade, { opacity: seg(t, 17.4, 17.99) });
 };
 window.MOTION = { FPS, DURATION };
 window.draw(new URLSearchParams(location.search).get("t") || 0);

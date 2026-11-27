@@ -13,8 +13,8 @@ from PIL import Image
 
 HERE = Path(__file__).resolve().parent
 FPS = 24
-DURATION = 8
-POSTER_TIME = 1.65
+DURATION = 18
+POSTER_TIME = 5.0
 
 
 def capture(frame: int, folder: Path) -> None:
@@ -30,7 +30,7 @@ def capture(frame: int, folder: Path) -> None:
 def main(out: Path) -> None:
     frames = out / "frames"
     frames.mkdir(parents=True, exist_ok=True)
-    with ThreadPoolExecutor(max_workers=6) as pool:
+    with ThreadPoolExecutor(max_workers=8) as pool:
         list(pool.map(lambda frame: capture(frame, frames), range(FPS * DURATION)))
     sound = out / "hero-sound.wav"
     subprocess.run([sys.executable, str(HERE / "sound.py"), str(sound)], check=True)

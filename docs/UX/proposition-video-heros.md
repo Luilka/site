@@ -63,13 +63,17 @@ Taux de clic sur le contact depuis l'accueil (KPI à nommer, Q-004 pour la colle
 
 Source : `motion/hero-reel/timeline.html`, rendue par `motion/hero-reel/render.py`. Chaque image est calculée à partir du temps par une fonction unique `draw(t)`, sans animation automatique du navigateur, donc rejouable et modifiable seconde par seconde.
 
-- **Version du 27 novembre 2026.** La pièce remplit toute la carte, sans fond ni couleur du site : chaque étape est une maquette d'application en plein cadre, avec une poussée lente de caméra. Le titre de l'étape (Cadrage, Design, Construction, Lancement), son numéro et une ligne montent en bas, en blanc sur un dégradé noir, et quatre traits fins en haut marquent la progression. Les étapes se succèdent toutes les 2 secondes en fondu enchaîné, et la dernière revient à la première sans coupure. Le texte reste dans la zone centrale, pour que le recadrage sur téléphone ne le coupe pas.
-- **Format** : 1200 sur 880 (le cadre du héros en double densité), 24 images par seconde, 8 secondes, boucle.
-- **Images provisoires** : les quatre maquettes viennent de Pinterest, ce sont des visuels de tiers. Elles sont dans `motion/hero-reel/photos/`, dossier non versionné. À remplacer par des maquettes dont Luilka détient les droits avant la mise en production, en gardant les noms `step-1.jpg` à `step-4.jpg` puis en relançant `render.py`. Titulaire : @Espoir-Loem.
-- **Son** : `motion/hero-reel/sound.py` synthétise une nappe grave, une cloche douce par étape et un souffle avant chaque arrivée, calés sur les mêmes temps que l'image. Il n'a été que mesuré, pas écouté par un humain.
+- **Version du 27 novembre 2026.** Un vrai film de motion design de 18 secondes, en plein cadre sur fond noir neutre, sans la couleur du site. Il raconte le chemin du premier contact à l'application :
+  - **Logo (0 à 3 s) :** un point devient un cercle, puis une tuile qui porte le logo, puis le nom Luilka.
+  - **Acquisition (3 à 7 s) :** quatre prospects arrivent autour de la tuile, des impulsions les relient, une bulle envoie le brief et la tuile le valide.
+  - **Cadrage et design (7 à 11 s) :** la tuile devient un téléphone, le fil de fer se dessine, la palette et la typographie arrivent, puis l'écran réel apparaît.
+  - **Construction (11 à 15 s) :** le téléphone s'ouvre en trois panneaux (composants, interface, code), se referme, puis un doigt touche l'écran qui change d'application.
+  - **Lancement (15 à 18 s) :** le téléphone grandit jusqu'à remplir le cadre avec une maquette réelle, puis la vidéo s'éteint et reboucle.
+  Les images (visage, écrans, maquette) apparaissent au fil de l'histoire. Le texte reste dans la zone centrale, pour que le recadrage sur téléphone ne le coupe pas.
+- **Son** : `motion/hero-reel/sound.py` synthétise une nappe grave, une cloche douce par étape et un souffle avant chaque arrivée, calés sur les scènes. Il n'a été que mesuré, pas écouté par un humain.
 - **Lecture** : la vidéo ne joue que lorsque la moitié au moins est à l'écran, et le son, coupé au départ, ne s'active que par un clic (règle des navigateurs et WCAG 1.4.2).
 
-Rendu : `uv run --with imageio-ffmpeg --with numpy --with pillow python motion/hero-reel/render.py <dossier>` capture les 192 images dans Chrome, puis encode en H.264 (`crf 26`, `yuv420p`, `faststart`). L'image fixe est la capture à 1,65 s.
+Rendu : `uv run --with imageio-ffmpeg --with numpy --with pillow python motion/hero-reel/render.py <dossier>` capture les 192 images dans Chrome, puis encode en H.264 (`crf 26`, `yuv420p`, `faststart`). L'image fixe est la capture à 5 s.
 
 Limites : la pièce montre la méthode, pas les réalisations réelles ; elle sera à remplacer ou à compléter par vos enregistrements d'écran avec l'accord des clients. Aucun test de visiteurs n'a été fait.
 

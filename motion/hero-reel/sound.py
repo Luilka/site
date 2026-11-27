@@ -10,7 +10,7 @@ import wave
 import numpy as np
 
 SAMPLE_RATE = 44100
-DURATION = 8.0
+DURATION = 18.0
 FIRST_STEP = 0.45
 STEP_LENGTH = 2.0
 BELLS = (587.33, 739.99, 880.0, 1174.66)
@@ -63,14 +63,21 @@ def master() -> np.ndarray:
     return np.sin(fade_in * np.pi / 2) * np.sin(fade_out * np.pi / 2)
 
 
+SCENES = (0.9, 3.5, 7.4, 11.4, 15.2)
+LOGO_CHIME = (587.33, 880.0, 1174.66)
+
+
 def mix() -> np.ndarray:
     track = pad()
-    for index, frequency in enumerate(BELLS):
-        start = step_start(index)
-        track += bell(frequency, start + 0.12, 0.16)
-        track += thud(start + 0.5, 0.2)
+    track += sum(bell(frequency, 1.8 + 0.12 * index, 0.12) for index, frequency in enumerate(LOGO_CHIME))
+    track += thud(0.9, 0.18)
+    for index, start in enumerate(SCENES[1:]):
+        track += bell(BELLS[index], start + 0.12, 0.14)
+        track += thud(start + 0.3, 0.16)
         track += breath(start - 0.45, 0.8, 0.05)
-    track += bell(739.99, step_start(3) + 0.2, 0.07) + bell(880.0, step_start(3) + 0.28, 0.06)
+    for tick in (5.35, 6.25, 13.95):
+        track += bell(1318.51, tick, 0.05)
+    track += bell(739.99, 15.5, 0.07) + bell(880.0, 15.6, 0.06)
     track *= master()
     return track * (0.7 / np.max(np.abs(track)))
 
