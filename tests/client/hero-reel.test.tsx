@@ -37,6 +37,14 @@ describe("hero reel", () => {
     expect(video.querySelector("source")?.getAttribute("type")).toBe("video/mp4");
   });
 
+  it("lets the video fill the whole card, on a neutral black that does not borrow the site colour", () => {
+    const { container } = render(<HeroReel />);
+    const frame = container.firstElementChild as HTMLElement;
+    expect(frame.className).toContain("bg-black");
+    expect(frame.className).not.toContain("bg-night");
+    expect(container.querySelector("video")?.className).toContain("inset-0");
+  });
+
   it("fills the frame and loads only its metadata until it plays", () => {
     const { container } = render(<HeroReel />);
     const video = container.querySelector("video");

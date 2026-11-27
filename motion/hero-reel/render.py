@@ -22,7 +22,7 @@ def capture(frame: int, folder: Path) -> None:
     url = f"file://{HERE / 'timeline.html'}?t={frame / FPS:.4f}"
     subprocess.run(
         ["google-chrome", "--headless", "--no-sandbox", "--disable-gpu", "--allow-file-access-from-files",
-         "--virtual-time-budget=3000", "--window-size=1080,880", f"--screenshot={target}", url],
+         "--virtual-time-budget=3000", "--window-size=1200,880", f"--screenshot={target}", url],
         check=True, capture_output=True,
     )
 

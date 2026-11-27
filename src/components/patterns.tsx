@@ -52,7 +52,7 @@ export function FeedbackBoundary({ children }: FeedbackBoundaryProps) {
   );
 }
 
-const REEL_FRAME = "relative h-[440px] overflow-hidden rounded-[28px] bg-night";
+const REEL_FRAME = "relative h-[440px] overflow-hidden rounded-[28px] bg-black";
 const REEL_BUTTON = "row-center justify-center size-11 rounded-full bg-paper/80 text-text backdrop-blur-md cursor-pointer";
 
 function ReelToggle({ paused, onToggle }: ReelToggleProps) {

@@ -3,23 +3,23 @@
 <head>
 <meta charset="utf-8">
 <title>Luilka, boucle du héros</title>
-<style>html,body{margin:0;background:#0f221b}svg{display:block}</style>
+<style>html,body{margin:0;background:#000}svg{display:block}</style>
 </head>
 <body>
-<svg id="stage" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1080" height="880" viewBox="0 0 1080 880"></svg>
+<svg id="stage" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1200" height="880" viewBox="0 0 1200 880"></svg>
 <script>
-const W = 1080, H = 880, FPS = 24, DURATION = 8, STEP = 2, OFFSET = 0.45;
-const GOLD = "#c9a24b", CREAM = "#f6f0e4";
-const PHOTO = { x: 500, y: 70, w: 520, h: 740 };
+const W = 1200, H = 880, FPS = 24, DURATION = 8, STEP = 2, OFFSET = 0.3, FADE = 0.7;
+const IMG = { w: 1320, h: 968 };
+const SAFE_X = 280;
 const STEPS = [
-  { n: "01", label: "CADRAGE", lines: ["Nous clarifions le problème,", "les personnes concernées et", "ce que le produit doit accomplir."] },
-  { n: "02", label: "DESIGN", lines: ["Nous dessinons les parcours,", "le langage visuel et les écrans,", "puis nous les testons."] },
-  { n: "03", label: "CONSTRUCTION", lines: ["Nous construisons l'application :", "interface, états et parcours", "jusqu'à la mise en ligne."] },
-  { n: "04", label: "LANCEMENT", lines: ["Nous écrivons la page produit,", "le ton et les messages utiles", "au quotidien."] },
+  { n: "01", label: "Cadrage", line: "Le problème, les personnes, l'objectif." },
+  { n: "02", label: "Design", line: "Parcours, langage visuel et écrans." },
+  { n: "03", label: "Construction", line: "De l'interface à la mise en ligne." },
+  { n: "04", label: "Lancement", line: "La page produit, le ton, les messages." },
 ];
 const clamp = (v) => Math.min(1, Math.max(0, v));
 const seg = (t, a, b) => clamp((t - a) / (b - a));
-const easeOutExpo = (x) => (x >= 1 ? 1 : 1 - Math.pow(2, -10 * x));
+const easeOutQuart = (x) => 1 - Math.pow(1 - x, 4);
 const easeInOutCubic = (x) => (x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2);
 const easeInOutSine = (x) => -(Math.cos(Math.PI * x) - 1) / 2;
 
@@ -32,66 +32,60 @@ const el = (tag, attrs = {}, parent) => {
 };
 const stage = document.getElementById("stage");
 const defs = el("defs", {}, stage);
-const grad = el("radialGradient", { id: "bg", cx: "30%", cy: "44%", r: "80%" }, defs);
-el("stop", { offset: "0", "stop-color": "#1c3f34" }, grad);
-el("stop", { offset: "1", "stop-color": "#0f221b" }, grad);
-el("rect", { width: W, height: H, fill: "url(#bg)" }, stage);
+const shade = el("linearGradient", { id: "shade", x1: 0, y1: 0, x2: 0, y2: 1 }, defs);
+el("stop", { offset: "0.5", "stop-color": "#000", "stop-opacity": 0 }, shade);
+el("stop", { offset: "1", "stop-color": "#000", "stop-opacity": 0.88 }, shade);
+const topShade = el("linearGradient", { id: "top", x1: 0, y1: 0, x2: 0, y2: 1 }, defs);
+el("stop", { offset: "0", "stop-color": "#000", "stop-opacity": 0.35 }, topShade);
+el("stop", { offset: "0.25", "stop-color": "#000", "stop-opacity": 0 }, topShade);
+el("rect", { width: W, height: H, fill: "#000" }, stage);
 
-const logo = el("g", {}, stage);
-const FINGERPRINT = "M12 3.75a6.715 6.715 0 0 0-3.722 1.118.75.75 0 1 1-.828-1.25 8.25 8.25 0 0 1 12.8 6.883c0 3.014-.574 5.897-1.62 8.543a.75.75 0 0 1-1.395-.551A21.69 21.69 0 0 0 18.75 10.5 6.75 6.75 0 0 0 12 3.75ZM6.157 5.739a.75.75 0 0 1 .21 1.04A6.715 6.715 0 0 0 5.25 10.5c0 1.613-.463 3.12-1.265 4.393a.75.75 0 0 1-1.27-.8A6.715 6.715 0 0 0 3.75 10.5c0-1.68.503-3.246 1.367-4.55a.75.75 0 0 1 1.04-.211ZM12 7.5a3 3 0 0 0-3 3c0 3.1-1.176 5.927-3.105 8.056a.75.75 0 1 1-1.112-1.008A10.459 10.459 0 0 0 7.5 10.5a4.5 4.5 0 1 1 9 0c0 .547-.022 1.09-.067 1.626a.75.75 0 0 1-1.495-.123c.041-.495.062-.996.062-1.503a3 3 0 0 0-3-3Zm0 2.25a.75.75 0 0 1 .75.75c0 3.908-1.424 7.485-3.781 10.238a.75.75 0 0 1-1.14-.975A14.19 14.19 0 0 0 11.25 10.5a.75.75 0 0 1 .75-.75Zm3.239 5.183a.75.75 0 0 1 .515.927 19.417 19.417 0 0 1-2.585 5.544.75.75 0 0 1-1.243-.84 17.915 17.915 0 0 0 2.386-5.116.75.75 0 0 1 .927-.515Z";
-el("path", { d: FINGERPRINT, fill: GOLD, "fill-rule": "evenodd", transform: "translate(60 66) scale(1.3)" }, logo);
-el("text", { x: 100, y: 92, "font-family": "Noto Sans Display, sans-serif", "font-size": 22, "letter-spacing": 6, fill: CREAM }, logo).textContent = "LUILKA";
-
-const clipFor = (id) => {
-  const c = el("clipPath", { id }, defs);
-  return { c, rect: el("rect", { x: PHOTO.x, y: PHOTO.y, width: PHOTO.w, height: PHOTO.h, rx: 28 }, c) };
-};
+const FONT = "Noto Sans Display, Helvetica, Arial, sans-serif";
 const scenes = STEPS.map((step, i) => {
-  const clip = clipFor(`ph${i}`);
-  const g = el("g", { "clip-path": `url(#ph${i})` }, stage);
-  const img = el("image", { href: `photos/step-${i + 1}.jpg`, x: PHOTO.x, y: PHOTO.y, width: PHOTO.w, height: PHOTO.h, preserveAspectRatio: "xMidYMid slice" }, g);
-  const text = el("g", {}, stage);
-  const number = el("text", { x: 60, y: 330, "font-family": "Noto Serif Display, serif", "font-size": 170, fill: CREAM }, text);
-  number.textContent = step.n;
-  const label = el("text", { x: 64, y: 392, "font-family": "Noto Sans Display, sans-serif", "font-size": 22, "letter-spacing": 8, fill: GOLD }, text);
+  const g = el("g", {}, stage);
+  const photo = el("g", {}, g);
+  const img = el("image", { href: `photos/step-${i + 1}.jpg`, x: (W - IMG.w) / 2, y: (H - IMG.h) / 2, width: IMG.w, height: IMG.h, preserveAspectRatio: "xMidYMid slice" }, photo);
+  el("rect", { width: W, height: H, fill: "url(#shade)" }, g);
+  el("rect", { width: W, height: H, fill: "url(#top)" }, g);
+  const text = el("g", {}, g);
+  const label = el("text", { x: SAFE_X, y: 760, "font-family": FONT, "font-size": 78, "font-weight": 600, "letter-spacing": -2.5, fill: "#fff" }, text);
   label.textContent = step.label;
-  const lines = step.lines.map((line, k) => {
-    const t = el("text", { x: 64, y: 456 + k * 40, "font-family": "Noto Sans Display, sans-serif", "font-size": 27, fill: CREAM, "fill-opacity": 0.85 }, text);
-    t.textContent = line;
-    return t;
-  });
-  return { clip, g, img, text, number, label, lines };
+  const line = el("text", { x: SAFE_X + 3, y: 806, "font-family": FONT, "font-size": 27, "font-weight": 400, fill: "#fff", "fill-opacity": 0.82 }, text);
+  line.textContent = step.line;
+  const number = el("text", { x: SAFE_X + 3, y: 700, "font-family": FONT, "font-size": 22, "font-weight": 600, "letter-spacing": 4, fill: "#fff", "fill-opacity": 0.7 }, text);
+  number.textContent = step.n;
+  return { g, photo, img, label, line, number };
 });
 
-const ticks = STEPS.map((_, i) => {
-  const x = 64 + i * 86;
-  el("line", { x1: x, x2: x + 66, y1: 790, y2: 790, stroke: GOLD, "stroke-width": 1.5, opacity: 0.25 }, stage);
-  return el("line", { x1: x, x2: x, y1: 790, y2: 790, stroke: GOLD, "stroke-width": 2 }, stage);
+const bars = STEPS.map((_, i) => {
+  const x = SAFE_X + i * 150;
+  el("rect", { x, y: 56, width: 130, height: 3, rx: 1.5, fill: "#fff", "fill-opacity": 0.28 }, stage);
+  return el("rect", { x, y: 56, width: 0, height: 3, rx: 1.5, fill: "#fff" }, stage);
 });
 
 function drawScene(i, t) {
   const s = scenes[i];
-  const u = ((t - i * STEP + 0.5) % DURATION + DURATION) % DURATION - 0.5;
-  const enter = easeInOutCubic(seg(u, -0.5, 0.15));
-  const leave = easeInOutCubic(seg(u, STEP - 0.5, STEP + 0.15));
-  const alive = u <= STEP + 0.15 ? 1 : 0;
-  const rise = (1 - easeOutExpo(seg(u, 0.05, 0.9))) * 60;
-  s.clip.rect.setAttribute("transform", `translate(0 ${(1 - enter) * 120 + leave * 70})`);
-  s.g.setAttribute("opacity", alive * (1 - leave));
-  const zoom = 1 + 0.06 * easeInOutSine(clamp((u + 0.5) / (STEP + 0.5)));
-  const cx = PHOTO.x + PHOTO.w / 2, cy = PHOTO.y + PHOTO.h / 2;
-  s.img.setAttribute("transform", `translate(${cx} ${cy}) scale(${zoom}) translate(${-cx} ${-cy})`);
-  s.text.setAttribute("opacity", alive * clamp(1 - leave * 4) * clamp((enter - 0.6) * 3));
-  s.number.setAttribute("transform", `translate(0 ${rise})`);
-  s.label.setAttribute("transform", `translate(0 ${rise * 0.7})`);
-  s.lines.forEach((line, k) => line.setAttribute("transform", `translate(0 ${rise * (0.5 - k * 0.08)})`));
+  const u = ((t - i * STEP + FADE) % DURATION + DURATION) % DURATION - FADE;
+  const enter = easeInOutCubic(seg(u, -FADE, 0));
+  const leave = easeInOutCubic(seg(u, STEP - FADE, STEP));
+  const alive = u <= STEP ? 1 : 0;
+  const zoom = 1.02 + 0.09 * easeInOutSine(clamp((u + FADE) / (STEP + FADE)));
+  const drift = (u - STEP / 2) * -10;
+  s.g.setAttribute("opacity", alive * enter * (1 - leave * (i === 3 ? 0 : 1)));
+  s.photo.setAttribute("transform", `translate(${W / 2 + drift} ${H / 2}) scale(${zoom}) translate(${-W / 2} ${-H / 2})`);
+  const rise = (a, size) => (1 - easeOutQuart(seg(u, a, a + 0.8))) * size;
+  s.number.setAttribute("transform", `translate(0 ${rise(0.05, 24)})`);
+  s.label.setAttribute("transform", `translate(0 ${rise(0.12, 36)})`);
+  s.line.setAttribute("transform", `translate(0 ${rise(0.22, 28)})`);
+  const textIn = seg(u, 0.05, 0.5), textOut = 1 - seg(u, STEP - 0.45, STEP - 0.1);
+  [s.number, s.label, s.line].forEach((node) => node.setAttribute("opacity", clamp(textIn) * clamp(textOut)));
 }
 
 window.draw = (clock) => {
   const t = ((clock - OFFSET) % DURATION + DURATION) % DURATION;
   STEPS.forEach((_, i) => {
     drawScene(i, t);
-    ticks[i].setAttribute("x2", 64 + i * 86 + 66 * clamp((t - i * STEP + 0.1) / STEP));
+    bars[i].setAttribute("width", 130 * clamp((t - i * STEP) / STEP));
   });
 };
 window.MOTION = { FPS, DURATION };
