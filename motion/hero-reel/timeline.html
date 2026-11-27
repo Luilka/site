@@ -2,16 +2,19 @@
 <html lang="fr">
 <head>
 <meta charset="utf-8">
-<title>Luilka, du premier contact à l'application</title>
-<style>html,body{margin:0;background:#07070a}svg{display:block}</style>
+<title>Luilka, des applications en mouvement</title>
+<style>
+html,body{margin:0;background:#07070a}
+*{box-sizing:border-box;font-family:"Noto Sans Display",Helvetica,Arial,sans-serif}
+#stage{position:relative;width:1200px;height:880px;overflow:hidden;background:#e7e7ee;perspective:1500px}
+.abs{position:absolute}
+</style>
 </head>
 <body>
-<svg id="stage" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1200" height="880" viewBox="0 0 1200 880"></svg>
+<div id="stage"></div>
 <script>
-const W = 1200, H = 880, FPS = 24, DURATION = 18;
-const CX = 600, CY = 440, SAFE_X = 280;
-const A1 = "#7a5cff", A2 = "#2f8bff", INK = "#07070a", GLASS = "#15151d";
-const FONT = "Noto Sans Display, Helvetica, Arial, sans-serif", MONO = "DejaVu Sans Mono, monospace";
+const W = 1200, H = 880, FPS = 24, DURATION = 18, CX = 600, CY = 440;
+const A1 = "#7a5cff", A2 = "#2f8bff", INK = "#07070a";
 const FINGERPRINT = "M12 3.75a6.715 6.715 0 0 0-3.722 1.118.75.75 0 1 1-.828-1.25 8.25 8.25 0 0 1 12.8 6.883c0 3.014-.574 5.897-1.62 8.543a.75.75 0 0 1-1.395-.551A21.69 21.69 0 0 0 18.75 10.5 6.75 6.75 0 0 0 12 3.75ZM6.157 5.739a.75.75 0 0 1 .21 1.04A6.715 6.715 0 0 0 5.25 10.5c0 1.613-.463 3.12-1.265 4.393a.75.75 0 0 1-1.27-.8A6.715 6.715 0 0 0 3.75 10.5c0-1.68.503-3.246 1.367-4.55a.75.75 0 0 1 1.04-.211ZM12 7.5a3 3 0 0 0-3 3c0 3.1-1.176 5.927-3.105 8.056a.75.75 0 1 1-1.112-1.008A10.459 10.459 0 0 0 7.5 10.5a4.5 4.5 0 1 1 9 0c0 .547-.022 1.09-.067 1.626a.75.75 0 0 1-1.495-.123c.041-.495.062-.996.062-1.503a3 3 0 0 0-3-3Zm0 2.25a.75.75 0 0 1 .75.75c0 3.908-1.424 7.485-3.781 10.238a.75.75 0 0 1-1.14-.975A14.19 14.19 0 0 0 11.25 10.5a.75.75 0 0 1 .75-.75Zm3.239 5.183a.75.75 0 0 1 .515.927 19.417 19.417 0 0 1-2.585 5.544.75.75 0 0 1-1.243-.84 17.915 17.915 0 0 0 2.386-5.116.75.75 0 0 1 .927-.515Z";
 
 const clamp = (v) => Math.min(1, Math.max(0, v));
@@ -20,281 +23,267 @@ const lerp = (a, b, k) => a + (b - a) * k;
 const outExpo = (x) => (x >= 1 ? 1 : 1 - Math.pow(2, -10 * x));
 const outQuart = (x) => 1 - Math.pow(1 - x, 4);
 const inOut = (x) => (x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2);
-const outBack = (x) => { const c = 1.9; return 1 + (c + 1) * Math.pow(x - 1, 3) + c * Math.pow(x - 1, 2); };
-const sine = (x) => -(Math.cos(Math.PI * x) - 1) / 2;
+const outBack = (x) => { const c = 1.8; return 1 + (c + 1) * Math.pow(x - 1, 3) + c * Math.pow(x - 1, 2); };
 const win = (t, a, b, c, d) => seg(t, a, b) * (1 - seg(t, c, d));
+const pop = (t, a, d = 0.5) => (t < a ? 0 : outBack(seg(t, a, a + d)));
 
-const NS = "http://www.w3.org/2000/svg";
-const el = (tag, attrs = {}, parent) => {
-  const n = document.createElementNS(NS, tag);
-  for (const [k, v] of Object.entries(attrs)) n.setAttribute(k, v);
+const h = (tag, style, parent, html) => {
+  const n = document.createElement(tag);
+  Object.assign(n.style, { position: "absolute", ...style });
+  if (html !== undefined) n.innerHTML = html;
   if (parent) parent.appendChild(n);
   return n;
 };
-const set = (n, attrs) => { for (const [k, v] of Object.entries(attrs)) n.setAttribute(k, v); };
-const tf = (x, y, s = 1, r = 0) => `translate(${x} ${y}) rotate(${r}) scale(${s})`;
+const svg = (d, size, color, parent, style = {}, fill = true) =>
+  h("div", { width: size + "px", height: size + "px", ...style }, parent, `<svg viewBox="0 0 24 24" width="${size}" height="${size}"><path d="${d}" fill="${fill ? color : "none"}" stroke="${fill ? "none" : color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`);
+const ICON = {
+  heart: "M12 21s-7.5-4.6-9.6-9.2C.8 8.2 3 4.5 6.6 4.5c2 0 3.5 1.1 5.4 3.2 1.9-2.1 3.4-3.2 5.4-3.2 3.6 0 5.8 3.7 4.2 7.3C19.500 16.400 12 21 12 21Z",
+  comment: "M4 5h16v11H9l-5 4V5Z",
+  share: "M4 12l16-8-6 16-3-7-7-1Z",
+  play: "M7 4l13 8-13 8V4Z",
+  search: "M10.500 3a7.500 7.500 0 1 0 4.500 13.500L20 21.500 21.500 20 16.500 15A7.500 7.500 0 0 0 10.500 3Z",
+  home: "M3 11l9-8 9 8v10h-6v-6H9v6H3V11Z",
+  plus: "M11 4h2v7h7v2h-7v7h-2v-7H4v-2h7V4Z",
+};
 
 const stage = document.getElementById("stage");
-const defs = el("defs", {}, stage);
-const grad = el("linearGradient", { id: "acc", x1: 0, y1: 0, x2: 1, y2: 1 }, defs);
-el("stop", { offset: 0, "stop-color": A1 }, grad);
-el("stop", { offset: 1, "stop-color": A2 }, grad);
-const glow = el("radialGradient", { id: "glow", cx: "50%", cy: "50%", r: "50%" }, defs);
-el("stop", { offset: 0, "stop-color": A1, "stop-opacity": 0.5 }, glow);
-el("stop", { offset: 1, "stop-color": A1, "stop-opacity": 0 }, glow);
-const shade = el("linearGradient", { id: "shade", x1: 0, y1: 0, x2: 0, y2: 1 }, defs);
-el("stop", { offset: 0.42, "stop-color": "#000", "stop-opacity": 0 }, shade);
-el("stop", { offset: 1, "stop-color": "#000", "stop-opacity": 0.92 }, shade);
-const clipScreen = el("clipPath", { id: "screen" }, defs);
-const clipScreenRect = el("rect", {}, clipScreen);
-const clipCore = el("clipPath", { id: "corefull" }, defs);
-const clipCoreRect = el("rect", {}, clipCore);
 
-el("rect", { width: W, height: H, fill: INK }, stage);
-const halo = el("circle", { cx: CX, cy: CY, r: 420, fill: "url(#glow)", opacity: 0 }, stage);
-
-// Shapes that sit behind the phone: exploded layers of the build step.
-const layers = [0, 1].map((k) => {
-  const g = el("g", {}, stage);
-  const body = el("rect", { fill: "#1d1d29", stroke: "#fff", "stroke-opacity": 0.3, "stroke-width": 2 }, g);
-  const content = el("g", {}, g);
-  return { g, body, content };
-});
-const TILES = [[0, 0], [1, 0], [0, 1], [1, 1]].map(([c, r]) => el("rect", { fill: "url(#acc)", opacity: 0.9 }, layers[0].content));
-const TOGGLE = el("rect", { fill: "#fff", opacity: 0.85 }, layers[0].content);
-const KNOB = el("circle", { fill: A2 }, layers[0].content);
-const CODE = [0.8, 0.55, 0.7, 0.4, 0.62, 0.3, 0.74].map((w, i) => el("rect", { fill: [A1, A2, "#fff", A2, A1, "#fff", A1][i], opacity: 0.85, rx: 4, height: 10 }, layers[1].content));
-const layerLabels = ["Interface", "Composants", "Code"].map((txt) => {
-  const g = el("g", {}, stage);
-  el("line", { stroke: "#fff", "stroke-opacity": 0.3 }, g);
-  el("text", { "font-family": FONT, "font-size": 19, fill: "#fff", "fill-opacity": 0.8 }, g).textContent = txt;
-  return g;
-});
-
-// The core shape: dot, circle, logo tile, hub, phone, full frame.
-const coreGradient = el("rect", { fill: "url(#acc)" }, stage);
-const coreGlass = el("rect", { fill: GLASS, stroke: "#fff", "stroke-opacity": 0.22, "stroke-width": 2 }, stage);
-const logo = el("g", {}, stage);
-el("path", { d: FINGERPRINT, fill: "#fff", "fill-rule": "evenodd", transform: "translate(-12 -12)" }, logo);
-const word = el("text", { x: CX, y: 650, "text-anchor": "middle", "font-family": FONT, "font-size": 34, "font-weight": 500, fill: "#fff" }, stage);
-word.textContent = "LUILKA";
-
-// Screens inside the phone, clipped to its rounded screen.
-const screens = el("g", { "clip-path": "url(#screen)" }, stage);
-const wire = el("g", {}, screens);
-const screenRent = el("image", { href: "photos/screen-rent.jpg", preserveAspectRatio: "xMidYMid slice" }, screens);
-const screenStream = el("image", { href: "photos/screen-stream.jpg", preserveAspectRatio: "xMidYMid slice" }, screens);
-const wireParts = [
-  el("rect", { fill: "#fff", "fill-opacity": 0.14, rx: 8 }, wire),
-  el("rect", { fill: "#fff", "fill-opacity": 0.1, rx: 18 }, wire),
-  el("rect", { fill: "#fff", "fill-opacity": 0.14, rx: 5 }, wire),
-  el("rect", { fill: "#fff", "fill-opacity": 0.14, rx: 5 }, wire),
-  el("rect", { fill: "#fff", "fill-opacity": 0.1, rx: 5 }, wire),
-  el("rect", { fill: "url(#acc)", rx: 22 }, wire),
+/* Studio background: soft light and coloured blocks, moved by the camera. */
+const BLOCKS = [
+  [-80, 60, 260, 330, 40, "#ff4d8d,#ff9f43", 0.5], [150, -40, 220, 260, 36, "#5b3bd6,#2f6bff", 0.3],
+  [980, 40, 280, 340, 42, "#ffd23f,#ff9f43", 0.5], [820, -70, 240, 250, 36, "#ff4d8d,#7a5cff", 0.3],
+  [-60, 520, 300, 320, 44, "#2f6bff,#5b3bd6", 0.55], [250, 640, 240, 280, 38, "#ffd23f,#ff4d8d", 0.35],
+  [900, 560, 320, 330, 44, "#ff9f43,#ff4d8d", 0.55], [700, 700, 230, 260, 36, "#5b3bd6,#ff4d8d", 0.35],
+  [300, 130, 120, 120, 28, "#ffffff,#e0e0ea", 0.15], [800, 380, 130, 130, 28, "#ffffff,#e0e0ea", 0.15],
 ];
-const wireCross = el("path", { stroke: "#fff", "stroke-opacity": 0.2, "stroke-width": 2, fill: "none" }, wire);
-const notch = el("rect", { fill: INK, rx: 14 }, stage);
-
-// Acquisition: prospects that reach the hub, and the brief they send.
-const NODES = [[345, 300, "face"], [855, 285, 0], [320, 585, 1], [880, 590, 2]];
-const HUES = [["#ff7a59", "#ffb347"], ["#34d399", "#2f8bff"], ["#f472b6", "#7a5cff"]];
-const nodeEls = NODES.map(([x, y, kind], i) => {
-  const g = el("g", {}, stage);
-  const line = el("line", { stroke: "url(#acc)", "stroke-width": 2, "stroke-dasharray": "4 7", "stroke-linecap": "round" }, stage);
-  const pulse = el("circle", { r: 6, fill: "#fff" }, stage);
-  if (kind === "face") {
-    const c = el("clipPath", { id: "faceclip" }, defs);
-    el("circle", { r: 46 }, c);
-    el("image", { href: "photos/face.jpg", x: -46, y: -46, width: 92, height: 92, "clip-path": "url(#faceclip)", preserveAspectRatio: "xMidYMid slice" }, g);
-    el("circle", { r: 46, fill: "none", stroke: "#fff", "stroke-width": 3 }, g);
-  } else {
-    const gr = el("linearGradient", { id: `hue${kind}`, x1: 0, y1: 0, x2: 1, y2: 1 }, defs);
-    el("stop", { offset: 0, "stop-color": HUES[kind][0] }, gr);
-    el("stop", { offset: 1, "stop-color": HUES[kind][1] }, gr);
-    const c = el("clipPath", { id: `hueclip${kind}` }, defs);
-    el("circle", { r: 46 }, c);
-    const inner = el("g", { "clip-path": `url(#hueclip${kind})` }, g);
-    el("circle", { r: 46, fill: `url(#hue${kind})` }, inner);
-    el("circle", { cy: -8, r: 15, fill: "#fff", "fill-opacity": 0.92 }, inner);
-    el("path", { d: "M-32 46C-32 22 -18 12 0 12S32 22 32 46Z", fill: "#fff", "fill-opacity": 0.92 }, inner);
-    el("circle", { r: 46, fill: "none", stroke: "#fff", "stroke-width": 3 }, g);
-  }
-  return { g, line, pulse, x, y };
+const bg = h("div", { inset: 0 }, stage);
+const blocks = BLOCKS.map(([x, y, w, hh, r, g, d]) => {
+  const [c1, c2] = g.split(",");
+  return { el: h("div", { left: x + "px", top: y + "px", width: w + "px", height: hh + "px", borderRadius: r + "px", background: `linear-gradient(150deg,${c1},${c2})`, filter: d < 0.4 ? "blur(3px)" : "none", opacity: 0.95 }, bg), d };
 });
-const bubble = el("g", {}, stage);
-el("rect", { x: -150, y: -34, width: 300, height: 68, rx: 34, fill: "#fff" }, bubble);
-el("path", { d: "M-20 33L-4 52L8 33Z", fill: "#fff" }, bubble);
-const dots = [-18, 0, 18].map((x) => el("circle", { cx: x, cy: 0, r: 5.5, fill: "#9a9aab" }, bubble));
-const bubbleText = el("text", { x: 0, y: 8, "text-anchor": "middle", "font-family": FONT, "font-size": 21, "font-weight": 500, fill: INK }, bubble);
-bubbleText.textContent = "Nous voulons une application.";
-const tick = el("g", {}, stage);
-el("circle", { r: 24, fill: "#22c55e" }, tick);
-el("path", { d: "M-10 1L-3 8L11 -8", fill: "none", stroke: "#fff", "stroke-width": 5, "stroke-linecap": "round", "stroke-linejoin": "round" }, tick);
+const light = h("div", { inset: 0, background: "radial-gradient(60% 60% at 50% 40%, rgba(255,255,255,.55), rgba(255,255,255,0) 70%)" }, stage);
 
-// Design: palette and type that join the wireframe.
-const chips = ["#7a5cff", "#2f8bff", "#34d399", "#fbbf24"].map((c) => el("circle", { r: 20, fill: c }, stage));
-const aa = el("text", { "font-family": FONT, "font-size": 108, "font-weight": 600, fill: "#fff", "letter-spacing": -4 }, stage);
-aa.textContent = "Aa";
+/* Phones. */
+const cam = h("div", { inset: 0, transformStyle: "preserve-3d" }, stage);
+function makePhone(buildApps) {
+  const root = h("div", { left: "435px", top: "100px", width: "330px", height: "680px", transformStyle: "preserve-3d" }, cam);
+  h("div", { inset: 0, borderRadius: "56px", background: "linear-gradient(145deg,#4a4a55,#0c0c10 40%,#2a2a33)", boxShadow: "0 50px 90px rgba(30,10,80,.35)" }, root);
+  const screen = h("div", { left: "10px", top: "10px", width: "310px", height: "660px", borderRadius: "46px", overflow: "hidden", background: "#000" }, root);
+  const apps = buildApps(screen);
+  h("div", { left: "115px", top: "22px", width: "100px", height: "28px", borderRadius: "14px", background: "#000" }, root);
+  return { root, screen, apps };
+}
+const set = (n, o) => Object.assign(n.style, o);
+const tf3 = (x, y, s, rx, ry, rz) => `translate3d(${x}px,${y}px,0) rotateX(${rx}deg) rotateY(${ry}deg) rotateZ(${rz}deg) scale(${s})`;
 
-// Build: a tap on the live screen.
-const ripple = el("circle", { r: 10, fill: "none", stroke: "#fff", "stroke-width": 3 }, stage);
-const finger = el("circle", { r: 15, fill: "#fff", "fill-opacity": 0.92 }, stage);
+/* Tala: video streaming. */
+function buildTala(screen) {
+  const root = h("div", { inset: 0, background: "#0e0e15", color: "#fff" }, screen);
+  h("div", { left: "22px", top: "62px", fontSize: "26px", fontWeight: 700, letterSpacing: "-1px" }, root, "tala");
+  h("div", { right: "22px", top: "62px", width: "30px", height: "30px", borderRadius: "15px", background: "linear-gradient(135deg,#ff9f43,#ff4d8d)" }, root);
+  const hero = h("div", { left: "16px", top: "108px", width: "278px", height: "300px", borderRadius: "24px", overflow: "hidden", background: "linear-gradient(160deg,#5b3bd6,#ff4d8d 70%,#ff9f43)" }, root);
+  const art = h("div", { inset: 0 }, hero);
+  h("div", { left: "60px", top: "40px", width: "170px", height: "170px", borderRadius: "85px", background: "radial-gradient(circle at 35% 35%,#fff3,#fff0 70%)" }, art);
+  h("div", { left: "20px", top: "30px", width: "110px", height: "110px", borderRadius: "30px", background: "linear-gradient(135deg,#ffd23f,#ff9f43)", transform: "rotate(18deg)" }, art);
+  h("div", { left: "130px", top: "70px", width: "120px", height: "120px", borderRadius: "60px", background: "linear-gradient(135deg,#2f6bff,#7a5cff)" }, art);
+  h("div", { inset: 0, background: "linear-gradient(180deg,rgba(0,0,0,0) 40%,rgba(8,6,20,.85))" }, hero);
+  h("div", { left: "18px", top: "208px", fontSize: "11px", letterSpacing: "2px", opacity: 0.8 }, hero, "FILM ORIGINAL");
+  h("div", { left: "18px", top: "226px", fontSize: "22px", fontWeight: 700, letterSpacing: "-0.8px" }, hero, "Nuits de Kinshasa");
+  const ring = h("div", { left: "208px", top: "232px", width: "50px", height: "50px", borderRadius: "25px", border: "2px solid #fff" }, hero);
+  const playBtn = h("div", { left: "208px", top: "232px", width: "50px", height: "50px", borderRadius: "25px", background: "#fff" }, hero);
+  svg(ICON.play, 22, "#0e0e15", playBtn, { left: "15px", top: "14px" });
+  h("div", { left: "22px", top: "428px", fontSize: "15px", fontWeight: 600 }, root, "Continuer à regarder");
+  const rowClip = h("div", { left: 0, top: "460px", width: "310px", height: "120px", overflow: "hidden" }, root);
+  const row = h("div", { left: "16px", top: 0, width: "900px", height: "120px" }, rowClip);
+  const GR = ["#2f6bff,#7a5cff", "#ff9f43,#ff4d8d", "#34d399,#2f6bff", "#ffd23f,#ff9f43", "#ff4d8d,#5b3bd6"];
+  const bars = GR.map((g, i) => {
+    const card = h("div", { left: i * 142 + "px", top: 0, width: "130px", height: "90px", borderRadius: "16px", background: `linear-gradient(140deg,${g.split(",")[0]},${g.split(",")[1]})` }, row);
+    svg(ICON.play, 18, "#fff", card, { left: "12px", top: "56px", opacity: 0.9 });
+    h("div", { left: "10px", top: "100px", width: "110px", height: "4px", borderRadius: "2px", background: "#ffffff30" }, card);
+    return h("div", { left: "10px", top: "100px", width: "0px", height: "4px", borderRadius: "2px", background: "#fff" }, card);
+  });
+  const nav = h("div", { left: "16px", top: "596px", width: "278px", height: "50px", borderRadius: "25px", background: "#1b1b26" }, root);
+  [0, 1, 2, 3].forEach((i) => h("div", { left: 30 + i * 62 + "px", top: "18px", width: "14px", height: "14px", borderRadius: i === 0 ? "7px" : "4px", background: i === 0 ? "#fff" : "#ffffff55" }, nav));
+  return {
+    root,
+    update(lt) {
+      set(art, { transform: `scale(${1.04 + 0.05 * clamp(lt / 4)}) translate(${-lt * 3}px,0)` });
+      const p = (lt * 0.9) % 1;
+      set(ring, { transform: `scale(${1 + 0.6 * p})`, opacity: 1 - p });
+      set(row, { transform: `translateX(${-clamp((lt - 1.4) / 3) * 150}px)` });
+      bars.forEach((b, i) => set(b, { width: 110 * clamp((lt - 0.4 * i) / 3) * (0.4 + 0.12 * i) + "px" }));
+    },
+  };
+}
 
-// Launch: the full frame mockup.
-const photoGroup = el("g", { "clip-path": "url(#corefull)" }, stage);
-const photo = el("image", { href: "photos/mockup.jpg", x: 0, y: 0, width: 1320, height: 968, preserveAspectRatio: "xMidYMid slice" }, photoGroup);
-const photoShade = el("rect", { width: W, height: H, fill: "url(#shade)" }, photoGroup);
+/* Vuga: house rentals. */
+function buildVuga(screen) {
+  const root = h("div", { inset: 0, background: "#f6f6fa", color: "#14141c" }, screen);
+  h("div", { left: "16px", top: "62px", width: "278px", height: "44px", borderRadius: "22px", background: "#fff", boxShadow: "0 4px 16px rgba(20,20,60,.08)" }, root);
+  svg(ICON.search, 18, "#14141c", root, { left: "30px", top: "75px" });
+  h("div", { left: "58px", top: "76px", fontSize: "14px", fontWeight: 500 }, root, "Gombe, Kinshasa");
+  const chips = ["Maison", "Appartement", "Studio"].map((c, i) => {
+    const x = [16, 92, 196][i], w = [68, 96, 64][i];
+    return h("div", { left: x + "px", top: "120px", width: w + "px", height: "32px", borderRadius: "16px", background: "#ececf3", fontSize: "12px", fontWeight: 600, textAlign: "center", lineHeight: "32px" }, root, c);
+  });
+  const active = h("div", { left: "16px", top: "120px", width: "68px", height: "32px", borderRadius: "16px", background: "#14141c", color: "#fff", fontSize: "12px", fontWeight: 600, textAlign: "center", lineHeight: "32px" }, root, "Maison");
+  const card = (top, tint) => {
+    const c = h("div", { left: "16px", top: top + "px", width: "278px", height: "250px", borderRadius: "26px", background: "#fff", boxShadow: "0 10px 30px rgba(20,20,60,.10)", overflow: "hidden" }, root);
+    const pic = h("div", { left: 0, top: 0, width: "278px", height: "170px", background: `linear-gradient(180deg,${tint[0]},${tint[1]})`, overflow: "hidden" }, c);
+    h("div", { left: "30px", top: "86px", width: "218px", height: "100px", background: "#fff", borderRadius: "6px" }, pic);
+    h("div", { left: "20px", top: "56px", width: "238px", height: "50px", background: "#14141c", clipPath: "polygon(50% 0,100% 100%,0 100%)", transform: "scaleY(.8)" }, pic);
+    h("div", { left: "118px", top: "120px", width: "42px", height: "66px", background: "#ff9f43", borderRadius: "5px 5px 0 0" }, pic);
+    h("div", { left: "46px", top: "108px", width: "40px", height: "34px", background: "#cfe4ff", borderRadius: "4px" }, pic);
+    h("div", { left: "194px", top: "108px", width: "40px", height: "34px", background: "#cfe4ff", borderRadius: "4px" }, pic);
+    h("div", { left: "16px", top: "184px", fontSize: "16px", fontWeight: 700, letterSpacing: "-.4px" }, c, "Maison trois chambres");
+    h("div", { left: "16px", top: "210px", fontSize: "12px", color: "#6a6a7a" }, c, "Gombe · Jardin · Parking");
+    const heart = h("div", { right: "14px", top: "14px", width: "36px", height: "36px", borderRadius: "18px", background: "#ffffffdd" }, pic);
+    const hi = svg(ICON.heart, 18, "#14141c", heart, { left: "9px", top: "9px" });
+    return { c, heart, hi };
+  };
+  const a = card(172, ["#bfe3ff", "#eaf6ff"]);
+  const b = card(440, ["#ffe2c2", "#fff3e6"]);
+  const cta = h("div", { left: "16px", top: "592px", width: "278px", height: "52px", borderRadius: "26px", background: "linear-gradient(90deg,#7a5cff,#2f8bff)", color: "#fff", fontSize: "15px", fontWeight: 600, textAlign: "center", lineHeight: "52px" }, root, "Réserver une visite");
+  const ripple = h("div", { left: "130px", top: "596px", width: "40px", height: "40px", borderRadius: "20px", border: "3px solid #fff", opacity: 0 }, root);
+  return {
+    root,
+    update(lt) {
+      set(active, { transform: `translateX(${lerp(0, 76, inOut(seg(lt, 1.2, 1.7)))}px)`, width: lerp(68, 96, inOut(seg(lt, 1.2, 1.7))) + "px" });
+      set(a.c, { transform: `translateY(${(1 - outQuart(seg(lt, 0.1, 0.9))) * 80 - clamp((lt - 2.7) / 0.9) * 258}px)`, opacity: seg(lt, 0.1, 0.5) });
+      set(b.c, { transform: `translateY(${(1 - outQuart(seg(lt, 2.4, 3.2))) * 300 - clamp((lt - 3.4) / 1) * 0}px)`, opacity: seg(lt, 2.4, 2.6) });
+      const hp = pop(lt, 1.9, 0.4);
+      set(a.heart, { transform: `scale(${1 + 0.35 * Math.sin(Math.PI * clamp(hp))})`, background: lt > 1.9 ? "#ff4d6d" : "#ffffffdd" });
+      a.hi.querySelector("path").setAttribute("fill", lt > 1.9 ? "#fff" : "#14141c");
+      const r = seg(lt, 3.5, 4.1);
+      set(ripple, { transform: `scale(${1 + 2 * r})`, opacity: r > 0 && r < 1 ? 1 - r : 0 });
+      set(cta, { transform: `scale(${1 - 0.04 * Math.sin(Math.PI * r)})` });
+    },
+  };
+}
 
-// Captions and progress, kept in the middle of the frame so a phone crop never cuts them.
-const STEPS = [
-  { n: "01", label: "ACQUISITION", title: "Un client nous contacte.", from: 3.4, to: 7.3 },
-  { n: "02", label: "CADRAGE ET DESIGN", title: "Nous dessinons son produit.", from: 7.4, to: 11.3 },
-  { n: "03", label: "CONSTRUCTION", title: "Nous le construisons.", from: 11.4, to: 15.1 },
-  { n: "04", label: "LANCEMENT", title: "Du premier contact à l'application.", from: 15.2, to: 17.4 },
+/* Pro: professional network with vertical video feed. */
+function buildPro(screen) {
+  const root = h("div", { inset: 0, background: "#0b0b12", color: "#fff", overflow: "hidden" }, screen);
+  const makeClip = (tones, person) => {
+    const clip = h("div", { inset: 0, background: `linear-gradient(170deg,${tones[0]},${tones[1]})` }, root);
+    h("div", { left: "40px", top: "120px", width: "230px", height: "230px", borderRadius: "115px", background: "radial-gradient(circle,#ffffff30,#ffffff00 70%)" }, clip);
+    const body = h("div", { inset: 0 }, clip);
+    h("div", { left: "115px", top: "250px", width: "84px", height: "84px", borderRadius: "42px", background: person }, body);
+    h("div", { left: "70px", top: "336px", width: "174px", height: "240px", borderRadius: "90px 90px 0 0", background: person }, body);
+    h("div", { inset: 0, background: "linear-gradient(180deg,rgba(0,0,0,.35),rgba(0,0,0,0) 22%,rgba(0,0,0,0) 55%,rgba(0,0,0,.75))" }, clip);
+    return { clip, body };
+  };
+  const c1 = makeClip(["#2f6bff", "#7a5cff"], "#f4c9a8");
+  const c2 = makeClip(["#ff9f43", "#ff4d8d"], "#8a5a44");
+  const tabs = h("div", { left: 0, top: "60px", width: "310px", textAlign: "center", fontSize: "14px", fontWeight: 600 }, root, '<span style="opacity:.6">Réseau</span> &nbsp;&nbsp; <span style="border-bottom:2px solid #fff;padding-bottom:3px">Pour vous</span>');
+  const rail = h("div", { right: "12px", top: "330px", width: "48px", height: "250px" }, root);
+  const avatar = h("div", { left: "2px", top: 0, width: "44px", height: "44px", borderRadius: "22px", background: "#fff", border: "2px solid #fff" }, rail);
+  h("div", { inset: 0, borderRadius: "22px", background: "linear-gradient(135deg,#34d399,#2f8bff)" }, avatar);
+  const plus = h("div", { left: "13px", top: "34px", width: "20px", height: "20px", borderRadius: "10px", background: "#ff4d6d" }, rail);
+  svg(ICON.plus, 14, "#fff", plus, { left: "3px", top: "3px" });
+  const heart = h("div", { left: "4px", top: "76px", width: "40px", height: "40px" }, rail);
+  const heartIcon = svg(ICON.heart, 38, "#fff", heart, { left: "1px", top: "1px" });
+  const cm = svg(ICON.comment, 34, "#fff", rail, { left: "7px", top: "136px" });
+  const sh = svg(ICON.share, 34, "#fff", rail, { left: "7px", top: "196px" });
+  const name = h("div", { left: "18px", top: "540px", fontSize: "17px", fontWeight: 700 }, root, "Awa K.");
+  const role = h("div", { left: "18px", top: "564px", fontSize: "12px", opacity: 0.85 }, root, "Cheffe de projet · Paiement mobile");
+  const cap = h("div", { left: "18px", top: "586px", width: "220px", fontSize: "12px", opacity: 0.9 }, root, "Comment nous avons lancé notre app en neuf semaines.");
+  h("div", { left: 0, top: "654px", width: "310px", height: "4px", background: "#ffffff30" }, root);
+  const prog = h("div", { left: 0, top: "654px", width: "0px", height: "4px", background: "#fff" }, root);
+  return {
+    root,
+    update(lt) {
+      const sw = inOut(seg(lt, 2.6, 3.3));
+      set(c1.clip, { transform: `translateY(${-sw * 660}px)` });
+      set(c2.clip, { transform: `translateY(${(1 - sw) * 660}px)` });
+      set(c1.body, { transform: `translateX(${Math.sin(lt * 1.3) * 8}px) scale(${1 + 0.02 * Math.sin(lt * 2)})` });
+      set(c2.body, { transform: `translateX(${Math.sin(lt * 1.1 + 1) * 8}px)` });
+      const hp = pop(lt, 1.4, 0.45);
+      set(heart, { transform: `scale(${1 + 0.4 * Math.sin(Math.PI * clamp(hp))})` });
+      heartIcon.querySelector("path").setAttribute("fill", lt > 1.4 && lt < 2.7 ? "#ff4d6d" : "#fff");
+      set(prog, { width: 310 * ((lt / 5) % 1) + "px" });
+      set(avatar, { transform: `scale(${1 + 0.05 * Math.sin(lt * 4)})` });
+    },
+  };
+}
+
+/* The hero phone and its apps, switched by time. */
+const hero = makePhone((screen) => ({ tala: buildTala(screen), vuga: buildVuga(screen), pro: buildPro(screen) }));
+const { tala, vuga, pro } = hero.apps;
+const APPS = [[tala, 2.5, 6.9], [vuga, 6.5, 10.9], [pro, 10.5, 99]];
+/* Two more phones for the closing line-up. */
+const sideA = makePhone((s) => ({ a: buildTala(s) }));
+const sideB = makePhone((s) => ({ a: buildVuga(s) }));
+sideA.apps.a.update(2.2); sideB.apps.a.update(3.6);
+
+/* Opening shape: a dot that becomes a tile with the logo, then the phone. */
+const dark = h("div", { inset: 0, background: INK }, stage);
+const shape = h("div", { left: "600px", top: "440px", width: "0px", height: "0px", background: `linear-gradient(135deg,${A1},${A2})` }, stage);
+const logoEl = h("div", { left: "540px", top: "380px", width: "120px", height: "120px" }, stage, `<svg viewBox="0 0 24 24" width="120" height="120"><path d="${FINGERPRINT}" fill="#fff" fill-rule="evenodd"/></svg>`);
+const word = h("div", { left: "0px", top: "612px", width: "1200px", textAlign: "center", color: "#fff", fontSize: "34px", fontWeight: 500 }, stage, "LUILKA");
+
+/* Captions and closing card. */
+const caption = h("div", { left: "250px", top: "760px", height: "56px", padding: "0 26px", borderRadius: "28px", background: "rgba(255,255,255,.88)", color: INK, zIndex: 20, whiteSpace: "nowrap", boxShadow: "0 8px 30px rgba(20,20,60,.18)" }, stage);
+const capTitle = h("span", { position: "static", fontSize: "26px", fontWeight: 700, letterSpacing: "-.8px", lineHeight: "56px" }, caption);
+const capLine = h("span", { position: "static", marginLeft: "14px", fontSize: "13px", fontWeight: 600, letterSpacing: "3px", opacity: 0.6, lineHeight: "56px" }, caption);
+const endCard = h("div", { left: 0, top: "700px", width: "1200px", textAlign: "center", color: INK }, stage);
+h("div", { left: "0", top: "0", width: "1200px", fontSize: "40px", fontWeight: 600, letterSpacing: "-1.2px" }, endCard, "Des applications conçues, écrites et construites.");
+const endLogo = h("div", { left: "0", top: "70px", width: "1200px", textAlign: "center", fontSize: "24px", letterSpacing: "9px", fontWeight: 500, opacity: 0.7 }, endCard, "LUILKA");
+const fade = h("div", { inset: 0, background: INK, opacity: 0, pointerEvents: "none", zIndex: 30 }, stage);
+
+const SCENES = [
+  { from: 3.0, to: 6.8, title: "Tala", line: "STREAMING VIDÉO" },
+  { from: 7.0, to: 10.8, title: "Vuga", line: "LOCATION DE MAISONS" },
+  { from: 11.0, to: 14.4, title: "Pro", line: "RÉSEAU PROFESSIONNEL" },
 ];
-const captions = STEPS.map((s) => {
-  const g = el("g", {}, stage);
-  const n = el("text", { x: SAFE_X, y: 748, "font-family": FONT, "font-size": 20, "font-weight": 600, "letter-spacing": 5, fill: "#fff", "fill-opacity": 0.65 }, g);
-  n.textContent = `${s.n}  ${s.label}`;
-  const t = el("text", { x: SAFE_X - 2, y: 808, "font-family": FONT, "font-size": 56, "font-weight": 600, "letter-spacing": -1.8, fill: "#fff" }, g);
-  t.textContent = s.title;
-  return { g, n, t };
-});
-const bars = STEPS.map((_, i) => {
-  const x = SAFE_X + i * 150;
-  el("rect", { x, y: 56, width: 130, height: 3, rx: 1.5, fill: "#fff", "fill-opacity": 0.25 }, stage);
-  return el("rect", { x, y: 56, width: 0, height: 3, rx: 1.5, fill: "#fff" }, stage);
-});
-const fade = el("rect", { width: W, height: H, fill: INK, opacity: 0 }, stage);
-
-const CORE = [
-  [0.2, 0, 0, 0], [0.9, 22, 22, 11], [1.8, 250, 250, 125], [2.7, 250, 250, 68],
-  [3.7, 176, 176, 48], [7.0, 176, 176, 48], [8.2, 250, 500, 50],
-  [15.0, 250, 500, 50], [16.4, 1200, 880, 0], [18, 1200, 880, 0],
+const CAM = [
+  [2.5, 0, 0, 1, 0, 0, 0], [3.2, 0, 250, 1.8, 6, -10, 0], [4.8, 0, 60, 1.9, -4, 8, 0], [6.4, 0, 0, 1, 0, 0, 0],
+  [7.2, 0, 150, 1.6, 8, 14, -3], [9.0, 0, -90, 1.65, -6, -8, 2], [10.5, 0, 0, 1, 0, 0, 0],
+  [11.2, 0, 120, 1.4, 4, 12, -5], [12.8, 0, -30, 1.55, 8, -10, 3], [14.2, 0, 0, 1, 0, 0, 0],
+  [15.4, 250, -30, 0.74, 0, -16, 0], [18, 250, -30, 0.74, 0, -16, 0],
 ];
-function core(t) {
+function camAt(t) {
   let i = 0;
-  while (i < CORE.length - 2 && t >= CORE[i + 1][0]) i++;
-  const [t0, w0, h0, r0] = CORE[i], [t1, w1, h1, r1] = CORE[i + 1];
-  const k = i < 2 ? outExpo(seg(t, t0, t1)) : inOut(seg(t, t0, t1));
-  return { w: lerp(w0, w1, k), h: lerp(h0, h1, k), rx: lerp(r0, r1, k) };
-}
-
-function drawCore(t) {
-  const c = core(t);
-  const x = CX - c.w / 2, y = CY - c.h / 2;
-  const phone = seg(t, 7.0, 7.8);
-  set(coreGradient, { x, y, width: c.w, height: c.h, rx: c.rx, opacity: 1 - phone });
-  set(coreGlass, { x, y, width: c.w, height: c.h, rx: c.rx, opacity: phone * (1 - seg(t, 15.4, 16.2)) });
-  set(clipCoreRect, { x, y, width: c.w, height: c.h, rx: c.rx });
-  set(clipScreenRect, { x: x + 14, y: y + 14, width: Math.max(0, c.w - 28), height: Math.max(0, c.h - 28), rx: Math.max(0, c.rx - 12) });
-  set(halo, { opacity: win(t, 1.0, 2.2, 6.6, 8.0) * 0.8, transform: tf(0, 0) });
-  set(logo, { transform: tf(CX, CY, (c.w / 250) * 6.2), opacity: seg(t, 1.9, 2.7) * (1 - seg(t, 7.0, 7.5)) });
-  set(word, { opacity: win(t, 2.2, 3.0, 3.3, 3.8), "letter-spacing": lerp(26, 9, outQuart(seg(t, 2.2, 3.2))) });
-  set(notch, { x: CX - 40, y: y + 24, width: 80, height: 26, opacity: phone * (1 - seg(t, 15.2, 15.8)) });
-  return { c, x, y };
-}
-
-function drawAcquisition(t) {
-  nodeEls.forEach((n, i) => {
-    const at = 3.5 + i * 0.3;
-    const pop = outBack(seg(t, at, at + 0.6));
-    const gone = inOut(seg(t, 6.7, 7.2));
-    const s = pop * (1 - gone);
-    const px = lerp(n.x, CX, gone), py = lerp(n.y, CY, gone);
-    set(n.g, { transform: tf(px, py, Math.max(0, s)) });
-    const line = seg(t, at + 0.3, at + 1.0) * (1 - gone);
-    set(n.line, { x1: px, y1: py, x2: CX, y2: CY, opacity: line * 0.9 });
-    const loop = ((t - at - 1.0) / 1.1) % 1;
-    const run = t > at + 1.0 && t < 6.7 ? (loop + 1) % 1 : 0;
-    set(n.pulse, { cx: lerp(px, CX, run), cy: lerp(py, CY, run), opacity: run > 0 ? Math.sin(run * Math.PI) : 0 });
-  });
-  const b = outBack(seg(t, 5.3, 5.8)) * (1 - seg(t, 6.6, 6.9));
-  set(bubble, { transform: tf(CX, CY - 150, Math.max(0, b)) });
-  const typing = seg(t, 5.3, 5.5) * (1 - seg(t, 5.9, 6.0));
-  dots.forEach((d, i) => set(d, { opacity: typing, cy: -Math.abs(Math.sin(t * 9 + i * 1.1)) * 6 }));
-  set(bubbleText, { opacity: seg(t, 5.95, 6.15) });
-  const k = outBack(seg(t, 6.2, 6.7)) * (1 - seg(t, 6.95, 7.3));
-  set(tick, { transform: tf(CX + 80, CY - 80, Math.max(0, k)) });
-}
-
-function drawDesign(t, geo) {
-  const px = geo.x, py = geo.y, inx = px + 28, iw = geo.c.w - 56;
-  const grow = (a) => outQuart(seg(t, a, a + 0.7));
-  const base = 1 - seg(t, 9.6, 10.3);
-  const parts = [
-    [inx, py + 66, iw * 0.5, 14, 7.9], [inx, py + 92, iw, 120, 8.1],
-    [inx, py + 232, iw * 0.9, 12, 8.4], [inx, py + 256, iw * 0.7, 12, 8.55],
-    [inx, py + 280, iw * 0.8, 12, 8.7], [inx, py + 410, iw, 44, 8.9],
-  ];
-  wireParts.forEach((p, i) => set(p, { x: parts[i][0], y: parts[i][1], width: Math.max(0.01, parts[i][2] * grow(parts[i][4])), height: parts[i][3], opacity: base }));
-  const cx0 = inx, cy0 = py + 92;
-  set(wireCross, { d: `M${cx0} ${cy0}L${cx0 + iw} ${cy0 + 120}M${cx0 + iw} ${cy0}L${cx0} ${cy0 + 120}`, opacity: base * grow(8.3) * 0.7 });
-  chips.forEach((c, i) => {
-    const s = outBack(seg(t, 8.5 + i * 0.18, 9.0 + i * 0.18)) * (1 - seg(t, 10.8, 11.2));
-    set(c, { cx: 830, cy: 300 + i * 66, transform: `translate(0 0) scale(${Math.max(0, s)})`, "transform-origin": `830px ${300 + i * 66}px` });
-  });
-  set(aa, { x: 262, y: 400, opacity: win(t, 8.3, 8.9, 10.7, 11.2) });
-  set(screenRent, { x: geo.x + 14, y: geo.y + 14, width: geo.c.w - 28, height: geo.c.h - 28, opacity: seg(t, 9.6, 10.3), transform: tf(0, 0) });
-}
-
-function drawBuild(t, geo) {
-  const ex = inOut(seg(t, 11.5, 12.5)) * (1 - inOut(seg(t, 13.4, 14.0)));
-  const w = geo.c.w, h = geo.c.h;
-  const OFF = [-175, 175];
-  layers.forEach((l, i) => {
-    set(l.body, { x: geo.x + OFF[i] * ex, y: geo.y - 18 * ex, width: w, height: h, rx: 50 });
-    set(l.g, { opacity: ex > 0.01 ? Math.min(1, ex * 1.6) : 0 });
-  });
-  const lx = geo.x + OFF[0] * ex, ly = geo.y - 18 * ex;
-  TILES.forEach((r, i) => set(r, { x: lx + 22 + (i % 2) * 108, y: ly + 60 + Math.floor(i / 2) * 108, width: 96, height: 96, rx: 22 }));
-  set(TOGGLE, { x: lx + 22, y: ly + 300, width: 110, height: 52, rx: 26 });
-  set(KNOB, { cx: lx + 22 + 26 + 58 * seg(t, 12.2, 12.9), cy: ly + 326, r: 20 });
-  const rx0 = geo.x + OFF[1] * ex, ry0 = geo.y - 18 * ex;
-  CODE.forEach((r, i) => {
-    const len = [0.8, 0.55, 0.7, 0.4, 0.62, 0.3, 0.74][i] * (w - 56) * seg(t, 12.0 + i * 0.12, 12.6 + i * 0.12);
-    set(r, { x: rx0 + 28, y: ry0 + 70 + i * 46, width: len, rx: 4 });
-  });
-  const centres = [lx + w / 2, geo.x + w / 2, rx0 + w / 2];
-  layerLabels.forEach((g, i) => {
-    set(g, { opacity: clamp(ex * 2 - 0.4) });
-    set(g.children[0], { opacity: 0 });
-    set(g.children[1], { x: centres[[1, 0, 2][i] ], y: geo.y - 36, "text-anchor": "middle" });
-  });
-  const live = seg(t, 13.9, 14.3);
-  const tapIn = seg(t, 14.15, 14.4), tapOut = seg(t, 14.4, 14.9);
-  set(finger, { cx: lerp(geo.x + 180, geo.x + 130, tapIn), cy: lerp(geo.y + 560, geo.y + 280, inOut(seg(t, 13.9, 14.3))), opacity: win(t, 13.9, 14.1, 14.7, 14.95) });
-  set(ripple, { cx: geo.x + 130, cy: geo.y + 280, r: 10 + 44 * tapOut, opacity: tapIn * (1 - tapOut) * 0.9 });
-  set(screenStream, { x: geo.x + 14, y: geo.y + 14, width: w - 28, height: h - 28, opacity: inOut(seg(t, 14.4, 14.9)), transform: tf(0, 0) });
-  return live;
-}
-
-function drawLaunch(t) {
-  const k = inOut(seg(t, 15.7, 16.5));
-  set(photo, { transform: tf(0, 0, 1 + 0.07 * sine(seg(t, 15.2, 18))), "transform-origin": "600px 440px", opacity: k });
-  set(photoShade, { opacity: k });
-  [screenRent, screenStream, wire].forEach((n) => n.setAttribute("opacity", Number(n.getAttribute("opacity") || 1) * (1 - seg(t, 15.0, 15.9))));
-}
-
-function drawText(t) {
-  STEPS.forEach((s, i) => {
-    const a = win(t, s.from, s.from + 0.6, s.to - 0.3, s.to);
-    const r = (1 - outQuart(seg(t, s.from, s.from + 0.8))) * 34;
-    set(captions[i].n, { opacity: a, transform: tf(0, r * 0.6) });
-    set(captions[i].t, { opacity: a, transform: tf(0, r) });
-    set(bars[i], { width: 130 * seg(t, s.from, s.to) });
-  });
+  while (i < CAM.length - 2 && t >= CAM[i + 1][0]) i++;
+  const a = CAM[i], b = CAM[i + 1], k = inOut(seg(t, a[0], b[0]));
+  return a.slice(1).map((v, j) => lerp(v, b[j + 1], k));
 }
 
 window.draw = (clock) => {
   const t = Math.min(Math.max(clock, 0), DURATION - 0.001);
-  const geo = drawCore(t);
-  drawAcquisition(t);
-  drawDesign(t, geo);
-  drawBuild(t, geo);
-  drawLaunch(t);
-  drawText(t);
-  set(fade, { opacity: seg(t, 17.4, 17.99) });
+  // Opening.
+  const dot = outExpo(seg(t, 0.2, 0.9)), circ = inOut(seg(t, 0.9, 1.7)), tile = inOut(seg(t, 1.7, 2.3)), ph = inOut(seg(t, 2.1, 2.9));
+  const sw = lerp(lerp(lerp(0, 22, dot), 250, circ), 330, ph), sh = lerp(lerp(lerp(0, 22, dot), 250, circ), 680, ph);
+  const sr = lerp(lerp(lerp(11, 125, circ), 68, tile), 56, ph);
+  set(shape, { width: sw + "px", height: sh + "px", left: CX - sw / 2 + "px", top: CY - sh / 2 + 100 * 0 + "px", borderRadius: sr + "px", opacity: t < 2.4 ? 1 : 1 - seg(t, 2.5, 2.9) });
+  set(shape, { top: CY - sh / 2 + "px" });
+  set(logoEl, { opacity: seg(t, 1.8, 2.3) * (1 - seg(t, 2.4, 2.8)), transform: `scale(${0.7 + 0.3 * seg(t, 1.8, 2.4)})` });
+  set(word, { opacity: win(t, 2.0, 2.6, 2.6, 3.0), letterSpacing: lerp(26, 9, outQuart(seg(t, 2.0, 2.8))) + "px" });
+  set(dark, { opacity: 1 - seg(t, 2.3, 3.0) });
+  // Camera and phones.
+  const [x, y, s, rx, ry, rz] = camAt(t);
+  const open = seg(t, 2.3, 3.0);
+  set(hero.root, { opacity: open, transform: tf3(x, y, s * (0.92 + 0.08 * open), rx, ry, rz) });
+  const side = inOut(seg(t, 14.6, 15.8));
+  set(sideA.root, { opacity: side, transform: tf3(-255 * side, -30, 0.74, 0, 16, 0) });
+  set(sideB.root, { opacity: side, transform: tf3(0, -30, 0.74, 0, 0, 0) });
+  blocks.forEach(({ el, d }) => set(el, { transform: `translate(${-x * d * 0.5 - (s - 1) * 0 + ry * -3 * d}px, ${-y * d * 0.4}px) scale(${1 + (s - 1) * d * 0.3})` }));
+  // App switching inside the phone.
+  APPS.forEach(([app, from, to], i) => {
+    const enter = inOut(seg(t, from, from + 0.7)), leave = inOut(seg(t, to - 0.1, to + 0.5));
+    const first = i === 0 && t < from + 0.7;
+    set(app.root, { transform: `translateX(${first ? 0 : (1 - enter) * 310 - leave * 90}px)`, opacity: t < from - 0.1 || t > to + 0.6 ? 0 : 1 - leave * 0.6, zIndex: i });
+    app.update(t - from);
+  });
+  // Captions.
+  const sc = SCENES.find((c) => t >= c.from && t <= c.to + 0.2);
+  if (sc) {
+    capTitle.textContent = sc.title; capLine.textContent = sc.line;
+    const a = win(t, sc.from, sc.from + 0.6, sc.to - 0.4, sc.to), r = (1 - outQuart(seg(t, sc.from, sc.from + 0.8))) * 30;
+    set(caption, { opacity: a, transform: `translateY(${r}px)` });
+  } else set(caption, { opacity: 0 });
+  set(endCard, { opacity: win(t, 15.8, 16.6, 17.5, 17.95), transform: `translateY(${(1 - outQuart(seg(t, 15.8, 16.8))) * 20}px)` });
+  set(fade, { opacity: seg(t, 17.5, 17.99) });
 };
 window.MOTION = { FPS, DURATION };
 window.draw(new URLSearchParams(location.search).get("t") || 0);

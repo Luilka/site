@@ -63,13 +63,13 @@ Taux de clic sur le contact depuis l'accueil (KPI à nommer, Q-004 pour la colle
 
 Source : `motion/hero-reel/timeline.html`, rendue par `motion/hero-reel/render.py`. Chaque image est calculée à partir du temps par une fonction unique `draw(t)`, sans animation automatique du navigateur, donc rejouable et modifiable seconde par seconde.
 
-- **Version du 27 novembre 2026.** Un vrai film de motion design de 18 secondes, en plein cadre sur fond noir neutre, sans la couleur du site. Il raconte le chemin du premier contact à l'application :
-  - **Logo (0 à 3 s) :** un point devient un cercle, puis une tuile qui porte le logo, puis le nom Luilka.
-  - **Acquisition (3 à 7 s) :** quatre prospects arrivent autour de la tuile, des impulsions les relient, une bulle envoie le brief et la tuile le valide.
-  - **Cadrage et design (7 à 11 s) :** la tuile devient un téléphone, le fil de fer se dessine, la palette et la typographie arrivent, puis l'écran réel apparaît.
-  - **Construction (11 à 15 s) :** le téléphone s'ouvre en trois panneaux (composants, interface, code), se referme, puis un doigt touche l'écran qui change d'application.
-  - **Lancement (15 à 18 s) :** le téléphone grandit jusqu'à remplir le cadre avec une maquette réelle, puis la vidéo s'éteint et reboucle.
-  Les images (visage, écrans, maquette) apparaissent au fil de l'histoire. Le texte reste dans la zone centrale, pour que le recadrage sur téléphone ne le coupe pas.
+- **Version du 27 novembre 2026.** Un film de motion design de 18 secondes dans l'esprit des présentations d'applications : des écrans en mouvement, filmés par une caméra qui s'approche, tourne et recule, sur un fond clair avec des blocs de couleur. Il ne montre pas Luilka qui dessine : il montre des applications qui fonctionnent.
+  - **Ouverture (0 à 3 s) :** un point devient un cercle, une tuile avec le logo et le nom, puis la tuile se transforme en téléphone.
+  - **Tala (3 à 7 s) :** plateforme de streaming vidéo. Gros plan sur l'affiche, puis sur les cartes qui défilent.
+  - **Vuga (7 à 11 s) :** location de maisons. Une annonce arrive, le cœur se remplit, la seconde carte monte, le bouton de visite est touché.
+  - **Pro (11 à 15 s) :** réseau professionnel avec flux vidéo vertical. Le cœur s'anime, le flux passe à la vidéo suivante.
+  - **Fin (15 à 18 s) :** les trois applications côte à côte, « Des applications conçues, écrites et construites. », puis la vidéo s'éteint et reboucle.
+  Tous les écrans sont dessinés pour le film (aucune image de tiers, aucun contenu réel d'un client). Les noms et textes d'écran sont des exemples. Le texte reste dans la zone centrale, pour que le recadrage sur téléphone ne le coupe pas.
 - **Son** : `motion/hero-reel/sound.py` synthétise une nappe grave, une cloche douce par étape et un souffle avant chaque arrivée, calés sur les scènes. Il n'a été que mesuré, pas écouté par un humain.
 - **Lecture** : la vidéo ne joue que lorsque la moitié au moins est à l'écran, et le son, coupé au départ, ne s'active que par un clic (règle des navigateurs et WCAG 1.4.2).
 

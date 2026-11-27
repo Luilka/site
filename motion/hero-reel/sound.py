@@ -63,7 +63,7 @@ def master() -> np.ndarray:
     return np.sin(fade_in * np.pi / 2) * np.sin(fade_out * np.pi / 2)
 
 
-SCENES = (0.9, 3.5, 7.4, 11.4, 15.2)
+SCENES = (0.9, 3.0, 7.0, 11.0, 15.4)
 LOGO_CHIME = (587.33, 880.0, 1174.66)
 
 
@@ -75,7 +75,7 @@ def mix() -> np.ndarray:
         track += bell(BELLS[index], start + 0.12, 0.14)
         track += thud(start + 0.3, 0.16)
         track += breath(start - 0.45, 0.8, 0.05)
-    for tick in (5.35, 6.25, 13.95):
+    for tick in (8.9, 10.5, 12.0):
         track += bell(1318.51, tick, 0.05)
     track += bell(739.99, 15.5, 0.07) + bell(880.0, 15.6, 0.06)
     track *= master()
