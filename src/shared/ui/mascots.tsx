@@ -16,23 +16,68 @@ const GRADIENTS = (
 
 const FEET = (
   <>
-    <rect x="37" y="107" width="18" height="8" rx="4" fill="url(#mascot-warm)" />
-    <rect x="65" y="107" width="18" height="8" rx="4" fill="url(#mascot-warm)" />
+    <ellipse cx="46" cy="114" rx="11" ry="5" fill="url(#mascot-warm)" />
+    <ellipse cx="74" cy="114" rx="11" ry="5" fill="url(#mascot-warm)" />
   </>
 );
 
-const LEFT_HAND = <circle cx="24" cy="86" r="6" fill="url(#mascot-warm)" />;
-const RIGHT_HAND = <circle cx="82" cy="94" r="6" fill="url(#mascot-warm)" />;
+const LEFT_HAND = (
+  <>
+    <ellipse cx="19" cy="76" rx="8" ry="18" transform="rotate(12 19 76)" className="fill-night" />
+    <circle cx="16" cy="91" r="5" fill="url(#mascot-warm)" />
+  </>
+);
+
+const RIGHT_HAND = (
+  <>
+    <ellipse cx="100" cy="82" rx="8" ry="16" transform="rotate(-18 100 82)" className="fill-night" />
+    <circle cx="86" cy="94" r="5" fill="url(#mascot-warm)" />
+  </>
+);
+
+const EARS = (
+  <>
+    <path data-part="ear" d="M30 30L24 6l22 12z" className="fill-night" strokeLinejoin="round" />
+    <path data-part="ear" d="M90 30l6-24-22 12z" className="fill-night" strokeLinejoin="round" />
+  </>
+);
+
+const BELLY = (
+  <>
+    <ellipse data-part="belly" cx="60" cy="86" rx="24" ry="24" className="fill-paper" />
+    <path d="M48 80q4 4 8 0M64 80q4 4 8 0M56 92q4 4 8 0" className="fill-none stroke-gray" strokeWidth="2.5" strokeLinecap="round" />
+  </>
+);
+
+const EYES = (
+  <>
+    <circle data-part="eye" cx="45" cy="52" r="14" className="fill-paper stroke-gold" strokeWidth="3" />
+    <circle data-part="eye" cx="75" cy="52" r="14" className="fill-paper stroke-gold" strokeWidth="3" />
+    <circle cx="47" cy="54" r="7" className="fill-night" />
+    <circle cx="77" cy="54" r="7" className="fill-night" />
+    <circle data-part="glint" cx="50" cy="51" r="2.6" className="fill-paper" />
+    <circle data-part="glint" cx="80" cy="51" r="2.6" className="fill-paper" />
+  </>
+);
+
+const FACE = (
+  <>
+    {EYES}
+    <path data-part="beak" d="M54 63q6 11 12 0q-6-3-12 0z" fill="url(#mascot-warm)" />
+    <circle cx="30" cy="66" r="5" className="fill-gold/40" />
+    <circle cx="90" cy="66" r="5" className="fill-gold/40" />
+  </>
+);
 
 const BODY = (
   <>
     {GRADIENTS}
-    <ellipse cx="60" cy="118" rx="28" ry="3" className="fill-night/10" />
+    <ellipse cx="60" cy="119" rx="28" ry="3" className="fill-night/10" />
     {FEET}
-    <path data-part="body" d="M30 102V56a30 30 0 0 1 60 0v46q0 8-8 8H38q-8 0-8-8z" fill="url(#mascot-body)" />
-    <ellipse cx="42" cy="54" rx="4" ry="18" className="fill-paper/15" />
-    <path data-part="eye" d="M44 64q5-6 10 0" className="fill-none stroke-paper" strokeWidth="2.5" strokeLinecap="round" />
-    <path data-part="eye" d="M66 64q5-6 10 0" className="fill-none stroke-paper" strokeWidth="2.5" strokeLinecap="round" />
+    {EARS}
+    <path data-part="body" d="M60 14C34 14 22 36 22 64c0 30 14 46 38 46s38-16 38-46C98 36 86 14 60 14z" fill="url(#mascot-body)" />
+    {BELLY}
+    {FACE}
   </>
 );
 

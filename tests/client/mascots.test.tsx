@@ -18,10 +18,13 @@ describe("mascots", () => {
     expect(container.querySelectorAll('[fill="url(#mascot-warm)"]').length).toBeGreaterThanOrEqual(4);
   });
 
-  it("keeps one calm detail on a smooth arch: two closed eyes and no round cartoon face", () => {
+  it("draws a friendly owl: ear tufts, two big shining eyes, a beak and a belly on a smooth body", () => {
     const { container } = render(<Mascot index={1} />);
+    expect(container.querySelectorAll('[data-part="ear"]')).toHaveLength(2);
     expect(container.querySelectorAll('[data-part="eye"]')).toHaveLength(2);
-    expect(container.querySelector('[data-part="body"]')?.tagName.toLowerCase()).toBe("path");
+    expect(container.querySelectorAll('[data-part="glint"]').length).toBeGreaterThanOrEqual(2);
+    expect(container.querySelector('[data-part="beak"]')).not.toBeNull();
+    expect(container.querySelector('[data-part="belly"]')).not.toBeNull();
   });
 
   it("replaces the step number by the mascot of the card", () => {
