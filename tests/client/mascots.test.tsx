@@ -40,6 +40,18 @@ describe("mascots", () => {
     expect(container.querySelector(".fill-gold\\/40")).toBeNull();
   });
 
+  it("dresses each mascot with its own outfit: bow tie, beret, glasses and crown", () => {
+    const outfits = Array.from(INDEXES, (index) => render(<Mascot index={index} />).container.querySelector("[data-outfit]")?.getAttribute("data-outfit"));
+    expect(outfits).toEqual(["bow-tie", "beret", "glasses", "crown"]);
+  });
+
+  it("frames the mascot with two decorative corner shapes", () => {
+    const { container } = render(<StepCard number="01" title="Cadrage" description="Texte" index={0} />);
+    const corners = container.querySelectorAll('[data-part="corner"]');
+    expect(corners).toHaveLength(2);
+    expect(corners[0]?.getAttribute("aria-hidden")).toBe("true");
+  });
+
   it("replaces the step number by the mascot of the card", () => {
     const { container } = render(<StepCard number="01" title="Cadrage" description="Texte" index={2} />);
     expect(screen.queryByText("01")).toBeNull();

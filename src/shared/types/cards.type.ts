@@ -80,6 +80,10 @@ export type StepTextProps = {
   description: string;
 };
 
+export type StepPanelProps = {
+  index: number;
+};
+
 export type StepCardProps = {
   index?: number;
   number: string;

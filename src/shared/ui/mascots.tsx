@@ -102,6 +102,32 @@ const FRONT = (
 
 const BODY_PATH = "M60 14C34 14 22 36 22 64c0 30 14 46 38 46s38-16 38-46C98 36 86 14 60 14z";
 
+const BOW_TIE = (
+  <g data-outfit="bow-tie">
+    <path d="M60 74l-11-6v12zM60 74l11-6v12z" fill="url(#mascot-warm)" className="stroke-current" strokeWidth="1" strokeLinejoin="round" />
+    <circle cx="60" cy="74" r="3" className="fill-night" />
+  </g>
+);
+
+const BERET = (
+  <g data-outfit="beret">
+    <ellipse cx="62" cy="17" rx="19" ry="8" transform="rotate(-8 62 17)" className="fill-current stroke-gold" strokeWidth="1.2" />
+    <circle cx="64" cy="9" r="2.4" fill="url(#mascot-warm)" />
+  </g>
+);
+
+const GLASSES = (
+  <g data-outfit="glasses" className="fill-none stroke-gold" strokeWidth="2.2">
+    <circle cx="45" cy="52" r="15.5" />
+    <circle cx="75" cy="52" r="15.5" />
+    <path d="M58 50q2-2 4 0" strokeLinecap="round" />
+  </g>
+);
+
+const CROWN = (
+  <path data-outfit="crown" d="M46 22l2-14 8 7 4-11 4 11 8-7 2 14z" fill="url(#mascot-warm)" className="stroke-current" strokeWidth="1" strokeLinejoin="round" />
+);
+
 const MAGNIFIER = (
   <>
     <circle cx="92" cy="88" r="14" className="fill-paper/30 stroke-gold" strokeWidth="5" />
@@ -131,10 +157,13 @@ const BOX = (
   </>
 );
 
-const HELD: readonly ReactNode[] = [MAGNIFIER, BRUSH, SCREEN, BOX].map((tool) => (
+const OUTFITS: readonly ReactNode[] = [BOW_TIE, BERET, GLASSES, CROWN];
+
+const HELD: readonly ReactNode[] = [MAGNIFIER, BRUSH, SCREEN, BOX].map((tool, index) => (
   <>
     {tool}
     {RIGHT_HAND}
+    {OUTFITS[index]}
   </>
 ));
 
