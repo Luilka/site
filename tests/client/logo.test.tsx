@@ -29,6 +29,13 @@ describe("logo", () => {
     expect(screen.getByRole("link", { name: "Luilka, accueil" }).querySelector("svg > path")).not.toBeNull();
   });
 
+  it("centres the home about text vertically next to the picture", () => {
+    const { container } = render(<AboutSection title="Titre" paragraphs={["Texte"]} image={SAMPLE_IMAGE} />);
+    const text = container.querySelector("h2")?.parentElement;
+    expect(text?.className).toContain("justify-center");
+    expect(text?.className).not.toContain("pt-[36px]");
+  });
+
   it("is not repeated in the home about section, which shows a studio picture instead", () => {
     const { container } = render(<AboutSection paragraphs={["Texte"]} image={SAMPLE_IMAGE} />);
     expect(container.querySelector("use")).toBeNull();
