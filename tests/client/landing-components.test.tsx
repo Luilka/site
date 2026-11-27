@@ -86,6 +86,11 @@ describe("landing components", () => {
     expect(screen.getByText("01").className).toContain("text-[length:96px]");
   });
 
+  it("lays the number panel on the same grid as the header", () => {
+    render(<StepCard number="01" title="Cadrage" description="Texte" />);
+    expect(screen.getByText("01").parentElement?.className).toContain("bg-grid");
+  });
+
   it("draws no picture inside a stage", () => {
     const { container } = render(<StepCard number="01" title="Cadrage" description="Texte" />);
     expect(container.querySelector("svg")).toBeNull();

@@ -71,6 +71,11 @@
   --container-width: 80rem;
 }
 
+@utility bg-grid {
+  background-image: linear-gradient(to right, var(--border-ui) 1px, transparent 1px), linear-gradient(to bottom, var(--border-ui) 1px, transparent 1px);
+  background-size: 6px 6px;
+}
+
 @utility row-center {
   display: flex;
   align-items: center;

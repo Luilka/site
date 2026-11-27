@@ -104,7 +104,7 @@ function StepText({ title, description }: StepTextProps) {
 
 const STEP_TONES: readonly string[] = ["bg-night text-paper", "bg-gold text-night", "bg-gray text-text", "bg-accent text-paper"];
 
-const STEP_NUMBER = "bg-paper text-text border-2 border-paper outline-1 outline-[var(--border-ui)] rounded-[16px] h-[180px] flex items-center justify-center font-medium tracking-[-0.02em] mt-auto shadow-[0_2px_8px_rgb(0_0_0/5%)]";
+const STEP_NUMBER = "bg-paper bg-grid text-text border-2 border-paper outline-1 outline-[var(--border-ui)] rounded-[16px] h-[180px] flex items-center justify-center font-medium tracking-[-0.02em] mt-auto shadow-[0_2px_8px_rgb(0_0_0/5%)]";
 
 export function StepCard({ number, title, description, index = 0 }: StepCardProps) {
   return (

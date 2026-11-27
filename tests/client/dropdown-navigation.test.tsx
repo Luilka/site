@@ -46,8 +46,7 @@ describe("site header dropdown navigation", () => {
   it("draws a tone on tone pattern from the border colour on the header surface", () => {
     const { container } = renderHeader();
     const surface = container.querySelector("header div[aria-hidden='true']");
-    expect(surface?.className).toContain("linear-gradient(to_right,var(--border-ui)_1px");
+    expect(surface?.className).toContain("bg-grid");
     expect(surface?.className).not.toContain("color-mix");
-    expect(surface?.className).toContain("bg-size-[6px_6px]");
   });
 });
