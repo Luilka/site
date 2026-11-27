@@ -1,4 +1,4 @@
-import type { AboutImages, InfoCard, PageIntro, TeamCopy, TeamMember, ValueItem, ValuesCopy } from "./dictionaries.type.ts";
+import type { AboutImages, FilmCopy, InfoCard, PageIntro, TeamCopy, TeamMember, ValueItem, ValuesCopy } from "./dictionaries.type.ts";
 import type { DetailCover, DetailImage, DetailKind, DetailModel, DetailRouteProps } from "./detail.type.ts";
 import type { SectionProps } from "./section-props.type.ts";
 import type { SectionAction } from "./dictionaries.type.ts";
@@ -12,6 +12,21 @@ export type BandProps = {
 
 export type AboutHeroProps = PageIntro & {
   image: DetailImage;
+};
+
+export type FilmSectionProps = {
+  title: string;
+  description: string;
+  film: FilmCopy;
+};
+
+export type FilmPlayerProps = {
+  title: string;
+  film: FilmCopy;
+};
+
+export type FilmTranscriptProps = {
+  film: FilmCopy;
 };
 
 export type MissionSectionProps = {

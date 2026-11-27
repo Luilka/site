@@ -56,6 +56,10 @@ Les images des projets vont dans `public/`, en `webp` ou `avif` (le `svg` pour l
 
 Les couvertures actuelles sont des illustrations abstraites en `svg` (`public/images/work/` et `public/images/products/`), dessinées sans texte et sans faux écran, en attendant les vraies images. Pour remplacer une couverture : déposer le fichier `webp` dans `public/images/`, puis changer `src`, `width` et `height` de son entrée dans `images.json`. Aucun composant ne change.
 
+## Film de la page À propos
+
+`FilmSection` (`sections.tsx`) présente `public/video/film-fr.mp4` ou `film-en.mp4` selon la langue (D-023) : un `<video controls preload="none">` avec affiche (`film-*-poster.webp`), sans lecture automatique, sous-titres `film-fr.vtt` pour la voix française, transcription repliée et mention d'interface d'exemple. Les textes viennent de `aboutPage.film` des dictionnaires.
+
 ## Couleurs
 
 Les jetons sont dans `src/globale.css` : `--paper` (blanc), `--text`, `--night` (vert nuit), `--gray` (gris perle), `--muted`, `--border-ui`, `--accent` (forêt, l'action) et `--gold` (détails, texte sur fond sombre seulement) (D-021). Les illustrations de `public/images/` n'emploient que ces valeurs ; un test refuse le retour de l'ancien bleu et de l'ancien violet.

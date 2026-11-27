@@ -2,7 +2,7 @@ import { render, screen, within } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import { TeamCard, ValueCard } from "@/components/cards.tsx";
 import { Breadcrumb } from "@/components/patterns.tsx";
-import { AboutHero, MissionSection, TeamSection, ValuesSection } from "@/components/sections.tsx";
+import { AboutHero, FilmSection, MissionSection, TeamSection, ValuesSection } from "@/components/sections.tsx";
 import About from "@/routes/[lang]/about.tsx";
 import { dictionaries } from "@/shared/i18n";
 import { SAMPLE_IMAGE } from "./fixtures.ts";
@@ -155,6 +155,49 @@ describe("team card", () => {
   });
 });
 
+describe("film section", () => {
+  it.each(["fr", "en"] as const)("plays the film of the page language on demand, never by itself, in %s", (language) => {
+    setLanguage(language);
+    const { container } = render(<About />);
+    const film = dictionaries[language].aboutPage.film;
+    const video = container.querySelector("video") as HTMLVideoElement;
+    expect(video.hasAttribute("controls")).toBe(true);
+    expect(video.hasAttribute("autoplay")).toBe(false);
+    expect(video.getAttribute("preload")).toBe("none");
+    expect(video.getAttribute("poster")).toBe(film.poster);
+    expect(video.getAttribute("aria-label")).toBe(film.title);
+    expect(video.querySelector("source")?.getAttribute("src")).toBe(film.src);
+  });
+
+  it("gives the French film captions for its voice, and the English one none since it is silent", () => {
+    setLanguage("fr");
+    const fr = render(<About />).container.querySelector("video track");
+    expect(fr?.getAttribute("kind")).toBe("captions");
+    expect(fr?.getAttribute("srclang")).toBe("fr");
+    expect(fr?.getAttribute("src")).toBe("/video/film-fr.vtt");
+    setLanguage("en");
+    expect(render(<About />).container.querySelector("video track")).toBeNull();
+  });
+
+  it("offers a transcript for everyone, closed by default", () => {
+    setLanguage("fr");
+    const film = dictionaries.fr.aboutPage.film;
+    render(<FilmSection title={film.title} description={film.description} film={film} />);
+    const details = screen.getByText(film.transcriptLabel).closest("details") as HTMLDetailsElement;
+    expect(details.open).toBe(false);
+    expect(within(details).getAllByRole("paragraph")).toHaveLength(film.transcript.length);
+  });
+
+  it("says that the screen shown is an example, in both languages", () => {
+    for (const language of ["fr", "en"] as const) {
+      setLanguage(language);
+      const { container, unmount } = render(<About />);
+      expect(container.textContent).toContain(dictionaries[language].aboutPage.film.note);
+      unmount();
+    }
+  });
+});
+
 describe("about page", () => {
   it.each(["fr", "en"] as const)("holds one main title, then mission, values and team, then contact, in %s", (language) => {
     setLanguage(language);
@@ -162,7 +205,7 @@ describe("about page", () => {
     const copy = dictionaries[language];
     expect(container.querySelectorAll("h1")).toHaveLength(1);
     const titles = Array.from(container.querySelectorAll("h2"), (h2) => h2.textContent);
-    expect(titles.slice(0, 3)).toEqual([copy.aboutPage.mission, copy.aboutPage.values.title, copy.aboutPage.team.title]);
+    expect(titles.slice(0, 4)).toEqual([copy.aboutPage.mission, copy.aboutPage.film.title, copy.aboutPage.values.title, copy.aboutPage.team.title]);
     expect(titles).toContain(copy.contact.title);
   });
 

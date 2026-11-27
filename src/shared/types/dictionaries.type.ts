@@ -76,8 +76,26 @@ export type TeamCopy = {
   members: readonly TeamMember[];
 };
 
+export type FilmCaptions = {
+  src: string;
+  lang: string;
+  label: string;
+};
+
+export type FilmCopy = {
+  title: string;
+  description: string;
+  note: string;
+  src: string;
+  poster: string;
+  captions: FilmCaptions | null;
+  transcriptLabel: string;
+  transcript: readonly string[];
+};
+
 export type AboutPageCopy = {
   mission: string;
+  film: FilmCopy;
   profileLabel: string;
   values: ValuesCopy;
   team: TeamCopy;

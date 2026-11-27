@@ -43,6 +43,10 @@ Une caméra se déplace de station en station, avec une chronologie discrète en
 - **Bande-son** : une vingtaine de repères seulement, avec de vrais silences, une nappe grave, un bruit de pièce continu pour ne jamais tomber au silence numérique, des barres frappées légèrement désaccordées plutôt que des sinus purs. Les repères viennent de la timeline, donc le son ne dérive pas de l'image. La musique est abaissée de 60 pour cent sous la voix.
 - **Anglais** : pas de voix (Veyla n'a que la voix française installée). Une voix anglaise demanderait un modèle anglais ou un clonage de la voix du titulaire avec son consentement, selon le régime de Veyla.
 
+## Sur le site
+
+Le film est sur la page À propos, après la mission (D-023) : lecture sur clic, commandes du navigateur, rien n'est téléchargé avant la lecture (environ 5 Mo ensuite), sous-titres français pour la voix, transcription repliée dans les deux langues.
+
 ## Limites et suite
 
 - Le film reste fait par code : je ne garantis pas qu'un œil expert ne le reconnaîtra pas. Une passe finale par un monteur humain (rythme, mixage, étalonnage) est recommandée avant diffusion publique.

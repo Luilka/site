@@ -1,5 +1,5 @@
 import { ContactPanel } from "@/components/patterns.tsx";
-import { AboutHero, MissionSection, TeamSection, ValuesSection } from "@/components/sections.tsx";
+import { AboutHero, FilmSection, MissionSection, TeamSection, ValuesSection } from "@/components/sections.tsx";
 import { useContent } from "@/shared/i18n";
 
 function AboutStory() {
@@ -8,6 +8,7 @@ function AboutStory() {
     <>
       <AboutHero {...pages.about} image={aboutPage.images.hero} />
       <MissionSection title={aboutPage.mission} paragraphs={about} images={aboutPage.images} />
+      <FilmSection title={aboutPage.film.title} description={aboutPage.film.description} film={aboutPage.film} />
     </>
   );
 }

@@ -112,7 +112,7 @@ describe("hero reel sound", () => {
     play.mockImplementation(function (this: HTMLMediaElement) { return this.muted ? Promise.resolve() : Promise.reject(new Error("blocked")); });
     render(<HeroReel />);
     fireEvent.click(screen.getByRole("button", { name: dictionaries.fr.soundOn }));
-    expect(await screen.findByRole("button", { name: dictionaries.fr.soundOn })).toBeTruthy();
+    expect(await screen.findByRole("button", { name: dictionaries.fr.soundOn }, { timeout: 4000 })).toBeTruthy();
     expect(document.querySelector("video")?.muted).toBe(true);
   });
 

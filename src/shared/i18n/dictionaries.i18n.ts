@@ -349,6 +349,23 @@ const fr: Dictionary = {
   },
   aboutPage: {
     mission: "Notre mission",
+    film: {
+      title: "De l'idée à l'app",
+      description: "Trente secondes pour voir comment nous travaillons : nous partons des utilisateurs, puis nous dessinons, nous testons et nous livrons.",
+      note: "L'écran montré est une interface d'exemple, ce n'est le travail d'aucun client.",
+      src: "/video/film-fr.mp4",
+      poster: "/video/film-fr-poster.webp",
+      captions: { src: "/video/film-fr.vtt", lang: "fr", label: "Français" },
+      transcriptLabel: "Lire la transcription",
+      transcript: [
+        "Tout commence par une idée.",
+        "Nous partons des utilisateurs. Le problème, les personnes concernées, et ce que le produit doit accomplir.",
+        "Puis nous posons le langage visuel.",
+        "Nous dessinons les parcours et les écrans, puis nous les testons avec de vrais utilisateurs.",
+        "Nous remettons des maquettes prêtes à l'emploi, et un système de composants.",
+        "Du design à l'application. Luilka.",
+      ],
+    },
     profileLabel: "Profil GitHub de {name}",
     values: {
       title: "Nos valeurs",
@@ -572,6 +589,19 @@ const en: Dictionary = {
   },
   aboutPage: {
     mission: "Our mission",
+    film: {
+      title: "From idea to app",
+      description: "Thirty seconds on how we work: we start with the people who use it, then design, test and hand over.",
+      note: "The screen shown is an example interface, not the work of any client.",
+      src: "/video/film-en.mp4",
+      poster: "/video/film-en-poster.webp",
+      captions: null,
+      transcriptLabel: "Read the transcript",
+      transcript: [
+        "This film has no spoken words, only music.",
+        "On screen: it all starts with an idea. We start with the people who use it. We set the visual language. We design the screens. We deliver a system. The idea becomes an app. From design to app.",
+      ],
+    },
     profileLabel: "GitHub profile of {name}",
     values: {
       title: "Our values",

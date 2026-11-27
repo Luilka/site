@@ -2,7 +2,7 @@ import { Container } from "@/shared/ui/containers.tsx";
 import { ActionLink, Breadcrumb, ContactPanel, PageHero, PageLead, PageTitle, NotFoundPanel } from "@/components/patterns.tsx";
 import type { SectionProps } from "@/shared/types/section-props.type.ts";
 import { infoHref } from "@/shared/utils/info-href.util.ts";
-import type { AboutHeroProps, AboutSectionProps, AboutTextProps, BandProps, CardGridProps, CollectionSectionProps, DetailBackLinkProps, DetailBodyProps, DetailMediaProps, DetailPageProps, DetailRouteViewProps, HeadingTextProps, InfoCard, InfoCardBodyProps, InfoCardProps, InfoSectionProps, MissionDetailsProps, MissionSectionProps, ProcessSectionProps, SectionHeadingProps, TeamGridProps, TeamSectionProps, ValueGridProps, ValuesSectionProps } from "@/shared/types";
+import type { AboutHeroProps, FilmPlayerProps, FilmSectionProps, FilmTranscriptProps, AboutSectionProps, AboutTextProps, BandProps, CardGridProps, CollectionSectionProps, DetailBackLinkProps, DetailBodyProps, DetailMediaProps, DetailPageProps, DetailRouteViewProps, HeadingTextProps, InfoCard, InfoCardBodyProps, InfoCardProps, InfoSectionProps, MissionDetailsProps, MissionSectionProps, ProcessSectionProps, SectionHeadingProps, TeamGridProps, TeamSectionProps, ValueGridProps, ValuesSectionProps } from "@/shared/types";
 import { buttonClasses } from "@/shared/ui/buttons.tsx";
 import { Link } from "@/shared/ui/links.tsx";
 import { Card } from "@/shared/ui/cards.tsx";
@@ -142,6 +142,36 @@ function ValueGrid({ items }: ValueGridProps) {
     <div className={VALUE_GRID}>
       {items.map((item, index) => <ValueCard key={item.title} {...item} index={index} />)}
     </div>
+  );
+}
+
+function FilmPlayer({ title, film }: FilmPlayerProps) {
+  const track = film.captions;
+  return (
+    <video className="mt-10 aspect-video w-full rounded-[28px] bg-night" controls preload="none" playsInline poster={film.poster} aria-label={title}>
+      <source src={film.src} type="video/mp4" />
+      {track && <track kind="captions" src={track.src} srcLang={track.lang} label={track.label} default />}
+    </video>
+  );
+}
+
+function FilmTranscript({ film }: FilmTranscriptProps) {
+  return (
+    <details className="mt-6 max-w-[44rem] text-muted">
+      <summary className="cursor-pointer py-2 font-medium text-text">{film.transcriptLabel}</summary>
+      {film.transcript.map((line) => <p key={line} className="mt-3 leading-[1.6]">{line}</p>)}
+    </details>
+  );
+}
+
+export function FilmSection({ title, description, film }: FilmSectionProps) {
+  return (
+    <Band>
+      <HeadingText title={title} description={description} />
+      <FilmPlayer title={title} film={film} />
+      <p className="mt-4 text-(length:--text-sm) text-muted">{film.note}</p>
+      <FilmTranscript film={film} />
+    </Band>
   );
 }
 
