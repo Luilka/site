@@ -335,6 +335,7 @@ const fr: Dictionary = {
   about: [
     "Luilka fait du design to app : nous accompagnons une idée depuis la recherche utilisateur jusqu'aux écrans de l'application. Notre stratégie est centrée sur l'utilisateur, pas sur la technologie.",
     "Chaque choix, de l'identité visuelle au design system, part d'un besoin observé et se vérifie avec les gens qui utiliseront le produit.",
+    "Nous ne concevons pas que des applications. Luilka conçoit aussi d'autres produits, numériques comme physiques : le regard reste le même, celui de la personne qui s'en servira, qu'elle tienne un objet ou un écran.",
   ],
   contact: {
     title: "Donnons forme à votre prochaine idée.",
@@ -576,6 +577,7 @@ const en: Dictionary = {
   about: [
     "Luilka works design to app: we take an idea from user research to the app's screens. Our strategy is user-centric, not technology-first.",
     "Every choice, from visual identity to design system, starts from an observed need and is checked with the people who will use the product.",
+    "We do not only design apps. Luilka also designs other products, digital or physical: the approach stays the same, starting from the person who will use it, whether they hold an object or a screen.",
   ],
   contact: {
     title: "Let's shape your next idea.",
