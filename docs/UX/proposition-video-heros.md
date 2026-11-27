@@ -61,18 +61,15 @@ Taux de clic sur le contact depuis l'accueil (KPI à nommer, Q-004 pour la colle
 
 ## Réalisation : la pièce de motion design
 
-Source : `motion/hero-reel/timeline.html`. Chaque image est calculée à partir du temps par une fonction unique `draw(t)`, sans animation automatique du navigateur, donc rejouable et modifiable seconde par seconde.
+Source : `motion/hero-reel/timeline.html`, rendue par `motion/hero-reel/render.py`. Chaque image est calculée à partir du temps par une fonction unique `draw(t)`, sans animation automatique du navigateur, donc rejouable et modifiable seconde par seconde.
 
-- **Format** : 1080 sur 880 (le cadre du héros en double densité), 24 images par seconde, 8 secondes, boucle sans coupure (la dernière image rejoint la première).
-- **Rythme** : une introduction de 0,6 s (logo, parcours en pointillé), puis quatre étapes de 1,7 s, puis 0,8 s de fondu de sortie.
-- **Chaque étape** : le segment du parcours se dessine (accélération puis freinage, `easeInOutCubic`), le point se pose avec un léger dépassement (`easeOutBack`), le chiffre, l'étiquette et les lignes de texte montent derrière un masque en cascade (`easeOutExpo`, décalage de 0,1 s), puis le tout sort en accélérant (`easeInCubic`) pendant que l'étape suivante arrive, avec un battement de 0,2 s.
-- **Retenue** : un seul trait doré de 1,5 pixel, un chiffre en serif à fort contraste, pas de lueur, pas de particules, pas de dégradé de maillage. Poussée de caméra de 3,5 % sur toute la durée.
-- **Texte** : les quatre descriptions de la page d'accueil, mot pour mot.
-- **Poids** : 303 Ko (MP4 avec son), contre un budget de 1 Mo.
-- **Son** : `motion/hero-reel/sound.py` synthétise une nappe grave, une cloche douce par étape (arpège de ré majeur montant) et un souffle avant chaque arrivée, calés sur les mêmes temps que l'image. Elle commence et finit dans le silence pour que la boucle ne claque pas. Le son n'a été que mesuré (crête 0,70, niveau moyen environ moins 18 dB), pas écouté par un humain.
-- **Lecture** : la vidéo ne joue que lorsque la moitié au moins est à l'écran, et le son, coupé au départ, ne s'active que par un clic (règle des navigateurs et WCAG 1.4.2) ; il s'arrête avec la vidéo quand elle sort de l'écran.
+- **Version du 27 novembre 2026.** La pièce montre quatre vraies maquettes d'application, une par étape : Cadrage, Design, Construction et Lancement. À gauche le numéro, l'étape et son texte (ceux de la page d'accueil), à droite la maquette dans un cadre arrondi qui monte et pousse lentement. Les étapes se succèdent toutes les 2 secondes, et la dernière glisse vers la première sans coupure.
+- **Format** : 1080 sur 880 (le cadre du héros en double densité), 24 images par seconde, 8 secondes, boucle.
+- **Images provisoires** : les quatre maquettes viennent de Pinterest, ce sont des visuels de tiers. Elles sont dans `motion/hero-reel/photos/`, dossier non versionné. À remplacer par des maquettes dont Luilka détient les droits avant la mise en production, en gardant les noms `step-1.jpg` à `step-4.jpg` puis en relançant `render.py`. Titulaire : @Espoir-Loem.
+- **Son** : `motion/hero-reel/sound.py` synthétise une nappe grave, une cloche douce par étape et un souffle avant chaque arrivée, calés sur les mêmes temps que l'image. Il n'a été que mesuré, pas écouté par un humain.
+- **Lecture** : la vidéo ne joue que lorsque la moitié au moins est à l'écran, et le son, coupé au départ, ne s'active que par un clic (règle des navigateurs et WCAG 1.4.2).
 
-Rendu : ouvrir la page dans Chrome, appeler `draw(t)` pour `t = i / 24`, capturer 192 images, encoder en H.264 (`crf 26`, `yuv420p`, `faststart`). L'image fixe est la capture à 1,65 s.
+Rendu : `uv run --with imageio-ffmpeg --with numpy --with pillow python motion/hero-reel/render.py <dossier>` capture les 192 images dans Chrome, puis encode en H.264 (`crf 26`, `yuv420p`, `faststart`). L'image fixe est la capture à 1,65 s.
 
 Limites : la pièce montre la méthode, pas les réalisations réelles ; elle sera à remplacer ou à compléter par vos enregistrements d'écran avec l'accord des clients. Aucun test de visiteurs n'a été fait.
 

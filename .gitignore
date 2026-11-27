@@ -19,3 +19,6 @@ __nexy__/server.port
 
 # Rendered films (heavy, regenerated from motion/*/timeline.html)
 motion/*/out/
+
+# Third-party mockup photos used as a provisional style reference in the hero reel
+motion/hero-reel/photos/
