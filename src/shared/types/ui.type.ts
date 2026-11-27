@@ -7,6 +7,11 @@ export type ContainerProps = HTMLAttributes<HTMLDivElement>;
 
 export type BadgeProps = HTMLAttributes<HTMLSpanElement>;
 
+export type MascotProps = {
+  index: number;
+  className?: string;
+};
+
 export type IconTileProps = HTMLAttributes<HTMLDivElement>;
 
 export type ButtonVariant = "primary" | "outline" | "dark" | "light" | "accent";

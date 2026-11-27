@@ -4,6 +4,7 @@ import { Link } from "@/shared/ui/links.tsx";
 import { IconTile } from "@/shared/ui/icon-tiles.tsx";
 import { Card } from "@/shared/ui/cards.tsx";
 import { Picture } from "@/shared/ui/images.tsx";
+import { Mascot } from "@/shared/ui/mascots.tsx";
 import { StripedPanel } from "@/shared/ui/panels.tsx";
 import { SocialIcon } from "@/shared/ui/social-icons.tsx";
 import { useContent } from "@/shared/i18n";
@@ -104,11 +105,11 @@ function StepText({ title, description }: StepTextProps) {
 
 const STEP_TONES: readonly string[] = ["bg-night text-paper", "bg-gold text-night", "bg-gray text-text", "bg-accent text-paper"];
 
-export function StepCard({ number, title, description, index = 0 }: StepCardProps) {
+export function StepCard({ title, description, index = 0 }: StepCardProps) {
   return (
     <Card className={`flex flex-col rounded-[18px] p-[4px] ${STEP_TONES[index % STEP_TONES.length]}`}>
       <StepText title={title} description={description} />
-      <div className="bg-paper text-text border-2 border-paper outline-1 outline-[var(--border-ui)] rounded-[16px] h-[180px] flex items-center justify-center text-[length:96px] font-medium tracking-[-0.02em] mt-auto shadow-[0_2px_8px_rgb(0_0_0/5%)]">{number}</div>
+      <div className="bg-paper text-text border-2 border-paper outline-1 outline-[var(--border-ui)] rounded-[16px] h-[180px] flex items-center justify-center mt-auto shadow-[0_2px_8px_rgb(0_0_0/5%)]"><Mascot className="h-[140px] w-auto" index={index} /></div>
     </Card>
   );
 }

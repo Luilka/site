@@ -80,9 +80,9 @@ describe("landing components", () => {
     expect(cards[3]).toContain("bg-accent text-paper");
   });
 
-  it("renders a numbered stage", () => {
+  it("renders a stage with its title", () => {
     render(<StepCard number="01" title="Cadrage" description="Texte" />);
-    expect(screen.getByText("01")).toBeTruthy();
+    expect(screen.getByText("Cadrage")).toBeTruthy();
   });
 
   it("renders a service", () => {
