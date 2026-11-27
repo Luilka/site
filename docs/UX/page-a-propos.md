@@ -55,7 +55,7 @@ Les quatre visuels sont des illustrations abstraites en `svg`, sans texte ni fau
 
 ## Images provisoires
 
-Les images des réalisations et des produits, et celles de l'en-tête et de la mission de cette page, sont des maquettes d'application provisoires, choisies pour montrer le type de rendu voulu. Quatre viennent de Pinterest (visuels de tiers) et une de Pexels (licence libre). Faute d'assez d'images, deux sont utilisées deux fois : Vuga reprend celle de Yano et Pro celle de Privatis Capital Invest. Elles servent de repère de style pendant le développement. Elles ne doivent pas rester en ligne : les remplacer par des maquettes dont Luilka détient les droits, avec le même nom de fichier, avant la mise en production. Titulaire : @Espoir-Loem.
+Les images des réalisations et des produits, et celles de l'en-tête et de la mission de cette page, sont des maquettes d'application provisoires, choisies pour montrer le type de rendu voulu. Elles viennent de Pinterest (visuels de tiers) et d'une photo libre de Pexels. Tala montre une plateforme de streaming vidéo et Vuga une application de location immobilière, comme décrits par le studio. Pro (réseau social professionnel avec flux vidéo) n'a pas encore d'image à sa mesure : elle montre un écran sombre d'application d'entreprise. Quelques images sont utilisées deux fois, faute d'assez de références. Elles servent de repère de style pendant le développement. Elles ne doivent pas rester en ligne : les remplacer par des maquettes dont Luilka détient les droits, avec le même nom de fichier, avant la mise en production. Titulaire : @Espoir-Loem.
 
 ## À fournir par le studio
 
