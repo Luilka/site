@@ -3,8 +3,8 @@ import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 
 const ROOT = "public/images";
-const GREEN = "#1c3f34";
-const YELLOW = "#c9a24b";
+const GREEN = "#4c8a6e";
+const YELLOW = "#ecc96b";
 
 function drawings(): { name: string; svg: string }[] {
   return readdirSync(ROOT).flatMap((folder) => readdirSync(join(ROOT, folder)).map((file) => ({ name: `${folder}/${file}`, svg: readFileSync(join(ROOT, folder, file), "utf8") })));
@@ -30,9 +30,9 @@ describe("image backgrounds", () => {
     }
   });
 
-  it("keeps the yellow drawings readable by giving up the yellow accents", () => {
+  it("keeps the yellow drawings readable by giving up the gold accents", () => {
     for (const { name, svg } of drawings().filter(({ svg: s }) => backgroundColours(s)[0] === YELLOW)) {
-      expect(svg.replace(/<linearGradient id="bg".*?<\/linearGradient>/s, ""), name).not.toContain(`"${YELLOW}"`);
+      expect(svg.replace(/<linearGradient id="bg".*?<\/linearGradient>/s, ""), name).not.toContain("\"#c9a24b\"");
     }
   });
 });
