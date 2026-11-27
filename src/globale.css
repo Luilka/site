@@ -72,7 +72,7 @@
 }
 
 @utility bg-grid {
-  background-image: linear-gradient(to right, var(--border-ui) 1px, transparent 1px), linear-gradient(to bottom, var(--border-ui) 1px, transparent 1px);
+  background-image: linear-gradient(to right, var(--grid-line, var(--border-ui)) 1px, transparent 1px), linear-gradient(to bottom, var(--grid-line, var(--border-ui)) 1px, transparent 1px);
   background-size: 6px 6px;
 }
 

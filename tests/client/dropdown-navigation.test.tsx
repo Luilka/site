@@ -39,14 +39,18 @@ describe("site header dropdown navigation", () => {
     const surface = header?.querySelector("div[aria-hidden='true']");
     expect(header?.className).toContain("sticky top-0");
     expect(header?.className).not.toContain("backdrop-blur");
-    expect(surface?.className).toContain("bg-white/80");
+    expect(surface?.className).toContain("bg-white/20");
     expect(surface?.className).toContain("backdrop-blur");
   });
 
-  it("draws a tone on tone pattern from the border colour on the header surface", () => {
+  it("draws a white grid on a clear blurred header surface", () => {
     const { container } = renderHeader();
     const surface = container.querySelector("header div[aria-hidden='true']");
     expect(surface?.className).toContain("bg-grid");
+    expect(surface?.className).toContain("[--grid-line:#fff]");
+    expect(surface?.className).toContain("bg-white/20");
+    expect(surface?.className).toContain("backdrop-blur");
+    expect(surface?.className).not.toContain("bg-white/80");
     expect(surface?.className).not.toContain("color-mix");
   });
 });
