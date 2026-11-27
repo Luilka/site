@@ -2,40 +2,40 @@
   "work": {
     "yano": {
       "src": "/images/work/yano.webp",
-      "width": 1200,
-      "height": 750
+      "width": 1000,
+      "height": 1212
     },
     "vox-congo": {
       "src": "/images/work/vox-congo.webp",
-      "width": 1200,
-      "height": 750
+      "width": 1000,
+      "height": 1250
     },
     "mitemo": {
-      "src": "/images/work/mitemo.svg",
-      "width": 1200,
-      "height": 750
+      "src": "/images/work/mitemo.webp",
+      "width": 1000,
+      "height": 1250
     },
     "privatis-capital-invest": {
-      "src": "/images/work/privatis-capital-invest.svg",
-      "width": 1200,
-      "height": 750
+      "src": "/images/work/privatis-capital-invest.webp",
+      "width": 1000,
+      "height": 1114
     }
   },
   "products": {
     "tala": {
-      "src": "/images/products/tala.svg",
-      "width": 1200,
-      "height": 750
+      "src": "/images/products/tala.webp",
+      "width": 900,
+      "height": 1100
     },
     "vuga": {
-      "src": "/images/products/vuga.svg",
-      "width": 1200,
-      "height": 750
+      "src": "/images/products/vuga.webp",
+      "width": 900,
+      "height": 1100
     },
     "pro": {
-      "src": "/images/products/pro.svg",
-      "width": 1200,
-      "height": 750
+      "src": "/images/products/pro.webp",
+      "width": 900,
+      "height": 1100
     }
   },
   "about": {

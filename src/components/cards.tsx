@@ -135,7 +135,7 @@ function WorkInfo({ name, kind, caseLabel }: WorkInfoProps) {
 
 export function WorkCard({ slug, name, kind = "Particulier", caseLabel = "Cas d'étude", image }: WorkCardProps) {
   return (
-    <Link className="min-w-0 relative block h-[396px] overflow-hidden rounded-[18px] bg-gray max-[640px]:h-[300px]" href={detailHref("work", slug)}>
+    <Link className="min-w-0 relative block h-[640px] overflow-hidden rounded-[18px] bg-gray max-[640px]:h-[480px]" href={detailHref("work", slug)}>
       <CardCover image={image} name={coverName("work", slug)} />
       <WorkInfo name={name} kind={kind} caseLabel={caseLabel} />
     </Link>

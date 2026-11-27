@@ -51,9 +51,14 @@ describe("cover images", () => {
     expect(cover?.getAttribute("fetchpriority")).toBe("high");
   });
 
+  it("keeps a tall cover from filling the whole page", () => {
+    const { container } = render(<WorkDetail lang="fr" slug="yano" />);
+    expect(container.querySelector("img")?.getAttribute("class")).toContain("max-h-[720px]");
+  });
+
   it("shows the cover of a product at the top of its page", () => {
     const { container } = render(<ProductDetail lang="fr" slug="vuga" />);
-    expect(container.querySelector("img")?.getAttribute("src")).toBe("/images/products/vuga.svg");
+    expect(container.querySelector("img")?.getAttribute("src")).toBe("/images/products/vuga.webp");
   });
 
   it("does not repeat the description of a case or a service in a second card", () => {

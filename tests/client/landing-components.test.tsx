@@ -96,6 +96,13 @@ describe("landing components", () => {
     expect(container.querySelector("svg")).toBeNull();
   });
 
+  it("gives a work card the height of a showcase, taller on large screens than on phones", () => {
+    const { container } = render(<WorkCard slug="work" name="Yano" image={SAMPLE_IMAGE} />);
+    const classes = container.querySelector("a")?.className ?? "";
+    expect(classes).toContain("h-[640px]");
+    expect(classes).toContain("max-[640px]:h-[480px]");
+  });
+
   it("renders a service", () => {
     render(<ServiceCard slug="service" title="Design" description="Texte" />);
     expect(screen.getByText("Design")).toBeTruthy();

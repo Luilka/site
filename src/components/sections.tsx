@@ -275,7 +275,7 @@ function DetailBackLink({ detail }: DetailBackLinkProps) {
 
 function DetailMedia({ cover }: DetailMediaProps) {
   return (
-    <Picture className="h-auto rounded-[22px]" image={cover} loading="eager" fetchPriority="high" style={{ viewTransitionName: cover.name }} />
+    <Picture className="max-h-[720px] rounded-[22px]" image={cover} loading="eager" fetchPriority="high" style={{ viewTransitionName: cover.name }} />
   );
 }
 

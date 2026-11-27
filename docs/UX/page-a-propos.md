@@ -55,7 +55,7 @@ Les quatre visuels sont des illustrations abstraites en `svg`, sans texte ni fau
 
 ## Images provisoires
 
-Quatre images sont des maquettes d'application provisoires, choisies pour montrer le type de rendu voulu : l'en-tête et la mission de cette page (`public/images/about/hero.webp`, `mission.webp`), et les réalisations Yano et Vox Congo (`public/images/work/`). Ce sont des visuels de tiers trouvés sur Pinterest, recadrés à la taille des emplacements. Ils servent de repère de style pendant le développement. Ils ne doivent pas rester en ligne : les remplacer par des maquettes dont Luilka détient les droits, avec le même nom de fichier, avant la mise en production. Titulaire : @Espoir-Loem.
+Les images des réalisations et des produits, et celles de l'en-tête et de la mission de cette page, sont des maquettes d'application provisoires, choisies pour montrer le type de rendu voulu. Quatre viennent de Pinterest (visuels de tiers) et une de Pexels (licence libre). Faute d'assez d'images, deux sont utilisées deux fois : Vuga reprend celle de Yano et Pro celle de Privatis Capital Invest. Elles servent de repère de style pendant le développement. Elles ne doivent pas rester en ligne : les remplacer par des maquettes dont Luilka détient les droits, avec le même nom de fichier, avant la mise en production. Titulaire : @Espoir-Loem.
 
 ## À fournir par le studio
 
