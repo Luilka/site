@@ -53,6 +53,10 @@ Les deux phrases d'introduction (« Ce qui guide chaque projet... » et « Les p
 
 Les quatre visuels sont des illustrations abstraites en `svg`, sans texte ni faux écran (`public/images/about/`), listées dans `src/content/images.json`. Pour mettre de vraies images, déposer le fichier `webp` dans `public/images/about/` puis changer `src`, `width` et `height` de l'entrée. Le portrait d'une personne est son avatar GitHub (`https://github.com/<compte>.png`), chargé depuis github.com à chaque visite avec `referrerpolicy="no-referrer"` (D-016). Il suit les changements de photo de la personne sur GitHub. Les initiales restent derrière la photo : elles s'affichent si GitHub ne répond pas, et seules pour une personne sans compte. Le bouton rond de la carte mène au profil GitHub.
 
+## Images provisoires
+
+Quatre images sont des maquettes d'application provisoires, choisies pour montrer le type de rendu voulu : l'en-tête et la mission de cette page (`public/images/about/hero.webp`, `mission.webp`), et les réalisations Yano et Vox Congo (`public/images/work/`). Ce sont des visuels de tiers trouvés sur Pinterest, recadrés à la taille des emplacements. Ils servent de repère de style pendant le développement. Ils ne doivent pas rester en ligne : les remplacer par des maquettes dont Luilka détient les droits, avec le même nom de fichier, avant la mise en production. Titulaire : @Espoir-Loem.
+
 ## À fournir par le studio
 
 - Les autres membres de l'équipe : nom, rôle et compte GitHub.

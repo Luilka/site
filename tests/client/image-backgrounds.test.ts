@@ -7,14 +7,14 @@ const GREEN = "#4c8a6e";
 const YELLOW = "#ecc96b";
 
 function drawings(): { name: string; svg: string }[] {
-  return readdirSync(ROOT).flatMap((folder) => readdirSync(join(ROOT, folder)).map((file) => ({ name: `${folder}/${file}`, svg: readFileSync(join(ROOT, folder, file), "utf8") })));
+  return readdirSync(ROOT).flatMap((folder) => readdirSync(join(ROOT, folder)).filter((file) => file.endsWith(".svg")).map((file) => ({ name: `${folder}/${file}`, svg: readFileSync(join(ROOT, folder, file), "utf8") })));
 }
 
 function backgroundColours(svg: string): string[] {
   return [...svg.match(/<linearGradient id="bg".*?<\/linearGradient>/s)![0].matchAll(/stop-color="(#[0-9a-f]{6})"/g)].map((match) => match[1]);
 }
 
-describe("image backgrounds", () => {
+describe("image backgrounds (drawings)", () => {
   it("paints every drawing on one flat green or yellow", () => {
     for (const { name, svg } of drawings()) {
       const colours = backgroundColours(svg);

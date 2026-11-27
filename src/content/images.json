@@ -1,12 +1,12 @@
 {
   "work": {
     "yano": {
-      "src": "/images/work/yano.svg",
+      "src": "/images/work/yano.webp",
       "width": 1200,
       "height": 750
     },
     "vox-congo": {
-      "src": "/images/work/vox-congo.svg",
+      "src": "/images/work/vox-congo.webp",
       "width": 1200,
       "height": 750
     },
@@ -40,12 +40,12 @@
   },
   "about": {
     "hero": {
-      "src": "/images/about/hero.svg",
+      "src": "/images/about/hero.webp",
       "width": 1200,
       "height": 940
     },
     "mission": {
-      "src": "/images/about/mission.svg",
+      "src": "/images/about/mission.webp",
       "width": 1200,
       "height": 1010
     },

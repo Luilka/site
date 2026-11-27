@@ -46,7 +46,7 @@ describe("cover images", () => {
   it("shows the cover of a case at the top of its page, loaded at once", () => {
     const { container } = render(<WorkDetail lang="fr" slug="yano" />);
     const cover = container.querySelector("img");
-    expect(cover?.getAttribute("src")).toBe("/images/work/yano.svg");
+    expect(cover?.getAttribute("src")).toBe("/images/work/yano.webp");
     expect(cover?.getAttribute("loading")).toBe("eager");
     expect(cover?.getAttribute("fetchpriority")).toBe("high");
   });
