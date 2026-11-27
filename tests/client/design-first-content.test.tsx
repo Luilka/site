@@ -33,7 +33,7 @@ describe("design-first home content", () => {
     render(<Home />);
     for (const description of [
       "Nous clarifions le problème, les personnes concernées et ce que le produit doit accomplir.",
-      "Nous dessinons les parcours, le langage visuel et les écrans, puis nous les testons avec de vraies personnes.",
+      "Nous concevons les parcours, le langage visuel et les écrans, puis nous les testons avec de vraies personnes.",
       "Nous construisons l'application : interface, états et parcours jusqu'à la mise en ligne.",
       "Nous écrivons la page produit, le ton et les messages utiles au quotidien pour que le produit trouve ses utilisateurs.",
     ]) {
@@ -80,8 +80,8 @@ describe("design-first home content", () => {
   it("describes each service in a few words", () => {
     const { container } = render(<Home />);
     for (const description of [
-      "Nous observons vos utilisateurs, cadrons le problème et dessinons des parcours testés avant l'interface. Livrable : parcours et prototype.",
-      "Nous dessinons des écrans clairs, avec leurs états et des composants accessibles. Les mots sont intégrés dès la première maquette.",
+      "Nous observons vos utilisateurs, cadrons le problème et concevons des parcours testés avant l'interface. Livrable : parcours et prototype.",
+      "Nous concevons des écrans clairs, avec leurs états et des composants accessibles. Les mots sont intégrés dès la première maquette.",
       "Nous construisons l'application : interface, états et parcours jusqu'à la mise en ligne. Ce service peut aussi être commandé seul.",
       "Nous écrivons la page produit qui donne envie d'acheter, le ton et les messages utiles au quotidien. Ce service peut aussi être commandé seul.",
     ]) {

@@ -6,7 +6,7 @@
 
 ## Pourquoi le site existe
 
-Luilka est un studio de design. Le site doit permettre à un responsable produit ou marketing, souvent sur téléphone et avec peu de temps, de faire trois choses : comprendre ce que Luilka dessine, voir des preuves concrètes, puis contacter le studio.
+Luilka est un studio de design. Le site doit permettre à un responsable produit ou marketing, souvent sur téléphone et avec peu de temps, de faire trois choses : comprendre ce que Luilka conçoit, voir des preuves concrètes, puis contacter le studio.
 
 ## Ce que le site dit
 

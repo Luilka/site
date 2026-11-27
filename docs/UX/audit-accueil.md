@@ -9,7 +9,7 @@ Perimetre : `src/routes/[lang]/index.tsx` et ses composants.
 
 Qui arrive : un responsable produit ou marketing qui cherche un studio de design, souvent sur telephone, avec peu de temps.
 
-Travail a faire : comprendre ce que Luilka dessine, voir des preuves concretes, puis contacter le studio.
+Travail a faire : comprendre ce que Luilka conçoit, voir des preuves concretes, puis contacter le studio.
 
 Motif de depart : une page qui parle de developpement, d hebergement ou de communaute de developpeurs, ou des cartes qui promettent une action sans mener nulle part.
 

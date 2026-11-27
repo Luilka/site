@@ -40,7 +40,7 @@ describe("multipage site", () => {
 
   it.each(pages)("does not repeat the generic section paragraph on the $name page", ({ element }) => {
     render(element);
-    expect(screen.queryByText(/nous comprenons les besoins réels avant de dessiner/)).toBeNull();
+    expect(screen.queryByText(/nous comprenons les besoins réels avant de concevoir/)).toBeNull();
   });
 
   it("sends no visitor from a full list to another list", () => {
