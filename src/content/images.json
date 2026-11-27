@@ -58,6 +58,11 @@
       "src": "/images/about/detail-b.svg",
       "width": 1000,
       "height": 1000
+    },
+    "studio": {
+      "src": "/images/about/studio.webp",
+      "width": 900,
+      "height": 1200
     }
   }
 }

@@ -25,8 +25,8 @@ def test_only_works_products_and_the_about_page_have_pictures() -> None:
     assert sorted(REGISTRY) == ["about", "products", "work"]
 
 
-def test_the_about_page_names_its_four_pictures() -> None:
-    assert sorted(REGISTRY["about"]) == ["detailA", "detailB", "hero", "mission"]
+def test_the_about_page_names_its_five_pictures() -> None:
+    assert sorted(REGISTRY["about"]) == ["detailA", "detailB", "hero", "mission", "studio"]
 
 
 def test_each_cover_file_is_in_public() -> None:

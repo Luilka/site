@@ -62,6 +62,7 @@ export type AboutImages = {
   mission: DetailImage;
   detailA: DetailImage;
   detailB: DetailImage;
+  studio: DetailImage;
 };
 
 export type ValuesCopy = {

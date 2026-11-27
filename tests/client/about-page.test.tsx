@@ -7,7 +7,7 @@ import About from "@/routes/[lang]/about.tsx";
 import { dictionaries } from "@/shared/i18n";
 import { SAMPLE_IMAGE } from "./fixtures.ts";
 
-const IMAGES = { hero: SAMPLE_IMAGE, mission: SAMPLE_IMAGE, detailA: SAMPLE_IMAGE, detailB: SAMPLE_IMAGE };
+const IMAGES = { hero: SAMPLE_IMAGE, mission: SAMPLE_IMAGE, detailA: SAMPLE_IMAGE, detailB: SAMPLE_IMAGE, studio: SAMPLE_IMAGE };
 
 function setLanguage(language: "fr" | "en"): void {
   (globalThis as Record<string, unknown>).__NEXY_LOCATION__ = { pathname: `/${language}/about`, search: "", hash: "", params: {} };

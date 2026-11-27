@@ -5,8 +5,8 @@ import { Container } from "@/shared/ui/containers.tsx";
 import type { HomeProps } from "@/shared/types";
 
 function HomeAbout() {
-  const { pages, about, discover } = useContent();
-  return <AboutSection id="about" title={pages.about.title} paragraphs={about} action={{ label: discover, href: "/about" }} />;
+  const { pages, about, discover, aboutPage } = useContent();
+  return <AboutSection id="about" image={aboutPage.images.studio} title={pages.about.title} paragraphs={about} action={{ label: discover, href: "/about" }} />;
 }
 
 function HeroTitle() {

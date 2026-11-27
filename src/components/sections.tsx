@@ -2,12 +2,11 @@ import { Container } from "@/shared/ui/containers.tsx";
 import { ActionLink, Breadcrumb, ContactPanel, PageHero, PageLead, PageTitle, NotFoundPanel } from "@/components/patterns.tsx";
 import type { SectionProps } from "@/shared/types/section-props.type.ts";
 import { infoHref } from "@/shared/utils/info-href.util.ts";
-import type { AboutHeroProps, FilmPlayerProps, FilmSectionProps, FilmTranscriptProps, AboutSectionProps, AboutTextProps, BandProps, CardGridProps, CollectionSectionProps, DetailBackLinkProps, DetailBodyProps, DetailMediaProps, DetailPageProps, DetailRouteViewProps, HeadingTextProps, InfoCard, InfoCardBodyProps, InfoCardProps, InfoSectionProps, MissionDetailsProps, MissionSectionProps, ProcessSectionProps, SectionHeadingProps, TeamGridProps, TeamSectionProps, ValueGridProps, ValuesSectionProps } from "@/shared/types";
+import type { AboutArtProps, AboutHeroProps, FilmPlayerProps, FilmSectionProps, FilmTranscriptProps, AboutSectionProps, AboutTextProps, BandProps, CardGridProps, CollectionSectionProps, DetailBackLinkProps, DetailBodyProps, DetailMediaProps, DetailPageProps, DetailRouteViewProps, HeadingTextProps, InfoCard, InfoCardBodyProps, InfoCardProps, InfoSectionProps, MissionDetailsProps, MissionSectionProps, ProcessSectionProps, SectionHeadingProps, TeamGridProps, TeamSectionProps, ValueGridProps, ValuesSectionProps } from "@/shared/types";
 import { buttonClasses } from "@/shared/ui/buttons.tsx";
 import { Link } from "@/shared/ui/links.tsx";
 import { Card } from "@/shared/ui/cards.tsx";
 import { Picture } from "@/shared/ui/images.tsx";
-import { Logo } from "@/shared/ui/logos.tsx";
 import { Badge } from "@/shared/ui/badges.tsx";
 import { StepCard, ProductCard, ServiceCard, TeamCard, ValueCard, WorkCard } from "@/components/cards.tsx";
 import { useContent } from "@/shared/i18n";
@@ -28,10 +27,10 @@ const MISSION_TEXT = "mt-5 text-(length:--text-base) text-muted leading-[1.6]";
 const VALUE_GRID = "mt-16 grid grid-cols-1 gap-4 min-[641px]:grid-cols-2 min-[1001px]:grid-cols-3 min-[1001px]:auto-rows-[minmax(16.5rem,auto)]";
 const TEAM_GRID = "mt-16 grid grid-cols-3 gap-4 max-[1000px]:grid-cols-2 max-[640px]:grid-cols-1";
 
-function AboutArt() {
+function AboutArt({ image }: AboutArtProps) {
   return (
-    <div className="flex items-center justify-center bg-gray rounded-[22px] min-h-[400px]">
-      <Logo className="size-[140px] text-text" />
+    <div className="relative min-h-[400px] overflow-hidden rounded-[22px] bg-gray">
+      <Picture className="absolute inset-0 size-full" image={image} />
     </div>
   );
 }
@@ -46,11 +45,11 @@ function AboutText({ title, paragraphs, action }: AboutTextProps) {
   );
 }
 
-export function AboutSection({ id, ...text }: AboutSectionProps) {
+export function AboutSection({ id, image, ...text }: AboutSectionProps) {
   return (
     <section className="pt-[12px] pb-[90px]" id={id}>
       <Container className="grid items-stretch grid-cols-[540px_1fr] gap-[64px] max-[1000px]:grid-cols-[1fr]">
-        <AboutArt />
+        <AboutArt image={image} />
         <AboutText {...text} />
       </Container>
     </section>

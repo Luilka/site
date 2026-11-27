@@ -57,11 +57,16 @@ export type AboutTextProps = {
   action?: SectionAction;
 };
 
+export type AboutArtProps = {
+  image: DetailImage;
+};
+
 export type AboutSectionProps = {
   id?: string;
   title?: string;
   paragraphs: readonly string[];
   action?: SectionAction;
+  image: DetailImage;
 };
 
 export type InfoCardBodyProps = {
