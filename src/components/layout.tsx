@@ -27,7 +27,8 @@ const MEGA_OPEN = "opacity-100 visible [transform:translateY(0)] pointer-events-
 const SOCIAL_LINK = "row-center justify-center size-11 rounded-full border border-[var(--border-ui)] hover:bg-soft hover:text-text";
 const MOBILE_BUTTON = "row-center justify-center size-11 rounded-lg cursor-pointer text-text hover:bg-soft";
 const SHEET_ROOT = "fixed inset-0 z-50 transition-[opacity,visibility] duration-250 ease-[ease] motion-reduce:transition-none";
-const OVERLAY = "absolute inset-0 bg-night/55 backdrop-blur-sm bg-[image:linear-gradient(to_right,rgb(255_255_255/9%)_1px,transparent_1px),linear-gradient(to_bottom,rgb(255_255_255/9%)_1px,transparent_1px)] bg-size-[12px_12px]";
+const HEADER_SURFACE = "absolute inset-0 -z-1 bg-white/80 backdrop-blur bg-[image:linear-gradient(to_right,var(--border-ui)_1px,transparent_1px),linear-gradient(to_bottom,var(--border-ui)_1px,transparent_1px)] bg-size-[12px_12px]";
+const OVERLAY ="absolute inset-0 bg-night/55 backdrop-blur-sm bg-[image:linear-gradient(to_right,rgb(255_255_255/9%)_1px,transparent_1px),linear-gradient(to_bottom,rgb(255_255_255/9%)_1px,transparent_1px)] bg-size-[12px_12px]";
 const SHEET = "absolute inset-y-0 right-0 flex w-[min(86vw,22rem)] flex-col bg-paper shadow-[-18px_0_40px_rgb(0_0_0/18%)] outline-none transition-transform duration-250 ease-[ease] motion-reduce:transition-none";
 const MOBILE_LINK = "flex min-h-[3rem] items-center px-6 text-(length:--text-lg) font-medium text-text hover:bg-soft hover:text-accent";
 
@@ -305,7 +306,7 @@ function HeaderActions() {
 export function Header() {
   return (
     <header className="sticky top-0 z-13 border-[0.04375rem] border-[var(--border-ui)] [view-transition-name:site-header]">
-      <div className="absolute inset-0 -z-1 bg-white/80 backdrop-blur" aria-hidden="true" />
+      <div className={HEADER_SURFACE} aria-hidden="true" />
       <div className="isolate mx-auto flex h-17.75 w-full max-w-7xl flex-row items-center justify-between gap-3 px-6 min-[641px]:gap-8 lg:px-10">
         <BrandMark /><MainNavigation /><HeaderActions />
       </div>
