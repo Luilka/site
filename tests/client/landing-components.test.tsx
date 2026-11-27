@@ -83,6 +83,12 @@ describe("landing components", () => {
   it("renders a stage with its title", () => {
     render(<StepCard number="01" title="Cadrage" description="Texte" />);
     expect(screen.getByText("Cadrage")).toBeTruthy();
+    expect(screen.getByText("01")).toBeTruthy();
+  });
+
+  it("draws no picture inside a stage", () => {
+    const { container } = render(<StepCard number="01" title="Cadrage" description="Texte" />);
+    expect(container.querySelector("svg")).toBeNull();
   });
 
   it("renders a service", () => {

@@ -33,9 +33,9 @@ describe("design-first home content", () => {
     render(<Home />);
     for (const description of [
       "Nous clarifions le problème, les personnes concernées et ce que le produit doit accomplir.",
-      "Nous définissons le langage visuel, la voix et les principes qui tiennent l'ensemble.",
-      "Nous dessinons les parcours et les écrans, puis nous les testons avec de vrais utilisateurs.",
-      "Nous remettons des maquettes prêtes à l'emploi et un système de composants que vos équipes peuvent utiliser.",
+      "Nous dessinons les parcours, le langage visuel et les écrans, puis nous les testons avec de vraies personnes.",
+      "Nous construisons l'application : interface, états et parcours jusqu'à la mise en ligne.",
+      "Nous écrivons la page produit, le ton et les messages utiles au quotidien pour que le produit trouve ses utilisateurs.",
     ]) {
       expect(screen.getAllByText(description)).toHaveLength(1);
     }

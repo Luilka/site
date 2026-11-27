@@ -4,7 +4,6 @@ import { Link } from "@/shared/ui/links.tsx";
 import { IconTile } from "@/shared/ui/icon-tiles.tsx";
 import { Card } from "@/shared/ui/cards.tsx";
 import { Picture } from "@/shared/ui/images.tsx";
-import { Mascot } from "@/shared/ui/mascots.tsx";
 import { StripedPanel } from "@/shared/ui/panels.tsx";
 import { SocialIcon } from "@/shared/ui/social-icons.tsx";
 import { useContent } from "@/shared/i18n";
@@ -12,7 +11,7 @@ import { githubAvatar, githubProfile } from "@/shared/utils/github.util.ts";
 import { initialsOf } from "@/shared/utils/initials.util.ts";
 import { profileLabel } from "@/shared/utils/profile-label.util.ts";
 import { coverName } from "@/shared/utils/cover-name.util.ts";
-import type { CardCoverProps, CardIconProps, ProductCardProps, ProductInfoProps, ProductHeaderProps, ProductTitleProps, ServiceCardProps, StepCardProps, StepPanelProps, StepTextProps, TeamCardProps, TeamLabelProps, TeamNameProps, TeamPortraitProps, TeamProfileLinkProps, ValueCardProps, ValueIconProps, ValueTextProps, WorkCardProps, WorkInfoProps, WorkWhoProps } from "@/shared/types";
+import type { CardCoverProps, CardIconProps, ProductCardProps, ProductInfoProps, ProductHeaderProps, ProductTitleProps, ServiceCardProps, StepCardProps, StepTextProps, TeamCardProps, TeamLabelProps, TeamNameProps, TeamPortraitProps, TeamProfileLinkProps, ValueCardProps, ValueIconProps, ValueTextProps, WorkCardProps, WorkInfoProps, WorkWhoProps } from "@/shared/types";
 
 const ICONS: Record<string, LucideIcon> = {
   "UX Design": PenTool,
@@ -94,34 +93,22 @@ export function ServiceCard({ slug, title, description, shape }: ServiceCardProp
   );
 }
 
-function StepText({ title, description }: StepTextProps) {
-  return (
-    <div className="p-8">
-      <h3 className="text-(length:--text-lg) font-semibold mb-[6px]">{title}</h3>
-      <p className="text-(length:--text-sm) opacity-85 leading-[1.5]">{description}</p>
-    </div>
-  );
-}
-
 const STEP_TONES: readonly string[] = ["bg-night text-paper", "bg-gold text-night", "bg-gray text-text", "bg-accent text-paper"];
 
-const STEP_PANEL = "relative overflow-hidden bg-paper text-text border-2 border-paper outline-1 outline-[var(--border-ui)] rounded-[16px] h-[180px] flex items-center justify-center mt-auto shadow-[0_2px_8px_rgb(0_0_0/5%)]";
-
-function StepPanel({ index }: StepPanelProps) {
+function StepText({ number, title, description }: StepTextProps) {
   return (
-    <div className={STEP_PANEL}>
-      <span data-part="corner" className="absolute -top-7 -left-7 size-20 rounded-full bg-gray" aria-hidden="true" />
-      <span data-part="corner" className="absolute -right-8 -bottom-8 size-24 rounded-full bg-gold/35" aria-hidden="true" />
-      <Mascot className="relative h-[140px] w-auto" index={index} />
-    </div>
+    <>
+      <span className="text-(length:--text-sm) font-semibold opacity-70">{number}</span>
+      <h3 className="text-(length:--text-lg) font-semibold mt-[48px] mb-[6px]">{title}</h3>
+      <p className="text-(length:--text-sm) opacity-85 leading-[1.5]">{description}</p>
+    </>
   );
 }
 
-export function StepCard({ title, description, index = 0 }: StepCardProps) {
+export function StepCard({ number, title, description, index = 0 }: StepCardProps) {
   return (
-    <Card className={`flex flex-col rounded-[18px] p-[4px] ${STEP_TONES[index % STEP_TONES.length]}`}>
-      <StepText title={title} description={description} />
-      <StepPanel index={index} />
+    <Card className={`flex flex-col rounded-[18px] p-8 ${STEP_TONES[index % STEP_TONES.length]}`}>
+      <StepText number={number} title={title} description={description} />
     </Card>
   );
 }

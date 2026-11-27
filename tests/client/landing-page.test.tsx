@@ -17,9 +17,9 @@ describe("landing page", () => {
     }
   });
 
-  it("shows the four design steps with their own copy", () => {
+  it("shows the four steps from idea to app with their own copy", () => {
     render(<Home />);
-    for (const label of ["Cadrage", "Direction visuelle", "Design d'interface", "Livraison"]) {
+    for (const label of ["Cadrage", "Design", "Construction", "Lancement"]) {
       expect(screen.getAllByText(label).length).toBeGreaterThan(0);
     }
     expect(

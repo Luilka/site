@@ -107,7 +107,7 @@ Les illustrations actuelles sont bleu et violet (le bleu `#2a4cb5` revient 34 fo
 
 1. Trancher l'accent (vert profond ou aucun) : titulaire @Espoir-Loem.
 2. Jetons : retirer `--accent-blue`, `--accent-purple`, `--blue` ; ajouter `--graphite` et l'accent.
-3. Quatre étapes : noir, graphite, gris, accent sur « Livraison ».
+3. Quatre étapes : noir, graphite, gris, accent sur « Lancement ».
 4. Bandeau incliné : gris uni. Bouton de contact : accent au survol.
 5. Redessiner les 11 illustrations selon les règles ci-dessus.
 6. Nouvelle décision D-019 et mise à jour des principes de design.

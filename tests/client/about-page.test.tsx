@@ -212,7 +212,7 @@ describe("about page", () => {
   it("leaves the four process cards to the home page", () => {
     setLanguage("fr");
     render(<About />);
-    expect(screen.queryByText("Direction visuelle")).toBeNull();
+    expect(screen.queryByText("Construction")).toBeNull();
   });
 
   it("does not announce a CEO before there is one", () => {

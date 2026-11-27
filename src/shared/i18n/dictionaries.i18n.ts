@@ -438,21 +438,21 @@ const fr: Dictionary = {
     },
     {
       number: "02",
-      title: "Direction visuelle",
+      title: "Design",
       description:
-        "Nous définissons le langage visuel, la voix et les principes qui tiennent l'ensemble.",
+        "Nous dessinons les parcours, le langage visuel et les écrans, puis nous les testons avec de vraies personnes.",
     },
     {
       number: "03",
-      title: "Design d'interface",
+      title: "Construction",
       description:
-        "Nous dessinons les parcours et les écrans, puis nous les testons avec de vrais utilisateurs.",
+        "Nous construisons l'application : interface, états et parcours jusqu'à la mise en ligne.",
     },
     {
       number: "04",
-      title: "Livraison",
+      title: "Lancement",
       description:
-        "Nous remettons des maquettes prêtes à l'emploi et un système de composants que vos équipes peuvent utiliser.",
+        "Nous écrivons la page produit, le ton et les messages utiles au quotidien pour que le produit trouve ses utilisateurs.",
     },
   ],
   services: servicesFr,
@@ -673,20 +673,20 @@ const en: Dictionary = {
     },
     {
       number: "02",
-      title: "Visual direction",
+      title: "Design",
       description:
-        "We define the visual language, the voice and the principles that hold it together.",
+        "We draw the flows, the visual language and the screens, then test them with real people.",
     },
     {
       number: "03",
-      title: "Interface design",
-      description: "We draw the flows and screens, then test them with real users.",
+      title: "Build",
+      description: "We build the app: interface, states and flows, up to going live.",
     },
     {
       number: "04",
-      title: "Handover",
+      title: "Launch",
       description:
-        "We deliver ready to use designs and a component system your teams can build on.",
+        "We write the product page, the tone and the everyday messages so the product finds its users.",
     },
   ],
   services: servicesEn,
