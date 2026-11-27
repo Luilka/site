@@ -33,10 +33,14 @@ describe("mascots", () => {
     expect(fills[0]).toBe("url(#mascot-body-0)");
   });
 
-  it("marks the luxury with gold or night trim in the colour of the card, a crest and no blush", () => {
+  it("wears a full costume per step: waistcoat, smock, tuxedo and cape", () => {
+    const costumes = Array.from(INDEXES, (index) => render(<Mascot index={index} />).container.querySelector("[data-costume]")?.getAttribute("data-costume"));
+    expect(costumes).toEqual(["waistcoat", "smock", "tuxedo", "cape"]);
+  });
+
+  it("colours the plumage differently for each step and keeps no blush", () => {
     const { container } = render(<Mascot index={0} />);
-    expect(container.querySelector("svg")?.getAttribute("class")).toContain("text-gold");
-    expect(container.querySelector('[data-part="crest"]')).not.toBeNull();
+    expect(container.querySelector("#mascot-body-3")).not.toBeNull();
     expect(container.querySelector(".fill-gold\\/40")).toBeNull();
   });
 
