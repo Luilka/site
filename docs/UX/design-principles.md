@@ -96,7 +96,7 @@ Chaque principe a un énoncé, un contre-exemple et un lien vers sa source. Un �
 
 ## 12. Des tokens, pas des valeurs
 
-**Énoncé.** Les couleurs, tailles et espaces viennent des tokens de `src/globale.css`. Le thème est noir et blanc (D-018) avec un seul accent vert profond (D-020) : action de contact, étape finale, états actifs. Aucune autre couleur vive dans l'interface. Tailwind est un détail d'implémentation, jamais la source du style.
+**Énoncé.** Les couleurs, tailles et espaces viennent des tokens de `src/globale.css`. Le thème suit D-021 : vert forêt (`--accent`) pour l'action, vert nuit (`--night`) et gris perle (`--gray`) en fonds, or (`--gold`) pour les détails et le texte sur fond sombre seulement. Aucune autre couleur vive dans l'interface. Tailwind est un détail d'implémentation, jamais la source du style.
 
 **Contre-exemple.** Une couleur hexadécimale écrite dans un composant.
 
