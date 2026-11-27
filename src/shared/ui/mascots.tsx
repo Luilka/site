@@ -16,28 +16,23 @@ const GRADIENTS = (
 
 const FEET = (
   <>
-    <ellipse cx="45" cy="108" rx="12" ry="7" fill="url(#mascot-warm)" />
-    <ellipse cx="75" cy="108" rx="12" ry="7" fill="url(#mascot-warm)" />
+    <rect x="37" y="107" width="18" height="8" rx="4" fill="url(#mascot-warm)" />
+    <rect x="65" y="107" width="18" height="8" rx="4" fill="url(#mascot-warm)" />
   </>
 );
 
-const LEFT_HAND = <circle cx="19" cy="84" r="8" fill="url(#mascot-warm)" />;
-const RIGHT_HAND = <circle cx="80" cy="92" r="8" fill="url(#mascot-warm)" />;
+const LEFT_HAND = <circle cx="24" cy="86" r="6" fill="url(#mascot-warm)" />;
+const RIGHT_HAND = <circle cx="82" cy="94" r="6" fill="url(#mascot-warm)" />;
 
 const BODY = (
   <>
     {GRADIENTS}
-    <ellipse cx="60" cy="116" rx="30" ry="4" className="fill-night/10" />
+    <ellipse cx="60" cy="118" rx="28" ry="3" className="fill-night/10" />
     {FEET}
-    <path d="M24 78q-6 4-5 6" className="fill-none stroke-accent" strokeWidth="6" strokeLinecap="round" />
-    <circle cx="60" cy="62" r="40" fill="url(#mascot-body)" />
-    <circle cx="46" cy="58" r="4" className="fill-night" />
-    <circle cx="74" cy="58" r="4" className="fill-night" />
-    <circle cx="47.5" cy="56.5" r="1.4" className="fill-paper" />
-    <circle cx="75.5" cy="56.5" r="1.4" className="fill-paper" />
-    <circle cx="36" cy="70" r="5" className="fill-gold/40" />
-    <circle cx="84" cy="70" r="5" className="fill-gold/40" />
-    <path d="M50 72q10 9 20 0" className="fill-none stroke-paper" strokeWidth="3" strokeLinecap="round" />
+    <path data-part="body" d="M30 102V56a30 30 0 0 1 60 0v46q0 8-8 8H38q-8 0-8-8z" fill="url(#mascot-body)" />
+    <ellipse cx="42" cy="54" rx="4" ry="18" className="fill-paper/15" />
+    <path data-part="eye" d="M44 64q5-6 10 0" className="fill-none stroke-paper" strokeWidth="2.5" strokeLinecap="round" />
+    <path data-part="eye" d="M66 64q5-6 10 0" className="fill-none stroke-paper" strokeWidth="2.5" strokeLinecap="round" />
   </>
 );
 

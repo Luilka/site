@@ -18,6 +18,12 @@ describe("mascots", () => {
     expect(container.querySelectorAll('[fill="url(#mascot-warm)"]').length).toBeGreaterThanOrEqual(4);
   });
 
+  it("keeps one calm detail on a smooth arch: two closed eyes and no round cartoon face", () => {
+    const { container } = render(<Mascot index={1} />);
+    expect(container.querySelectorAll('[data-part="eye"]')).toHaveLength(2);
+    expect(container.querySelector('[data-part="body"]')?.tagName.toLowerCase()).toBe("path");
+  });
+
   it("replaces the step number by the mascot of the card", () => {
     const { container } = render(<StepCard number="01" title="Cadrage" description="Texte" index={2} />);
     expect(screen.queryByText("01")).toBeNull();
