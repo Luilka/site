@@ -21,6 +21,10 @@ export type ImageProps = Omit<ImgHTMLAttributes<HTMLImageElement>, "src" | "alt"
   height: number;
 };
 
+export type LogoProps = {
+  className?: string;
+};
+
 export type InputProps = InputHTMLAttributes<HTMLInputElement>;
 
 export type LocalizedLinkProps = Omit<LinkProps, "href"> & {

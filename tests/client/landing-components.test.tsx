@@ -1,32 +1,50 @@
-import { render, screen } from "@testing-library/react";
-import { describe, expect, it } from "vitest";
-import { IconSprite, Footer, Header } from "@/components/layout.tsx";
+import { render, screen, within } from "@testing-library/react";
+import { afterEach, describe, expect, it, vi } from "vitest";
+import { Footer, Header } from "@/components/layout.tsx";
 import { ProcessBand } from "@/components/patterns.tsx";
 import { ProductCard, ServiceCard, StepCard, WorkCard } from "@/components/cards.tsx";
+import { SAMPLE_IMAGE } from "./fixtures.ts";
+
+afterEach(() => {
+  vi.useRealTimers();
+});
 
 describe("landing components", () => {
-  it("defines the reference icons", () => {
-    const { container } = render(<IconSprite />);
-    expect(container.querySelector("symbol#finger")).not.toBeNull();
-  });
-
-  it("uses the supplied solid fingerprint as the logo", () => {
-    const { container } = render(<IconSprite />);
-    const path = container.querySelector("symbol#finger path");
-    expect(path?.getAttribute("d")?.startsWith("M12 3.75a6.715 6.715 0 0 0-3.722 1.118")).toBe(true);
-    expect(path?.getAttribute("fill")).toBe("currentColor");
-    expect(path?.getAttribute("fill-rule")).toBe("evenodd");
-    expect(path?.getAttribute("stroke")).toBeNull();
-  });
-
   it("renders every reference navigation label", () => {
     render(<Header />);
-    expect(screen.getByText("Job")).toBeTruthy();
+    const navigation = within(screen.getByRole("navigation", { name: "Navigation principale" }));
+    expect(navigation.getByRole("link", { name: "Carrières" })).toBeTruthy();
   });
 
   it("renders the process band", () => {
     render(<ProcessBand />);
-    expect(screen.getByText("Production")).toBeTruthy();
+    expect(screen.getAllByText("Production")).toHaveLength(2);
+  });
+
+  it("loops the band as a marquee that reduced motion turns off", () => {
+    const { container } = render(<ProcessBand />);
+    const track = container.querySelector(".animate-marquee");
+    expect(track?.className).toContain("motion-reduce:animate-none");
+    expect(track?.className).toContain("hover:[animation-play-state:paused]");
+  });
+
+  it("repeats the stages once for a seamless loop and shows them once without motion", () => {
+    const { container } = render(<ProcessBand />);
+    const track = container.querySelector(".animate-marquee");
+    expect(track?.children).toHaveLength(2);
+    expect(track?.children[0].className).not.toContain("motion-reduce:hidden");
+    expect(track?.children[1].className).toContain("motion-reduce:hidden");
+  });
+
+  it("keeps the band inside the viewport", () => {
+    const { container } = render(<ProcessBand />);
+    expect(container.firstElementChild?.className).toContain("overflow-x-clip");
+  });
+
+  it("gives the tilted band a pattern of oblique lines", () => {
+    const { container } = render(<ProcessBand reverse />);
+    const tilted = container.querySelector('[class*="rotate-2"]');
+    expect(tilted?.className).toContain("repeating-linear-gradient(45deg");
   });
 
   it("renders a numbered stage", () => {
@@ -40,17 +58,18 @@ describe("landing components", () => {
   });
 
   it("renders a product", () => {
-    render(<ProductCard slug="product" name="Tala" description="Texte" />);
+    render(<ProductCard slug="product" name="Tala" description="Texte" image={SAMPLE_IMAGE} />);
     expect(screen.getByText("Tala")).toBeTruthy();
   });
 
   it("renders a case study", () => {
-    render(<WorkCard slug="work" name="Yano" />);
+    render(<WorkCard slug="work" name="Yano" image={SAMPLE_IMAGE} />);
     expect(screen.getByText("Yano")).toBeTruthy();
   });
 
-  it("renders the copyright line", () => {
+  it("renders the copyright line with the current year", () => {
+    vi.useFakeTimers({ toFake: ["Date"], now: new Date("2031-06-15") });
     render(<Footer />);
-    expect(screen.getByText(/Tous droits réservés à Luilka/)).toBeTruthy();
+    expect(screen.getByText("Copyright 2031 Luilka. Tous droits réservés.")).toBeTruthy();
   });
 });

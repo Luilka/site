@@ -2,10 +2,12 @@ import { Container } from "@/shared/ui/containers.tsx";
 import { ActionLink, ContactPanel, PageHero, NotFoundPanel } from "@/components/patterns.tsx";
 import type { SectionProps } from "@/shared/types/section-props.type.ts";
 import { infoHref } from "@/shared/utils/info-href.util.ts";
-import type { AboutSectionProps, AboutTextProps, CardGridProps, CollectionSectionProps, DetailBackLinkProps, DetailBodyProps, DetailCardProps, DetailPageProps, DetailRouteViewProps, HeadingTextProps, InfoCard, InfoCardBodyProps, InfoCardProps, InfoSectionProps, ProcessSectionProps, SectionHeadingProps } from "@/shared/types";
+import type { AboutSectionProps, AboutTextProps, CardGridProps, CollectionSectionProps, DetailBackLinkProps, DetailBodyProps, DetailMediaProps, DetailPageProps, DetailRouteViewProps, HeadingTextProps, InfoCard, InfoCardBodyProps, InfoCardProps, InfoSectionProps, ProcessSectionProps, SectionHeadingProps } from "@/shared/types";
 import { buttonClasses } from "@/shared/ui/buttons.tsx";
 import { Link } from "@/shared/ui/links.tsx";
 import { Card } from "@/shared/ui/cards.tsx";
+import { Image } from "@/shared/ui/images.tsx";
+import { Logo } from "@/shared/ui/logos.tsx";
 import { Badge } from "@/shared/ui/badges.tsx";
 import { StepCard, ProductCard, ServiceCard, WorkCard } from "@/components/cards.tsx";
 import { useContent } from "@/shared/i18n";
@@ -13,7 +15,8 @@ import { Fragment } from "react";
 import { ArrowLeft } from "lucide-react";
 import { useDetail } from "@/shared/hooks/use-detail.hook.ts";
 
-const SECTION_SPACING = "py-20 px-0";
+const LIST_SPACING = "pt-0 pb-20 has-[h2]:pt-20";
+const SHOWCASE_SPACING = "pt-0 pb-[90px] has-[h2]:pt-[80px]";
 const STACK = "max-[1000px]:grid-cols-[1fr_1fr] max-[640px]:grid-cols-[1fr]";
 const INFO_CARD = "min-w-0 p-[1.5rem] border border-[color-mix(in_srgb,var(--text)_12%,var(--paper))] rounded-[1.125rem] bg-paper";
 const INFO_TITLE = "mt-3 mb-2 text-(length:--text-xl)";
@@ -22,9 +25,7 @@ const INFO_TEXT = "text-sm text-muted leading-[1.6]";
 function AboutArt() {
   return (
     <div className="flex items-center justify-center bg-gray rounded-[22px] min-h-[400px]">
-      <svg className="w-[140px] h-[140px] fill-[#2a2a30]" viewBox="0 0 24 24" aria-hidden="true">
-        <use href="#finger" />
-      </svg>
+      <Logo className="size-[140px] text-[#2a2a30]" />
     </div>
   );
 }
@@ -32,7 +33,7 @@ function AboutArt() {
 function AboutText({ title, paragraphs, action }: AboutTextProps) {
   return (
     <div className="pt-[36px]">
-      <h2 className="text-(length:--text-2xl) font-semibold mb-[28px]">{title}</h2>
+      {title ? <h2 className="text-(length:--text-2xl) font-semibold mb-[28px]">{title}</h2> : null}
       {paragraphs.map((paragraph) => <p key={paragraph} className="text-(length:--text-base) text-muted leading-[1.6] mb-[22px] max-w-[520px]">{paragraph}</p>)}
       {action ? <ActionLink action={action} /> : null}
     </div>
@@ -67,7 +68,7 @@ function InfoCard({ href, ...copy }: InfoCardProps) {
 
 export function InfoSection({ items, detail, ...section }: InfoSectionProps) {
   return (
-    <CollectionSection {...section} className={SECTION_SPACING} gridClassName={`mt-10 grid grid-cols-3 gap-4 ${STACK}`} items={items}
+    <CollectionSection {...section} className={LIST_SPACING} gridClassName={`not-first:mt-10 grid grid-cols-3 gap-4 ${STACK}`} items={items}
       getKey={(item) => item.title} render={(item) => <InfoCard {...item} href={infoHref(detail, item)} />} />
   );
 }
@@ -86,7 +87,7 @@ export function ProcessSection({ id }: ProcessSectionProps) {
 export function ProductsSection(props: SectionProps) {
   const { products } = useContent();
   return (
-    <CollectionSection {...props} className="pt-[80px] pb-[90px]" gridClassName={`grid grid-cols-3 gap-4 mt-[40px] ${STACK}`} items={products}
+    <CollectionSection {...props} className={SHOWCASE_SPACING} gridClassName={`grid grid-cols-3 gap-4 not-first:mt-[40px] ${STACK}`} items={products}
       getKey={(product) => product.slug} render={(product) => <ProductCard {...product} />} />
   );
 }
@@ -94,7 +95,7 @@ export function ProductsSection(props: SectionProps) {
 export function ServicesSection(props: SectionProps) {
   const { services } = useContent();
   return (
-    <CollectionSection {...props} className={SECTION_SPACING} gridClassName={`grid grid-cols-4 mt-[80px] ${STACK}`} items={services}
+    <CollectionSection {...props} className={LIST_SPACING} gridClassName={`grid grid-cols-4 not-first:mt-[80px] ${STACK}`} items={services}
       getKey={(service) => service.slug} render={(service) => <ServiceCard {...service} />} />
   );
 }
@@ -102,7 +103,7 @@ export function ServicesSection(props: SectionProps) {
 export function WorksSection(props: SectionProps) {
   const { works } = useContent();
   return (
-    <CollectionSection {...props} className="pt-[80px] pb-[90px]" gridClassName="grid grid-cols-2 gap-4 mt-[40px] max-[1000px]:grid-cols-[1fr]" items={works}
+    <CollectionSection {...props} className={SHOWCASE_SPACING} gridClassName="grid grid-cols-2 gap-4 not-first:mt-[40px] max-[1000px]:grid-cols-[1fr]" items={works}
       getKey={(work) => work.slug} render={(work) => <WorkCard {...work} />} />
   );
 }
@@ -117,6 +118,7 @@ function HeadingText({ title, description }: HeadingTextProps) {
 }
 
 function SectionHeading({ title, description, action }: SectionHeadingProps) {
+  if (!title) return null;
   return (
     <div className="flex items-start justify-between">
       <HeadingText title={title} description={description} />
@@ -152,22 +154,17 @@ function DetailBackLink({ detail }: DetailBackLinkProps) {
   );
 }
 
-function DetailCard({ title, body }: DetailCardProps) {
+function DetailMedia({ cover }: DetailMediaProps) {
   return (
-    <div className={`mt-10 grid grid-cols-3 gap-4 ${STACK}`}>
-      <article className={INFO_CARD}>
-        <h3 className={INFO_TITLE}>{title}</h3>
-        <p className={INFO_TEXT}>{body}</p>
-      </article>
-    </div>
+    <Image className="w-full h-auto rounded-[22px]" src={cover.src} width={cover.width} height={cover.height} alt="" loading="eager" fetchPriority="high" style={{ viewTransitionName: cover.name }} />
   );
 }
 
 function DetailBody({ detail }: DetailBodyProps) {
   return (
-    <section className={SECTION_SPACING}>
-      <Container>
-        <DetailCard title={detail.title} body={detail.body} />
+    <section className="pb-20">
+      <Container className="flex flex-col items-start gap-10">
+        {detail.cover ? <DetailMedia cover={detail.cover} /> : null}
         <DetailBackLink detail={detail} />
       </Container>
     </section>

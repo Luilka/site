@@ -10,7 +10,7 @@ import { motion } from "motion/react";
 import { Badge } from "@/shared/ui/badges.tsx";
 import { PROCESS_STAGES } from "@/shared/utils/process-stages.util.ts";
 import { CONTACT_MAILTO } from "@/shared/utils/contact-mailto.util.ts";
-import type { ActionLinkProps, ContactPanelProps, FeedbackBoundaryProps, PageFrameProps, PageHeroProps, PageHeroTextProps, ProcessBandProps, ProcessStageProps, QuoteLinkProps, RevealProps, StateCopyProps } from "@/shared/types";
+import type { ActionLinkProps, ContactPanelProps, FeedbackBoundaryProps, PageFrameProps, PageHeroProps, PageHeroTextProps, ProcessBandProps, ProcessStageListProps, ProcessStageProps, QuoteLinkProps, RevealProps, StateCopyProps } from "@/shared/types";
 
 export function ActionLink({ action, className }: ActionLinkProps) {
   return (
@@ -94,8 +94,8 @@ function PageHeroText({ eyebrow, title, description }: PageHeroTextProps) {
   return (
     <>
       <Badge>{eyebrow}</Badge>
-      <h1 className="max-w-[46rem] text-balance">{title}</h1>
-      <p className="max-w-[42rem] text-(length:--text-base) text-muted">{description}</p>
+      <h1 className="max-w-[46rem] text-balance text-(length:--text-3xl) leading-[1.15] font-semibold tracking-[-0.02em] max-[1000px]:text-(length:--text-2xl)">{title}</h1>
+      <p className="mt-[22px] max-w-[42rem] text-(length:--text-base) text-muted leading-[1.55]">{description}</p>
     </>
   );
 }
@@ -108,28 +108,46 @@ export function PageHero(props: PageHeroProps) {
   );
 }
 
+const TRACK = "flex w-max animate-marquee hover:[animation-play-state:paused] motion-reduce:w-auto motion-reduce:animate-none";
+const LIST = "flex min-w-[100vw] shrink-0 items-center justify-around gap-12 px-6 motion-reduce:w-full motion-reduce:min-w-0 motion-reduce:shrink motion-reduce:flex-wrap motion-reduce:justify-center motion-reduce:gap-x-6 motion-reduce:gap-y-2";
+const LIST_COPY = `${LIST} motion-reduce:hidden`;
+const CHEVRON = "opacity-50 motion-reduce:max-[1000px]:hidden";
+const CHEVRON_LAST = `${CHEVRON} motion-reduce:hidden`;
+const TILT = "absolute inset-0 -left-0.5 -right-0.5 bg-gray-200 bg-[repeating-linear-gradient(45deg,transparent_0_8px,color-mix(in_srgb,var(--text)_18%,transparent)_8px_10px)]";
+
 function ProcessStage({ label, last }: ProcessStageProps) {
   return (
     <>
       <span className="inline-block">{label}</span>
-      {last ? null : <ChevronRight size={22} strokeWidth={1.5} aria-hidden="true" className="opacity-50" />}
+      <ChevronRight size={22} strokeWidth={1.5} aria-hidden="true" className={last ? CHEVRON_LAST : CHEVRON} />
     </>
   );
 }
 
-function ProcessStages() {
+function ProcessStageList({ className }: ProcessStageListProps) {
   const lastIndex = PROCESS_STAGES.length - 1;
   return (
-    <div className="relative z-2 flex justify-between gap-3 bg-gray-300 px-20 py-7 font-medium">
+    <div className={className}>
       {PROCESS_STAGES.map((stage, index) => <ProcessStage key={stage} label={stage} last={index === lastIndex} />)}
+    </div>
+  );
+}
+
+function ProcessStages() {
+  return (
+    <div className="relative z-2 overflow-x-clip bg-gray-300 py-7 font-medium">
+      <div className={TRACK}>
+        <ProcessStageList className={LIST} />
+        <ProcessStageList className={LIST_COPY} />
+      </div>
     </div>
   );
 }
 
 export function ProcessBand({ reverse = false }: ProcessBandProps) {
   return (
-    <div className="relative" aria-hidden="true">
-      <div className={`absolute inset-0 -left-0.5 -right-0.5 bg-gray-200 ${reverse ? "rotate-2" : "-rotate-2"}`}></div>
+    <div className="relative overflow-x-clip" aria-hidden="true">
+      <div className={`${TILT} ${reverse ? "rotate-2" : "-rotate-2"}`}></div>
       <ProcessStages />
     </div>
   );

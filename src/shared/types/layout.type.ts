@@ -1,5 +1,6 @@
 import type { DropdownItem, FooterLink, MenuKey, NavigationItem } from "./dictionaries.type.ts";
-import type { OpenMenu } from "./hooks.type.ts";
+import type { MobileMenuState, OpenMenu } from "./hooks.type.ts";
+import type { SocialLink } from "./social.type.ts";
 import type { NewsletterState } from "./utils.type.ts";
 
 export type FooterColumnProps = {
@@ -59,6 +60,30 @@ export type NavDropdownProps = {
 export type NavEntryProps = {
   item: NavigationItem;
   menu: OpenMenu;
+};
+
+export type SocialProfileLinkProps = {
+  link: SocialLink;
+};
+
+export type MobileMenuLinkProps = {
+  item: NavigationItem;
+  onClose: () => void;
+};
+
+export type MobileMenuLinksProps = {
+  onClose: () => void;
+};
+
+export type MobileMenuPanelProps = {
+  id: string;
+  open: boolean;
+  onClose: () => void;
+};
+
+export type MobileMenuButtonProps = {
+  id: string;
+  menu: MobileMenuState;
 };
 
 export type NewsletterSubmitProps = {

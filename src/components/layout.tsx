@@ -1,16 +1,21 @@
 import { buttonClasses } from "@/shared/ui/buttons.tsx";
 import { Link } from "@/shared/ui/links.tsx";
-import { useContent, useLanguageSwitch, navigation } from "@/shared/i18n";
+import { useContent, useLanguageSwitch, useNavigation } from "@/shared/i18n";
 import { Container } from "@/shared/ui/containers.tsx";
-import { Mail, ChevronDown, CalendarDays, ArrowUpRight, CircleAlert, CircleCheck } from "lucide-react";
+import { Mail, Menu, X, ChevronDown, CalendarDays, ArrowUpRight, CircleAlert, CircleCheck } from "lucide-react";
 import { CONTACT_MAILTO } from "@/shared/utils/contact-mailto.util.ts";
 import { useOpenMenu } from "@/shared/hooks/use-open-menu.hook.ts";
 import { useId } from "react";
 import { useDismiss } from "@/shared/hooks/use-dismiss.hook.ts";
+import { useCopyright } from "@/shared/hooks/use-copyright.hook.ts";
+import { useMobileMenu } from "@/shared/hooks/use-mobile-menu.hook.ts";
+import { useSocialLinks } from "@/shared/hooks/use-social-links.hook.ts";
 import { useNewsletter } from "@/shared/hooks/use-newsletter.hook.ts";
 import { Image } from "@/shared/ui/images.tsx";
+import { Logo } from "@/shared/ui/logos.tsx";
+import { SocialIcon } from "@/shared/ui/social-icons.tsx";
 import { Input } from "@/shared/ui/inputs.tsx";
-import type { FooterColumnProps, MegaAsideProps, MegaCardProps, MegaCardTextProps, MegaContentProps, MegaGridProps, MegaHeadProps, MegaPanelProps, NavDropdownProps, NavEntryProps, NavTriggerProps, NewsletterMessageProps, NewsletterSubmitProps } from "@/shared/types";
+import type { FooterColumnProps, MegaAsideProps, MegaCardProps, MegaCardTextProps, MegaContentProps, MegaGridProps, MegaHeadProps, MegaPanelProps, MobileMenuButtonProps, MobileMenuLinkProps, MobileMenuLinksProps, MobileMenuPanelProps, NavDropdownProps, NavEntryProps, NavTriggerProps, NewsletterMessageProps, NewsletterSubmitProps, SocialProfileLinkProps } from "@/shared/types";
 
 const NAV_ITEM = "inline-flex items-center gap-1 rounded-lg min-h-[2.75rem] py-[0.5rem] px-[0.75rem] text-[#2a2a30] transition-[color,background-color] duration-160 ease-[ease] hover:text-blue hover:bg-soft";
 const NEWS_FORM = "flex gap-1.5 border border-[var(--border-ui)] rounded-[13px] p-[4px]";
@@ -19,25 +24,44 @@ const NEWS_BUTTON = "flex items-center gap-1.5 bg-[var(--night)] text-paper bord
 const MEGA_PANEL = "fixed left-0 right-0 z-12 bg-white/80 backdrop-blur top-[4.4375rem] border-y border-y-[var(--border-ui)] shadow-[0_18px_40px_rgb(0_0_0/12%)] transition-[opacity,transform,visibility] duration-160 ease-[ease] motion-reduce:transition-none";
 const MEGA_CLOSED = "opacity-0 invisible [transform:translateY(-0.375rem)] pointer-events-none";
 const MEGA_OPEN = "opacity-100 visible [transform:translateY(0)] pointer-events-auto";
+const SOCIAL_LINK = "row-center justify-center size-11 rounded-lg hover:bg-soft hover:text-text";
+const MOBILE_BUTTON = "row-center justify-center size-11 rounded-lg cursor-pointer text-[#2a2a30] hover:bg-soft";
+const MOBILE_PANEL = "fixed inset-x-0 top-[4.4375rem] z-12 max-h-[calc(100dvh-4.4375rem)] overflow-y-auto border-y border-y-[var(--border-ui)] bg-white py-2 shadow-[0_18px_40px_rgb(0_0_0/12%)]";
+const MOBILE_LINK = "flex min-h-[3rem] items-center px-6 text-(length:--text-lg) font-medium text-[#2a2a30] hover:bg-soft hover:text-blue";
 
 export function BrandMark() {
+  const { homeLabel } = useContent();
   return (
-    <Link className="row-center gap-[6px] font-semibold text-(length:--text-lg)" href="/" aria-label="Luilka, accueil">
-      <svg className="size-6 fill-current" aria-hidden="true">
-        <use href="#finger" />
-      </svg>
+    <Link className="row-center gap-[6px] font-semibold text-(length:--text-lg)" href="/" aria-label={homeLabel}>
+      <Logo className="size-6" />
       Luilka
     </Link>
   );
 }
 
-function SocialIcons() {
+function MailLink() {
   const { quote } = useContent();
   return (
-    <div className="flex gap-3 text-muted">
-      <a href={CONTACT_MAILTO} aria-label={quote}>
-        <Mail size={18} strokeWidth={1.5} aria-hidden="true" />
-      </a>
+    <a className={SOCIAL_LINK} href={CONTACT_MAILTO} aria-label={quote}>
+      <Mail size={18} strokeWidth={1.5} aria-hidden="true" />
+    </a>
+  );
+}
+
+function SocialProfileLink({ link }: SocialProfileLinkProps) {
+  return (
+    <a className={SOCIAL_LINK} href={link.href} aria-label={link.label} target="_blank" rel="noopener noreferrer">
+      <SocialIcon network={link.network} className="size-5" />
+    </a>
+  );
+}
+
+function SocialIcons() {
+  const links = useSocialLinks();
+  return (
+    <div className="flex gap-1 text-muted">
+      <MailLink />
+      {links.map((link) => <SocialProfileLink key={link.network} link={link} />)}
     </div>
   );
 }
@@ -73,7 +97,7 @@ function NewsletterFallback() {
 
 function FooterNewsletter() {
   return (
-    <div>
+    <div className="max-[1000px]:col-span-2">
       <NewsletterIntro />
       <NewsletterForm />
       <NewsletterFallback />
@@ -103,7 +127,7 @@ function FooterColumns() {
 function FooterBrand() {
   const { footer } = useContent();
   return (
-    <div>
+    <div className="max-[1000px]:col-span-2">
       <BrandMark />
       <p className="text-(length:--text-sm) text-muted mt-[22px] mb-[24px] max-w-[300px] leading-[1.55]">{footer.description}</p>
       <SocialIcons />
@@ -124,7 +148,7 @@ function FooterCells() {
 function FooterMain() {
   return (
     <footer className="pt-[60px] pb-[40px]">
-      <Container className="grid items-start grid-cols-[1.4fr_0.5fr_0.5fr_1.1fr] gap-[40px] max-[1000px]:grid-cols-[1fr_1fr]">
+      <Container className="grid items-start grid-cols-[1.4fr_0.5fr_0.5fr_1.1fr] gap-[40px] max-[1000px]:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
         <FooterCells />
       </Container>
     </footer>
@@ -132,10 +156,10 @@ function FooterMain() {
 }
 
 function FooterCopyright() {
-  const { footer } = useContent();
+  const copyright = useCopyright();
   return (
     <div className="bg-[#e9e9ee] py-[16px] px-0 text-(length:--text-sm) text-[#555]">
-      <div className="container mx-auto px-[32px]">{footer.copyright}</div>
+      <div className="container mx-auto px-[32px]">{copyright}</div>
     </div>
   );
 }
@@ -151,9 +175,10 @@ export function Footer() {
 
 function MainNavigation() {
   const menu = useOpenMenu();
+  const navigation = useNavigation();
   const { navigationLabel } = useContent();
   return (
-    <nav className="row-center self-stretch gap-[0.5rem] text-(length:--text-base) font-medium ml-0 max-[1000px]:hidden" aria-label={navigationLabel} onMouseLeave={menu.close} onBlur={menu.onBlur}>
+    <nav className="row-center self-stretch gap-[0.5rem] text-(length:--text-base) font-medium ml-0 max-[1140px]:hidden" aria-label={navigationLabel} onMouseLeave={menu.close} onBlur={menu.onBlur}>
       {navigation.map((item) => <NavEntry key={item.href} item={item} menu={menu} />)}
     </nav>
   );
@@ -162,8 +187,8 @@ function MainNavigation() {
 function ContactLink() {
   const { contactAction } = useContent();
   return (
-    <Link className={buttonClasses("outline", "bg-transparent! border-gray-400!")} href="/contact">
-      {contactAction}<CalendarDays size={14} strokeWidth={1.8} aria-hidden="true" />
+    <Link className={buttonClasses("outline", "bg-transparent! border-gray-400! max-[440px]:size-11 max-[440px]:justify-center max-[440px]:p-0")} href="/contact">
+      <span className="max-[440px]:sr-only">{contactAction}</span><CalendarDays size={14} strokeWidth={1.8} aria-hidden="true" />
     </Link>
   );
 }
@@ -187,44 +212,81 @@ function LanguageToggle() {
   );
 }
 
+function MobileMenuLink({ item, onClose }: MobileMenuLinkProps) {
+  return (
+    <li>
+      <Link className={MOBILE_LINK} href={item.href} onClick={onClose}>{item.label}</Link>
+    </li>
+  );
+}
+
+function MobileMenuLinks({ onClose }: MobileMenuLinksProps) {
+  const navigation = useNavigation();
+  return (
+    <ul>
+      {navigation.map((item) => <MobileMenuLink key={item.href} item={item} onClose={onClose} />)}
+    </ul>
+  );
+}
+
+function MobileMenuContact({ onClose }: MobileMenuLinksProps) {
+  const { contactAction } = useContent();
+  return (
+    <div className="px-6 pt-3 pb-4">
+      <Link className={buttonClasses("dark", "w-full justify-center")} href="/contact" onClick={onClose}>{contactAction}</Link>
+    </div>
+  );
+}
+
+function MobileMenuPanel({ id, open, onClose }: MobileMenuPanelProps) {
+  const { mobileNavigationLabel } = useContent();
+  return (
+    <nav id={id} className={MOBILE_PANEL} hidden={!open} aria-label={mobileNavigationLabel}>
+      <MobileMenuLinks onClose={onClose} />
+      <MobileMenuContact onClose={onClose} />
+    </nav>
+  );
+}
+
+function MobileMenuButton({ id, menu }: MobileMenuButtonProps) {
+  const { menuLabel } = useContent();
+  const Icon = menu.open ? X : Menu;
+  return (
+    <button ref={menu.trigger} type="button" className={MOBILE_BUTTON} aria-expanded={menu.open} aria-controls={id} aria-label={menuLabel} onClick={menu.toggle}>
+      <Icon size={24} strokeWidth={1.8} aria-hidden="true" />
+    </button>
+  );
+}
+
+function MobileMenu() {
+  const id = useId();
+  const menu = useMobileMenu();
+  return (
+    <div className="min-[1140px]:hidden" onBlur={menu.onBlur} onKeyDown={menu.onKeyDown}>
+      <MobileMenuButton id={id} menu={menu} />
+      <MobileMenuPanel id={id} open={menu.open} onClose={menu.close} />
+    </div>
+  );
+}
+
 function HeaderActions() {
   return (
-    <div className="row-center gap-[36px] ml-auto">
+    <div className="row-center gap-[36px] ml-auto max-[1140px]:gap-[16px]">
       <LanguageToggle />
       <ContactLink />
+      <MobileMenu />
     </div>
   );
 }
 
 export function Header() {
   return (
-    <header className="sticky top-0 z-13 border-[0.04375rem] border-[#dee0e3]">
+    <header className="sticky top-0 z-13 border-[0.04375rem] border-[#dee0e3] [view-transition-name:site-header]">
       <div className="absolute inset-0 -z-1 bg-white/80 backdrop-blur" aria-hidden="true" />
-      <div className="isolate mx-auto flex h-17.75 w-full max-w-7xl flex-row items-center justify-between gap-8 px-6 lg:px-10">
+      <div className="isolate mx-auto flex h-17.75 w-full max-w-7xl flex-row items-center justify-between gap-3 px-6 min-[641px]:gap-8 lg:px-10">
         <BrandMark /><MainNavigation /><HeaderActions />
       </div>
     </header>
-  );
-}
-
-const PATH =
-  "M12 3.75a6.715 6.715 0 0 0-3.722 1.118.75.75 0 1 1-.828-1.25 8.25 8.25 0 0 1 12.8 6.883c0 3.014-.574 5.897-1.62 8.543a.75.75 0 0 1-1.395-.551A21.69 21.69 0 0 0 18.75 10.5 6.75 6.75 0 0 0 12 3.75ZM6.157 5.739a.75.75 0 0 1 .21 1.04A6.715 6.715 0 0 0 5.25 10.5c0 1.613-.463 3.12-1.265 4.393a.75.75 0 0 1-1.27-.8A6.715 6.715 0 0 0 3.75 10.5c0-1.68.503-3.246 1.367-4.55a.75.75 0 0 1 1.04-.211ZM12 7.5a3 3 0 0 0-3 3c0 3.1-1.176 5.927-3.105 8.056a.75.75 0 1 1-1.112-1.008A10.459 10.459 0 0 0 7.5 10.5a4.5 4.5 0 1 1 9 0c0 .547-.022 1.09-.067 1.626a.75.75 0 0 1-1.495-.123c.041-.495.062-.996.062-1.503a3 3 0 0 0-3-3Zm0 2.25a.75.75 0 0 1 .75.75c0 3.908-1.424 7.485-3.781 10.238a.75.75 0 0 1-1.14-.975A14.19 14.19 0 0 0 11.25 10.5a.75.75 0 0 1 .75-.75Zm3.239 5.183a.75.75 0 0 1 .515.927 19.417 19.417 0 0 1-2.585 5.544.75.75 0 0 1-1.243-.84 17.915 17.915 0 0 0 2.386-5.116.75.75 0 0 1 .927-.515Z";
-
-function FingerSymbol() {
-  return (
-    <symbol id="finger" viewBox="0 0 24 24">
-      <path d={PATH} fill="currentColor" fillRule="evenodd" clipRule="evenodd" />
-    </symbol>
-  );
-}
-
-export function IconSprite() {
-  return (
-    <svg width="0" height="0" style={{ position: "absolute" }} aria-hidden="true">
-      <defs>
-        <FingerSymbol />
-      </defs>
-    </svg>
   );
 }
 
@@ -348,7 +410,7 @@ function NewsletterField() {
   return (
     <>
       <label htmlFor={id} className="sr-only">{footer.emailLabel}</label>
-      <Input id={id} className={NEWS_INPUT} name="email" type="email" placeholder="pixi@domaine.com" autoComplete="email" />
+      <Input id={id} className={NEWS_INPUT} name="email" type="email" placeholder={footer.emailPlaceholder} autoComplete="email" />
     </>
   );
 }

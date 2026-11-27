@@ -1,6 +1,7 @@
 import navigationData from "@/content/navigation.json";
 import detailSlugs from "@/content/details.json";
-import type { Dictionary, Dropdown, DropdownBaseItem, DropdownCopy, DropdownItem, FooterLink, Language, MenuKey, NamedCard, NavigationItem, Service, Work } from "@/shared/types";
+import imageSource from "@/content/images.json";
+import type { DetailImage, Dictionary, Dropdown, DropdownBaseItem, DropdownCopy, DropdownItem, FooterLink, Language, MenuKey, NamedCard, NavigationItem, Service, Work } from "@/shared/types";
 
 export const navigation: readonly NavigationItem[] = navigationData as readonly NavigationItem[];
 
@@ -75,7 +76,7 @@ const dropdownCopy: Record<Language, Record<MenuKey, DropdownCopy>> = {
       eyebrows: ["Décisions", "Recherche", "Projets"],
       links: [
         { label: "Tous nos produits", href: "/products" },
-        { label: "Le journal", href: "/blog" },
+        { label: "Blog", href: "/blog" },
         { label: "Parlons de votre projet", href: "/contact" },
       ],
     },
@@ -103,7 +104,7 @@ const dropdownCopy: Record<Language, Record<MenuKey, DropdownCopy>> = {
       eyebrows: ["Decisions", "Research", "Projects"],
       links: [
         { label: "All our products", href: "/products" },
-        { label: "Journal", href: "/blog" },
+        { label: "Blog", href: "/blog" },
         { label: "Tell us about your project", href: "/contact" },
       ],
     },
@@ -150,6 +151,10 @@ function withSlugs<T>(items: readonly T[], slugs: readonly string[]): readonly (
   return items.map((item, index) => ({ ...item, slug: slugs[index] }));
 }
 
+function withImages<T extends { slug: string }>(items: readonly T[], covers: Record<string, DetailImage>): readonly (T & { image: DetailImage })[] {
+  return items.map((item) => ({ ...item, image: covers[item.slug] }));
+}
+
 const servicesFr: readonly Service[] = withSlugs(
   [
   {
@@ -179,7 +184,7 @@ const servicesFr: readonly Service[] = withSlugs(
   detailSlugs.services,
 );
 
-const productsFr: readonly NamedCard[] = withSlugs(
+const productsFr: readonly NamedCard[] = withImages(withSlugs(
   [
   {
     name: "Tala",
@@ -195,9 +200,9 @@ const productsFr: readonly NamedCard[] = withSlugs(
   },
   ],
   detailSlugs.products,
-);
+), imageSource.products);
 
-const worksFr: readonly Work[] = withSlugs(
+const worksFr: readonly Work[] = withImages(withSlugs(
   [
   { name: "Yano", kind: "UX Design: mobile App", caseLabel: "Voir le projet" },
   { name: "Vox Congo", kind: "UX Design & UI design : Mobile App", caseLabel: "Voir le projet" },
@@ -209,7 +214,7 @@ const worksFr: readonly Work[] = withSlugs(
   },
   ],
   detailSlugs.work,
-);
+), imageSource.work);
 
 const servicesEn: readonly Service[] = withSlugs(
   [
@@ -240,7 +245,7 @@ const servicesEn: readonly Service[] = withSlugs(
   detailSlugs.services,
 );
 
-const productsEn: readonly NamedCard[] = withSlugs(
+const productsEn: readonly NamedCard[] = withImages(withSlugs(
   [
   {
     name: "Tala",
@@ -256,9 +261,9 @@ const productsEn: readonly NamedCard[] = withSlugs(
   },
   ],
   detailSlugs.products,
-);
+), imageSource.products);
 
-const worksEn: readonly Work[] = withSlugs(
+const worksEn: readonly Work[] = withImages(withSlugs(
   [
   { name: "Yano", kind: "UX Design: Mobile App", caseLabel: "View project" },
   { name: "Vox Congo", kind: "UX Design & UI Design: Mobile App", caseLabel: "View project" },
@@ -270,10 +275,10 @@ const worksEn: readonly Work[] = withSlugs(
   },
   ],
   detailSlugs.work,
-);
+), imageSource.work);
 
 const footerLinksFr: readonly FooterLink[] = [
-  { label: "A propos", href: "/about" },
+  { label: "À propos", href: "/about" },
   { label: "Services", href: "/services" },
   { label: "Réalisations", href: "/works" },
   { label: "Contact", href: "/contact" },
@@ -282,7 +287,7 @@ const footerLinksFr: readonly FooterLink[] = [
 const footerMoreFr: readonly FooterLink[] = [
   { label: "Notre approche", href: "/about" },
   { label: "Nos produits", href: "/products" },
-  { label: "Le journal", href: "/blog" },
+  { label: "Blog", href: "/blog" },
 ];
 
 const footerLinksEn: readonly FooterLink[] = [
@@ -295,18 +300,19 @@ const footerLinksEn: readonly FooterLink[] = [
 const footerMoreEn: readonly FooterLink[] = [
   { label: "Our approach", href: "/about" },
   { label: "Our products", href: "/products" },
-  { label: "Journal", href: "/blog" },
+  { label: "Blog", href: "/blog" },
 ];
 
 const fr: Dictionary = {
   hero: "Du design à l'app : nous partons des utilisateurs, dessinons le produit et livrons une interface prête à construire.",
-  section:
-    "Notre stratégie est centrée sur l'utilisateur : nous comprenons les besoins réels avant de dessiner, puis nous livrons le design de l'app.",
   quote: "J'ai besoin d'un devis",
   discover: "Découvrir plus",
   switchLanguage: "Passer en anglais",
-  contactAction: "Contact us",
+  contactAction: "Nous contacter",
   navigationLabel: "Navigation principale",
+  homeLabel: "Luilka, accueil",
+  menuLabel: "Menu",
+  mobileNavigationLabel: "Navigation mobile",
   home: {
     prefix: "Agence de",
     design: "design",
@@ -337,7 +343,7 @@ const fr: Dictionary = {
   },
   pages: {
     about: {
-      eyebrow: "A propos",
+      eyebrow: "À propos",
       title: "Un studio de design centré sur l'utilisateur",
       description:
         "Luilka réunit designers et chercheurs autour d'une méthode centrée utilisateur : observer, dessiner les parcours de l'app puis livrer des interfaces cohérentes.",
@@ -349,13 +355,13 @@ const fr: Dictionary = {
         "Du premier croquis au système de composants, nous accompagnons les équipes produit et marketing à chaque étape du design.",
     },
     products: {
-      eyebrow: "Products",
+      eyebrow: "Produits",
       title: "Nos produits",
       description:
         "Trois outils nés du studio pour garder vos décisions de design, vos utilisateurs et vos projets au même endroit.",
     },
     works: {
-      eyebrow: "Works",
+      eyebrow: "Réalisations",
       title: "Nos réalisations",
       description:
         "Des projets menés avec des partenaires qui ont accepté de mesurer l'impact de chaque décision de design.",
@@ -367,13 +373,13 @@ const fr: Dictionary = {
         "Des notes courtes sur le design, le produit et la façon de construire des équipes techniques durables.",
     },
     job: {
-      eyebrow: "Job",
+      eyebrow: "Carrières",
       title: "Rejoignez l'équipe",
       description:
         "Nous cherchons des personnes qui aiment livrer, expliquer leurs choix et apprendre avec les autres.",
     },
     contact: {
-      eyebrow: "Contact us",
+      eyebrow: "Nous contacter",
       title: "Parlons de votre projet",
       description:
         "Décrivez votre besoin en quelques lignes. Nous revenons vers vous avec une première réponse et un créneau d'échange.",
@@ -482,12 +488,14 @@ const fr: Dictionary = {
     description:
       "Un studio de design qui réunit les équipes produit et marketing autour d'interfaces claires et utiles.",
     linksTitle: "Liens",
-    moreTitle: "More",
-    newsletterTitle: "Subscribe to our newsletter",
-    newsletterText: "Stay updated on new releases and features, guides, and case studies.",
+    moreTitle: "Plus",
+    newsletterTitle: "Abonnez-vous à notre lettre d'information",
+    newsletterText: "Recevez les nouveautés, les guides et les études de cas.",
     emailLabel: "Adresse email",
+    emailPlaceholder: "pixi@domaine.com",
+    social: { linkedin: "Luilka sur LinkedIn", tiktok: "Luilka sur TikTok", youtube: "Luilka sur YouTube" },
     subscribe: "S'abonner",
-    copyright: "Copyright 2025, Tous droits réservés à Luilka.",
+    copyright: "Copyright {year} Luilka. Tous droits réservés.",
     links: footerLinksFr,
     more: footerMoreFr,
   },
@@ -495,13 +503,14 @@ const fr: Dictionary = {
 
 const en: Dictionary = {
   hero: "From design to app: we start with the people who will use it, shape the product and hand over an interface ready to build.",
-  section:
-    "Our strategy is user-centric: we understand real needs before we draw, then we deliver the design of the app.",
   quote: "I need a quote",
   discover: "Learn more",
   switchLanguage: "Switch to French",
   contactAction: "Contact us",
   navigationLabel: "Main navigation",
+  homeLabel: "Luilka, home",
+  menuLabel: "Menu",
+  mobileNavigationLabel: "Mobile navigation",
   home: {
     prefix: "Creative",
     design: "design",
@@ -677,8 +686,10 @@ const en: Dictionary = {
     newsletterTitle: "Subscribe to our newsletter",
     newsletterText: "Stay updated on new releases, guides and case studies.",
     emailLabel: "Email address",
+    emailPlaceholder: "pixi@domain.com",
+    social: { linkedin: "Luilka on LinkedIn", tiktok: "Luilka on TikTok", youtube: "Luilka on YouTube" },
     subscribe: "Subscribe",
-    copyright: "Copyright 2025, All rights reserved to Luilka.",
+    copyright: "Copyright {year} Luilka. All rights reserved.",
     links: footerLinksEn,
     more: footerMoreEn,
   },

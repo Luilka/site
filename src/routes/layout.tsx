@@ -1,7 +1,7 @@
 import { MotionConfig } from "motion/react";
 import type { ReactNode } from "react";
 import { useUrlLanguage } from "@/shared/i18n";
-import { Footer, Header, IconSprite } from "@/components/layout.tsx";
+import { Footer, Header } from "@/components/layout.tsx";
 import type { DocumentProps, RootLayoutProps } from "@/shared/types";
 
 const INTER = "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap";
@@ -30,7 +30,6 @@ function DocumentHead() {
 function DocumentBody({ children }: { children: ReactNode }) {
   return (
     <body>
-      <IconSprite />
       <Header />
       <main><MotionConfig reducedMotion="user">{children}</MotionConfig></main>
       <Footer />

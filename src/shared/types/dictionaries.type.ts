@@ -1,4 +1,6 @@
+import type { DetailImage } from "./detail.type.ts";
 import type { PageHref } from "./site.type.ts";
+import type { SocialNetwork } from "./social.type.ts";
 export type MenuKey = "services" | "products";
 
 export type NavigationItem = {
@@ -56,6 +58,7 @@ export type NamedCard = {
   slug: string;
   name: string;
   description: string;
+  image: DetailImage;
 };
 
 export type Work = {
@@ -63,6 +66,7 @@ export type Work = {
   name: string;
   kind: string;
   caseLabel: string;
+  image: DetailImage;
 };
 
 export type InfoCard = {
@@ -104,12 +108,14 @@ export type FooterLink = {
 
 export type Dictionary = {
   hero: string;
-  section: string;
   quote: string;
   discover: string;
   switchLanguage: string;
   contactAction: string;
   navigationLabel: string;
+  homeLabel: string;
+  menuLabel: string;
+  mobileNavigationLabel: string;
   home: HomeCopy;
   sectionTitles: SectionTitles;
   sectionDescriptions: SectionDescriptions;
@@ -159,6 +165,8 @@ export type Dictionary = {
     newsletterTitle: string;
     newsletterText: string;
     emailLabel: string;
+    emailPlaceholder: string;
+    social: Record<SocialNetwork, string>;
     subscribe: string;
     copyright: string;
     links: readonly FooterLink[];

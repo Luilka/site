@@ -7,11 +7,21 @@ export type DetailRouteProps = {
   slug?: string;
 };
 
+export type DetailImage = {
+  src: string;
+  width: number;
+  height: number;
+};
+
+export type DetailCover = DetailImage & {
+  name: string;
+};
+
 export type DetailModel = {
   eyebrow: string;
   title: string;
   description: string;
-  body: string;
+  cover?: DetailCover;
   backHref: PageHref;
   backLabel: string;
 };

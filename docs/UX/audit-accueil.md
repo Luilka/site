@@ -109,4 +109,5 @@ Retranche:  Texte de developpement, phrases repetees, lecture des bandeaux decor
 - Le code est range selon l'[architecture](../Technique/architecture.md) : `shared/` pour le reutilisable, `sections/` a la place de `templates/`.
 - Logo : le symbole `finger` du sprite est le SVG plein fourni par le studio (`fill="currentColor"`). Il sert au logo de l'en-tete, au visuel de la section a propos et a `public/luilka.svg`.
 - Icones Lucide la ou elles servent : chevron entre les etapes du bandeau (le velo est retire), coche ou alerte avec le message de la newsletter, fleche de retour sur les pages de detail, lien courriel dans le pied de page a la place de trois icones qui ne menaient nulle part.
-- Question ouverte : le libelle `Contact us` reste en anglais sur la page francaise (Q-002 du registre).
+- Question close par D-013 : le libelle `Contact us` est traduit sur la page francaise.
+- Logo, mise a jour du 26 novembre 2026 : le sprite et la reference `<use href="#finger">` sont supprimes. Le composant `Logo` de `src/shared/ui/logos.tsx` dessine le SVG plein fourni par le studio, pour l'en-tete, le pied de page et le visuel de la section a propos.

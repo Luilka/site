@@ -3,7 +3,9 @@ import { detailHref } from "@/shared/utils/detail-href.util.ts";
 import { Link } from "@/shared/ui/links.tsx";
 import { IconTile } from "@/shared/ui/icon-tiles.tsx";
 import { Card } from "@/shared/ui/cards.tsx";
-import type { CardIconProps, CardWatermarkProps, ProductCardProps, ProductHeaderProps, ProductTitleProps, ServiceCardProps, StepCardProps, StepTextProps, WorkCardProps, WorkInfoProps, WorkWhoProps } from "@/shared/types";
+import { Image } from "@/shared/ui/images.tsx";
+import { coverName } from "@/shared/utils/cover-name.util.ts";
+import type { CardCoverProps, CardIconProps, ProductCardProps, ProductHeaderProps, ProductTitleProps, ServiceCardProps, StepCardProps, StepTextProps, WorkCardProps, WorkInfoProps, WorkWhoProps } from "@/shared/types";
 
 const ICONS: Record<string, LucideIcon> = {
   "UX Design": PenTool,
@@ -24,19 +26,11 @@ export function CardIcon({ name, size = 22, strokeWidth = 2 }: CardIconProps) {
   return <Icon size={size} strokeWidth={strokeWidth} aria-hidden="true" />;
 }
 
-export function CardWatermark({ name }: CardWatermarkProps) {
-  return (
-    <div className="flex m-auto text-paper">
-      <CardIcon name={name} size={70} strokeWidth={1.5} />
-    </div>
-  );
-}
-
 function ProductTitle({ name }: ProductTitleProps) {
   return (
     <div>
       <h3 className="text-(length:--text-xl) font-semibold leading-[1.2]">{name}</h3>
-      <small className="px-1 mt-2 text-(length:--text-xs) text-[#6a6a74] block leading-[1]">Luilka</small>
+      <small className="px-1 mt-2 text-(length:--text-xs) text-muted block leading-[1]">Luilka</small>
     </div>
   );
 }
@@ -50,13 +44,17 @@ function ProductHeader({ name }: ProductHeaderProps) {
   );
 }
 
-export function ProductCard({ slug, name, description }: ProductCardProps) {
+function CardCover({ image, name, className }: CardCoverProps) {
+  return <Image className={`w-full object-cover ${className}`} src={image.src} width={image.width} height={image.height} alt="" style={{ viewTransitionName: name }} />;
+}
+
+export function ProductCard({ slug, name, description, image }: ProductCardProps) {
   return (
-    <Link className="min-w-0 relative flex flex-col h-[545px] rounded-[18px] py-[16px] px-[14px] bg-[linear-gradient(180deg,var(--gray)_0%,var(--gray)_35%,var(--gray-2)_100%)]" href={detailHref("products", slug)}>
+    <Link className="min-w-0 relative flex flex-col h-[545px] overflow-hidden rounded-[18px] py-[16px] px-[14px] bg-[linear-gradient(180deg,var(--gray)_0%,var(--gray)_35%,var(--gray-2)_100%)]" href={detailHref("products", slug)}>
       <ArrowUpRight className="absolute right-3 text-[#6a6a74]" size={24} strokeWidth={1.5} aria-hidden="true" />
       <ProductHeader name={name} />
       <p className="text-(length:--text-sm) text-[#55555e] mt-[10px] leading-[1.55]">{description}</p>
-      <CardWatermark name={name} />
+      <CardCover className="mt-auto h-[300px] rounded-[12px]" image={image} name={coverName("products", slug)} />
     </Link>
   );
 }
@@ -92,25 +90,25 @@ export function StepCard({ number, title, description }: StepCardProps) {
 function WorkWho({ name, kind }: WorkWhoProps) {
   return (
     <div className="flex items-center gap-2">
-      <div className="flex shrink-0 items-center justify-center w-[42px] h-[42px] rounded-[10px] bg-[#b8bac4] text-[#e8e8ee]"><CardIcon name={name} size={22} /></div>
-      <div><h3 className="m-0 text-(length:--text-sm) font-semibold block leading-[1.1]">{name}</h3><span className="text-(length:--text-xs) text-[#4d4d55] block">{kind}</span></div>
+      <div className="flex shrink-0 items-center justify-center w-[42px] h-[42px] rounded-[10px] bg-paper text-text"><CardIcon name={name} size={22} /></div>
+      <div><h3 className="m-0 text-(length:--text-sm) font-semibold block leading-[1.1]">{name}</h3><span className="text-(length:--text-xs) text-muted block">{kind}</span></div>
     </div>
   );
 }
 
 function WorkInfo({ name, kind, caseLabel }: WorkInfoProps) {
   return (
-    <div className="absolute flex items-center justify-between left-[14px] right-[14px] bottom-[12px]">
+    <div className="flex flex-1 items-center justify-between px-[14px]">
       <WorkWho name={name} kind={kind} />
-      <span className="pill-shape gap-1.5 border border-[#8f919b] text-(length:--text-xs) py-[4px] px-[10px] text-[#333]">{caseLabel}<ArrowUpRight size={8} strokeWidth={1.5} aria-hidden="true" /></span>
+      <span className="pill-shape gap-1.5 border border-muted/50 text-(length:--text-xs) py-[4px] px-[10px] text-text">{caseLabel}<ArrowUpRight size={8} strokeWidth={1.5} aria-hidden="true" /></span>
     </div>
   );
 }
 
-export function WorkCard({ slug, name, kind = "Particulier", caseLabel = "Cas d'étude" }: WorkCardProps) {
+export function WorkCard({ slug, name, kind = "Particulier", caseLabel = "Cas d'étude", image }: WorkCardProps) {
   return (
-    <Link className="min-w-0 relative flex items-center justify-center h-[396px] rounded-[18px] bg-[linear-gradient(180deg,var(--gray)_0%,var(--gray)_40%,var(--gray-3)_100%)]" href={detailHref("work", slug)}>
-      <CardWatermark name={name} />
+    <Link className="min-w-0 relative flex flex-col h-[396px] overflow-hidden rounded-[18px] bg-gray" href={detailHref("work", slug)}>
+      <CardCover className="h-[324px]" image={image} name={coverName("work", slug)} />
       <WorkInfo name={name} kind={kind} caseLabel={caseLabel} />
     </Link>
   );

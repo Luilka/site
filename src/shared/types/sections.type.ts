@@ -1,19 +1,19 @@
 import type { InfoCard } from "./dictionaries.type.ts";
-import type { DetailKind, DetailModel, DetailRouteProps } from "./detail.type.ts";
+import type { DetailCover, DetailKind, DetailModel, DetailRouteProps } from "./detail.type.ts";
 import type { SectionProps } from "./section-props.type.ts";
 import type { SectionAction } from "./dictionaries.type.ts";
 import type { Href } from "@/shared/ui/links.tsx";
 import type { ReactNode } from "react";
 
 export type AboutTextProps = {
-  title: string;
+  title?: string;
   paragraphs: readonly string[];
   action?: SectionAction;
 };
 
 export type AboutSectionProps = {
   id?: string;
-  title: string;
+  title?: string;
   paragraphs: readonly string[];
   action?: SectionAction;
 };
@@ -46,7 +46,7 @@ export type HeadingTextProps = {
 };
 
 export type SectionHeadingProps = {
-  title: string;
+  title?: string;
   description?: string;
   action?: SectionAction;
 };
@@ -70,9 +70,8 @@ export type DetailBackLinkProps = {
   detail: DetailModel;
 };
 
-export type DetailCardProps = {
-  title: string;
-  body: string;
+export type DetailMediaProps = {
+  cover: DetailCover;
 };
 
 export type DetailBodyProps = {
