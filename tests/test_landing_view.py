@@ -73,7 +73,6 @@ def test_no_source_or_illustration_keeps_the_old_blue_and_violet() -> None:
     assert offenders == []
 
 
-
 def test_reference_layout_utilities_are_used() -> None:
     layout = (ROOT / "src" / "components" / "layout.tsx").read_text(encoding="utf-8")
     home = (ROOT / "src" / "routes" / "[lang]" / "index.tsx").read_text(encoding="utf-8")
