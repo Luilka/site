@@ -69,7 +69,8 @@ LOGO_CHIME = (587.33, 880.0, 1174.66)
 
 def mix() -> np.ndarray:
     track = pad()
-    track += sum(bell(frequency, 1.8 + 0.12 * index, 0.12) for index, frequency in enumerate(LOGO_CHIME))
+    for index, frequency in enumerate(LOGO_CHIME):
+        track += bell(frequency, 1.8 + 0.12 * index, 0.12)
     track += thud(0.9, 0.18)
     for index, start in enumerate(SCENES[1:]):
         track += bell(BELLS[index], start + 0.12, 0.14)
