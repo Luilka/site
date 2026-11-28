@@ -1,4 +1,4 @@
-import type { DetailImage } from "./detail.type.ts";
+import type { DetailImage, DetailKind } from "./detail.type.ts";
 import type { ConsentCopy } from "./analytics.type.ts";
 import type { MetaCopy } from "./meta.type.ts";
 import type { PageHref } from "./site.type.ts";
@@ -184,6 +184,7 @@ export type Dictionary = {
   soundOn: string;
   processKeywords: readonly string[];
   consent: ConsentCopy;
+  detailNext: Record<DetailKind, string>;
   meta: MetaCopy;
   soundOff: string;
   mobileNavigationLabel: string;

@@ -25,17 +25,17 @@
     "tala": {
       "src": "/images/products/tala.webp",
       "width": 900,
-      "height": 1100
+      "height": 1125
     },
     "vuga": {
       "src": "/images/products/vuga.webp",
       "width": 900,
-      "height": 1100
+      "height": 1125
     },
     "pro": {
       "src": "/images/products/pro.webp",
       "width": 900,
-      "height": 1100
+      "height": 1125
     }
   },
   "about": {
@@ -63,6 +63,166 @@
       "src": "/images/about/studio.webp",
       "width": 900,
       "height": 1200
+    }
+  },
+  "gallery": {
+    "work": {
+      "yano": [
+        {
+          "src": "/images/gallery/yano-1.webp",
+          "width": 1000,
+          "height": 667
+        },
+        {
+          "src": "/images/gallery/yano-2.webp",
+          "width": 520,
+          "height": 666
+        },
+        {
+          "src": "/images/gallery/yano-3.webp",
+          "width": 520,
+          "height": 654
+        },
+        {
+          "src": "/images/gallery/yano-4.webp",
+          "width": 1000,
+          "height": 667
+        }
+      ],
+      "vox-congo": [
+        {
+          "src": "/images/gallery/vox-congo-1.webp",
+          "width": 1000,
+          "height": 667
+        },
+        {
+          "src": "/images/gallery/vox-congo-2.webp",
+          "width": 520,
+          "height": 688
+        },
+        {
+          "src": "/images/gallery/vox-congo-3.webp",
+          "width": 520,
+          "height": 675
+        },
+        {
+          "src": "/images/gallery/vox-congo-4.webp",
+          "width": 1000,
+          "height": 667
+        }
+      ],
+      "mitemo": [
+        {
+          "src": "/images/gallery/mitemo-1.webp",
+          "width": 1000,
+          "height": 667
+        },
+        {
+          "src": "/images/gallery/mitemo-2.webp",
+          "width": 520,
+          "height": 688
+        },
+        {
+          "src": "/images/gallery/mitemo-3.webp",
+          "width": 520,
+          "height": 675
+        },
+        {
+          "src": "/images/gallery/mitemo-4.webp",
+          "width": 1000,
+          "height": 667
+        }
+      ],
+      "privatis-capital-invest": [
+        {
+          "src": "/images/gallery/privatis-capital-invest-1.webp",
+          "width": 1000,
+          "height": 667
+        },
+        {
+          "src": "/images/gallery/privatis-capital-invest-2.webp",
+          "width": 520,
+          "height": 612
+        },
+        {
+          "src": "/images/gallery/privatis-capital-invest-3.webp",
+          "width": 520,
+          "height": 601
+        },
+        {
+          "src": "/images/gallery/privatis-capital-invest-4.webp",
+          "width": 1000,
+          "height": 667
+        }
+      ]
+    },
+    "products": {
+      "tala": [
+        {
+          "src": "/images/gallery/tala-1.webp",
+          "width": 1200,
+          "height": 880
+        },
+        {
+          "src": "/images/gallery/tala-2.webp",
+          "width": 1200,
+          "height": 880
+        },
+        {
+          "src": "/images/gallery/tala-3.webp",
+          "width": 1200,
+          "height": 880
+        },
+        {
+          "src": "/images/gallery/tala-4.webp",
+          "width": 1200,
+          "height": 880
+        }
+      ],
+      "vuga": [
+        {
+          "src": "/images/gallery/vuga-1.webp",
+          "width": 1200,
+          "height": 880
+        },
+        {
+          "src": "/images/gallery/vuga-2.webp",
+          "width": 1200,
+          "height": 880
+        },
+        {
+          "src": "/images/gallery/vuga-3.webp",
+          "width": 1200,
+          "height": 880
+        },
+        {
+          "src": "/images/gallery/vuga-4.webp",
+          "width": 1200,
+          "height": 880
+        }
+      ],
+      "pro": [
+        {
+          "src": "/images/gallery/pro-1.webp",
+          "width": 1200,
+          "height": 880
+        },
+        {
+          "src": "/images/gallery/pro-2.webp",
+          "width": 1200,
+          "height": 880
+        },
+        {
+          "src": "/images/gallery/pro-3.webp",
+          "width": 1200,
+          "height": 880
+        },
+        {
+          "src": "/images/gallery/pro-4.webp",
+          "width": 1200,
+          "height": 880
+        }
+      ]
     }
   }
 }

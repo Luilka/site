@@ -44,9 +44,9 @@ describe("design-first home content", () => {
   it("gives each product its own description", () => {
     render(<Home />);
     for (const description of [
-      "Un espace pour suivre vos décisions de design et garder les équipes sur la même ligne.",
-      "La voix de vos utilisateurs, centralisée et facile à consulter.",
-      "Le pilotage de vos projets de design, de la première idée à la livraison.",
+      "Une plateforme de streaming vidéo : parcourir un catalogue, reprendre une lecture et regarder sur son téléphone.",
+      "Une application de location de maisons et d'autres logements : chercher, comparer et réserver une visite.",
+      "Un réseau social professionnel avec un flux de vidéos verticales : se présenter, découvrir des parcours et échanger.",
     ]) {
       expect(screen.getAllByText(description)).toHaveLength(1);
     }
@@ -76,7 +76,7 @@ describe("design-first home content", () => {
     render(<Home />);
     for (const description of [
       "Nous concevons, écrivons et construisons des produits numériques. Chaque service peut aussi être commandé seul.",
-      "Trois outils nés du studio pour garder vos décisions de design, vos utilisateurs et vos projets au même endroit.",
+      "Trois produits nés du studio : une plateforme de streaming vidéo, une application de location de logements et un réseau social professionnel.",
       "Chaque projet commence par une question claire et se termine par une interface que les gens savent utiliser.",
     ]) {
       expect(screen.getAllByText(description)).toHaveLength(1);

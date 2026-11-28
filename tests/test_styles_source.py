@@ -120,11 +120,10 @@ def test_header_keeps_its_place_during_page_transitions() -> None:
 
 def test_cards_and_detail_pages_share_the_cover_transition_name() -> None:
     cards = (SRC / "components" / "cards.tsx").read_text(encoding="utf-8")
-    sections = (SRC / "components" / "sections.tsx").read_text(encoding="utf-8")
     detail = (SRC / "content" / "detail-models.content.ts").read_text(encoding="utf-8")
     assert cards.count("coverName(") == 2
     assert "viewTransitionName" in cards
-    assert "viewTransitionName: cover.name" in sections
+    assert "viewTransitionName: cover.name" in cards
     assert "coverName(kind, raw.slug)" in detail
 
 

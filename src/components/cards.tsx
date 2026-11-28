@@ -11,8 +11,9 @@ import { useContent } from "@/shared/i18n";
 import { githubAvatar, githubProfile } from "@/shared/utils/github.util.ts";
 import { initialsOf } from "@/shared/utils/initials.util.ts";
 import { profileLabel } from "@/shared/utils/profile-label.util.ts";
+import { twoDigits } from "@/shared/utils/two-digits.util.ts";
 import { coverName } from "@/shared/utils/cover-name.util.ts";
-import type { CardCoverProps, CardIconProps, ProductCardProps, ProductInfoProps, ProductHeaderProps, ProductTitleProps, ServiceCardProps, StepCardProps, StepTextProps, TeamCardProps, TeamLabelProps, TeamNameProps, TeamPortraitProps, TeamProfileLinkProps, ValueCardProps, ValueIconProps, ValueTextProps, WorkCardProps, WorkInfoProps, WorkWhoProps } from "@/shared/types";
+import type { DetailPosterProps, FactPillProps, FactPillsProps, GalleryCardProps, ParagraphsProps, PointsProps, StoryCardProps, StoryTextProps, CardCoverProps, CardIconProps, ProductCardProps, ProductInfoProps, ProductHeaderProps, ProductTitleProps, ServiceCardProps, StepCardProps, StepTextProps, TeamCardProps, TeamLabelProps, TeamNameProps, TeamPortraitProps, TeamProfileLinkProps, ValueCardProps, ValueIconProps, ValueTextProps, WorkCardProps, WorkInfoProps, WorkWhoProps } from "@/shared/types";
 
 const ICONS: Record<string, LucideIcon> = {
   "UX Design": PenTool,
@@ -116,7 +117,9 @@ function StepText({ title, description }: StepTextProps) {
 
 const STEP_TONES: readonly string[] = ["bg-night text-paper", "bg-gold text-night", "bg-gray text-text", "bg-accent text-paper"];
 
-const STEP_NUMBER = "bg-paper bg-grid text-text border-2 border-paper outline-1 outline-[var(--border-ui)] rounded-[16px] h-[180px] flex items-center justify-center font-medium tracking-[-0.02em] mt-auto shadow-[0_2px_8px_rgb(0_0_0/5%)]";
+const NUMBER_PANEL = "bg-paper bg-grid text-text border-2 border-paper outline-1 outline-[var(--border-ui)] rounded-[16px] flex items-center justify-center font-medium tracking-[-0.02em] mt-auto shadow-[0_2px_8px_rgb(0_0_0/5%)]";
+
+const STEP_NUMBER = `${NUMBER_PANEL} h-[180px]`;
 
 export function StepCard({ number, title, description, index = 0 }: StepCardProps) {
   return (
@@ -240,5 +243,62 @@ export function TeamCard({ name, role, github }: TeamCardProps) {
       <TeamPortrait name={name} github={github} />
       <TeamLabel name={name} role={role} github={github} />
     </Card>
+  );
+}
+
+function Paragraphs({ items }: ParagraphsProps) {
+  return <>{items.map((text) => <p key={text} className="mt-3 text-(length:--text-sm) opacity-85 leading-[1.6]">{text}</p>)}</>;
+}
+
+function Points({ items }: PointsProps) {
+  return <ul className="mt-3 flex list-disc flex-col gap-2 pl-5 text-(length:--text-sm) opacity-85 leading-[1.6]">{items.map((text) => <li key={text}>{text}</li>)}</ul>;
+}
+
+function StoryText({ section }: StoryTextProps) {
+  return (
+    <div className="p-8">
+      <h2 className="text-(length:--text-lg) font-semibold">{section.title}</h2>
+      <Paragraphs items={section.paragraphs} />
+      {section.points ? <Points items={section.points} /> : null}
+    </div>
+  );
+}
+
+export function StoryCard({ section, index }: StoryCardProps) {
+  return (
+    <Card data-part="story-section" className={`flex flex-col rounded-[18px] p-[4px] ${STEP_TONES[index % STEP_TONES.length]}`}>
+      <StoryText section={section} />
+      <div data-part="story-number" className={`${NUMBER_PANEL} h-[140px]`}><span className="text-[length:72px]">{twoDigits(index)}</span></div>
+    </Card>
+  );
+}
+
+export function GalleryCard({ image, pair }: GalleryCardProps) {
+  return (
+    <figure className="relative m-0 overflow-hidden rounded-[18px] bg-gray">
+      <Picture className={`w-full object-cover ${pair ? "aspect-square" : "aspect-[3/2]"}`} image={image} />
+      {image.caption ? <figcaption className={`${GLASS} text-(length:--text-sm) leading-[1.5]`}>{image.caption}</figcaption> : null}
+    </figure>
+  );
+}
+
+function FactPill({ fact }: FactPillProps) {
+  return (
+    <span data-part="fact" className="pill-shape gap-1.5 border border-muted/50 text-(length:--text-xs) py-[4px] px-[10px] text-text">
+      <span className="text-muted">{fact.label}</span>{fact.value}
+    </span>
+  );
+}
+
+function FactPills({ facts }: FactPillsProps) {
+  return <div className={`${GLASS} flex flex-wrap gap-2`}>{facts.map((fact) => <FactPill key={fact.label} fact={fact} />)}</div>;
+}
+
+export function DetailPoster({ cover, facts }: DetailPosterProps) {
+  return (
+    <div className="relative h-[560px] w-full overflow-hidden rounded-[18px] bg-gray max-[640px]:h-[420px]">
+      <Picture className="absolute inset-0 size-full" image={cover} loading="eager" fetchPriority="high" style={{ viewTransitionName: cover.name }} />
+      {facts.length > 0 ? <FactPills facts={facts} /> : null}
+    </div>
   );
 }

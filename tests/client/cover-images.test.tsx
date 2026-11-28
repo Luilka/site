@@ -53,7 +53,8 @@ describe("cover images", () => {
 
   it("keeps a tall cover from filling the whole page", () => {
     const { container } = render(<WorkDetail lang="fr" slug="yano" />);
-    expect(container.querySelector("img")?.getAttribute("class")).toContain("max-h-[720px]");
+    expect(container.querySelector("img")?.parentElement?.className).toContain("h-[560px]");
+    expect(container.querySelector("img")?.parentElement?.className).toContain("overflow-hidden");
   });
 
   it("shows the cover of a product at the top of its page", () => {

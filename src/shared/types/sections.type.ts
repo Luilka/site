@@ -1,5 +1,6 @@
 import type { AboutImages, FilmCopy, InfoCard, PageIntro, TeamCopy, TeamMember, ValueItem, ValuesCopy } from "./dictionaries.type.ts";
-import type { DetailCover, DetailImage, DetailKind, DetailModel, DetailRouteProps } from "./detail.type.ts";
+import type { DetailSection } from "./content.type.ts";
+import type { CaptionedImage, DetailCover, DetailImage, DetailNext, DetailKind, DetailModel, DetailRouteProps } from "./detail.type.ts";
 import type { SectionProps } from "./section-props.type.ts";
 import type { SectionAction } from "./dictionaries.type.ts";
 import type { Href } from "@/shared/ui/links.tsx";
@@ -135,4 +136,20 @@ export type DetailPageProps = {
 
 export type DetailRouteViewProps = DetailRouteProps & {
   kind: DetailKind;
+};
+
+export type GalleryRowProps = {
+  row: readonly CaptionedImage[];
+};
+
+export type DetailGalleryProps = {
+  images: readonly CaptionedImage[];
+};
+
+export type DetailCardsProps = {
+  sections: readonly DetailSection[];
+};
+
+export type NextDetailProps = {
+  next: DetailNext;
 };

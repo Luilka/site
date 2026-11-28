@@ -1,17 +1,18 @@
 import { Container } from "@/shared/ui/containers.tsx";
-import { ActionLink, Breadcrumb, ContactPanel, PageHero, PageLead, PageTitle, NotFoundPanel } from "@/components/patterns.tsx";
+import { ActionLink, Breadcrumb, ContactPanel, PageHero, PageLead, PageTitle, NotFoundPanel, ProcessBand } from "@/components/patterns.tsx";
 import type { SectionProps } from "@/shared/types/section-props.type.ts";
 import { infoHref } from "@/shared/utils/info-href.util.ts";
-import type { AboutArtProps, AboutHeroProps, FilmPlayerProps, FilmSectionProps, FilmTranscriptProps, AboutSectionProps, AboutTextProps, BandProps, CardGridProps, CollectionSectionProps, DetailBackLinkProps, DetailBodyProps, DetailMediaProps, DetailPageProps, DetailRouteViewProps, HeadingTextProps, InfoCard, InfoCardBodyProps, InfoCardProps, InfoSectionProps, MissionDetailsProps, MissionSectionProps, ProcessSectionProps, SectionHeadingProps, TeamGridProps, TeamSectionProps, ValueGridProps, ValuesSectionProps } from "@/shared/types";
+import type { AboutArtProps, DetailCardsProps, DetailGalleryProps, GalleryRowProps, NextDetailProps, AboutHeroProps, FilmPlayerProps, FilmSectionProps, FilmTranscriptProps, AboutSectionProps, AboutTextProps, BandProps, CardGridProps, CollectionSectionProps, DetailBackLinkProps, DetailBodyProps, DetailPageProps, DetailRouteViewProps, HeadingTextProps, InfoCard, InfoCardBodyProps, InfoCardProps, InfoSectionProps, MissionDetailsProps, MissionSectionProps, ProcessSectionProps, SectionHeadingProps, TeamGridProps, TeamSectionProps, ValueGridProps, ValuesSectionProps } from "@/shared/types";
 import { buttonClasses } from "@/shared/ui/buttons.tsx";
 import { Link } from "@/shared/ui/links.tsx";
 import { Card } from "@/shared/ui/cards.tsx";
 import { Picture } from "@/shared/ui/images.tsx";
 import { Badge } from "@/shared/ui/badges.tsx";
-import { StepCard, ProductCard, ServiceCard, TeamCard, ValueCard, WorkCard } from "@/components/cards.tsx";
+import { DetailPoster, GalleryCard, StoryCard, StepCard, ProductCard, ServiceCard, TeamCard, ValueCard, WorkCard } from "@/components/cards.tsx";
 import { useContent } from "@/shared/i18n";
+import { galleryRows } from "@/shared/utils/gallery-rows.util.ts";
 import { Fragment } from "react";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import { useDetail } from "@/shared/hooks/use-detail.hook.ts";
 
 const LIST_SPACING = "pt-0 pb-20 has-[h2]:pt-20";
@@ -272,28 +273,109 @@ function DetailBackLink({ detail }: DetailBackLinkProps) {
   );
 }
 
-function DetailMedia({ cover }: DetailMediaProps) {
+function GalleryRow({ row }: GalleryRowProps) {
+  const pair = row.length > 1;
   return (
-    <Picture className="max-h-[720px] rounded-[22px]" image={cover} loading="eager" fetchPriority="high" style={{ viewTransitionName: cover.name }} />
+    <div data-part="gallery-row" className={pair ? "grid grid-cols-2 gap-4 max-[640px]:grid-cols-1" : "grid gap-4"}>
+      {row.map((image) => <GalleryCard key={image.src} image={image} pair={pair} />)}
+    </div>
   );
 }
 
-function DetailBody({ detail }: DetailBodyProps) {
+function DetailGallery({ images }: DetailGalleryProps) {
+  if (images.length === 0) return null;
   return (
-    <section className="pb-20">
-      <Container className="flex flex-col items-start gap-10">
-        {detail.cover ? <DetailMedia cover={detail.cover} /> : null}
+    <section className="py-[40px]">
+      <Container className="flex flex-col gap-4">
+        {galleryRows(images).map((row) => <GalleryRow key={row[0]?.src} row={row} />)}
+      </Container>
+    </section>
+  );
+}
+
+function DetailCover({ detail }: DetailBodyProps) {
+  if (!detail.cover) return null;
+  return (
+    <section className="pb-[40px]">
+      <Container><DetailPoster cover={detail.cover} facts={detail.facts} /></Container>
+    </section>
+  );
+}
+
+function DetailCards({ sections }: DetailCardsProps) {
+  if (sections.length === 0) return null;
+  return (
+    <section className="py-[40px]">
+      <Container className="grid grid-cols-[repeat(auto-fit,minmax(18rem,1fr))] gap-4">
+        {sections.map((section, index) => <StoryCard key={section.title} section={section} index={index} />)}
+      </Container>
+    </section>
+  );
+}
+
+function NextText({ next }: NextDetailProps) {
+  return (
+    <span>
+      <span className="block text-(length:--text-xs) font-semibold uppercase tracking-[0.08em] text-paper/70">{next.label}</span>
+      <span className="mt-2 flex items-center gap-2 text-(length:--text-2xl) font-semibold">{next.title}<ArrowUpRight size={22} strokeWidth={1.8} aria-hidden="true" /></span>
+    </span>
+  );
+}
+
+function NextDetail({ next }: NextDetailProps) {
+  return (
+    <Link className="flex w-full items-center justify-between gap-6 rounded-[22px] bg-night p-8 text-paper max-[640px]:flex-col max-[640px]:items-start" href={next.href}>
+      <NextText next={next} />
+      {next.cover ? <Picture className="h-[120px] w-[200px] rounded-[14px] object-cover max-[640px]:w-full" image={next.cover} /> : null}
+    </Link>
+  );
+}
+
+function DetailLinks({ detail }: DetailBodyProps) {
+  return (
+    <section className="py-[40px]">
+      <Container className="flex flex-col items-start gap-6">
+        {detail.next ? <NextDetail next={detail.next} /> : null}
         <DetailBackLink detail={detail} />
       </Container>
     </section>
   );
 }
 
-export function DetailPage({ detail }: DetailPageProps) {
+function DetailEnd({ detail }: DetailBodyProps) {
+  return (
+    <>
+      <ProcessBand />
+      <DetailLinks detail={detail} />
+    </>
+  );
+}
+
+function DetailIntro({ detail }: DetailBodyProps) {
   return (
     <>
       <PageHero eyebrow={detail.eyebrow} title={detail.title} description={detail.description} />
-      <DetailBody detail={detail} />
+      <DetailCover detail={detail} />
+      <ProcessBand reverse />
+    </>
+  );
+}
+
+function DetailMiddle({ detail }: DetailBodyProps) {
+  return (
+    <>
+      <DetailCards sections={detail.sections} />
+      <DetailGallery images={detail.gallery} />
+    </>
+  );
+}
+
+export function DetailPage({ detail }: DetailPageProps) {
+  return (
+    <>
+      <DetailIntro detail={detail} />
+      <DetailMiddle detail={detail} />
+      <DetailEnd detail={detail} />
       <ContactPanel />
     </>
   );
