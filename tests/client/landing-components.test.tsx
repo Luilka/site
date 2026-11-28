@@ -31,13 +31,13 @@ describe("landing components", () => {
     expect(reversed.querySelector(".animate-marquee")).not.toBeNull();
   });
 
-  it("writes the process keywords and draws the motorbikes in white, in the display font", () => {
+  it("writes the process keywords in white in the display font, and the motorbikes at half opacity", () => {
     const { container } = render(<ProcessBand />);
     const band = container.querySelector(".animate-marquee-right")?.parentElement;
     expect(band?.className).toContain("text-paper");
     expect(band?.className).not.toContain("text-gold");
     expect(container.querySelector("span")?.className).toContain("font-display");
-    expect(container.querySelector("svg.lucide-motorbike")?.getAttribute("class")).not.toContain("opacity-50");
+    expect(container.querySelector("svg.lucide-motorbike")?.getAttribute("class")).toContain("opacity-50");
   });
 
   it("runs the striped band behind the marquee the other way round", () => {
