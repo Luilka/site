@@ -32,9 +32,9 @@ const dropdownDescriptions: Record<Language, Record<MenuKey, readonly string[]>>
       "Nous écrivons la page produit et les messages utiles au quotidien, seuls ou avec le reste.",
     ],
     products: [
-      "Un espace pour suivre vos décisions de design et garder les équipes sur la même ligne.",
-      "La voix de vos utilisateurs, centralisée et facile à consulter.",
-      "Le pilotage de vos projets de design, de la première idée à la livraison.",
+      "Une plateforme de streaming vidéo : parcourir un catalogue, reprendre une lecture et regarder sur son téléphone.",
+      "Une application de location de maisons et d'autres logements : chercher, comparer et réserver une visite.",
+      "Un réseau social professionnel avec un flux de vidéos verticales : se présenter, découvrir des parcours et échanger.",
     ],
   },
   en: {
@@ -45,9 +45,9 @@ const dropdownDescriptions: Record<Language, Record<MenuKey, readonly string[]>>
       "We write the product page and the everyday messages, on their own or with the rest.",
     ],
     products: [
-      "A space to track design decisions and keep teams on the same page.",
-      "Your users' voice, gathered in one easy place.",
-      "Project control from the first idea to handover.",
+      "A video streaming platform: browse a catalogue, resume a video and watch on your phone.",
+      "A rental app for houses and other homes: search, compare and book a visit.",
+      "A professional social network with a feed of vertical videos: introduce yourself, discover careers and talk.",
     ],
   },
 };
@@ -69,11 +69,11 @@ const dropdownCopy: Record<Language, Record<MenuKey, DropdownCopy>> = {
     },
     products: {
       eyebrow: "Produits",
-      title: "Les outils du studio",
+      title: "Les produits du studio",
       linksTitle: "Explorer Luilka",
-      action: "Découvrir l'outil",
+      action: "Découvrir le produit",
       labels: ["Tala", "Vuga", "Pro"],
-      eyebrows: ["Décisions", "Recherche", "Projets"],
+      eyebrows: ["Streaming", "Immobilier", "Réseau pro"],
       links: [
         { label: "Tous nos produits", href: "/products" },
         { label: "Blog", href: "/blog" },
@@ -97,11 +97,11 @@ const dropdownCopy: Record<Language, Record<MenuKey, DropdownCopy>> = {
     },
     products: {
       eyebrow: "Products",
-      title: "Tools from the studio",
+      title: "Products from the studio",
       linksTitle: "Explore Luilka",
-      action: "Explore the tool",
+      action: "Explore the product",
       labels: ["Tala", "Vuga", "Pro"],
-      eyebrows: ["Decisions", "Research", "Projects"],
+      eyebrows: ["Streaming", "Real estate", "Pro network"],
       links: [
         { label: "All our products", href: "/products" },
         { label: "Blog", href: "/blog" },
@@ -185,15 +185,15 @@ const productsFr: readonly NamedCard[] = withImages(withSlugs(
   [
   {
     name: "Tala",
-    description: "Un espace pour suivre vos décisions de design et garder les équipes sur la même ligne.",
+    description: "Une plateforme de streaming vidéo : parcourir un catalogue, reprendre une lecture et regarder sur son téléphone.",
   },
   {
     name: "Vuga",
-    description: "La voix de vos utilisateurs, centralisée et facile à consulter.",
+    description: "Une application de location de maisons et d'autres logements : chercher, comparer et réserver une visite.",
   },
   {
     name: "Pro",
-    description: "Le pilotage de vos projets de design, de la première idée à la livraison.",
+    description: "Un réseau social professionnel avec un flux de vidéos verticales : se présenter, découvrir des parcours et échanger.",
   },
   ],
   detailSlugs.products,
@@ -243,15 +243,15 @@ const productsEn: readonly NamedCard[] = withImages(withSlugs(
   [
   {
     name: "Tala",
-    description: "A space to track design decisions and keep teams on the same page.",
+    description: "A video streaming platform: browse a catalogue, resume a video and watch on your phone.",
   },
   {
     name: "Vuga",
-    description: "Your users' voice, gathered in one easy place.",
+    description: "A rental app for houses and other homes: search, compare and book a visit.",
   },
   {
     name: "Pro",
-    description: "Project control from the first idea to handover.",
+    description: "A professional social network with a feed of vertical videos: introduce yourself, discover careers and talk.",
   },
   ],
   detailSlugs.products,
@@ -341,7 +341,7 @@ const fr: Dictionary = {
     services:
       "Nous concevons, écrivons et construisons des produits numériques. Chaque service peut aussi être commandé seul.",
     products:
-      "Trois outils nés du studio pour garder vos décisions de design, vos utilisateurs et vos projets au même endroit.",
+      "Trois produits nés du studio : une plateforme de streaming vidéo, une application de location de logements et un réseau social professionnel.",
     works:
       "Chaque projet commence par une question claire et se termine par une interface que les gens savent utiliser.",
   },
@@ -409,7 +409,7 @@ const fr: Dictionary = {
       eyebrow: "Produits",
       title: "Nos produits",
       description:
-        "Trois outils nés du studio pour garder vos décisions de design, vos utilisateurs et vos projets au même endroit.",
+        "Trois produits nés du studio : une plateforme de streaming vidéo, une application de location de logements et un réseau social professionnel.",
     },
     works: {
       eyebrow: "Réalisations",
@@ -596,7 +596,7 @@ const en: Dictionary = {
     services:
       "We design, write and build digital products. Every service can also be booked on its own.",
     products:
-      "Three tools born in the studio to keep your design decisions, users and projects in one place.",
+      "Three products born in the studio: a video streaming platform, a home rental app and a professional social network.",
     works: "Every project starts with a clear question and ends with an interface people know how to use.",
   },
   about: [
@@ -658,7 +658,7 @@ const en: Dictionary = {
       eyebrow: "Products",
       title: "Our products",
       description:
-        "Three tools born in the studio to keep your design decisions, users and projects in one place.",
+        "Three products born in the studio: a video streaming platform, a home rental app and a professional social network.",
     },
     works: {
       eyebrow: "Works",

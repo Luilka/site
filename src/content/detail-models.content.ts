@@ -1,5 +1,6 @@
 import { dictionaries } from "@/shared/i18n/dictionaries.i18n.ts";
 import type { DetailImage, DetailKind, DetailModel, DetailSlugs, DetailSpec, Dictionary, Language, RawDetail } from "@/shared/types";
+import { detailTexts } from "./detail-texts.content.ts";
 import { coverName } from "@/shared/utils/cover-name.util.ts";
 import { detailHref } from "@/shared/utils/detail-href.util.ts";
 import imageSource from "./images.json";
@@ -34,9 +35,9 @@ function toCover(kind: DetailKind, raw: RawDetail): DetailModel["cover"] {
   return raw.image ? { ...raw.image, name: coverName(kind, raw.slug) } : undefined;
 }
 
-function galleryOf(kind: DetailKind, slug: string): DetailModel["gallery"] {
+function galleryOf(kind: DetailKind, slug: string, captions: Readonly<Record<string, string>> = {}): DetailModel["gallery"] {
   const gallery = imageSource.gallery as Partial<Record<DetailKind, Record<string, DetailImage[]>>>;
-  return gallery[kind]?.[slug] ?? [];
+  return (gallery[kind]?.[slug] ?? []).map((image) => ({ ...image, caption: captions[image.src] }));
 }
 
 function nextOf(content: Dictionary, kind: DetailKind, slug: string): DetailModel["next"] {
@@ -46,12 +47,14 @@ function nextOf(content: Dictionary, kind: DetailKind, slug: string): DetailMode
   return { label: content.detailNext[kind], title: following.title, href: detailHref(kind, following.slug), cover: following.image };
 }
 
-function toModel(content: Dictionary, kind: DetailKind, raw: RawDetail): DetailModel {
+function toModel(language: Language, content: Dictionary, kind: DetailKind, raw: RawDetail): DetailModel {
   const spec = SPECS[kind];
   const page = content.pages[spec.page];
   const { title, description } = raw;
+  const text = detailTexts(language, kind, raw.slug);
   const base = { eyebrow: raw.eyebrow ?? page.eyebrow, title, description, cover: toCover(kind, raw) };
-  return { ...base, gallery: galleryOf(kind, raw.slug), next: nextOf(content, kind, raw.slug), backHref: spec.backHref, backLabel: page.title };
+  const story = { facts: text?.facts ?? [], sections: text?.sections ?? [], gallery: galleryOf(kind, raw.slug, text?.captions) };
+  return { ...base, ...story, next: nextOf(content, kind, raw.slug), backHref: spec.backHref, backLabel: page.title };
 }
 
 export function isKnownDetailSlug(kind: DetailKind, slug: string | undefined): slug is string {
@@ -61,5 +64,5 @@ export function isKnownDetailSlug(kind: DetailKind, slug: string | undefined): s
 export function findDetail(language: Language, kind: DetailKind, slug: string): DetailModel | null {
   const content = dictionaries[language];
   const raw = SPECS[kind].entries(content).find((entry) => entry.slug === slug);
-  return raw ? toModel(content, kind, raw) : null;
+  return raw ? toModel(language, content, kind, raw) : null;
 }

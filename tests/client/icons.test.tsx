@@ -11,6 +11,8 @@ const detail: DetailModel = {
   description: "Texte",
   backHref: "/products",
   backLabel: "Produits",
+  facts: [],
+  sections: [],
   gallery: [],
   next: null,
 };

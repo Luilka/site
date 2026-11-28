@@ -2,7 +2,7 @@ import { Container } from "@/shared/ui/containers.tsx";
 import { ActionLink, Breadcrumb, ContactPanel, PageHero, PageLead, PageTitle, NotFoundPanel } from "@/components/patterns.tsx";
 import type { SectionProps } from "@/shared/types/section-props.type.ts";
 import { infoHref } from "@/shared/utils/info-href.util.ts";
-import type { AboutArtProps, DetailGalleryProps, GalleryRowProps, NextDetailProps, AboutHeroProps, FilmPlayerProps, FilmSectionProps, FilmTranscriptProps, AboutSectionProps, AboutTextProps, BandProps, CardGridProps, CollectionSectionProps, DetailBackLinkProps, DetailBodyProps, DetailMediaProps, DetailPageProps, DetailRouteViewProps, HeadingTextProps, InfoCard, InfoCardBodyProps, InfoCardProps, InfoSectionProps, MissionDetailsProps, MissionSectionProps, ProcessSectionProps, SectionHeadingProps, TeamGridProps, TeamSectionProps, ValueGridProps, ValuesSectionProps } from "@/shared/types";
+import type { AboutArtProps, DetailFactsProps, GalleryItemProps, GalleryRowProps, NextDetailProps, ParagraphsProps, PointsProps, StoryBlockViewProps, StorySectionProps, AboutHeroProps, FilmPlayerProps, FilmSectionProps, FilmTranscriptProps, AboutSectionProps, AboutTextProps, BandProps, CardGridProps, CollectionSectionProps, DetailBackLinkProps, DetailBodyProps, DetailMediaProps, DetailPageProps, DetailRouteViewProps, HeadingTextProps, InfoCard, InfoCardBodyProps, InfoCardProps, InfoSectionProps, MissionDetailsProps, MissionSectionProps, ProcessSectionProps, SectionHeadingProps, TeamGridProps, TeamSectionProps, ValueGridProps, ValuesSectionProps } from "@/shared/types";
 import { buttonClasses } from "@/shared/ui/buttons.tsx";
 import { Link } from "@/shared/ui/links.tsx";
 import { Card } from "@/shared/ui/cards.tsx";
@@ -11,6 +11,7 @@ import { Badge } from "@/shared/ui/badges.tsx";
 import { StepCard, ProductCard, ServiceCard, TeamCard, ValueCard, WorkCard } from "@/components/cards.tsx";
 import { useContent } from "@/shared/i18n";
 import { galleryRows } from "@/shared/utils/gallery-rows.util.ts";
+import { storyBlocks } from "@/shared/utils/story-blocks.util.ts";
 import { Fragment } from "react";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import { useDetail } from "@/shared/hooks/use-detail.hook.ts";
@@ -281,20 +282,66 @@ function DetailMedia({ cover }: DetailMediaProps) {
 
 const GALLERY_PICTURE = "w-full rounded-[22px] object-cover";
 
+function GalleryItem({ image, pair }: GalleryItemProps) {
+  return (
+    <figure className="m-0">
+      <Picture className={`${GALLERY_PICTURE} ${pair ? "aspect-square" : "aspect-[3/2]"}`} image={image} />
+      {image.caption ? <figcaption className="mt-3 text-(length:--text-sm) text-muted leading-[1.5]">{image.caption}</figcaption> : null}
+    </figure>
+  );
+}
+
 function GalleryRow({ row }: GalleryRowProps) {
   const pair = row.length > 1;
   return (
     <div data-part="gallery-row" className={pair ? "grid grid-cols-2 gap-4 max-[640px]:grid-cols-1" : "grid gap-4"}>
-      {row.map((image) => <Picture key={image.src} className={`${GALLERY_PICTURE} ${pair ? "aspect-square" : "aspect-[3/2]"}`} image={image} />)}
+      {row.map((image) => <GalleryItem key={image.src} image={image} pair={pair} />)}
     </div>
   );
 }
 
-function DetailGallery({ images }: DetailGalleryProps) {
+function Paragraphs({ items }: ParagraphsProps) {
+  return <>{items.map((text) => <p key={text} className={`${MISSION_TEXT} max-w-[680px]`}>{text}</p>)}</>;
+}
+
+function Points({ items }: PointsProps) {
+  return <ul className="mt-5 flex max-w-[680px] list-disc flex-col gap-2 pl-5 text-(length:--text-base) text-muted leading-[1.6]">{items.map((text) => <li key={text}>{text}</li>)}</ul>;
+}
+
+function StorySection({ section }: StorySectionProps) {
   return (
-    <div className="flex w-full flex-col gap-4">
-      {galleryRows(images).map((row) => <GalleryRow key={row[0]?.src} row={row} />)}
+    <div data-part="story-section" className="w-full">
+      <h2 className="text-(length:--text-2xl) font-semibold">{section.title}</h2>
+      <Paragraphs items={section.paragraphs} />
+      {section.points ? <Points items={section.points} /> : null}
     </div>
+  );
+}
+
+function StoryBlockView({ block }: StoryBlockViewProps) {
+  return (
+    <>
+      {block.section ? <StorySection section={block.section} /> : null}
+      {block.row ? <GalleryRow row={block.row} /> : null}
+    </>
+  );
+}
+
+function DetailStory({ detail }: DetailBodyProps) {
+  const blocks = storyBlocks(detail.sections, galleryRows(detail.gallery));
+  return (
+    <div className="flex w-full flex-col gap-10">
+      {blocks.map((block, index) => <StoryBlockView key={block.section?.title ?? block.row?.[0]?.src ?? index} block={block} />)}
+    </div>
+  );
+}
+
+function DetailFacts({ facts }: DetailFactsProps) {
+  if (facts.length === 0) return null;
+  return (
+    <dl className="m-0 grid w-full grid-cols-3 gap-6 border-y border-y-[var(--border-ui)] py-6 max-[640px]:grid-cols-1">
+      {facts.map((fact) => <div key={fact.label}><dt className="text-(length:--text-xs) font-semibold uppercase tracking-[0.08em] text-muted">{fact.label}</dt><dd className="m-0 mt-1 text-(length:--text-base) font-medium">{fact.value}</dd></div>)}
+    </dl>
   );
 }
 
@@ -320,7 +367,8 @@ function DetailExtras({ detail }: DetailBodyProps) {
   return (
     <>
       {detail.cover ? <DetailMedia cover={detail.cover} /> : null}
-      <DetailGallery images={detail.gallery} />
+      <DetailFacts facts={detail.facts} />
+      <DetailStory detail={detail} />
       {detail.next ? <NextDetail next={detail.next} /> : null}
     </>
   );

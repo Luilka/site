@@ -15,3 +15,25 @@ export type DetailSpec = {
   backHref: PageHref;
   entries: (content: Dictionary) => readonly RawDetail[];
 };
+
+export type DetailFact = {
+  label: string;
+  value: string;
+};
+
+export type DetailSection = {
+  title: string;
+  paragraphs: readonly string[];
+  points?: readonly string[];
+};
+
+export type DetailContent = {
+  facts: readonly DetailFact[];
+  sections: readonly DetailSection[];
+  captions?: Readonly<Record<string, string>>;
+};
+
+export type StoryBlock = {
+  section?: DetailSection;
+  row?: readonly DetailImage[];
+};
