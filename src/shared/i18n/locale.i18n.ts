@@ -12,6 +12,7 @@ export function languageFromPathname(pathname: string): Language {
 }
 
 export function pageFromPathname(pathname: string): PageHref | "/" {
+  if (pathname.includes("{")) return "/";
   const firstSegment = pathname.split("/")[1];
   if (!isSupportedLanguage(firstSegment)) {
     return pathname as PageHref | "/";

@@ -1,4 +1,5 @@
 import { render, screen } from "@testing-library/react";
+import { renderToStaticMarkup } from "react-dom/server";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { Header } from "@/components/layout.tsx";
 import { languageFromPathname, localizedHref, pageFromPathname } from "@/shared/i18n";
@@ -97,5 +98,28 @@ describe("language in the URL", () => {
     const heading = screen.getByRole("heading", { level: 1 });
     expect(heading.textContent).toContain("Agence de");
     expect(heading.textContent).toContain("reliant produit et");
+  });
+});
+
+describe("language switch on a server rendered shell", () => {
+  it("never writes a route placeholder into the language link", () => {
+    for (const pathname of ["/{lang}", "/{lang}/about", "/{lang}/work/{slug}"]) {
+      setPathname(pathname);
+      const markup = renderToStaticMarkup(<Header />);
+      expect(markup, pathname).not.toContain("{lang}");
+      expect(markup, pathname).not.toContain("{slug}");
+      expect(markup, pathname).toContain('href="/en"');
+    }
+  });
+
+  it("points the language link to the same page in the other language once mounted", () => {
+    setPathname("/fr/about");
+    render(<Header />);
+    expect(screen.getByRole("link", { name: "Passer en anglais" }).getAttribute("href")).toBe("/en/about");
+  });
+
+  it("treats an address with a placeholder as the home page", () => {
+    expect(pageFromPathname("/{lang}/about")).toBe("/");
+    expect(pageFromPathname("/{lang}")).toBe("/");
   });
 });
