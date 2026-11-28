@@ -311,6 +311,12 @@ const fr: Dictionary = {
   reelPlay: "Reprendre la vidéo",
   soundOn: "Activer le son",
   processKeywords: ["Observer", "Cadrer", "Concevoir", "Construire", "Tester", "Lancer"],
+  consent: {
+    label: "Mesure d'audience",
+    text: "Nous mesurons les visites avec Google Analytics, qui utilise des cookies. Acceptez-vous ?",
+    accept: "Accepter",
+    refuse: "Refuser",
+  },
   meta: {
     siteName: "Luilka",
     homeTitle: "Studio de design centré sur l'utilisateur",
@@ -559,6 +565,12 @@ const en: Dictionary = {
   reelPlay: "Resume the video",
   soundOn: "Turn the sound on",
   processKeywords: ["Observe", "Scope", "Design", "Build", "Test", "Launch"],
+  consent: {
+    label: "Audience measurement",
+    text: "We measure visits with Google Analytics, which uses cookies. Do you accept?",
+    accept: "Accept",
+    refuse: "Decline",
+  },
   meta: {
     siteName: "Luilka",
     homeTitle: "A user-centric design studio",

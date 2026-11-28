@@ -1,4 +1,5 @@
 import type { DetailImage } from "./detail.type.ts";
+import type { ConsentCopy } from "./analytics.type.ts";
 import type { MetaCopy } from "./meta.type.ts";
 import type { PageHref } from "./site.type.ts";
 import type { SocialNetwork } from "./social.type.ts";
@@ -182,6 +183,7 @@ export type Dictionary = {
   reelPlay: string;
   soundOn: string;
   processKeywords: readonly string[];
+  consent: ConsentCopy;
   meta: MetaCopy;
   soundOff: string;
   mobileNavigationLabel: string;

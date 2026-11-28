@@ -1,3 +1,4 @@
+import type { AnalyticsPlan, AnalyticsSettings } from "./analytics.type.ts";
 import type { MetaLink, PageMeta } from "./meta.type.ts";
 import type { VideoPlayback } from "./hooks.type.ts";
 import type { PageKey, SectionAction } from "./dictionaries.type.ts";
@@ -107,4 +108,21 @@ export type MetaLinksProps = {
 
 export type StructuredDataProps = {
   json: string | null;
+};
+
+export type ConsentBannerProps = {
+  onAccept: () => void;
+  onRefuse: () => void;
+};
+
+export type GoogleTagProps = {
+  id: string;
+};
+
+export type TrackersProps = {
+  settings?: AnalyticsSettings;
+};
+
+export type ThirdPartyTagsProps = {
+  plan: AnalyticsPlan;
 };

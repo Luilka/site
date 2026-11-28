@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import { useUrlLanguage } from "@/shared/i18n";
 import { usePageMeta } from "@/shared/hooks/use-page-meta.hook.ts";
 import { Footer, Header } from "@/components/layout.tsx";
+import { Trackers } from "@/components/patterns.tsx";
 import type { DocumentProps, MetaLinksProps, MetaTagsProps, RootLayoutProps, StructuredDataProps } from "@/shared/types";
 
 const INTER = "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap";
@@ -78,6 +79,7 @@ function DocumentBody({ children }: { children: ReactNode }) {
       <Header />
       <main><MotionConfig reducedMotion="user">{children}</MotionConfig></main>
       <Footer />
+      <Trackers />
     </body>
   );
 }

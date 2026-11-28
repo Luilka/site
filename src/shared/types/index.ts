@@ -1,3 +1,4 @@
+export type * from "./analytics.type.ts";
 export type * from "./cards.type.ts";
 export type * from "./content.type.ts";
 export type * from "./detail.type.ts";
