@@ -17,11 +17,20 @@ export type DetailCover = DetailImage & {
   name: string;
 };
 
+export type DetailNext = {
+  label: string;
+  title: string;
+  href: string;
+  cover?: DetailImage;
+};
+
 export type DetailModel = {
   eyebrow: string;
   title: string;
   description: string;
   cover?: DetailCover;
+  gallery: readonly DetailImage[];
+  next: DetailNext | null;
   backHref: PageHref;
   backLabel: string;
 };

@@ -2,7 +2,7 @@ import { Container } from "@/shared/ui/containers.tsx";
 import { ActionLink, Breadcrumb, ContactPanel, PageHero, PageLead, PageTitle, NotFoundPanel } from "@/components/patterns.tsx";
 import type { SectionProps } from "@/shared/types/section-props.type.ts";
 import { infoHref } from "@/shared/utils/info-href.util.ts";
-import type { AboutArtProps, AboutHeroProps, FilmPlayerProps, FilmSectionProps, FilmTranscriptProps, AboutSectionProps, AboutTextProps, BandProps, CardGridProps, CollectionSectionProps, DetailBackLinkProps, DetailBodyProps, DetailMediaProps, DetailPageProps, DetailRouteViewProps, HeadingTextProps, InfoCard, InfoCardBodyProps, InfoCardProps, InfoSectionProps, MissionDetailsProps, MissionSectionProps, ProcessSectionProps, SectionHeadingProps, TeamGridProps, TeamSectionProps, ValueGridProps, ValuesSectionProps } from "@/shared/types";
+import type { AboutArtProps, DetailGalleryProps, GalleryRowProps, NextDetailProps, AboutHeroProps, FilmPlayerProps, FilmSectionProps, FilmTranscriptProps, AboutSectionProps, AboutTextProps, BandProps, CardGridProps, CollectionSectionProps, DetailBackLinkProps, DetailBodyProps, DetailMediaProps, DetailPageProps, DetailRouteViewProps, HeadingTextProps, InfoCard, InfoCardBodyProps, InfoCardProps, InfoSectionProps, MissionDetailsProps, MissionSectionProps, ProcessSectionProps, SectionHeadingProps, TeamGridProps, TeamSectionProps, ValueGridProps, ValuesSectionProps } from "@/shared/types";
 import { buttonClasses } from "@/shared/ui/buttons.tsx";
 import { Link } from "@/shared/ui/links.tsx";
 import { Card } from "@/shared/ui/cards.tsx";
@@ -10,8 +10,9 @@ import { Picture } from "@/shared/ui/images.tsx";
 import { Badge } from "@/shared/ui/badges.tsx";
 import { StepCard, ProductCard, ServiceCard, TeamCard, ValueCard, WorkCard } from "@/components/cards.tsx";
 import { useContent } from "@/shared/i18n";
+import { galleryRows } from "@/shared/utils/gallery-rows.util.ts";
 import { Fragment } from "react";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import { useDetail } from "@/shared/hooks/use-detail.hook.ts";
 
 const LIST_SPACING = "pt-0 pb-20 has-[h2]:pt-20";
@@ -278,11 +279,58 @@ function DetailMedia({ cover }: DetailMediaProps) {
   );
 }
 
+const GALLERY_PICTURE = "w-full rounded-[22px] object-cover";
+
+function GalleryRow({ row }: GalleryRowProps) {
+  const pair = row.length > 1;
+  return (
+    <div data-part="gallery-row" className={pair ? "grid grid-cols-2 gap-4 max-[640px]:grid-cols-1" : "grid gap-4"}>
+      {row.map((image) => <Picture key={image.src} className={`${GALLERY_PICTURE} ${pair ? "aspect-square" : "aspect-[3/2]"}`} image={image} />)}
+    </div>
+  );
+}
+
+function DetailGallery({ images }: DetailGalleryProps) {
+  return (
+    <div className="flex w-full flex-col gap-4">
+      {galleryRows(images).map((row) => <GalleryRow key={row[0]?.src} row={row} />)}
+    </div>
+  );
+}
+
+function NextText({ next }: NextDetailProps) {
+  return (
+    <span>
+      <span className="block text-(length:--text-xs) font-semibold uppercase tracking-[0.08em] text-muted">{next.label}</span>
+      <span className="mt-2 flex items-center gap-2 text-(length:--text-2xl) font-semibold">{next.title}<ArrowUpRight size={22} strokeWidth={1.8} aria-hidden="true" /></span>
+    </span>
+  );
+}
+
+function NextDetail({ next }: NextDetailProps) {
+  return (
+    <Link className="flex w-full items-center justify-between gap-6 rounded-[22px] bg-gray p-6 max-[640px]:flex-col max-[640px]:items-start" href={next.href}>
+      <NextText next={next} />
+      {next.cover ? <Picture className="h-[120px] w-[200px] rounded-[14px] object-cover max-[640px]:w-full" image={next.cover} /> : null}
+    </Link>
+  );
+}
+
+function DetailExtras({ detail }: DetailBodyProps) {
+  return (
+    <>
+      {detail.cover ? <DetailMedia cover={detail.cover} /> : null}
+      <DetailGallery images={detail.gallery} />
+      {detail.next ? <NextDetail next={detail.next} /> : null}
+    </>
+  );
+}
+
 function DetailBody({ detail }: DetailBodyProps) {
   return (
     <section className="pb-20">
       <Container className="flex flex-col items-start gap-10">
-        {detail.cover ? <DetailMedia cover={detail.cover} /> : null}
+        <DetailExtras detail={detail} />
         <DetailBackLink detail={detail} />
       </Container>
     </section>

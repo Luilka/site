@@ -284,6 +284,11 @@ window.draw = (clock) => {
   } else set(caption, { opacity: 0 });
   set(endCard, { opacity: win(t, 15.8, 16.6, 17.5, 17.95), transform: `translateY(${(1 - outQuart(seg(t, 15.8, 16.8))) * 20}px)` });
   set(fade, { opacity: seg(t, 17.5, 17.99) });
+  if (new URLSearchParams(location.search).get("bare")) {
+    set(caption, { opacity: 0 });
+    set(endCard, { opacity: 0 });
+    set(fade, { opacity: 0 });
+  }
 };
 window.MOTION = { FPS, DURATION };
 window.draw(new URLSearchParams(location.search).get("t") || 0);

@@ -11,6 +11,8 @@ const detail: DetailModel = {
   description: "Texte",
   backHref: "/products",
   backLabel: "Produits",
+  gallery: [],
+  next: null,
 };
 
 describe("icons", () => {

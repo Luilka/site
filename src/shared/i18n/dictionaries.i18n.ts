@@ -311,6 +311,7 @@ const fr: Dictionary = {
   reelPlay: "Reprendre la vidéo",
   soundOn: "Activer le son",
   processKeywords: ["Observer", "Cadrer", "Concevoir", "Construire", "Tester", "Lancer"],
+  detailNext: { work: "Projet suivant", products: "Produit suivant", services: "Service suivant", blog: "Article suivant" },
   consent: {
     label: "Mesure d'audience",
     text: "Nous mesurons les visites avec Google Analytics, qui utilise des cookies. Acceptez-vous ?",
@@ -565,6 +566,7 @@ const en: Dictionary = {
   reelPlay: "Resume the video",
   soundOn: "Turn the sound on",
   processKeywords: ["Observe", "Scope", "Design", "Build", "Test", "Launch"],
+  detailNext: { work: "Next project", products: "Next product", services: "Next service", blog: "Next article" },
   consent: {
     label: "Audience measurement",
     text: "We measure visits with Google Analytics, which uses cookies. Do you accept?",
