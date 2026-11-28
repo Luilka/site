@@ -47,7 +47,7 @@ def test_mega_panel_spans_the_viewport() -> None:
 
 def test_header_surface_sits_behind_the_navigation() -> None:
     header = (SRC / "components" / "layout.tsx").read_text(encoding="utf-8")
-    assert "-z-1 bg-white/40 backdrop-blur-md" in header
+    assert "-z-1 bg-white/60 backdrop-blur-md" in header
 
 
 def test_mega_panel_matches_the_header_surface() -> None:

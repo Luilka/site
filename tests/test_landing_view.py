@@ -114,4 +114,4 @@ def test_header_is_sticky_and_uses_utility_classes() -> None:
     assert "sticky top-0" in header
     assert "z-13" in header
     assert "max-w-7xl" in header
-    assert "absolute inset-0 -z-1 bg-white/40 backdrop-blur-md" in header
+    assert "absolute inset-0 -z-1 bg-white/60 backdrop-blur-md" in header
