@@ -200,14 +200,14 @@ export function PageHero(props: PageHeroProps) {
 const TRACK = "flex w-max hover:[animation-play-state:paused] motion-reduce:w-auto motion-reduce:animate-none";
 const LIST = "flex min-w-[max(100vw,1280px)] shrink-0 items-center justify-around gap-12 px-6 motion-reduce:w-full motion-reduce:min-w-0 motion-reduce:shrink motion-reduce:flex-wrap motion-reduce:justify-center motion-reduce:gap-x-6 motion-reduce:gap-y-2";
 const LIST_COPY = `${LIST} motion-reduce:hidden`;
-const CHEVRON = "opacity-50 motion-reduce:max-[1000px]:hidden";
+const CHEVRON = "motion-reduce:max-[1000px]:hidden";
 const CHEVRON_LAST = `${CHEVRON} motion-reduce:hidden`;
 const TILT = "absolute inset-0 -left-0.5 -right-0.5 bg-gray animate-stripes motion-reduce:animate-none bg-[repeating-linear-gradient(45deg,transparent_0_8px,color-mix(in_srgb,var(--text)_18%,transparent)_8px_10px)] bg-size-[14.1421px_14.1421px]";
 
 function ProcessStage({ label, last, reverse }: ProcessStageProps) {
   return (
     <>
-      <span className="text-(length:--text-xl) font-semibold tracking-[0.02em]">{label}</span>
+      <span className="font-display text-(length:--text-xl) font-semibold uppercase tracking-[0.08em]">{label}</span>
       <Motorbike size={26} strokeWidth={1.5} aria-hidden="true" className={`${last ? CHEVRON_LAST : CHEVRON} ${reverse ? "-scale-x-100" : ""}`} />
     </>
   );
@@ -225,7 +225,7 @@ function ProcessStageList({ className, reverse }: ProcessStageListProps) {
 
 function ProcessStages({ reverse }: ProcessBandProps) {
   return (
-    <div className="relative z-2 overflow-x-clip bg-night text-gold py-7 font-medium">
+    <div className="relative z-2 overflow-x-clip bg-night text-paper py-7 font-medium">
       <div className={`${TRACK} ${reverse ? "animate-marquee" : "animate-marquee-right"}`}>
         <ProcessStageList className={LIST} reverse={reverse} />
         <ProcessStageList className={LIST_COPY} reverse={reverse} />

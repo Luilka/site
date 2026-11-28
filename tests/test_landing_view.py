@@ -26,6 +26,7 @@ def test_root_layout_declares_the_french_document() -> None:
     assert "lang={language}" in document
     assert "<title>Luilka | Design agency</title>" in document
     assert "family=Inter:wght@400;500;600;700&display=swap" in document
+    assert "family=Space+Grotesk" in document
 
 
 def test_root_layout_renders_the_reference_chrome() -> None:
