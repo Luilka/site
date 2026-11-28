@@ -31,6 +31,13 @@ describe("landing components", () => {
     expect(reversed.querySelector(".animate-marquee")).not.toBeNull();
   });
 
+  it("runs the striped band behind the marquee the other way round", () => {
+    const forward = render(<ProcessBand />).container;
+    expect(forward.querySelector(".animate-stripes")?.className).toContain("[animation-direction:reverse]");
+    const reversed = render(<ProcessBand reverse />).container;
+    expect(reversed.querySelector(".animate-stripes")?.className).not.toContain("[animation-direction:reverse]");
+  });
+
   it("loops the band as a marquee that reduced motion turns off", () => {
     const { container } = render(<ProcessBand />);
     const track = container.querySelector(".animate-marquee-right");
@@ -65,8 +72,9 @@ describe("landing components", () => {
     expect(tilted).not.toContain("bg-night");
     expect(tilted).toContain("animate-stripes");
     expect(tilted).toContain("motion-reduce:animate-none");
+    expect(tilted).toContain("[animation-direction:reverse]");
     const reversed = render(<ProcessBand reverse />).container.querySelector('[class*="rotate-2"]')?.className ?? "";
-    expect(reversed).toContain("[animation-direction:reverse]");
+    expect(reversed).not.toContain("[animation-direction:reverse]");
   });
 
   it("takes the four steps from deep forest through gold and sand to the forest accent of the delivery", () => {

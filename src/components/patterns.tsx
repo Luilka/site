@@ -247,7 +247,7 @@ function ProcessStages({ reverse }: ProcessBandProps) {
 export function ProcessBand({ reverse = false }: ProcessBandProps) {
   return (
     <div className="relative overflow-x-clip" aria-hidden="true">
-      <div className={`${TILT} ${reverse ? "rotate-2 [animation-direction:reverse]" : "-rotate-2"}`}></div>
+      <div className={`${TILT} ${reverse ? "rotate-2" : "-rotate-2 [animation-direction:reverse]"}`}></div>
       <ProcessStages reverse={reverse} />
     </div>
   );
