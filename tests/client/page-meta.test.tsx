@@ -1,6 +1,7 @@
 import { renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, it } from "vitest";
 import RootLayout from "@/routes/layout.tsx";
+import site from "@/content/site.json";
 import { buildPageMeta } from "@/shared/utils/page-meta.util.ts";
 import type { PageMetaInput } from "@/shared/types";
 
@@ -95,12 +96,20 @@ describe("document head", () => {
     expect(at("/fr/products/tala")).toContain("<title>Tala | Luilka</title>");
   });
 
-  it("declares the icon, the theme colour, noindex and the share preview", () => {
+  it("declares the icon, the theme colour, the robots rule and the share preview", () => {
     const head = at("/fr");
     expect(head).toContain('rel="icon"');
     expect(head).toContain('name="theme-color"');
-    expect(head).toContain('content="noindex, nofollow"');
+    expect(head).toContain(site.indexable ? 'content="index, follow"' : 'content="noindex, nofollow"');
     expect(head).toContain('property="og:title"');
     expect(head).toContain('name="twitter:card"');
+  });
+
+  it("writes the canonical address, both languages and the share image from the public address", () => {
+    const head = at("/fr/about");
+    expect(head).toContain(`href="${site.url}/fr/about"`);
+    expect(head).toContain(`hrefLang="en" href="${site.url}/en/about"`);
+    expect(head).toContain(`content="${site.url}/og-image.webp"`);
+    expect(at("/fr")).toContain("application/ld+json");
   });
 });

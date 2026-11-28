@@ -32,6 +32,7 @@
 | D-022 | Le film de l'agence est un film de motion design en chronologie « De l'idée à l'app » (32 secondes, français et anglais, formes, textes et écrans d'exemple, son synthétisé), qui montre la méthode et non un produit. Sa version 2 utilise la voix de Veyla et le portrait réel du titulaire. Il remplace la piste du film documentaire tourné avec des personnes comme film principal ; le dossier de tournage et le guide de la voix restent disponibles pour une version future avec de vraies personnes. | 27 novembre 2026 | @Espoir-Loem | [film](../UX/film-de-l-idee-a-l-app.md) |
 | D-023 | Le film « De l'idée à l'app » est présenté sur la page À propos, après la mission : lecture sur clic, jamais automatique, avec les commandes du navigateur, aucun chargement avant la lecture, version de la langue de la page (français avec voix et sous-titres, anglais sans voix), transcription repliée et mention que l'écran montré est un exemple. Le héros de l'accueil garde sa boucle courte (D-021). | 27 novembre 2026 | @Espoir-Loem | [film](../UX/film-de-l-idee-a-l-app.md) |
 | D-024 | Les métadonnées du document sont écrites par page et par langue : titre « page \| Luilka » (accueil : « Luilka \| titre du studio »), description, aperçu de partage Open Graph et Twitter, favicon, couleur de thème. Les adresses absolues (adresse canonique, `hreflang`, `og:url`, image de partage, données structurées) n'apparaissent que lorsque l'adresse publique est renseignée dans `src/content/site.json`, comme les liens sociaux. Tant que le site sert à des présentations privées, il porte `noindex` et un `robots.txt` qui interdit l'exploration. Q-003 est close par cette décision. | 28 novembre 2026 | @Espoir-Loem | [architecture](../Technique/architecture.md) |
+| D-025 | L'adresse publique du site est `https://luilka.vercel.app` et le site est indexable : `src/content/site.json` porte l'adresse et `indexable: true`, `public/robots.txt` autorise l'exploration et nomme `public/sitemap.xml`, que `scripts/build_sitemap.py` écrit à partir des pages et de `details.json` (deux langues, avec `hreflang`). Les images de tiers provisoires restent à remplacer avant de promouvoir le site à d'autres publics. Q-005 est close par cette décision. | 28 novembre 2026 | @Espoir-Loem | [architecture](../Technique/architecture.md) |
 
 ## Questions ouvertes
 
@@ -39,7 +40,6 @@
 |---|---|---|---|
 | Q-001 | Faut-il servir le contenu rendu côté serveur pour le référencement et la lecture sans JavaScript ? | Le HTML initial ne contient que l'en-tête et le pied de page | à trancher |
 | Q-004 | Quel outil de mesure d'usage, sans identifiant permanent de visiteur, alimente les mesures `SITE`, `PERF` et `SEO` ? | 15 mesures de `kpi.md` sont à instrumenter | à trancher |
-| Q-005 | Quelle est l'adresse publique du site, et à quelle date faut-il passer le site en `indexable` ? | `src/content/site.json` : adresse vide et `noindex` actif, Vercel sert aux présentations | @Espoir-Loem |
 
 ## Historique
 
@@ -61,3 +61,4 @@
 - 27 novembre 2026 : D-022 inscrite à la demande du titulaire (film en motion design, de l'idée à l'app). Elle précise le cap de D-021 pour les films. Documents touchés : `AGENTS.md`, `docs/UX/film-de-l-idee-a-l-app.md`, `docs/UX/recherche-video-motion.md`.
 - 27 novembre 2026 : D-023 inscrite à la demande du titulaire (ajout du film au site). Documents touchés : `AGENTS.md`, `docs/Technique/architecture.md`, `docs/UX/film-de-l-idee-a-l-app.md`.
 - 28 novembre 2026 : D-024 inscrite à la demande du titulaire (métadonnées professionnelles). La question Q-003 est close. Q-005 ouverte pour l'adresse publique et l'indexation. Documents touchés : `AGENTS.md`, `docs/Technique/architecture.md`.
+- 28 novembre 2026 : D-025 inscrite à la demande du titulaire (« indexable, il faut le faire »). La question Q-005 est close. Documents touchés : `AGENTS.md`, `docs/Technique/architecture.md`.
