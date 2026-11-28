@@ -19,8 +19,8 @@ describe("landing components", () => {
 
   it("renders the process band", () => {
     const { container } = render(<ProcessBand />);
-    expect(container.querySelectorAll("svg.lucide-rocket")).toHaveLength(2);
-    expect(container.textContent).toBe("");
+    expect(container.querySelectorAll("svg.lucide-rocket")).toHaveLength(0);
+    expect(container.textContent).toContain("Observer");
   });
 
   it("scrolls to the right, and a reversed band scrolls to the left", () => {

@@ -180,6 +180,7 @@ export type Dictionary = {
   reelPause: string;
   reelPlay: string;
   soundOn: string;
+  processKeywords: readonly string[];
   soundOff: string;
   mobileNavigationLabel: string;
   breadcrumb: BreadcrumbCopy;

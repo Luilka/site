@@ -1,4 +1,4 @@
-import { ArrowUpRight, ChevronRight, Motorbike, Pause, Play, Volume2, VolumeX, CalendarDays, Code, FlaskConical, Lightbulb, LayoutDashboard, PenTool, Rocket, type LucideIcon } from "lucide-react";
+import { ArrowUpRight, ChevronRight, Motorbike, Pause, Play, Volume2, VolumeX, CalendarDays } from "lucide-react";
 import { buttonClasses } from "@/shared/ui/buttons.tsx";
 import { Link, ErrorBoundary } from "@/shared/ui/links.tsx";
 import { Container } from "@/shared/ui/containers.tsx";
@@ -10,7 +10,6 @@ import { motion } from "motion/react";
 import { useVideoPlayback } from "@/shared/hooks/use-video-playback.hook.ts";
 import { Badge } from "@/shared/ui/badges.tsx";
 import { cn } from "@/shared/utils/cn.util.ts";
-import { PROCESS_STAGES } from "@/shared/utils/process-stages.util.ts";
 import type { ActionLinkProps, BreadcrumbProps, ContactPanelProps, FeedbackBoundaryProps, PageFrameProps, PageHeroProps, PageHeroTextProps, PageLeadProps, PageTitleProps, ProcessBandProps, ReelSoundProps, ReelToggleProps, ReelVideoProps, ProcessStageListProps, ProcessStageProps, ContactButtonProps, RevealProps, StateCopyProps } from "@/shared/types";
 
 export function ActionLink({ action, className }: ActionLinkProps) {
@@ -205,30 +204,21 @@ const CHEVRON = "opacity-50 motion-reduce:max-[1000px]:hidden";
 const CHEVRON_LAST = `${CHEVRON} motion-reduce:hidden`;
 const TILT = "absolute inset-0 -left-0.5 -right-0.5 bg-gray animate-stripes motion-reduce:animate-none bg-[repeating-linear-gradient(45deg,transparent_0_8px,color-mix(in_srgb,var(--text)_18%,transparent)_8px_10px)] bg-size-[14.1421px_14.1421px]";
 
-const STAGE_ICONS: Record<string, LucideIcon> = {
-  Concept: Lightbulb,
-  "UX Design": PenTool,
-  "UI Design": LayoutDashboard,
-  Code: Code,
-  Test: FlaskConical,
-  Production: Rocket,
-};
-
 function ProcessStage({ label, last, reverse }: ProcessStageProps) {
-  const Icon = STAGE_ICONS[label];
   return (
     <>
-      <Icon size={30} strokeWidth={1.6} aria-hidden="true" />
+      <span className="text-(length:--text-xl) font-semibold tracking-[0.02em]">{label}</span>
       <Motorbike size={26} strokeWidth={1.5} aria-hidden="true" className={`${last ? CHEVRON_LAST : CHEVRON} ${reverse ? "-scale-x-100" : ""}`} />
     </>
   );
 }
 
 function ProcessStageList({ className, reverse }: ProcessStageListProps) {
-  const lastIndex = PROCESS_STAGES.length - 1;
+  const { processKeywords } = useContent();
+  const lastIndex = processKeywords.length - 1;
   return (
     <div className={className}>
-      {PROCESS_STAGES.map((stage, index) => <ProcessStage key={stage} label={stage} last={index === lastIndex} reverse={reverse} />)}
+      {processKeywords.map((keyword, index) => <ProcessStage key={keyword} label={keyword} last={index === lastIndex} reverse={reverse} />)}
     </div>
   );
 }

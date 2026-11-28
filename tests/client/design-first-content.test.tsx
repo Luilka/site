@@ -120,6 +120,12 @@ describe("design-first home content", () => {
     expect(container.querySelectorAll("a[href*='/work/'] p")).toHaveLength(0);
   });
 
+  it("names the stages of the Luilka process with keywords, in order, instead of icons", () => {
+    const { container } = render(<ProcessBand />);
+    const words = Array.from(container.querySelectorAll("span"), (span) => span.textContent);
+    expect(words.slice(0, 6)).toEqual(["Observer", "Cadrer", "Concevoir", "Construire", "Tester", "Lancer"]);
+  });
+
   it("hides the decorative process band from assistive technology", () => {
     const { container } = render(<ProcessBand />);
     expect(container.firstElementChild?.getAttribute("aria-hidden")).toBe("true");
