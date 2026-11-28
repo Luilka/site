@@ -1,7 +1,7 @@
 import { render, screen, within } from "@testing-library/react";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { Footer, Header } from "@/components/layout.tsx";
-import { ProcessBand } from "@/components/patterns.tsx";
+import { ContactPanel, ProcessBand } from "@/components/patterns.tsx";
 import { ProcessSection } from "@/components/sections.tsx";
 import { ProductCard, ServiceCard, StepCard, WorkCard } from "@/components/cards.tsx";
 import { SAMPLE_IMAGE } from "./fixtures.ts";
@@ -101,6 +101,14 @@ describe("landing components", () => {
     const classes = container.querySelector("a")?.className ?? "";
     expect(classes).toContain("h-[500px]");
     expect(classes).toContain("max-[640px]:h-[380px]");
+  });
+
+  it("lays a fine dot pattern on the contact section behind its card, not the header grid", () => {
+    const { container } = render(<ContactPanel />);
+    const section = container.querySelector("section#contact");
+    expect(section?.className).toContain("bg-dots");
+    expect(section?.className).toContain("bg-soft");
+    expect(section?.className).not.toContain("bg-grid");
   });
 
   it("renders a service", () => {

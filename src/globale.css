@@ -76,6 +76,11 @@
   background-size: 6px 6px;
 }
 
+@utility bg-dots {
+  background-image: radial-gradient(circle, var(--dot-colour, #c9c9c2) 1px, transparent 1.4px);
+  background-size: 16px 16px;
+}
+
 @utility row-center {
   display: flex;
   align-items: center;
