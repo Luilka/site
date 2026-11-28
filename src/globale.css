@@ -4,6 +4,7 @@
   --color-paper: var(--paper);
   --color-gray: var(--gray);
   --color-gold: var(--gold);
+  --color-yellow: var(--yellow);
   --color-accent: var(--accent);
   --color-text: var(--text);
   --color-muted: var(--muted);
@@ -62,6 +63,7 @@
   --gray: #ebebe8;
   --accent: #1c3f34;
   --gold: #c9a24b;
+  --yellow: #ffd23f;
   --text: #0a0a0a;
   --muted: #454540;
   --bg-soft: #f5f5f2;

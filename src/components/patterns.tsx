@@ -11,7 +11,7 @@ import { motion } from "motion/react";
 import { useVideoPlayback } from "@/shared/hooks/use-video-playback.hook.ts";
 import { Badge } from "@/shared/ui/badges.tsx";
 import { cn } from "@/shared/utils/cn.util.ts";
-import type { ActionLinkProps, BreadcrumbProps, ContactPanelProps, FeedbackBoundaryProps, PageFrameProps, PageHeroProps, PageHeroTextProps, PageLeadProps, PageTitleProps, ProcessBandProps, ReelSoundProps, ReelToggleProps, ReelVideoProps, ProcessStageListProps, ProcessStageProps, ContactButtonProps, RevealProps, StateCopyProps } from "@/shared/types";
+import type { ActionLinkProps, BreadcrumbProps, ContactPanelProps, FeedbackBoundaryProps, PageFrameProps, PageHeroProps, PageHeroTextProps, PageLeadProps, PageTitleProps, ProcessBandProps, ReelSoundProps, ReelToggleProps, ReelVideoProps, ProcessStageListProps, ProcessStageProps, StageLabelProps, ContactButtonProps, RevealProps, StateCopyProps } from "@/shared/types";
 
 export function ActionLink({ action, className }: ActionLinkProps) {
   return (
@@ -205,10 +205,19 @@ const CHEVRON = "opacity-50 motion-reduce:max-[1000px]:hidden";
 const CHEVRON_LAST = `${CHEVRON} motion-reduce:hidden`;
 const TILT = "absolute inset-0 -left-0.5 -right-0.5 bg-gray animate-stripes motion-reduce:animate-none bg-[repeating-linear-gradient(45deg,transparent_0_8px,color-mix(in_srgb,var(--text)_18%,transparent)_8px_10px)] bg-size-[14.1421px_14.1421px]";
 
+function StageLabel({ number, label }: StageLabelProps) {
+  return (
+    <span data-part="stage" className="font-display flex items-baseline gap-2 text-(length:--text-xl) font-semibold uppercase tracking-[0.08em]">
+      <span data-part="stage-number" className="text-(length:--text-xs) font-light tracking-[0.04em] text-yellow">{number}</span>
+      {" "}{label}
+    </span>
+  );
+}
+
 function ProcessStage({ label, number, last, reverse }: ProcessStageProps) {
   return (
     <>
-      <span className="font-display text-(length:--text-xl) font-semibold uppercase tracking-[0.08em]">{number} {label}</span>
+      <StageLabel number={number} label={label} />
       <Motorbike size={26} strokeWidth={1.5} aria-hidden="true" className={`${last ? CHEVRON_LAST : CHEVRON} ${reverse ? "-scale-x-100" : ""}`} />
     </>
   );

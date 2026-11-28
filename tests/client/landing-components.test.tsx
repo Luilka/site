@@ -36,7 +36,7 @@ describe("landing components", () => {
     const band = container.querySelector(".animate-marquee-right")?.parentElement;
     expect(band?.className).toContain("text-paper");
     expect(band?.className).not.toContain("text-gold");
-    expect(container.querySelector("span")?.className).toContain("font-display");
+    expect(container.querySelector("[data-part='stage']")?.className).toContain("font-display");
     expect(container.querySelector("svg.lucide-motorbike")?.getAttribute("class")).toContain("opacity-50");
   });
 
