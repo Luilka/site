@@ -1,8 +1,9 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import { Header } from "@/components/layout.tsx";
-import About from "@/routes/[lang]/about.tsx";
+import { AboutSection } from "@/components/sections.tsx";
 import { Logo } from "@/shared/ui/logos.tsx";
+import { SAMPLE_IMAGE } from "./fixtures.ts";
 
 describe("logo", () => {
   it("draws the supplied solid fingerprint inline", () => {
@@ -28,9 +29,22 @@ describe("logo", () => {
     expect(screen.getByRole("link", { name: "Luilka, accueil" }).querySelector("svg > path")).not.toBeNull();
   });
 
-  it("is drawn as the visual of the about section without any sprite reference", () => {
-    const { container } = render(<About />);
+  it("centres the home about text vertically next to the picture", () => {
+    const { container } = render(<AboutSection title="Titre" paragraphs={["Texte"]} image={SAMPLE_IMAGE} />);
+    const text = container.querySelector("h2")?.parentElement;
+    expect(text?.className).toContain("justify-center");
+    expect(text?.className).not.toContain("pt-[36px]");
+  });
+
+  it("keeps the learn more button as wide as its label", () => {
+    const { container } = render(<AboutSection title="Titre" paragraphs={["Texte"]} action={{ label: "En savoir plus", href: "/about" }} image={SAMPLE_IMAGE} />);
+    expect(container.querySelector("a")?.className).toContain("w-fit");
+  });
+
+  it("is not repeated in the home about section, which shows a studio picture instead", () => {
+    const { container } = render(<AboutSection paragraphs={["Texte"]} image={SAMPLE_IMAGE} />);
     expect(container.querySelector("use")).toBeNull();
-    expect(container.querySelector("svg.size-\\[140px\\] > path")).not.toBeNull();
+    expect(container.querySelector("svg.size-\\[140px\\]")).toBeNull();
+    expect(container.querySelector("img")?.getAttribute("src")).toBe(SAMPLE_IMAGE.src);
   });
 });

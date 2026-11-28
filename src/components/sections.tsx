@@ -1,15 +1,14 @@
 import { Container } from "@/shared/ui/containers.tsx";
-import { ActionLink, ContactPanel, PageHero, NotFoundPanel } from "@/components/patterns.tsx";
+import { ActionLink, Breadcrumb, ContactPanel, PageHero, PageLead, PageTitle, NotFoundPanel } from "@/components/patterns.tsx";
 import type { SectionProps } from "@/shared/types/section-props.type.ts";
 import { infoHref } from "@/shared/utils/info-href.util.ts";
-import type { AboutSectionProps, AboutTextProps, CardGridProps, CollectionSectionProps, DetailBackLinkProps, DetailBodyProps, DetailMediaProps, DetailPageProps, DetailRouteViewProps, HeadingTextProps, InfoCard, InfoCardBodyProps, InfoCardProps, InfoSectionProps, ProcessSectionProps, SectionHeadingProps } from "@/shared/types";
+import type { AboutArtProps, AboutHeroProps, FilmPlayerProps, FilmSectionProps, FilmTranscriptProps, AboutSectionProps, AboutTextProps, BandProps, CardGridProps, CollectionSectionProps, DetailBackLinkProps, DetailBodyProps, DetailMediaProps, DetailPageProps, DetailRouteViewProps, HeadingTextProps, InfoCard, InfoCardBodyProps, InfoCardProps, InfoSectionProps, MissionDetailsProps, MissionSectionProps, ProcessSectionProps, SectionHeadingProps, TeamGridProps, TeamSectionProps, ValueGridProps, ValuesSectionProps } from "@/shared/types";
 import { buttonClasses } from "@/shared/ui/buttons.tsx";
 import { Link } from "@/shared/ui/links.tsx";
 import { Card } from "@/shared/ui/cards.tsx";
-import { Image } from "@/shared/ui/images.tsx";
-import { Logo } from "@/shared/ui/logos.tsx";
+import { Picture } from "@/shared/ui/images.tsx";
 import { Badge } from "@/shared/ui/badges.tsx";
-import { StepCard, ProductCard, ServiceCard, WorkCard } from "@/components/cards.tsx";
+import { StepCard, ProductCard, ServiceCard, TeamCard, ValueCard, WorkCard } from "@/components/cards.tsx";
 import { useContent } from "@/shared/i18n";
 import { Fragment } from "react";
 import { ArrowLeft } from "lucide-react";
@@ -21,30 +20,36 @@ const STACK = "max-[1000px]:grid-cols-[1fr_1fr] max-[640px]:grid-cols-[1fr]";
 const INFO_CARD = "min-w-0 p-[1.5rem] border border-[color-mix(in_srgb,var(--text)_12%,var(--paper))] rounded-[1.125rem] bg-paper";
 const INFO_TITLE = "mt-3 mb-2 text-(length:--text-xl)";
 const INFO_TEXT = "text-sm text-muted leading-[1.6]";
+const BAND = "py-[clamp(2.5rem,6vw,5rem)]";
+const SPLIT = "grid grid-cols-2 items-center gap-16 max-[1000px]:grid-cols-[1fr] max-[1000px]:gap-10";
+const ROUNDED = "rounded-[28px]";
+const MISSION_TEXT = "mt-5 text-(length:--text-base) text-muted leading-[1.6]";
+const VALUE_GRID = "mt-16 grid grid-cols-1 gap-4 min-[641px]:grid-cols-2 min-[1001px]:grid-cols-3 min-[1001px]:auto-rows-[minmax(16.5rem,auto)]";
+const TEAM_GRID = "mt-16 grid grid-cols-3 gap-4 max-[1000px]:grid-cols-2 max-[640px]:grid-cols-1";
 
-function AboutArt() {
+function AboutArt({ image }: AboutArtProps) {
   return (
-    <div className="flex items-center justify-center bg-gray rounded-[22px] min-h-[400px]">
-      <Logo className="size-[140px] text-[#2a2a30]" />
+    <div className="relative min-h-[400px] overflow-hidden rounded-[22px] bg-gray">
+      <Picture className="absolute inset-0 size-full" image={image} />
     </div>
   );
 }
 
 function AboutText({ title, paragraphs, action }: AboutTextProps) {
   return (
-    <div className="pt-[36px]">
+    <div className="flex flex-col justify-center">
       {title ? <h2 className="text-(length:--text-2xl) font-semibold mb-[28px]">{title}</h2> : null}
       {paragraphs.map((paragraph) => <p key={paragraph} className="text-(length:--text-base) text-muted leading-[1.6] mb-[22px] max-w-[520px]">{paragraph}</p>)}
-      {action ? <ActionLink action={action} /> : null}
+      {action ? <ActionLink action={action} className="w-fit" /> : null}
     </div>
   );
 }
 
-export function AboutSection({ id, ...text }: AboutSectionProps) {
+export function AboutSection({ id, image, ...text }: AboutSectionProps) {
   return (
     <section className="pt-[12px] pb-[90px]" id={id}>
       <Container className="grid items-stretch grid-cols-[540px_1fr] gap-[64px] max-[1000px]:grid-cols-[1fr]">
-        <AboutArt />
+        <AboutArt image={image} />
         <AboutText {...text} />
       </Container>
     </section>
@@ -78,9 +83,122 @@ export function ProcessSection({ id }: ProcessSectionProps) {
   return (
     <section className="pt-[70px] pb-[20px]" id={id}>
       <Container className={`grid grid-cols-4 gap-4 ${STACK}`}>
-        {steps.map((step) => <StepCard key={step.number} {...step} />)}
+        {steps.map((step, index) => <StepCard key={step.number} {...step} index={index} />)}
       </Container>
     </section>
+  );
+}
+
+function Band({ children, className }: BandProps) {
+  return (
+    <section className={BAND}>
+      <Container className={className}>{children}</Container>
+    </section>
+  );
+}
+
+export function AboutHero({ eyebrow, title, description, image }: AboutHeroProps) {
+  return (
+    <section className="pt-[clamp(3rem,7vw,5rem)] pb-[clamp(2rem,5vw,3.5rem)]">
+      <Container className={SPLIT}>
+        <div><Breadcrumb current={eyebrow} /><PageTitle className="mt-8">{title}</PageTitle><PageLead>{description}</PageLead></div>
+        <Picture className={ROUNDED} image={image} loading="eager" fetchPriority="high" />
+      </Container>
+    </section>
+  );
+}
+
+function MissionDetails({ images }: MissionDetailsProps) {
+  return (
+    <div className="mt-8 grid grid-cols-2 gap-4">
+      <Picture className={ROUNDED} image={images.detailA} />
+      <Picture className={ROUNDED} image={images.detailB} />
+    </div>
+  );
+}
+
+function MissionCopy({ title, paragraphs, images }: MissionSectionProps) {
+  return (
+    <div>
+      <h2 className="text-(length:--text-2xl) font-semibold">{title}</h2>
+      {paragraphs.map((paragraph) => <p key={paragraph} className={MISSION_TEXT}>{paragraph}</p>)}
+      <MissionDetails images={images} />
+    </div>
+  );
+}
+
+export function MissionSection(props: MissionSectionProps) {
+  return (
+    <Band className={SPLIT}>
+      <MissionCopy {...props} />
+      <Picture className={`${ROUNDED} min-[1001px]:order-first`} image={props.images.mission} />
+    </Band>
+  );
+}
+
+function ValueGrid({ items }: ValueGridProps) {
+  return (
+    <div className={VALUE_GRID}>
+      {items.map((item, index) => <ValueCard key={item.title} {...item} index={index} />)}
+    </div>
+  );
+}
+
+function FilmPlayer({ title, film }: FilmPlayerProps) {
+  const track = film.captions;
+  return (
+    <video className="mt-10 aspect-video w-full rounded-[28px] bg-night" controls preload="none" playsInline poster={film.poster} aria-label={title}>
+      <source src={film.src} type="video/mp4" />
+      {track && <track kind="captions" src={track.src} srcLang={track.lang} label={track.label} default />}
+    </video>
+  );
+}
+
+function FilmTranscript({ film }: FilmTranscriptProps) {
+  return (
+    <details className="mt-6 max-w-[44rem] text-muted">
+      <summary className="cursor-pointer py-2 font-medium text-text">{film.transcriptLabel}</summary>
+      {film.transcript.map((line) => <p key={line} className="mt-3 leading-[1.6]">{line}</p>)}
+    </details>
+  );
+}
+
+export function FilmSection({ title, description, film }: FilmSectionProps) {
+  return (
+    <Band>
+      <HeadingText title={title} description={description} />
+      <FilmPlayer title={title} film={film} />
+      <p className="mt-4 text-(length:--text-sm) text-muted">{film.note}</p>
+      <FilmTranscript film={film} />
+    </Band>
+  );
+}
+
+export function ValuesSection({ title, description, items }: ValuesSectionProps) {
+  if (items.length === 0) return null;
+  return (
+    <Band>
+      <HeadingText title={title} description={description} />
+      <ValueGrid items={items} />
+    </Band>
+  );
+}
+
+function TeamGrid({ members }: TeamGridProps) {
+  return (
+    <div className={TEAM_GRID}>
+      {members.map((member) => <TeamCard key={member.name} {...member} />)}
+    </div>
+  );
+}
+
+export function TeamSection({ title, description, members }: TeamSectionProps) {
+  if (members.length === 0) return null;
+  return (
+    <Band>
+      <HeadingText title={title} description={description} />
+      <TeamGrid members={members} />
+    </Band>
   );
 }
 
@@ -156,7 +274,7 @@ function DetailBackLink({ detail }: DetailBackLinkProps) {
 
 function DetailMedia({ cover }: DetailMediaProps) {
   return (
-    <Image className="w-full h-auto rounded-[22px]" src={cover.src} width={cover.width} height={cover.height} alt="" loading="eager" fetchPriority="high" style={{ viewTransitionName: cover.name }} />
+    <Picture className="max-h-[720px] rounded-[22px]" image={cover} loading="eager" fetchPriority="high" style={{ viewTransitionName: cover.name }} />
   );
 }
 

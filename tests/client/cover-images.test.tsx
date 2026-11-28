@@ -18,6 +18,21 @@ describe("cover images", () => {
     expect(cover?.getAttribute("alt")).toBe("");
   });
 
+  it.each([
+    ["work", <WorkCard key="w" slug="yano" name="Yano" kind="UX Design" image={SAMPLE_IMAGE} />],
+    ["product", <ProductCard key="p" slug="tala" name="Tala" description="Texte" image={SAMPLE_IMAGE} />],
+  ])("fills the whole %s card with the cover and lays the text over it", (_name, card) => {
+    const { container } = render(card);
+    const link = container.querySelector("a");
+    expect(link?.className).toContain("relative");
+    expect(link?.className).toContain("overflow-hidden");
+    const cover = link?.querySelector("img")?.className ?? "";
+    for (const name of ["absolute", "inset-0", "size-full", "object-cover"]) expect(cover).toContain(name);
+    const info = link?.lastElementChild?.className ?? "";
+    expect(info).toContain("absolute");
+    expect(info).toContain("backdrop-blur");
+  });
+
   it("shows the cover of a product on its card", () => {
     const { container } = render(<ProductCard slug="tala" name="Tala" description="Texte" image={SAMPLE_IMAGE} />);
     expect(container.querySelector("img")?.getAttribute("src")).toBe("/images/work/sample.svg");
@@ -31,14 +46,19 @@ describe("cover images", () => {
   it("shows the cover of a case at the top of its page, loaded at once", () => {
     const { container } = render(<WorkDetail lang="fr" slug="yano" />);
     const cover = container.querySelector("img");
-    expect(cover?.getAttribute("src")).toBe("/images/work/yano.svg");
+    expect(cover?.getAttribute("src")).toBe("/images/work/yano.webp");
     expect(cover?.getAttribute("loading")).toBe("eager");
     expect(cover?.getAttribute("fetchpriority")).toBe("high");
   });
 
+  it("keeps a tall cover from filling the whole page", () => {
+    const { container } = render(<WorkDetail lang="fr" slug="yano" />);
+    expect(container.querySelector("img")?.getAttribute("class")).toContain("max-h-[720px]");
+  });
+
   it("shows the cover of a product at the top of its page", () => {
     const { container } = render(<ProductDetail lang="fr" slug="vuga" />);
-    expect(container.querySelector("img")?.getAttribute("src")).toBe("/images/products/vuga.svg");
+    expect(container.querySelector("img")?.getAttribute("src")).toBe("/images/products/vuga.webp");
   });
 
   it("does not repeat the description of a case or a service in a second card", () => {

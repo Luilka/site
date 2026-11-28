@@ -75,9 +75,16 @@ export type MobileMenuLinksProps = {
   onClose: () => void;
 };
 
-export type MobileMenuPanelProps = {
+export type MobileSheetProps = {
   id: string;
-  open: boolean;
+  menu: MobileMenuState;
+};
+
+export type MobileSheetPanelProps = {
+  menu: MobileMenuState;
+};
+
+export type MobileSheetHeadProps = {
   onClose: () => void;
 };
 

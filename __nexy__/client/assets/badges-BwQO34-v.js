@@ -1,0 +1,1 @@
+import{j as e}from"./jsx-runtime-u17CrQMm.js";import{c as p}from"./cn.util-2dOUpm6k.js";function s({className:r,...t}){return e.jsx("span",{className:p("pill-shape border border-[var(--border-ui)] text-(length:--text-xs) py-[2px] px-[9px] text-muted mb-[34px]",r),...t})}export{s as Badge};

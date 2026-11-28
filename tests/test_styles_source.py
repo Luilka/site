@@ -47,7 +47,7 @@ def test_mega_panel_spans_the_viewport() -> None:
 
 def test_header_surface_sits_behind_the_navigation() -> None:
     header = (SRC / "components" / "layout.tsx").read_text(encoding="utf-8")
-    assert "-z-1 bg-white/80 backdrop-blur" in header
+    assert "-z-1 bg-white/60 backdrop-blur-md" in header
 
 
 def test_mega_panel_matches_the_header_surface() -> None:
@@ -82,7 +82,11 @@ def test_mega_aside_links_have_separators() -> None:
 def test_marquee_animation_is_defined_once_in_the_theme() -> None:
     css = (SRC / "globale.css").read_text(encoding="utf-8")
     assert "--animate-marquee:" in css
-    assert css.count("@keyframes marquee") == 1
+    assert css.count("@keyframes marquee {") == 1
+    assert "--animate-marquee-right:" in css
+    assert "--animate-stripes: stripes 0.4s linear infinite;" in css
+    assert css.count("@keyframes stripes {") == 1
+    assert css.count("@keyframes marquee-right {") == 1
 
 
 def test_old_page_leaves_quickly_and_the_new_one_rises_into_view() -> None:
@@ -108,7 +112,10 @@ def test_page_transitions_stop_when_the_visitor_prefers_less_motion() -> None:
 
 def test_header_keeps_its_place_during_page_transitions() -> None:
     header = (SRC / "components" / "layout.tsx").read_text(encoding="utf-8")
-    assert "[view-transition-name:site-header]" in header
+    assert "[view-transition-name:site-brand]" in header
+    assert "[view-transition-name:site-language]" in header
+    assert "[view-transition-name:site-contact]" in header
+    assert "viewTransitionName" in header
 
 
 def test_cards_and_detail_pages_share_the_cover_transition_name() -> None:
@@ -119,3 +126,11 @@ def test_cards_and_detail_pages_share_the_cover_transition_name() -> None:
     assert "viewTransitionName" in cards
     assert "viewTransitionName: cover.name" in sections
     assert "coverName(kind, raw.slug)" in detail
+
+
+def test_focus_ring_stays_visible_on_black_and_white_sections() -> None:
+    css = (ROOT / "src" / "globale.css").read_text(encoding="utf-8")
+    focus = css[css.index(":focus-visible") :]
+    focus = focus[: focus.index("}")]
+    assert "var(--text)" in focus
+    assert "box-shadow: 0 0 0 5px var(--paper)" in focus

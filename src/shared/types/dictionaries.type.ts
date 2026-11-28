@@ -41,6 +41,68 @@ export type PageIntro = {
   description: string;
 };
 
+export type BreadcrumbCopy = {
+  label: string;
+  home: string;
+};
+
+export type ValueItem = {
+  title: string;
+  description: string;
+};
+
+export type TeamMember = {
+  name: string;
+  role: string;
+  github?: string;
+};
+
+export type AboutImages = {
+  hero: DetailImage;
+  mission: DetailImage;
+  detailA: DetailImage;
+  detailB: DetailImage;
+  studio: DetailImage;
+};
+
+export type ValuesCopy = {
+  title: string;
+  description: string;
+  items: readonly ValueItem[];
+};
+
+export type TeamCopy = {
+  title: string;
+  description: string;
+  members: readonly TeamMember[];
+};
+
+export type FilmCaptions = {
+  src: string;
+  lang: string;
+  label: string;
+};
+
+export type FilmCopy = {
+  title: string;
+  description: string;
+  note: string;
+  src: string;
+  poster: string;
+  captions: FilmCaptions | null;
+  transcriptLabel: string;
+  transcript: readonly string[];
+};
+
+export type AboutPageCopy = {
+  mission: string;
+  film: FilmCopy;
+  profileLabel: string;
+  values: ValuesCopy;
+  team: TeamCopy;
+  images: AboutImages;
+};
+
 export type ProcessStep = {
   number: string;
   title: string;
@@ -51,7 +113,6 @@ export type Service = {
   slug: string;
   title: string;
   description: string;
-  shape?: string;
 };
 
 export type NamedCard = {
@@ -108,14 +169,21 @@ export type FooterLink = {
 
 export type Dictionary = {
   hero: string;
-  quote: string;
+  emailLabel: string;
   discover: string;
   switchLanguage: string;
   contactAction: string;
   navigationLabel: string;
   homeLabel: string;
   menuLabel: string;
+  closeLabel: string;
+  reelPause: string;
+  reelPlay: string;
+  soundOn: string;
+  processKeywords: readonly string[];
+  soundOff: string;
   mobileNavigationLabel: string;
+  breadcrumb: BreadcrumbCopy;
   home: HomeCopy;
   sectionTitles: SectionTitles;
   sectionDescriptions: SectionDescriptions;
@@ -124,6 +192,7 @@ export type Dictionary = {
     title: string;
     description: string;
   };
+  aboutPage: AboutPageCopy;
   pages: Record<PageKey, PageIntro>;
   steps: readonly ProcessStep[];
   services: readonly Service[];

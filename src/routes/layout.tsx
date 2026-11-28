@@ -5,6 +5,7 @@ import { Footer, Header } from "@/components/layout.tsx";
 import type { DocumentProps, RootLayoutProps } from "@/shared/types";
 
 const INTER = "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap";
+const SPACE = "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600&display=swap";
 
 function FontLinks() {
   return (
@@ -12,6 +13,7 @@ function FontLinks() {
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       <link href={INTER} rel="stylesheet" />
+      <link href={SPACE} rel="stylesheet" />
     </>
   );
 }

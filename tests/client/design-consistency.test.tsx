@@ -59,6 +59,21 @@ describe("design consistency", () => {
     expect(new Set(iconClasses(container, "a > div:first-child svg")).size).toBe(4);
   });
 
+  it("lays each service icon on a radial gradient with a glow and its own corner shape", () => {
+    const { container } = render(
+      <>
+        <ServiceCard slug="service" title="UX Design" description="a" />
+        <ServiceCard slug="service" title="UI design" description="b" />
+        <ServiceCard slug="service" title="Software" description="c" />
+        <ServiceCard slug="service" title="COM" description="d" />
+      </>,
+    );
+    const tiles = [...container.querySelectorAll<HTMLElement>("a > div:first-child")];
+    expect(tiles.every((tile) => tile.style.background.includes("radial-gradient") && tile.style.boxShadow !== "")).toBe(true);
+    expect(Array.from(tiles, (tile) => tile.style.borderRadius)).toEqual(["99px 0px 99px 99px", "99px", "99px 99px 32px 32px", "32px 99px 99px"]);
+    expect(tiles.every((tile) => tile.className.includes("size-[58px]"))).toBe(true);
+  });
+
   it("gives each product a distinct design icon", () => {
     const { container } = render(
       <>

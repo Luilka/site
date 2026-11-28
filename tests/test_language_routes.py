@@ -17,10 +17,13 @@ def test_every_page_has_a_prefixed_route() -> None:
         assert page_route(name).is_file(), name
 
 
+HEROES = ("PageHero", "PageFrame", "AboutHero")
+
+
 def test_prefixed_routes_hold_the_real_pages() -> None:
     for name in PAGE_NAMES:
         source = page_route(name).read_text(encoding="utf-8")
-        assert "PageHero" in source or "PageFrame" in source, name
+        assert any(hero in source for hero in HEROES), name
         assert "export { default }" not in source, name
 
 

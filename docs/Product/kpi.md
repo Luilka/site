@@ -36,7 +36,7 @@ Chaque mesure possède un identifiant, un nom, une formule, une source, un propr
 |---|---|---|---|---|---|---|
 | UX-01 | Réussite de tâche | Personnes qui ouvrent le courriel de devis divisées par personnes testées | Protocole de test enregistré | @Espoir-Loem, intérimaire | À nommer | à instrumenter |
 | UX-02 | Temps de tâche | Médiane en secondes entre l'arrivée et le clic sur le bouton de devis | Protocole de test enregistré | @Espoir-Loem, intérimaire | À nommer | à instrumenter |
-| UX-03 | Clarté déclarée | Note donnée à la phrase « je sais ce que Luilka dessine », échelle à nommer | Questionnaire daté | @Espoir-Loem, intérimaire | À nommer | à instrumenter |
+| UX-03 | Clarté déclarée | Note donnée à la phrase « je sais ce que Luilka conçoit », échelle à nommer | Questionnaire daté | @Espoir-Loem, intérimaire | À nommer | à instrumenter |
 
 ## 5. Accessibilité
 

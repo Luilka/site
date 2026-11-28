@@ -1,19 +1,19 @@
-import { NotFoundPanel, ProcessBand, ContactPanel, HeroAccent, QuoteLink } from "@/components/patterns.tsx";
+import { NotFoundPanel, ProcessBand, ContactPanel, HeroReel, ContactButton } from "@/components/patterns.tsx";
 import { isSupportedLanguage, useContent } from "@/shared/i18n";
 import { ProductsSection, ServicesSection, WorksSection, ProcessSection, AboutSection } from "@/components/sections.tsx";
 import { Container } from "@/shared/ui/containers.tsx";
 import type { HomeProps } from "@/shared/types";
 
 function HomeAbout() {
-  const { pages, about, discover } = useContent();
-  return <AboutSection id="about" title={pages.about.title} paragraphs={about} action={{ label: discover, href: "/about" }} />;
+  const { pages, about, discover, aboutPage } = useContent();
+  return <AboutSection id="about" image={aboutPage.images.studio} title={pages.about.title} paragraphs={about} action={{ label: discover, href: "/about" }} />;
 }
 
 function HeroTitle() {
   const { home } = useContent();
   return (
     <h1 className="text-(length:--text-3xl) leading-[1.15] font-semibold tracking-[-0.02em] max-w-[520px] max-[1000px]:text-(length:--text-2xl)">
-      {home.prefix} <span className="text-accent-blue">{home.design}</span> {home.middle} <span className="text-accent-purple">{home.brand}</span>
+      {home.prefix} {home.design} {home.middle} {home.brand}
     </h1>
   );
 }
@@ -24,7 +24,7 @@ function HeroCopy() {
     <div>
       <HeroTitle />
       <p className="text-(length:--text-base) text-muted max-w-[470px] mt-[22px] mb-[28px] leading-[1.55]">{hero}</p>
-      <QuoteLink />
+      <ContactButton />
     </div>
   );
 }
@@ -34,7 +34,7 @@ function HeroSection() {
     <section className="pt-[72px] pb-[64px]">
       <Container className="grid items-center grid-cols-[1fr_540px] gap-[6px] max-[1000px]:grid-cols-[1fr]">
         <HeroCopy />
-        <div className="relative overflow-hidden h-[440px] rounded-[28px] bg-[linear-gradient(135deg,#2b2b30,#0f0f12_55%,#3a3a40)] before:absolute before:inset-0 before:content-[''] before:bg-[repeating-linear-gradient(115deg,rgb(255_255_255/12%)_0_42px,transparent_42px_90px)] after:absolute after:inset-0 after:content-[''] after:bg-[linear-gradient(160deg,rgb(255_255_255/18%),transparent_40%)]"><HeroAccent /></div>
+        <HeroReel />
       </Container>
     </section>
   );

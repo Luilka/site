@@ -16,9 +16,9 @@ const dropdownBase: Record<MenuKey, { items: readonly DropdownBaseItem[] }> = {
   },
   products: {
     items: [
-      { href: "/products", image: "/dropdown-products-tala.svg" },
-      { href: "/products", image: "/dropdown-products-vuga.svg" },
-      { href: "/products", image: "/dropdown-products-pro.svg" },
+      { href: "/products", image: imageSource.products.tala.src },
+      { href: "/products", image: imageSource.products.vuga.src },
+      { href: "/products", image: imageSource.products.pro.src },
     ],
   },
 };
@@ -27,7 +27,7 @@ const dropdownDescriptions: Record<Language, Record<MenuKey, readonly string[]>>
   fr: {
     services: [
       "Nous observons, cadrons et testons les parcours avant l'interface.",
-      "Nous dessinons des écrans clairs, avec leurs états et les mots intégrés.",
+      "Nous concevons des écrans clairs, avec leurs états et les mots intégrés.",
       "Nous construisons l'application jusqu'à la mise en ligne, ou seulement la partie dont vous avez besoin.",
       "Nous écrivons la page produit et les messages utiles au quotidien, seuls ou avec le reste.",
     ],
@@ -60,7 +60,7 @@ const dropdownCopy: Record<Language, Record<MenuKey, DropdownCopy>> = {
       linksTitle: "Explorer Luilka",
       action: "Découvrir le service",
       labels: ["UX Design", "UI design", "Software", "COM"],
-      eyebrows: ["Comprendre", "Dessiner", "Concevoir", "Écrire"],
+      eyebrows: ["Comprendre", "Concevoir", "Construire", "Écrire"],
       links: [
         { label: "Notre approche", href: "/about" },
         { label: "Nos réalisations", href: "/works" },
@@ -88,7 +88,7 @@ const dropdownCopy: Record<Language, Record<MenuKey, DropdownCopy>> = {
       linksTitle: "Explore Luilka",
       action: "Explore the service",
       labels: ["UX Design", "UI design", "Software", "COM"],
-      eyebrows: ["Understand", "Design", "Shape", "Write"],
+      eyebrows: ["Understand", "Design", "Build", "Write"],
       links: [
         { label: "Our approach", href: "/about" },
         { label: "Our work", href: "/works" },
@@ -160,25 +160,22 @@ const servicesFr: readonly Service[] = withSlugs(
   {
     title: "UX Design",
     description:
-      "Nous observons vos utilisateurs, cadrons le problème et dessinons des parcours testés avant l'interface. Livrable : parcours et prototype.",
+      "Nous observons vos utilisateurs, cadrons le problème et concevons des parcours testés avant l'interface. Livrable : parcours et prototype.",
   },
   {
     title: "UI design",
     description:
-      "Nous dessinons des écrans clairs, avec leurs états et des composants accessibles. Les mots sont intégrés dès la première maquette.",
-    shape: "50%",
+      "Nous concevons des écrans clairs, avec leurs états et des composants accessibles. Les mots sont intégrés dès la première maquette.",
   },
   {
     title: "Software",
     description:
       "Nous construisons l'application : interface, états et parcours jusqu'à la mise en ligne. Ce service peut aussi être commandé seul.",
-    shape: "50% 50% 8px 50%",
   },
   {
     title: "COM",
     description:
       "Nous écrivons la page produit qui donne envie d'acheter, le ton et les messages utiles au quotidien. Ce service peut aussi être commandé seul.",
-    shape: "50%",
   },
   ],
   detailSlugs.services,
@@ -227,19 +224,16 @@ const servicesEn: readonly Service[] = withSlugs(
     title: "UI design",
     description:
       "We design clear screens, states and accessible components. Words are part of the first draft.",
-    shape: "50%",
   },
   {
     title: "Software",
     description:
       "We build the app: interface, states and flows through to release. This service can also be booked on its own.",
-    shape: "50% 50% 8px 50%",
   },
   {
     title: "COM",
     description:
       "We write the product page that makes people want to buy, the tone and the messages people use every day. This service can also be booked on its own.",
-    shape: "50%",
   },
   ],
   detailSlugs.services,
@@ -304,15 +298,22 @@ const footerMoreEn: readonly FooterLink[] = [
 ];
 
 const fr: Dictionary = {
-  hero: "Du design à l'app : nous partons des utilisateurs, dessinons le produit et livrons une interface prête à construire.",
-  quote: "J'ai besoin d'un devis",
+  hero: "Du design à l'app : nous partons des utilisateurs, concevons le produit et livrons une interface prête à construire.",
+  emailLabel: "Écrire un email à Luilka",
   discover: "Découvrir plus",
   switchLanguage: "Passer en anglais",
   contactAction: "Nous contacter",
   navigationLabel: "Navigation principale",
   homeLabel: "Luilka, accueil",
   menuLabel: "Menu",
+  closeLabel: "Fermer",
+  reelPause: "Mettre en pause la vidéo",
+  reelPlay: "Reprendre la vidéo",
+  soundOn: "Activer le son",
+  processKeywords: ["Observer", "Cadrer", "Concevoir", "Construire", "Tester", "Lancer"],
+  soundOff: "Couper le son",
   mobileNavigationLabel: "Navigation mobile",
+  breadcrumb: { label: "Fil d'Ariane", home: "Accueil" },
   home: {
     prefix: "Agence de",
     design: "design",
@@ -333,20 +334,58 @@ const fr: Dictionary = {
       "Chaque projet commence par une question claire et se termine par une interface que les gens savent utiliser.",
   },
   about: [
-    "Luilka fait du design to app : nous accompagnons une idée depuis la recherche utilisateur jusqu'aux écrans de l'application. Notre stratégie est centrée sur l'utilisateur, pas sur la technologie.",
-    "Chaque choix, de l'identité visuelle au design system, part d'un besoin observé et se vérifie avec les gens qui utiliseront le produit.",
+    "Luilka fait du design to app : de la recherche utilisateur jusqu'aux écrans, chaque choix part d'un besoin observé et se vérifie avec les personnes qui utiliseront le produit.",
+    "Le studio conçoit aussi d'autres produits, numériques ou physiques, avec le même point de départ : la personne qui s'en servira.",
   ],
   contact: {
     title: "Donnons forme à votre prochaine idée.",
     description:
       "Décrivez votre besoin en quelques lignes. Nous revenons avec une première lecture et un créneau d'échange.",
   },
+  aboutPage: {
+    mission: "Notre mission",
+    film: {
+      title: "De l'idée à l'app",
+      description: "Trente secondes pour voir comment nous travaillons : nous partons des utilisateurs, puis nous concevons, nous testons et nous livrons.",
+      note: "L'écran montré est une interface d'exemple, ce n'est le travail d'aucun client.",
+      src: "/video/film-fr.mp4",
+      poster: "/video/film-fr-poster.webp",
+      captions: { src: "/video/film-fr.vtt", lang: "fr", label: "Français" },
+      transcriptLabel: "Lire la transcription",
+      transcript: [
+        "Tout commence par une idée.",
+        "Nous partons des utilisateurs. Le problème, les personnes concernées, et ce que le produit doit accomplir.",
+        "Puis nous posons le langage visuel.",
+        "Nous concevons les parcours et les écrans, puis nous les testons avec de vrais utilisateurs.",
+        "Nous remettons des maquettes prêtes à l'emploi, et un système de composants.",
+        "Du design à l'application. Luilka.",
+      ],
+    },
+    profileLabel: "Profil GitHub de {name}",
+    values: {
+      title: "Nos valeurs",
+      description: "Ce qui guide chaque projet, de la première observation à la livraison.",
+      items: [
+        { title: "Observer avant de concevoir", description: "Chaque choix part d'un besoin observé chez les personnes qui utiliseront le produit." },
+        { title: "Vérifier avec les gens", description: "Les parcours et les écrans sont testés avec celles et ceux qui utiliseront le produit." },
+        { title: "Livrer une interface prête à construire", description: "Maquettes prêtes à l'emploi et système de composants que vos équipes peuvent utiliser." },
+        { title: "Écrire dès la première maquette", description: "Le ton et les messages sont écrits en même temps que l'interface." },
+        { title: "Des preuves sourcées", description: "Un projet est montré sous son vrai nom, et aucun chiffre n'est écrit sans source." },
+      ],
+    },
+    team: {
+      title: "Notre équipe",
+      description: "Les personnes qui conçoivent, écrivent et construisent avec vous.",
+      members: [{ name: "Espoir LOEMBA", role: "Founder", github: "Espoir-Loem" }],
+    },
+    images: imageSource.about,
+  },
   pages: {
     about: {
       eyebrow: "À propos",
       title: "Un studio de design centré sur l'utilisateur",
       description:
-        "Luilka réunit designers et chercheurs autour d'une méthode centrée utilisateur : observer, dessiner les parcours de l'app puis livrer des interfaces cohérentes.",
+        "Luilka réunit designers et chercheurs autour d'une méthode centrée utilisateur : observer, concevoir les parcours de l'app puis livrer des interfaces cohérentes.",
     },
     services: {
       eyebrow: "Services",
@@ -394,21 +433,21 @@ const fr: Dictionary = {
     },
     {
       number: "02",
-      title: "Direction visuelle",
+      title: "Design",
       description:
-        "Nous définissons le langage visuel, la voix et les principes qui tiennent l'ensemble.",
+        "Nous concevons les parcours, le langage visuel et les écrans, puis nous les testons avec de vraies personnes.",
     },
     {
       number: "03",
-      title: "Design d'interface",
+      title: "Construction",
       description:
-        "Nous dessinons les parcours et les écrans, puis nous les testons avec de vrais utilisateurs.",
+        "Nous construisons l'application : interface, états et parcours jusqu'à la mise en ligne.",
     },
     {
       number: "04",
-      title: "Livraison",
+      title: "Lancement",
       description:
-        "Nous remettons des maquettes prêtes à l'emploi et un système de composants que vos équipes peuvent utiliser.",
+        "Nous écrivons la page produit, le ton et les messages utiles au quotidien pour que le produit trouve ses utilisateurs.",
     },
   ],
   services: servicesFr,
@@ -503,14 +542,21 @@ const fr: Dictionary = {
 
 const en: Dictionary = {
   hero: "From design to app: we start with the people who will use it, shape the product and hand over an interface ready to build.",
-  quote: "I need a quote",
+  emailLabel: "Email Luilka",
   discover: "Learn more",
   switchLanguage: "Switch to French",
   contactAction: "Contact us",
   navigationLabel: "Main navigation",
   homeLabel: "Luilka, home",
   menuLabel: "Menu",
+  closeLabel: "Close",
+  reelPause: "Pause the video",
+  reelPlay: "Resume the video",
+  soundOn: "Turn the sound on",
+  processKeywords: ["Observe", "Scope", "Design", "Build", "Test", "Launch"],
+  soundOff: "Turn the sound off",
   mobileNavigationLabel: "Mobile navigation",
+  breadcrumb: { label: "Breadcrumb", home: "Home" },
   home: {
     prefix: "Creative",
     design: "design",
@@ -530,12 +576,46 @@ const en: Dictionary = {
     works: "Every project starts with a clear question and ends with an interface people know how to use.",
   },
   about: [
-    "Luilka works design to app: we take an idea from user research to the app's screens. Our strategy is user-centric, not technology-first.",
-    "Every choice, from visual identity to design system, starts from an observed need and is checked with the people who will use the product.",
+    "Luilka works design to app: from user research to the final screens, every choice starts from an observed need and is checked with the people who will use the product.",
+    "The studio also designs other products, digital or physical, from the same starting point: the person who will use them.",
   ],
   contact: {
     title: "Let's shape your next idea.",
     description: "Describe your need in a few lines. We will come back with a first reading and a time to talk.",
+  },
+  aboutPage: {
+    mission: "Our mission",
+    film: {
+      title: "From idea to app",
+      description: "Thirty seconds on how we work: we start with the people who use it, then design, test and hand over.",
+      note: "The screen shown is an example interface, not the work of any client.",
+      src: "/video/film-en.mp4",
+      poster: "/video/film-en-poster.webp",
+      captions: null,
+      transcriptLabel: "Read the transcript",
+      transcript: [
+        "This film has no spoken words, only music.",
+        "On screen: it all starts with an idea. We start with the people who use it. We set the visual language. We design the screens. We deliver a system. The idea becomes an app. From design to app.",
+      ],
+    },
+    profileLabel: "GitHub profile of {name}",
+    values: {
+      title: "Our values",
+      description: "What guides every project, from the first observation to handover.",
+      items: [
+        { title: "Observe before designing", description: "Every choice starts from a need seen in the people who will use the product." },
+        { title: "Check with real people", description: "Flows and screens are tested with the people who will use the product." },
+        { title: "Hand over an interface ready to build", description: "Ready to use designs and a component system your teams can build on." },
+        { title: "Write from the first draft", description: "Tone and messages are written at the same time as the interface." },
+        { title: "Sourced proof", description: "A project is shown under its real name, and no figure is written without a source." },
+      ],
+    },
+    team: {
+      title: "Our team",
+      description: "The people who design, write and build with you.",
+      members: [{ name: "Espoir LOEMBA", role: "Founder", github: "Espoir-Loem" }],
+    },
+    images: imageSource.about,
   },
   pages: {
     about: {
@@ -548,7 +628,7 @@ const en: Dictionary = {
       eyebrow: "Services",
       title: "Our services",
       description:
-        "From first sketch to component system, we support product and marketing teams at every stage of design.",
+        "From first concept to component system, we support product and marketing teams at every stage of design.",
     },
     products: {
       eyebrow: "Products",
@@ -589,20 +669,20 @@ const en: Dictionary = {
     },
     {
       number: "02",
-      title: "Visual direction",
+      title: "Design",
       description:
-        "We define the visual language, the voice and the principles that hold it together.",
+        "We design the flows, the visual language and the screens, then test them with real people.",
     },
     {
       number: "03",
-      title: "Interface design",
-      description: "We draw the flows and screens, then test them with real users.",
+      title: "Build",
+      description: "We build the app: interface, states and flows, up to going live.",
     },
     {
       number: "04",
-      title: "Handover",
+      title: "Launch",
       description:
-        "We deliver ready to use designs and a component system your teams can build on.",
+        "We write the product page, the tone and the everyday messages so the product finds its users.",
     },
   ],
   services: servicesEn,
