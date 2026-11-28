@@ -1,0 +1,1 @@
+import{j as r}from"./jsx-runtime-u17CrQMm.js";import{c as i}from"./cn.util-2dOUpm6k.js";function n(t){return r.jsx("img",{loading:"lazy",decoding:"async",...t})}function a({image:t,className:c,...o}){return r.jsx(n,{className:i("w-full object-cover",c),src:t.src,width:t.width,height:t.height,alt:"",...o})}export{n as Image,a as Picture};

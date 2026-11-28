@@ -47,7 +47,7 @@ def test_mega_panel_spans_the_viewport() -> None:
 
 def test_header_surface_sits_behind_the_navigation() -> None:
     header = (SRC / "components" / "layout.tsx").read_text(encoding="utf-8")
-    assert "-z-1 bg-white/80 backdrop-blur" in header
+    assert "-z-1 bg-white/60 backdrop-blur-md" in header
 
 
 def test_mega_panel_matches_the_header_surface() -> None:
@@ -60,7 +60,7 @@ def test_mega_panel_matches_the_header_surface() -> None:
 
 def test_service_grid_fits_four_cards() -> None:
     sections = (SRC / "components" / "sections.tsx").read_text(encoding="utf-8")
-    assert "grid grid-cols-4 mt-[80px]" in sections
+    assert "grid grid-cols-4 not-first:mt-[80px]" in sections
 
 
 def test_mega_cards_use_a_responsive_grid() -> None:
@@ -77,3 +77,60 @@ def test_mega_image_fills_its_container_height() -> None:
 def test_mega_aside_links_have_separators() -> None:
     header = (SRC / "components" / "layout.tsx").read_text(encoding="utf-8")
     assert "[a+&]:border-t" in header
+
+
+def test_marquee_animation_is_defined_once_in_the_theme() -> None:
+    css = (SRC / "globale.css").read_text(encoding="utf-8")
+    assert "--animate-marquee:" in css
+    assert css.count("@keyframes marquee {") == 1
+    assert "--animate-marquee-right:" in css
+    assert "--animate-stripes: stripes 0.4s linear infinite;" in css
+    assert css.count("@keyframes stripes {") == 1
+    assert css.count("@keyframes marquee-right {") == 1
+
+
+def test_old_page_leaves_quickly_and_the_new_one_rises_into_view() -> None:
+    css = (SRC / "globale.css").read_text(encoding="utf-8")
+    assert "::view-transition-old(root)" in css
+    assert "@keyframes page-out" in css
+    assert "::view-transition-new(root)" in css
+    assert "@keyframes page-in" in css
+
+
+def test_shared_covers_keep_their_proportions_while_they_move() -> None:
+    css = (SRC / "globale.css").read_text(encoding="utf-8")
+    assert "::view-transition-old(*)" in css
+    assert "object-cover" in css
+
+
+def test_page_transitions_stop_when_the_visitor_prefers_less_motion() -> None:
+    css = (SRC / "globale.css").read_text(encoding="utf-8")
+    reduced = css[css.index("prefers-reduced-motion: reduce") :]
+    assert "::view-transition-group(*)" in reduced
+    assert "animation: none" in reduced
+
+
+def test_header_keeps_its_place_during_page_transitions() -> None:
+    header = (SRC / "components" / "layout.tsx").read_text(encoding="utf-8")
+    assert "[view-transition-name:site-brand]" in header
+    assert "[view-transition-name:site-language]" in header
+    assert "[view-transition-name:site-contact]" in header
+    assert "viewTransitionName" in header
+
+
+def test_cards_and_detail_pages_share_the_cover_transition_name() -> None:
+    cards = (SRC / "components" / "cards.tsx").read_text(encoding="utf-8")
+    sections = (SRC / "components" / "sections.tsx").read_text(encoding="utf-8")
+    detail = (SRC / "content" / "detail-models.content.ts").read_text(encoding="utf-8")
+    assert cards.count("coverName(") == 2
+    assert "viewTransitionName" in cards
+    assert "viewTransitionName: cover.name" in sections
+    assert "coverName(kind, raw.slug)" in detail
+
+
+def test_focus_ring_stays_visible_on_black_and_white_sections() -> None:
+    css = (ROOT / "src" / "globale.css").read_text(encoding="utf-8")
+    focus = css[css.index(":focus-visible") :]
+    focus = focus[: focus.index("}")]
+    assert "var(--text)" in focus
+    assert "box-shadow: 0 0 0 5px var(--paper)" in focus

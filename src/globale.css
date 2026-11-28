@@ -3,14 +3,15 @@
 @theme {
   --color-paper: var(--paper);
   --color-gray: var(--gray);
-  --color-gray-2: var(--gray-2);
-  --color-blue: var(--blue);
+  --color-gold: var(--gold);
+  --color-yellow: var(--yellow);
+  --color-accent: var(--accent);
   --color-text: var(--text);
   --color-muted: var(--muted);
-  --color-accent-blue: var(--accent-blue);
-  --color-accent-purple: var(--accent-purple);
   --color-soft: var(--bg-soft);
+  --color-night: var(--night);
   --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", "Inter", system-ui, sans-serif;
+  --font-display: "Space Grotesk", var(--font-sans);
   --text-xs: 0.75rem;
   --text-sm: 0.875rem;
   --text-base: 1rem;
@@ -19,6 +20,30 @@
   --text-2xl: clamp(1.5rem, 2.5vw, 1.75rem);
   --text-3xl: clamp(2rem, 4vw, 2.875rem);
   --animate-state-pulse: state-pulse 1.2s ease-in-out infinite;
+  --animate-marquee: marquee 36s linear infinite;
+  --animate-marquee-right: marquee-right 36s linear infinite;
+  --animate-stripes: stripes 0.4s linear infinite;
+
+  @keyframes marquee {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  @keyframes marquee-right {
+    from {
+      transform: translateX(-50%);
+    }
+    to {
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes stripes {
+    to {
+      background-position: 14.1421px 0;
+    }
+  }
 
   @keyframes state-pulse {
     0%,
@@ -35,20 +60,28 @@
 
 :root {
   --paper: #ffffff;
-  --gray: #cfd1db;
-  --gray-2: #b4b6bf;
-  --gray-3: #a9abb4;
-  --blue: #2a4cb5;
-  --text: #1a1a1f;
-  --muted: #3c3c45;
-  --accent-blue: #2a2ae6;
-  --accent-purple: #9b5de5;
-  --bg-soft: #f6f6fa;
-  --border-ui: #dcdce2;
-  --night: #0d0d10;
+  --gray: #ebebe8;
+  --accent: #1c3f34;
+  --gold: #c9a24b;
+  --yellow: #ffd23f;
+  --text: #0a0a0a;
+  --muted: #454540;
+  --bg-soft: #f5f5f2;
+  --border-ui: #e4e4df;
+  --night: #132a22;
   --flag-blue: #1d3f9f;
   --flag-red: #e63946;
   --container-width: 80rem;
+}
+
+@utility bg-grid {
+  background-image: linear-gradient(to right, var(--grid-line, var(--border-ui)) 1px, transparent 1px), linear-gradient(to bottom, var(--grid-line, var(--border-ui)) 1px, transparent 1px);
+  background-size: 6px 6px;
+}
+
+@utility bg-dots {
+  background-image: radial-gradient(circle, var(--dot-colour, #c9c9c2) 1px, transparent 1.4px);
+  background-size: 16px 16px;
 }
 
 @utility row-center {
@@ -91,8 +124,9 @@
   }
 
   :focus-visible {
-    outline: 2px solid var(--blue);
+    outline: 2px solid var(--text);
     outline-offset: 3px;
+    box-shadow: 0 0 0 5px var(--paper);
   }
 }
 
@@ -114,8 +148,50 @@ textarea {
   @apply cursor-text;
 }
 
+::view-transition-old(root) {
+  animation: page-out 160ms ease-in both;
+  mix-blend-mode: normal;
+}
+
+::view-transition-new(root) {
+  animation: page-in 320ms cubic-bezier(0.2, 0.8, 0.2, 1) 120ms both;
+  mix-blend-mode: normal;
+}
+
+::view-transition-old(*),
+::view-transition-new(*) {
+  @apply h-full w-full object-cover;
+}
+
+::view-transition-group(*) {
+  animation-duration: 480ms;
+  animation-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+@keyframes page-out {
+  to {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes page-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*),
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none;
   }
 }

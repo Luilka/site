@@ -32,9 +32,9 @@ Chaque principe a un énoncé, un contre-exemple et un lien vers sa source. Un �
 
 ## 4. Un plan de titres lisible
 
-**Énoncé.** Un `h1` par page, un `h2` par section, un `h3` par carte. Un nom de projet est un titre, pas un texte en gras.
+**Énoncé.** Un `h1` par page, un `h2` par section, un `h3` par carte. Un nom de projet est un titre, pas un texte en gras. Une page intérieure n'a qu'un titre : le `h1` de son bandeau d'ouverture, à la taille d'affichage. Aucune section ne le répète.
 
-**Contre-exemple.** Un nom de réalisation en `<b>`, absent du plan de titres.
+**Contre-exemple.** Un nom de réalisation en `<b>`, absent du plan de titres, ou « Nos services » en `h1` puis en `h2` juste dessous.
 
 **Lien.** [Audit](audit-accueil.md), WCAG 2.2 critère 1.3.1.
 
@@ -52,31 +52,31 @@ Chaque principe a un énoncé, un contre-exemple et un lien vers sa source. Un �
 
 **Contre-exemple.** Un libellé écrit en français sur la page anglaise, ou « Devis » dans le hero et « Contact » dans le pied de page pour la même action.
 
-**Lien.** D-002, Q-002, [architecture](../Technique/architecture.md).
+**Lien.** D-002, D-013, [architecture](../Technique/architecture.md).
 
 ## 7. Un mouvement discret
 
-**Énoncé.** Le mouvement sert l'entrée d'un élément, pas la décoration. `prefers-reduced-motion` est respecté : sans mouvement, le contenu s'affiche tel quel.
+**Énoncé.** Le mouvement sert l'entrée d'un élément, pas la décoration. `prefers-reduced-motion` est respecté : sans mouvement, le contenu s'affiche tel quel. Une exception est écrite : le bandeau de processus de l'accueil défile en boucle (D-014). Il est décoratif, masqué aux lecteurs d'écran, et son défilement s'arrête sous `prefers-reduced-motion` et sous le pointeur.
 
-**Contre-exemple.** Une animation en boucle sur un bandeau, ou un contenu masqué tant que l'animation n'a pas fini.
+**Contre-exemple.** Une animation en boucle qui ne s'arrête pas avec `prefers-reduced-motion`, ou qui porte une information, ou un contenu masqué tant que l'animation n'a pas fini.
 
-**Lien.** `src/routes/layout.tsx`, WCAG 2.2 critère 2.3.3.
+**Lien.** `src/routes/layout.tsx`, D-014, WCAG 2.2 critères 2.3.3 et 2.2.2. Le critère 2.2.2 demande une pause pour toute animation de plus de cinq secondes qui porte une information : le bandeau n'en porte pas, il n'a donc pas de bouton de pause.
 
 ## 8. Un menu qui se lit au clavier
 
-**Énoncé.** Le menu déroulant s'ouvre au survol et au focus, se ferme avec Escape ou quand le focus le quitte, et annonce son état par `aria-expanded` et `aria-controls`.
+**Énoncé.** Le menu déroulant s'ouvre au survol et au focus, se ferme avec Escape ou quand le focus le quitte, et annonce son état par `aria-expanded` et `aria-controls`. Sous 1140 pixels, le bouton « Menu » ouvre la même navigation dans une feuille latérale modale (D-017) : fond flou à grille, focus dans la feuille, défilement de la page bloqué. Elle se ferme avec Escape en rendant le focus au bouton, avec son bouton « Fermer », en touchant le fond, quand le focus la quitte et quand on choisit un lien. La navigation ne disparaît jamais sans remplaçant.
 
-**Contre-exemple.** Un menu qui ne s'ouvre qu'à la souris, ou dont le focus reste piégé.
+**Contre-exemple.** Un menu qui ne s'ouvre qu'à la souris, dont le focus reste piégé, ou une navigation masquée sur téléphone sans bouton pour la rouvrir.
 
 **Lien.** `src/shared/hooks/use-dismiss.hook.ts`, `tests/client/dropdown-navigation.test.tsx`.
 
 ## 9. Des cibles lisibles, un contraste tenu
 
-**Énoncé.** Les cibles tactiles font 24 sur 24 pixels CSS au minimum, 44 en objectif. Le contraste est de 4,5:1 pour le texte courant, 3:1 pour les grands textes et les composants. Le focus reste visible : aucun parent ne le coupe.
+**Énoncé.** Les cibles tactiles font 24 sur 24 pixels CSS au minimum, 44 en objectif. Le contraste est de 4,5:1 pour le texte courant, 3:1 pour les grands textes et les composants. Le focus reste visible : aucun parent ne le coupe. Aucune page ne défile de côté à 320 pixels de large.
 
-**Contre-exemple.** Un `main` avec `overflow-y-hidden` qui coupe le contour de focus.
+**Contre-exemple.** Un `main` avec `overflow-y-hidden` qui coupe le contour de focus, ou un bandeau de 528 pixels dans un écran de 320.
 
-**Lien.** WCAG 2.2 critères 1.4.3 et 2.5.8, [audit](audit-accueil.md).
+**Lien.** WCAG 2.2 critères 1.4.3, 1.4.10 et 2.5.8, [audit](audit-accueil.md), `tests/test_responsive_layout.py`.
 
 ## 10. Des états prévus
 
@@ -88,15 +88,15 @@ Chaque principe a un énoncé, un contre-exemple et un lien vers sa source. Un �
 
 ## 11. Des icônes qui servent
 
-**Énoncé.** Une icône d'interface vient de Lucide et accompagne un texte, une action ou un état : flèche de retour, coche ou alerte d'un message, séparateur d'étapes. Le logo est le SVG plein fourni par le studio, défini une seule fois dans le sprite du document. Une icône décorative porte `aria-hidden="true"`. Une icône seule, comme le courriel du pied de page, a un nom accessible.
+**Énoncé.** Une icône d'interface vient de Lucide et accompagne un texte, une action ou un état : flèche de retour, coche ou alerte d'un message, séparateur d'étapes. Le logo est le SVG plein fourni par le studio, dessiné par le composant `Logo` (`src/shared/ui/logos.tsx`), sans sprite ni `<use>`. Une icône décorative porte `aria-hidden="true"`. Une icône seule, comme le courriel du pied de page, a un nom accessible.
 
 **Contre-exemple.** Un vélo pour séparer les étapes d'un processus, ou trois icônes de réseaux sociaux qui ne mènent nulle part.
 
-**Lien.** `src/components/layout.tsx`, `tests/client/icons.test.tsx`, AGENTS.md section 10.
+**Lien.** `src/shared/ui/logos.tsx`, `src/components/layout.tsx`, `tests/client/logo.test.tsx`, `tests/client/icons.test.tsx`, AGENTS.md section 10.
 
 ## 12. Des tokens, pas des valeurs
 
-**Énoncé.** Les couleurs, tailles et espaces viennent des tokens de `src/globale.css`. Tailwind est un détail d'implémentation, jamais la source du style.
+**Énoncé.** Les couleurs, tailles et espaces viennent des tokens de `src/globale.css`. Le thème suit D-021 : vert forêt (`--accent`) pour l'action, vert nuit (`--night`) et gris perle (`--gray`) en fonds, or (`--gold`) pour les détails et le texte sur fond sombre seulement. Aucune autre couleur vive dans l'interface. Tailwind est un détail d'implémentation, jamais la source du style.
 
 **Contre-exemple.** Une couleur hexadécimale écrite dans un composant.
 

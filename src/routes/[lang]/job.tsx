@@ -3,10 +3,10 @@ import { InfoSection } from "@/components/sections.tsx";
 import { useContent } from "@/shared/i18n";
 
 export default function Job() {
-  const { pages, section, jobs } = useContent();
+  const { jobs } = useContent();
   return (
     <PageFrame page="job">
-      <InfoSection title={pages.job.title} description={section} items={jobs} />
+      <InfoSection items={jobs} />
     </PageFrame>
   );
 }

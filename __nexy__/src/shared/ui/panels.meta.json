@@ -1,0 +1,1 @@
+{"framework": "react", "ext": ".tsx", "component_name": "Panels", "func_name": "Panels", "py_path": "__nexy__/src/shared/ui/panels.py", "html_path": "__nexy__/src/shared/ui/panels.html", "pathname": "/src/shared/ui/panels", "symbol": "StripedPanel", "source": "src/shared/ui/panels.tsx", "global_src": "/src/shared/ui/panels.tsx", "key_hash": "a0e7091fa2a653d2151e7d9358991d8c"}
