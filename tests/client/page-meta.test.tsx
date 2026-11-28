@@ -65,7 +65,18 @@ describe("page metadata", () => {
     expect(hrefs["x-default"]).toBe("https://luilka.example/fr/about");
     expect(tag(meta, "og:url")).toBe("https://luilka.example/fr/about");
     expect(tag(meta, "og:image")).toBe("https://luilka.example/og-image.webp");
-    expect(tag(meta, "twitter:image")).toBe("https://luilka.example/og-image.webp");
+    expect(tag(meta, "twitter:image")).toBe("https://luilka.example/twitter-card.webp");
+  });
+
+  it("gives each network the image shape of its post: 1.91 to 1 for Facebook, LinkedIn and messengers, 2 to 1 for X", () => {
+    const meta = buildPageMeta({ ...BASE, siteUrl: "https://luilka.example" });
+    expect(tag(meta, "og:image")).toBe("https://luilka.example/og-image.webp");
+    expect(tag(meta, "og:image:width")).toBe("1200");
+    expect(tag(meta, "og:image:height")).toBe("630");
+    expect(tag(meta, "og:image:type")).toBe("image/webp");
+    expect(tag(meta, "twitter:card")).toBe("summary_large_image");
+    expect(tag(meta, "twitter:image")).toBe("https://luilka.example/twitter-card.webp");
+    expect(tag(meta, "twitter:image:alt")).toBe("Un studio de design | Luilka");
   });
 
   it("describes the organisation only on the home page, with its social profiles", () => {
@@ -110,6 +121,7 @@ describe("document head", () => {
     expect(head).toContain(`href="${site.url}/fr/about"`);
     expect(head).toContain(`hrefLang="en" href="${site.url}/en/about"`);
     expect(head).toContain(`content="${site.url}/og-image.webp"`);
+    expect(head).toContain(`content="${site.url}/twitter-card.webp"`);
     expect(at("/fr")).toContain("application/ld+json");
   });
 });

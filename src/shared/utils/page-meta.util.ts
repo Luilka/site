@@ -1,7 +1,8 @@
 import type { Language, MetaLink, MetaTag, PageMeta, PageMetaInput } from "@/shared/types";
 
 const LOCALES: Record<Language, string> = { fr: "fr_FR", en: "en_US" };
-const IMAGE_PATH = "/og-image.webp";
+const OG_IMAGE = "/og-image.webp";
+const TWITTER_IMAGE = "/twitter-card.webp";
 
 function absolute(siteUrl: string, path: string): string {
   return siteUrl ? `${siteUrl.replace(/\/$/, "")}${path}` : "";
@@ -15,20 +16,30 @@ function fullTitle({ siteName, title, home }: PageMetaInput): string {
   return home ? `${siteName} | ${title}` : `${title} | ${siteName}`;
 }
 
-function imageTags(image: string, title: string): MetaTag[] {
+function openGraphImage(siteUrl: string, title: string): MetaTag[] {
   return [
-    { property: "og:image", content: image },
+    { property: "og:image", content: absolute(siteUrl, OG_IMAGE) },
+    { property: "og:image:type", content: "image/webp" },
     { property: "og:image:width", content: "1200" },
     { property: "og:image:height", content: "630" },
     { property: "og:image:alt", content: title },
-    { name: "twitter:image", content: image },
   ];
+}
+
+function twitterImage(siteUrl: string, title: string): MetaTag[] {
+  return [
+    { name: "twitter:image", content: absolute(siteUrl, TWITTER_IMAGE) },
+    { name: "twitter:image:alt", content: title },
+  ];
+}
+
+function imageTags(siteUrl: string, title: string): MetaTag[] {
+  return [...openGraphImage(siteUrl, title), ...twitterImage(siteUrl, title)];
 }
 
 function addressTags(input: PageMetaInput, title: string): MetaTag[] {
   const url = absolute(input.siteUrl, localePath(input.language, input.path));
-  if (!url) return [];
-  return [{ property: "og:url", content: url }, ...imageTags(absolute(input.siteUrl, IMAGE_PATH), title)];
+  return url ? [{ property: "og:url", content: url }, ...imageTags(input.siteUrl, title)] : [];
 }
 
 function shareTags(input: PageMetaInput, title: string): MetaTag[] {
