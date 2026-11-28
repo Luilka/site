@@ -1,0 +1,10 @@
+{
+  "url": "https://luilka.vercel.app",
+  "indexable": true,
+  "analytics": {
+    "vercel": true,
+    "speedInsights": true,
+    "plausibleDomain": "luilka.vercel.app",
+    "googleAnalyticsId": ""
+  }
+}

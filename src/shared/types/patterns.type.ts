@@ -1,3 +1,5 @@
+import type { AnalyticsPlan, AnalyticsSettings } from "./analytics.type.ts";
+import type { MetaLink, PageMeta } from "./meta.type.ts";
 import type { VideoPlayback } from "./hooks.type.ts";
 import type { PageKey, SectionAction } from "./dictionaries.type.ts";
 import type { ReactNode } from "react";
@@ -94,4 +96,33 @@ export type RevealProps = {
 export type StateCopyProps = {
   title: string;
   description: string;
+};
+
+export type MetaTagsProps = {
+  meta: PageMeta;
+};
+
+export type MetaLinksProps = {
+  links: readonly MetaLink[];
+};
+
+export type StructuredDataProps = {
+  json: string | null;
+};
+
+export type ConsentBannerProps = {
+  onAccept: () => void;
+  onRefuse: () => void;
+};
+
+export type GoogleTagProps = {
+  id: string;
+};
+
+export type TrackersProps = {
+  settings?: AnalyticsSettings;
+};
+
+export type ThirdPartyTagsProps = {
+  plan: AnalyticsPlan;
 };
