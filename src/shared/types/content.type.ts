@@ -32,8 +32,3 @@ export type DetailContent = {
   sections: readonly DetailSection[];
   captions?: Readonly<Record<string, string>>;
 };
-
-export type StoryBlock = {
-  section?: DetailSection;
-  row?: readonly DetailImage[];
-};

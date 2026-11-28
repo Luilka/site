@@ -1,5 +1,5 @@
 import type { AboutImages, FilmCopy, InfoCard, PageIntro, TeamCopy, TeamMember, ValueItem, ValuesCopy } from "./dictionaries.type.ts";
-import type { DetailFact, DetailSection, StoryBlock } from "./content.type.ts";
+import type { DetailSection } from "./content.type.ts";
 import type { CaptionedImage, DetailCover, DetailImage, DetailNext, DetailKind, DetailModel, DetailRouteProps } from "./detail.type.ts";
 import type { SectionProps } from "./section-props.type.ts";
 import type { SectionAction } from "./dictionaries.type.ts";
@@ -138,33 +138,16 @@ export type DetailRouteViewProps = DetailRouteProps & {
   kind: DetailKind;
 };
 
-export type GalleryItemProps = {
-  image: CaptionedImage;
-  pair: boolean;
-};
-
 export type GalleryRowProps = {
   row: readonly CaptionedImage[];
 };
 
-export type ParagraphsProps = {
-  items: readonly string[];
+export type DetailGalleryProps = {
+  images: readonly CaptionedImage[];
 };
 
-export type PointsProps = {
-  items: readonly string[];
-};
-
-export type StorySectionProps = {
-  section: DetailSection;
-};
-
-export type StoryBlockViewProps = {
-  block: StoryBlock;
-};
-
-export type DetailFactsProps = {
-  facts: readonly DetailFact[];
+export type DetailCardsProps = {
+  sections: readonly DetailSection[];
 };
 
 export type NextDetailProps = {

@@ -3,28 +3,12 @@ import { afterEach, describe, expect, it } from "vitest";
 import ProductDetail from "@/routes/[lang]/products/[slug].tsx";
 import ServiceDetail from "@/routes/[lang]/services/[slug].tsx";
 import WorkDetail from "@/routes/[lang]/work/[slug].tsx";
-import { storyBlocks } from "@/shared/utils/story-blocks.util.ts";
 
 function at(pathname: string): void {
   (globalThis as Record<string, unknown>).__NEXY_LOCATION__ = { pathname, search: "", hash: "", params: {} };
 }
 
 afterEach(() => at("/fr"));
-
-describe("story blocks", () => {
-  it("pairs each section with the row of pictures that follows it, then keeps the extra rows", () => {
-    const sections = [{ title: "A", paragraphs: ["a"] }, { title: "B", paragraphs: ["b"] }];
-    const rows = [[{ src: "1", width: 1, height: 1 }], [{ src: "2", width: 1, height: 1 }], [{ src: "3", width: 1, height: 1 }]];
-    const blocks = storyBlocks(sections, rows);
-    expect(Array.from(blocks, (block) => [block.section?.title ?? null, block.row?.[0]?.src ?? null])).toEqual([["A", "1"], ["B", "2"], [null, "3"]]);
-  });
-
-  it("keeps a section that has no picture left", () => {
-    const blocks = storyBlocks([{ title: "A", paragraphs: [] }, { title: "B", paragraphs: [] }], [[{ src: "1", width: 1, height: 1 }]]);
-    expect(blocks).toHaveLength(2);
-    expect(blocks[1]?.row).toBeUndefined();
-  });
-});
 
 describe("product page content", () => {
   it("explains the product, what the interface shows and the design choices", () => {
@@ -41,11 +25,12 @@ describe("product page content", () => {
     expect(within(section).getAllByRole("listitem").length).toBeGreaterThanOrEqual(3);
   });
 
-  it("summarises the product in facts: type, medium and who designed it", () => {
+  it("summarises the product in fact pills laid on the cover, like the cards of the home page", () => {
     const { container } = render(<ProductDetail lang="fr" slug="pro" />);
-    const facts = container.querySelector("dl");
-    expect(facts?.textContent).toContain("Réseau social professionnel");
-    expect(facts?.textContent).toContain("Application mobile");
+    const facts = Array.from(container.querySelectorAll("[data-part='fact']"), (item) => item.textContent);
+    expect(facts.join(" ")).toContain("Réseau social professionnel");
+    expect(facts.join(" ")).toContain("Application mobile");
+    expect(container.querySelector("[data-part='fact']")?.closest("[class*='backdrop-blur']")).not.toBeNull();
   });
 
   it("captions every picture of the gallery with what it shows", () => {
@@ -62,11 +47,40 @@ describe("product page content", () => {
     expect(screen.getByText(/Tala is a video streaming platform/)).toBeTruthy();
   });
 
-  it("puts a section before the pictures it comes with", () => {
+  it("shows the text cards before the gallery", () => {
     const { container } = render(<ProductDetail lang="fr" slug="tala" />);
     const heading = screen.getByRole("heading", { level: 2, name: "Le produit" });
     const firstRow = container.querySelector("[data-part='gallery-row']") as Element;
     expect(heading.compareDocumentPosition(firstRow) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+  });
+
+  it("writes the sections as numbered cards in the colours of the home page steps", () => {
+    const { container } = render(<ProductDetail lang="fr" slug="tala" />);
+    const cards = Array.from(container.querySelectorAll("[data-part='story-section']"));
+    expect(cards).toHaveLength(3);
+    expect(cards[0]?.className).toContain("bg-night");
+    expect(cards[1]?.className).toContain("bg-gold");
+    expect(cards[2]?.className).toContain("bg-gray");
+    expect(Array.from(cards, (card) => card.querySelector("[data-part='story-number']")?.textContent)).toEqual(["01", "02", "03"]);
+    expect(cards[0]?.querySelector("[data-part='story-number']")?.className).toContain("bg-grid");
+  });
+
+  it("separates the parts of the page with the process band, as the home page does", () => {
+    const { container } = render(<ProductDetail lang="fr" slug="tala" />);
+    expect(container.querySelectorAll("[aria-hidden='true'] .lucide-motorbike").length).toBeGreaterThan(0);
+    expect(container.querySelectorAll(".animate-marquee-right, .animate-marquee").length).toBeGreaterThanOrEqual(2);
+  });
+
+  it("puts the next item on a dark card like the contact card", () => {
+    render(<ProductDetail lang="fr" slug="tala" />);
+    expect(screen.getByRole("link", { name: /Produit suivant/ }).className).toContain("bg-night");
+  });
+
+  it("lays each caption on a glass panel over its picture", () => {
+    const { container } = render(<ProductDetail lang="fr" slug="tala" />);
+    const caption = container.querySelector("[data-part='gallery-row'] figcaption");
+    expect(caption?.className).toContain("backdrop-blur");
+    expect(caption?.className).toContain("absolute");
   });
 });
 
@@ -94,7 +108,7 @@ describe("pages without a text of their own", () => {
   it("show no section and no facts", () => {
     at("/fr/services/ux-design");
     const { container } = render(<ServiceDetail lang="fr" slug="ux-design" />);
-    expect(container.querySelector("dl")).toBeNull();
+    expect(container.querySelectorAll("[data-part='fact']")).toHaveLength(0);
     expect(container.querySelectorAll("[data-part='story-section']")).toHaveLength(0);
   });
 });
