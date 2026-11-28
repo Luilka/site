@@ -6,11 +6,12 @@
 
 ## Pourquoi le site existe
 
-Luilka est un studio de design. Le site doit permettre à un responsable produit ou marketing, souvent sur téléphone et avec peu de temps, de faire trois choses : comprendre ce que Luilka dessine, voir des preuves concrètes, puis contacter le studio.
+Luilka est un studio de design. Le site doit permettre à un responsable produit ou marketing, souvent sur téléphone et avec peu de temps, de faire trois choses : comprendre ce que Luilka conçoit, voir des preuves concrètes, puis contacter le studio.
 
 ## Ce que le site dit
 
 - Luilka conçoit, écrit et construit. C'est la ligne « design to app » : une stratégie centrée sur la personne qui utilise le produit.
+- Le travail du studio ne se limite pas aux applications : Luilka conçoit aussi d'autres produits, numériques comme physiques. Précision du titulaire @Espoir-Loem, 27 novembre 2026, ajoutée au texte de la section À propos de l'accueil. Les quatre services listés ci-dessous restent numériques.
 - Chaque service peut être commandé seul : UX Design, UI design, Software et COM.
 - Le studio montre des produits (Tala, Vuga, Pro) et des réalisations (Yano, Vox Congo, Mitemo, Privatis Capital Invest).
 

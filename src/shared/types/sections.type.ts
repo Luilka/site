@@ -1,21 +1,72 @@
-import type { InfoCard } from "./dictionaries.type.ts";
-import type { DetailKind, DetailModel, DetailRouteProps } from "./detail.type.ts";
+import type { AboutImages, FilmCopy, InfoCard, PageIntro, TeamCopy, TeamMember, ValueItem, ValuesCopy } from "./dictionaries.type.ts";
+import type { DetailCover, DetailImage, DetailKind, DetailModel, DetailRouteProps } from "./detail.type.ts";
 import type { SectionProps } from "./section-props.type.ts";
 import type { SectionAction } from "./dictionaries.type.ts";
 import type { Href } from "@/shared/ui/links.tsx";
 import type { ReactNode } from "react";
 
-export type AboutTextProps = {
+export type BandProps = {
+  children: ReactNode;
+  className?: string;
+};
+
+export type AboutHeroProps = PageIntro & {
+  image: DetailImage;
+};
+
+export type FilmSectionProps = {
   title: string;
+  description: string;
+  film: FilmCopy;
+};
+
+export type FilmPlayerProps = {
+  title: string;
+  film: FilmCopy;
+};
+
+export type FilmTranscriptProps = {
+  film: FilmCopy;
+};
+
+export type MissionSectionProps = {
+  title: string;
+  paragraphs: readonly string[];
+  images: AboutImages;
+};
+
+export type MissionDetailsProps = {
+  images: AboutImages;
+};
+
+export type ValuesSectionProps = ValuesCopy;
+
+export type ValueGridProps = {
+  items: readonly ValueItem[];
+};
+
+export type TeamSectionProps = TeamCopy;
+
+export type TeamGridProps = {
+  members: readonly TeamMember[];
+};
+
+export type AboutTextProps = {
+  title?: string;
   paragraphs: readonly string[];
   action?: SectionAction;
 };
 
+export type AboutArtProps = {
+  image: DetailImage;
+};
+
 export type AboutSectionProps = {
   id?: string;
-  title: string;
+  title?: string;
   paragraphs: readonly string[];
   action?: SectionAction;
+  image: DetailImage;
 };
 
 export type InfoCardBodyProps = {
@@ -46,7 +97,7 @@ export type HeadingTextProps = {
 };
 
 export type SectionHeadingProps = {
-  title: string;
+  title?: string;
   description?: string;
   action?: SectionAction;
 };
@@ -70,9 +121,8 @@ export type DetailBackLinkProps = {
   detail: DetailModel;
 };
 
-export type DetailCardProps = {
-  title: string;
-  body: string;
+export type DetailMediaProps = {
+  cover: DetailCover;
 };
 
 export type DetailBodyProps = {

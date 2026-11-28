@@ -18,10 +18,13 @@ def test_newsletter_uses_the_react_19_action_state() -> None:
     assert "action={" in form
 
 
+HEROES = ("PageHero", "PageFrame", "AboutHero")
+
+
 def test_every_inner_page_uses_the_shared_page_hero() -> None:
     for name in PAGES:
         source = page_route(name).read_text(encoding="utf-8")
-        assert "PageHero" in source or "PageFrame" in source, name
+        assert any(hero in source for hero in HEROES), name
 
 
 def test_contact_panel_is_shared_by_landing_and_contact_page() -> None:
@@ -36,7 +39,7 @@ def test_styles_use_current_css_features() -> None:
     css = (SRC / "globale.css").read_text(encoding="utf-8")
     assert "@layer base" in css
     layout = (SRC / "components" / "layout.tsx").read_text(encoding="utf-8")
-    assert "hover:text-blue" in layout
+    assert "hover:text-accent" in layout
     sections = (SRC / "components" / "sections.tsx").read_text(encoding="utf-8")
     assert "color-mix(" in sections
     patterns = (SRC / "components" / "patterns.tsx").read_text(encoding="utf-8")

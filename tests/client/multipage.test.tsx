@@ -26,23 +26,48 @@ describe("multipage site", () => {
     expect(screen.getByRole("heading", { level: 1, name: heading })).toBeTruthy();
   });
 
+  it.each(pages)("gives the title of the $name page the display size", ({ element }) => {
+    const { container } = render(element);
+    expect(container.querySelector("h1")?.className).toContain("text-(length:--text-3xl)");
+  });
+
+  it.each(pages)("does not repeat the title of the $name page as a section heading", ({ element }) => {
+    const { container } = render(element);
+    const title = container.querySelector("h1")?.textContent;
+    const repeated = Array.from(container.querySelectorAll("h2")).filter((h2) => h2.textContent === title);
+    expect(repeated).toHaveLength(0);
+  });
+
+  it.each(pages)("does not repeat the generic section paragraph on the $name page", ({ element }) => {
+    render(element);
+    expect(screen.queryByText(/nous comprenons les besoins réels avant de concevoir/)).toBeNull();
+  });
+
+  it("sends no visitor from a full list to another list", () => {
+    render(<Works />);
+    expect(screen.queryByRole("link", { name: /Découvrir plus/ })).toBeNull();
+    render(<Products />);
+    expect(screen.queryByRole("link", { name: /Découvrir plus/ })).toBeNull();
+  });
+
   it("links the reference navigation to real pages", () => {
     render(<Header />);
     const expected: Array<[string, string]> = [
-      ["About", "/fr/about"],
+      ["À propos", "/fr/about"],
       ["Services", "/fr/services"],
-      ["Products", "/fr/products"],
-      ["Works", "/fr/works"],
+      ["Produits", "/fr/products"],
+      ["Réalisations", "/fr/works"],
       ["Blog", "/fr/blog"],
-      ["Job", "/fr/job"],
+      ["Carrières", "/fr/job"],
     ];
     for (const [label, href] of expected) {
-      expect(screen.getByRole("link", { name: label }).getAttribute("href")).toBe(href);
+      const links = screen.getAllByRole("link", { name: label });
+      expect(links.every((link) => link.getAttribute("href") === href)).toBe(true);
     }
   });
 
   it("keeps the contact action on every page through the layout", () => {
     render(<Header />);
-    expect(screen.getByRole("link", { name: /Contact us/ }).getAttribute("href")).toBe("/fr/contact");
+    expect(screen.getByRole("link", { name: /Nous contacter/ }).getAttribute("href")).toBe("/fr/contact");
   });
 });

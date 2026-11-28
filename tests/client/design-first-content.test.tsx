@@ -3,6 +3,7 @@ import { describe, expect, it } from "vitest";
 import { ProcessBand } from "@/components/patterns.tsx";
 import { WorkCard } from "@/components/cards.tsx";
 import Home from "@/routes/[lang]/index.tsx";
+import { SAMPLE_IMAGE } from "./fixtures.ts";
 
 describe("design-first home content", () => {
   it("tells the story of a studio that designs, writes and builds", () => {
@@ -32,9 +33,9 @@ describe("design-first home content", () => {
     render(<Home />);
     for (const description of [
       "Nous clarifions le problème, les personnes concernées et ce que le produit doit accomplir.",
-      "Nous définissons le langage visuel, la voix et les principes qui tiennent l'ensemble.",
-      "Nous dessinons les parcours et les écrans, puis nous les testons avec de vrais utilisateurs.",
-      "Nous remettons des maquettes prêtes à l'emploi et un système de composants que vos équipes peuvent utiliser.",
+      "Nous concevons les parcours, le langage visuel et les écrans, puis nous les testons avec de vraies personnes.",
+      "Nous construisons l'application : interface, états et parcours jusqu'à la mise en ligne.",
+      "Nous écrivons la page produit, le ton et les messages utiles au quotidien pour que le produit trouve ses utilisateurs.",
     ]) {
       expect(screen.getAllByText(description)).toHaveLength(1);
     }
@@ -55,7 +56,20 @@ describe("design-first home content", () => {
     const { container } = render(<Home />);
     const text = container.textContent ?? "";
     expect(text).toContain("design to app");
-    expect(text).toContain("centrée sur l'utilisateur");
+    expect(text).toContain("centré sur l'utilisateur");
+  });
+
+  it("keeps the home about text to two short paragraphs", () => {
+    const { container } = render(<Home />);
+    const paragraphs = [...container.querySelectorAll("#about p")];
+    expect(paragraphs).toHaveLength(2);
+    expect(paragraphs.join(" ").split(/\s+/).length).toBeLessThan(80);
+  });
+
+  it("says that Luilka designs other products too, digital or physical", () => {
+    const { container } = render(<Home />);
+    const text = container.textContent ?? "";
+    expect(text).toContain("d'autres produits, numériques ou physiques");
   });
 
   it("gives each section of the home page its own description", () => {
@@ -79,8 +93,8 @@ describe("design-first home content", () => {
   it("describes each service in a few words", () => {
     const { container } = render(<Home />);
     for (const description of [
-      "Nous observons vos utilisateurs, cadrons le problème et dessinons des parcours testés avant l'interface. Livrable : parcours et prototype.",
-      "Nous dessinons des écrans clairs, avec leurs états et des composants accessibles. Les mots sont intégrés dès la première maquette.",
+      "Nous observons vos utilisateurs, cadrons le problème et concevons des parcours testés avant l'interface. Livrable : parcours et prototype.",
+      "Nous concevons des écrans clairs, avec leurs états et des composants accessibles. Les mots sont intégrés dès la première maquette.",
       "Nous construisons l'application : interface, états et parcours jusqu'à la mise en ligne. Ce service peut aussi être commandé seul.",
       "Nous écrivons la page produit qui donne envie d'acheter, le ton et les messages utiles au quotidien. Ce service peut aussi être commandé seul.",
     ]) {
@@ -106,13 +120,30 @@ describe("design-first home content", () => {
     expect(container.querySelectorAll("a[href*='/work/'] p")).toHaveLength(0);
   });
 
+  it("names the stages of the Luilka process with keywords, in order, instead of icons", () => {
+    const { container } = render(<ProcessBand />);
+    const stages = Array.from(container.querySelectorAll("[data-part='stage']"), (stage) => stage.textContent);
+    expect(stages.slice(0, 6)).toEqual(["1 Observer", "2 Cadrer", "3 Concevoir", "4 Construire", "5 Tester", "6 Lancer"]);
+    expect(stages).toHaveLength(12);
+    expect(container.textContent).not.toContain("[");
+  });
+
+  it("writes each stage number small, light and in a vivid yellow", () => {
+    const { container } = render(<ProcessBand />);
+    const number = container.querySelector("[data-part='stage-number']");
+    expect(number?.textContent).toBe("1");
+    expect(number?.className).toContain("text-(length:--text-xs)");
+    expect(number?.className).toContain("font-light");
+    expect(number?.className).toContain("text-yellow");
+  });
+
   it("hides the decorative process band from assistive technology", () => {
     const { container } = render(<ProcessBand />);
     expect(container.firstElementChild?.getAttribute("aria-hidden")).toBe("true");
   });
 
   it("uses a heading for the name of a case study", () => {
-    render(<WorkCard slug="work" name="Yano" />);
+    render(<WorkCard slug="work" name="Yano" image={SAMPLE_IMAGE} />);
     expect(screen.getByRole("heading", { level: 3, name: "Yano" })).toBeTruthy();
   });
 });

@@ -12,14 +12,14 @@ describe("landing page", () => {
 
   it("uses the reference section classes", () => {
     const { container } = render(<Home />);
-    for (const name of ["grid-cols-4", "grid-cols-3", "grid-cols-2", "bg-gray-300"]) {
+    for (const name of ["grid-cols-4", "grid-cols-3", "grid-cols-2", "animate-marquee-right"]) {
       expect(container.querySelector(`.${name}`)).not.toBeNull();
     }
   });
 
-  it("shows the four design steps with their own copy", () => {
+  it("shows the four steps from idea to app with their own copy", () => {
     render(<Home />);
-    for (const label of ["Cadrage", "Direction visuelle", "Design d'interface", "Livraison"]) {
+    for (const label of ["Cadrage", "Design", "Construction", "Lancement"]) {
       expect(screen.getAllByText(label).length).toBeGreaterThan(0);
     }
     expect(
@@ -67,9 +67,17 @@ describe("landing page", () => {
     expect(container.querySelectorAll("a[href*='/work/'] p")).toHaveLength(0);
   });
 
-  it("offers two quote actions", () => {
+  it("offers the same contact action twice, in the hero and in the contact block, both to the contact page", () => {
     render(<Home />);
-    expect(screen.getAllByText("J'ai besoin d'un devis")).toHaveLength(2);
+    const links = screen.getAllByRole("link", { name: /Nous contacter/ });
+    expect(links).toHaveLength(2);
+    for (const link of links) expect(link.getAttribute("href")?.endsWith("/contact")).toBe(true);
+    expect(screen.queryByText(/devis/i)).toBeNull();
+  });
+
+  it("writes the hero title in ink, without coloured words", () => {
+    const { container } = render(<Home />);
+    expect(container.querySelector("h1 span")).toBeNull();
   });
 
   it("keeps the contact section", () => {

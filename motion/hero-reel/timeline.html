@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Luilka, des applications en mouvement</title>
+<style>
+html,body{margin:0;background:#07070a}
+*{box-sizing:border-box;font-family:"Noto Sans Display",Helvetica,Arial,sans-serif}
+#stage{position:relative;width:1200px;height:880px;overflow:hidden;background:#e7e7ee;perspective:1500px}
+.abs{position:absolute}
+</style>
+</head>
+<body>
+<div id="stage"></div>
+<script>
+const W = 1200, H = 880, FPS = 24, DURATION = 18, CX = 600, CY = 440;
+const A1 = "#7a5cff", A2 = "#2f8bff", INK = "#07070a";
+const FINGERPRINT = "M12 3.75a6.715 6.715 0 0 0-3.722 1.118.75.75 0 1 1-.828-1.25 8.25 8.25 0 0 1 12.8 6.883c0 3.014-.574 5.897-1.62 8.543a.75.75 0 0 1-1.395-.551A21.69 21.69 0 0 0 18.75 10.5 6.75 6.75 0 0 0 12 3.75ZM6.157 5.739a.75.75 0 0 1 .21 1.04A6.715 6.715 0 0 0 5.25 10.5c0 1.613-.463 3.12-1.265 4.393a.75.75 0 0 1-1.27-.8A6.715 6.715 0 0 0 3.75 10.5c0-1.68.503-3.246 1.367-4.55a.75.75 0 0 1 1.04-.211ZM12 7.5a3 3 0 0 0-3 3c0 3.1-1.176 5.927-3.105 8.056a.75.75 0 1 1-1.112-1.008A10.459 10.459 0 0 0 7.5 10.5a4.5 4.5 0 1 1 9 0c0 .547-.022 1.09-.067 1.626a.75.75 0 0 1-1.495-.123c.041-.495.062-.996.062-1.503a3 3 0 0 0-3-3Zm0 2.25a.75.75 0 0 1 .75.75c0 3.908-1.424 7.485-3.781 10.238a.75.75 0 0 1-1.14-.975A14.19 14.19 0 0 0 11.25 10.5a.75.75 0 0 1 .75-.75Zm3.239 5.183a.75.75 0 0 1 .515.927 19.417 19.417 0 0 1-2.585 5.544.75.75 0 0 1-1.243-.84 17.915 17.915 0 0 0 2.386-5.116.75.75 0 0 1 .927-.515Z";
+
+const clamp = (v) => Math.min(1, Math.max(0, v));
+const seg = (t, a, b) => clamp((t - a) / (b - a));
+const lerp = (a, b, k) => a + (b - a) * k;
+const outExpo = (x) => (x >= 1 ? 1 : 1 - Math.pow(2, -10 * x));
+const outQuart = (x) => 1 - Math.pow(1 - x, 4);
+const inOut = (x) => (x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2);
+const outBack = (x) => { const c = 1.8; return 1 + (c + 1) * Math.pow(x - 1, 3) + c * Math.pow(x - 1, 2); };
+const win = (t, a, b, c, d) => seg(t, a, b) * (1 - seg(t, c, d));
+const pop = (t, a, d = 0.5) => (t < a ? 0 : outBack(seg(t, a, a + d)));
+
+const h = (tag, style, parent, html) => {
+  const n = document.createElement(tag);
+  Object.assign(n.style, { position: "absolute", ...style });
+  if (html !== undefined) n.innerHTML = html;
+  if (parent) parent.appendChild(n);
+  return n;
+};
+const svg = (d, size, color, parent, style = {}, fill = true) =>
+  h("div", { width: size + "px", height: size + "px", ...style }, parent, `<svg viewBox="0 0 24 24" width="${size}" height="${size}"><path d="${d}" fill="${fill ? color : "none"}" stroke="${fill ? "none" : color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`);
+const ICON = {
+  heart: "M12 21s-7.5-4.6-9.6-9.2C.8 8.2 3 4.5 6.6 4.5c2 0 3.5 1.1 5.4 3.2 1.9-2.1 3.4-3.2 5.4-3.2 3.6 0 5.8 3.7 4.2 7.3C19.500 16.400 12 21 12 21Z",
+  comment: "M4 5h16v11H9l-5 4V5Z",
+  share: "M4 12l16-8-6 16-3-7-7-1Z",
+  play: "M7 4l13 8-13 8V4Z",
+  search: "M10.500 3a7.500 7.500 0 1 0 4.500 13.500L20 21.500 21.500 20 16.500 15A7.500 7.500 0 0 0 10.500 3Z",
+  home: "M3 11l9-8 9 8v10h-6v-6H9v6H3V11Z",
+  plus: "M11 4h2v7h7v2h-7v7h-2v-7H4v-2h7V4Z",
+};
+
+const stage = document.getElementById("stage");
+
+/* Studio background: soft light and coloured blocks, moved by the camera. */
+const BLOCKS = [
+  [-80, 60, 260, 330, 40, "#ff4d8d,#ff9f43", 0.5], [150, -40, 220, 260, 36, "#5b3bd6,#2f6bff", 0.3],
+  [980, 40, 280, 340, 42, "#ffd23f,#ff9f43", 0.5], [820, -70, 240, 250, 36, "#ff4d8d,#7a5cff", 0.3],
+  [-60, 520, 300, 320, 44, "#2f6bff,#5b3bd6", 0.55], [250, 640, 240, 280, 38, "#ffd23f,#ff4d8d", 0.35],
+  [900, 560, 320, 330, 44, "#ff9f43,#ff4d8d", 0.55], [700, 700, 230, 260, 36, "#5b3bd6,#ff4d8d", 0.35],
+  [300, 130, 120, 120, 28, "#ffffff,#e0e0ea", 0.15], [800, 380, 130, 130, 28, "#ffffff,#e0e0ea", 0.15],
+];
+const bg = h("div", { inset: 0 }, stage);
+const blocks = BLOCKS.map(([x, y, w, hh, r, g, d]) => {
+  const [c1, c2] = g.split(",");
+  return { el: h("div", { left: x + "px", top: y + "px", width: w + "px", height: hh + "px", borderRadius: r + "px", background: `linear-gradient(150deg,${c1},${c2})`, filter: d < 0.4 ? "blur(3px)" : "none", opacity: 0.95 }, bg), d };
+});
+const light = h("div", { inset: 0, background: "radial-gradient(60% 60% at 50% 40%, rgba(255,255,255,.55), rgba(255,255,255,0) 70%)" }, stage);
+
+/* Phones. */
+const cam = h("div", { inset: 0, transformStyle: "preserve-3d" }, stage);
+function makePhone(buildApps) {
+  const root = h("div", { left: "435px", top: "100px", width: "330px", height: "680px", transformStyle: "preserve-3d" }, cam);
+  h("div", { inset: 0, borderRadius: "56px", background: "linear-gradient(145deg,#4a4a55,#0c0c10 40%,#2a2a33)", boxShadow: "0 50px 90px rgba(30,10,80,.35)" }, root);
+  const screen = h("div", { left: "10px", top: "10px", width: "310px", height: "660px", borderRadius: "46px", overflow: "hidden", background: "#000" }, root);
+  const apps = buildApps(screen);
+  h("div", { left: "115px", top: "22px", width: "100px", height: "28px", borderRadius: "14px", background: "#000" }, root);
+  return { root, screen, apps };
+}
+const set = (n, o) => Object.assign(n.style, o);
+const tf3 = (x, y, s, rx, ry, rz) => `translate3d(${x}px,${y}px,0) rotateX(${rx}deg) rotateY(${ry}deg) rotateZ(${rz}deg) scale(${s})`;
+
+/* Tala: video streaming. */
+function buildTala(screen) {
+  const root = h("div", { inset: 0, background: "#0e0e15", color: "#fff" }, screen);
+  h("div", { left: "22px", top: "62px", fontSize: "26px", fontWeight: 700, letterSpacing: "-1px" }, root, "tala");
+  h("div", { right: "22px", top: "62px", width: "30px", height: "30px", borderRadius: "15px", background: "linear-gradient(135deg,#ff9f43,#ff4d8d)" }, root);
+  const hero = h("div", { left: "16px", top: "108px", width: "278px", height: "300px", borderRadius: "24px", overflow: "hidden", background: "linear-gradient(160deg,#5b3bd6,#ff4d8d 70%,#ff9f43)" }, root);
+  const art = h("div", { inset: 0 }, hero);
+  h("div", { left: "60px", top: "40px", width: "170px", height: "170px", borderRadius: "85px", background: "radial-gradient(circle at 35% 35%,#fff3,#fff0 70%)" }, art);
+  h("div", { left: "20px", top: "30px", width: "110px", height: "110px", borderRadius: "30px", background: "linear-gradient(135deg,#ffd23f,#ff9f43)", transform: "rotate(18deg)" }, art);
+  h("div", { left: "130px", top: "70px", width: "120px", height: "120px", borderRadius: "60px", background: "linear-gradient(135deg,#2f6bff,#7a5cff)" }, art);
+  h("div", { inset: 0, background: "linear-gradient(180deg,rgba(0,0,0,0) 40%,rgba(8,6,20,.85))" }, hero);
+  h("div", { left: "18px", top: "208px", fontSize: "11px", letterSpacing: "2px", opacity: 0.8 }, hero, "FILM ORIGINAL");
+  h("div", { left: "18px", top: "226px", fontSize: "22px", fontWeight: 700, letterSpacing: "-0.8px" }, hero, "Nuits de Kinshasa");
+  const ring = h("div", { left: "208px", top: "232px", width: "50px", height: "50px", borderRadius: "25px", border: "2px solid #fff" }, hero);
+  const playBtn = h("div", { left: "208px", top: "232px", width: "50px", height: "50px", borderRadius: "25px", background: "#fff" }, hero);
+  svg(ICON.play, 22, "#0e0e15", playBtn, { left: "15px", top: "14px" });
+  h("div", { left: "22px", top: "428px", fontSize: "15px", fontWeight: 600 }, root, "Continuer à regarder");
+  const rowClip = h("div", { left: 0, top: "460px", width: "310px", height: "120px", overflow: "hidden" }, root);
+  const row = h("div", { left: "16px", top: 0, width: "900px", height: "120px" }, rowClip);
+  const GR = ["#2f6bff,#7a5cff", "#ff9f43,#ff4d8d", "#34d399,#2f6bff", "#ffd23f,#ff9f43", "#ff4d8d,#5b3bd6"];
+  const bars = GR.map((g, i) => {
+    const card = h("div", { left: i * 142 + "px", top: 0, width: "130px", height: "90px", borderRadius: "16px", background: `linear-gradient(140deg,${g.split(",")[0]},${g.split(",")[1]})` }, row);
+    svg(ICON.play, 18, "#fff", card, { left: "12px", top: "56px", opacity: 0.9 });
+    h("div", { left: "10px", top: "100px", width: "110px", height: "4px", borderRadius: "2px", background: "#ffffff30" }, card);
+    return h("div", { left: "10px", top: "100px", width: "0px", height: "4px", borderRadius: "2px", background: "#fff" }, card);
+  });
+  const nav = h("div", { left: "16px", top: "596px", width: "278px", height: "50px", borderRadius: "25px", background: "#1b1b26" }, root);
+  [0, 1, 2, 3].forEach((i) => h("div", { left: 30 + i * 62 + "px", top: "18px", width: "14px", height: "14px", borderRadius: i === 0 ? "7px" : "4px", background: i === 0 ? "#fff" : "#ffffff55" }, nav));
+  return {
+    root,
+    update(lt) {
+      set(art, { transform: `scale(${1.04 + 0.05 * clamp(lt / 4)}) translate(${-lt * 3}px,0)` });
+      const p = (lt * 0.9) % 1;
+      set(ring, { transform: `scale(${1 + 0.6 * p})`, opacity: 1 - p });
+      set(row, { transform: `translateX(${-clamp((lt - 1.4) / 3) * 150}px)` });
+      bars.forEach((b, i) => set(b, { width: 110 * clamp((lt - 0.4 * i) / 3) * (0.4 + 0.12 * i) + "px" }));
+    },
+  };
+}
+
+/* Vuga: house rentals. */
+function buildVuga(screen) {
+  const root = h("div", { inset: 0, background: "#f6f6fa", color: "#14141c" }, screen);
+  h("div", { left: "16px", top: "62px", width: "278px", height: "44px", borderRadius: "22px", background: "#fff", boxShadow: "0 4px 16px rgba(20,20,60,.08)" }, root);
+  svg(ICON.search, 18, "#14141c", root, { left: "30px", top: "75px" });
+  h("div", { left: "58px", top: "76px", fontSize: "14px", fontWeight: 500 }, root, "Gombe, Kinshasa");
+  const chips = ["Maison", "Appartement", "Studio"].map((c, i) => {
+    const x = [16, 92, 196][i], w = [68, 96, 64][i];
+    return h("div", { left: x + "px", top: "120px", width: w + "px", height: "32px", borderRadius: "16px", background: "#ececf3", fontSize: "12px", fontWeight: 600, textAlign: "center", lineHeight: "32px" }, root, c);
+  });
+  const active = h("div", { left: "16px", top: "120px", width: "68px", height: "32px", borderRadius: "16px", background: "#14141c", color: "#fff", fontSize: "12px", fontWeight: 600, textAlign: "center", lineHeight: "32px" }, root, "Maison");
+  const card = (top, tint) => {
+    const c = h("div", { left: "16px", top: top + "px", width: "278px", height: "250px", borderRadius: "26px", background: "#fff", boxShadow: "0 10px 30px rgba(20,20,60,.10)", overflow: "hidden" }, root);
+    const pic = h("div", { left: 0, top: 0, width: "278px", height: "170px", background: `linear-gradient(180deg,${tint[0]},${tint[1]})`, overflow: "hidden" }, c);
+    h("div", { left: "30px", top: "86px", width: "218px", height: "100px", background: "#fff", borderRadius: "6px" }, pic);
+    h("div", { left: "20px", top: "56px", width: "238px", height: "50px", background: "#14141c", clipPath: "polygon(50% 0,100% 100%,0 100%)", transform: "scaleY(.8)" }, pic);
+    h("div", { left: "118px", top: "120px", width: "42px", height: "66px", background: "#ff9f43", borderRadius: "5px 5px 0 0" }, pic);
+    h("div", { left: "46px", top: "108px", width: "40px", height: "34px", background: "#cfe4ff", borderRadius: "4px" }, pic);
+    h("div", { left: "194px", top: "108px", width: "40px", height: "34px", background: "#cfe4ff", borderRadius: "4px" }, pic);
+    h("div", { left: "16px", top: "184px", fontSize: "16px", fontWeight: 700, letterSpacing: "-.4px" }, c, "Maison trois chambres");
+    h("div", { left: "16px", top: "210px", fontSize: "12px", color: "#6a6a7a" }, c, "Gombe · Jardin · Parking");
+    const heart = h("div", { right: "14px", top: "14px", width: "36px", height: "36px", borderRadius: "18px", background: "#ffffffdd" }, pic);
+    const hi = svg(ICON.heart, 18, "#14141c", heart, { left: "9px", top: "9px" });
+    return { c, heart, hi };
+  };
+  const a = card(172, ["#bfe3ff", "#eaf6ff"]);
+  const b = card(440, ["#ffe2c2", "#fff3e6"]);
+  const cta = h("div", { left: "16px", top: "592px", width: "278px", height: "52px", borderRadius: "26px", background: "linear-gradient(90deg,#7a5cff,#2f8bff)", color: "#fff", fontSize: "15px", fontWeight: 600, textAlign: "center", lineHeight: "52px" }, root, "Réserver une visite");
+  const ripple = h("div", { left: "130px", top: "596px", width: "40px", height: "40px", borderRadius: "20px", border: "3px solid #fff", opacity: 0 }, root);
+  return {
+    root,
+    update(lt) {
+      set(active, { transform: `translateX(${lerp(0, 76, inOut(seg(lt, 1.2, 1.7)))}px)`, width: lerp(68, 96, inOut(seg(lt, 1.2, 1.7))) + "px" });
+      set(a.c, { transform: `translateY(${(1 - outQuart(seg(lt, 0.1, 0.9))) * 80 - clamp((lt - 2.7) / 0.9) * 258}px)`, opacity: seg(lt, 0.1, 0.5) });
+      set(b.c, { transform: `translateY(${(1 - outQuart(seg(lt, 2.4, 3.2))) * 300 - clamp((lt - 3.4) / 1) * 0}px)`, opacity: seg(lt, 2.4, 2.6) });
+      const hp = pop(lt, 1.9, 0.4);
+      set(a.heart, { transform: `scale(${1 + 0.35 * Math.sin(Math.PI * clamp(hp))})`, background: lt > 1.9 ? "#ff4d6d" : "#ffffffdd" });
+      a.hi.querySelector("path").setAttribute("fill", lt > 1.9 ? "#fff" : "#14141c");
+      const r = seg(lt, 3.5, 4.1);
+      set(ripple, { transform: `scale(${1 + 2 * r})`, opacity: r > 0 && r < 1 ? 1 - r : 0 });
+      set(cta, { transform: `scale(${1 - 0.04 * Math.sin(Math.PI * r)})` });
+    },
+  };
+}
+
+/* Pro: professional network with vertical video feed. */
+function buildPro(screen) {
+  const root = h("div", { inset: 0, background: "#0b0b12", color: "#fff", overflow: "hidden" }, screen);
+  const makeClip = (tones, person) => {
+    const clip = h("div", { inset: 0, background: `linear-gradient(170deg,${tones[0]},${tones[1]})` }, root);
+    h("div", { left: "40px", top: "120px", width: "230px", height: "230px", borderRadius: "115px", background: "radial-gradient(circle,#ffffff30,#ffffff00 70%)" }, clip);
+    const body = h("div", { inset: 0 }, clip);
+    h("div", { left: "115px", top: "250px", width: "84px", height: "84px", borderRadius: "42px", background: person }, body);
+    h("div", { left: "70px", top: "336px", width: "174px", height: "240px", borderRadius: "90px 90px 0 0", background: person }, body);
+    h("div", { inset: 0, background: "linear-gradient(180deg,rgba(0,0,0,.35),rgba(0,0,0,0) 22%,rgba(0,0,0,0) 55%,rgba(0,0,0,.75))" }, clip);
+    return { clip, body };
+  };
+  const c1 = makeClip(["#2f6bff", "#7a5cff"], "#f4c9a8");
+  const c2 = makeClip(["#ff9f43", "#ff4d8d"], "#8a5a44");
+  const tabs = h("div", { left: 0, top: "60px", width: "310px", textAlign: "center", fontSize: "14px", fontWeight: 600 }, root, '<span style="opacity:.6">Réseau</span> &nbsp;&nbsp; <span style="border-bottom:2px solid #fff;padding-bottom:3px">Pour vous</span>');
+  const rail = h("div", { right: "12px", top: "330px", width: "48px", height: "250px" }, root);
+  const avatar = h("div", { left: "2px", top: 0, width: "44px", height: "44px", borderRadius: "22px", background: "#fff", border: "2px solid #fff" }, rail);
+  h("div", { inset: 0, borderRadius: "22px", background: "linear-gradient(135deg,#34d399,#2f8bff)" }, avatar);
+  const plus = h("div", { left: "13px", top: "34px", width: "20px", height: "20px", borderRadius: "10px", background: "#ff4d6d" }, rail);
+  svg(ICON.plus, 14, "#fff", plus, { left: "3px", top: "3px" });
+  const heart = h("div", { left: "4px", top: "76px", width: "40px", height: "40px" }, rail);
+  const heartIcon = svg(ICON.heart, 38, "#fff", heart, { left: "1px", top: "1px" });
+  const cm = svg(ICON.comment, 34, "#fff", rail, { left: "7px", top: "136px" });
+  const sh = svg(ICON.share, 34, "#fff", rail, { left: "7px", top: "196px" });
+  const name = h("div", { left: "18px", top: "540px", fontSize: "17px", fontWeight: 700 }, root, "Awa K.");
+  const role = h("div", { left: "18px", top: "564px", fontSize: "12px", opacity: 0.85 }, root, "Cheffe de projet · Paiement mobile");
+  const cap = h("div", { left: "18px", top: "586px", width: "220px", fontSize: "12px", opacity: 0.9 }, root, "Comment nous avons lancé notre app en neuf semaines.");
+  h("div", { left: 0, top: "654px", width: "310px", height: "4px", background: "#ffffff30" }, root);
+  const prog = h("div", { left: 0, top: "654px", width: "0px", height: "4px", background: "#fff" }, root);
+  return {
+    root,
+    update(lt) {
+      const sw = inOut(seg(lt, 2.6, 3.3));
+      set(c1.clip, { transform: `translateY(${-sw * 660}px)` });
+      set(c2.clip, { transform: `translateY(${(1 - sw) * 660}px)` });
+      set(c1.body, { transform: `translateX(${Math.sin(lt * 1.3) * 8}px) scale(${1 + 0.02 * Math.sin(lt * 2)})` });
+      set(c2.body, { transform: `translateX(${Math.sin(lt * 1.1 + 1) * 8}px)` });
+      const hp = pop(lt, 1.4, 0.45);
+      set(heart, { transform: `scale(${1 + 0.4 * Math.sin(Math.PI * clamp(hp))})` });
+      heartIcon.querySelector("path").setAttribute("fill", lt > 1.4 && lt < 2.7 ? "#ff4d6d" : "#fff");
+      set(prog, { width: 310 * ((lt / 5) % 1) + "px" });
+      set(avatar, { transform: `scale(${1 + 0.05 * Math.sin(lt * 4)})` });
+    },
+  };
+}
+
+/* The hero phone and its apps, switched by time. */
+const hero = makePhone((screen) => ({ tala: buildTala(screen), vuga: buildVuga(screen), pro: buildPro(screen) }));
+const { tala, vuga, pro } = hero.apps;
+const APPS = [[tala, 2.5, 6.9], [vuga, 6.5, 10.9], [pro, 10.5, 99]];
+/* Two more phones for the closing line-up. */
+const sideA = makePhone((s) => ({ a: buildTala(s) }));
+const sideB = makePhone((s) => ({ a: buildVuga(s) }));
+sideA.apps.a.update(2.2); sideB.apps.a.update(3.6);
+
+/* Opening shape: a dot that becomes a tile with the logo, then the phone. */
+const dark = h("div", { inset: 0, background: INK }, stage);
+const shape = h("div", { left: "600px", top: "440px", width: "0px", height: "0px", background: `linear-gradient(135deg,${A1},${A2})` }, stage);
+const logoEl = h("div", { left: "540px", top: "380px", width: "120px", height: "120px" }, stage, `<svg viewBox="0 0 24 24" width="120" height="120"><path d="${FINGERPRINT}" fill="#fff" fill-rule="evenodd"/></svg>`);
+const word = h("div", { left: "0px", top: "612px", width: "1200px", textAlign: "center", color: "#fff", fontSize: "34px", fontWeight: 500 }, stage, "LUILKA");
+
+/* Captions and closing card. */
+const caption = h("div", { left: "250px", top: "760px", height: "56px", padding: "0 26px", borderRadius: "28px", background: "rgba(255,255,255,.88)", color: INK, zIndex: 20, whiteSpace: "nowrap", boxShadow: "0 8px 30px rgba(20,20,60,.18)" }, stage);
+const capTitle = h("span", { position: "static", fontSize: "26px", fontWeight: 700, letterSpacing: "-.8px", lineHeight: "56px" }, caption);
+const capLine = h("span", { position: "static", marginLeft: "14px", fontSize: "13px", fontWeight: 600, letterSpacing: "3px", opacity: 0.6, lineHeight: "56px" }, caption);
+const endCard = h("div", { left: 0, top: "700px", width: "1200px", textAlign: "center", color: INK }, stage);
+h("div", { left: "0", top: "0", width: "1200px", fontSize: "40px", fontWeight: 600, letterSpacing: "-1.2px" }, endCard, "Des applications conçues, écrites et construites.");
+const endLogo = h("div", { left: "0", top: "70px", width: "1200px", textAlign: "center", fontSize: "24px", letterSpacing: "9px", fontWeight: 500, opacity: 0.7 }, endCard, "LUILKA");
+const fade = h("div", { inset: 0, background: INK, opacity: 0, pointerEvents: "none", zIndex: 30 }, stage);
+
+const SCENES = [
+  { from: 3.0, to: 6.8, title: "Tala", line: "STREAMING VIDÉO" },
+  { from: 7.0, to: 10.8, title: "Vuga", line: "LOCATION DE MAISONS" },
+  { from: 11.0, to: 14.4, title: "Pro", line: "RÉSEAU PROFESSIONNEL" },
+];
+const CAM = [
+  [2.5, 0, 0, 1, 0, 0, 0], [3.2, 0, 250, 1.8, 6, -10, 0], [4.8, 0, 60, 1.9, -4, 8, 0], [6.4, 0, 0, 1, 0, 0, 0],
+  [7.2, 0, 150, 1.6, 8, 14, -3], [9.0, 0, -90, 1.65, -6, -8, 2], [10.5, 0, 0, 1, 0, 0, 0],
+  [11.2, 0, 120, 1.4, 4, 12, -5], [12.8, 0, -30, 1.55, 8, -10, 3], [14.2, 0, 0, 1, 0, 0, 0],
+  [15.4, 250, -30, 0.74, 0, -16, 0], [18, 250, -30, 0.74, 0, -16, 0],
+];
+function camAt(t) {
+  let i = 0;
+  while (i < CAM.length - 2 && t >= CAM[i + 1][0]) i++;
+  const a = CAM[i], b = CAM[i + 1], k = inOut(seg(t, a[0], b[0]));
+  return a.slice(1).map((v, j) => lerp(v, b[j + 1], k));
+}
+
+window.draw = (clock) => {
+  const t = Math.min(Math.max(clock, 0), DURATION - 0.001);
+  // Opening.
+  const dot = outExpo(seg(t, 0.2, 0.9)), circ = inOut(seg(t, 0.9, 1.7)), tile = inOut(seg(t, 1.7, 2.3)), ph = inOut(seg(t, 2.1, 2.9));
+  const sw = lerp(lerp(lerp(0, 22, dot), 250, circ), 330, ph), sh = lerp(lerp(lerp(0, 22, dot), 250, circ), 680, ph);
+  const sr = lerp(lerp(lerp(11, 125, circ), 68, tile), 56, ph);
+  set(shape, { width: sw + "px", height: sh + "px", left: CX - sw / 2 + "px", top: CY - sh / 2 + 100 * 0 + "px", borderRadius: sr + "px", opacity: t < 2.4 ? 1 : 1 - seg(t, 2.5, 2.9) });
+  set(shape, { top: CY - sh / 2 + "px" });
+  set(logoEl, { opacity: seg(t, 1.8, 2.3) * (1 - seg(t, 2.4, 2.8)), transform: `scale(${0.7 + 0.3 * seg(t, 1.8, 2.4)})` });
+  set(word, { opacity: win(t, 2.0, 2.6, 2.6, 3.0), letterSpacing: lerp(26, 9, outQuart(seg(t, 2.0, 2.8))) + "px" });
+  set(dark, { opacity: 1 - seg(t, 2.3, 3.0) });
+  // Camera and phones.
+  const [x, y, s, rx, ry, rz] = camAt(t);
+  const open = seg(t, 2.3, 3.0);
+  set(hero.root, { opacity: open, transform: tf3(x, y, s * (0.92 + 0.08 * open), rx, ry, rz) });
+  const side = inOut(seg(t, 14.6, 15.8));
+  set(sideA.root, { opacity: side, transform: tf3(-255 * side, -30, 0.74, 0, 16, 0) });
+  set(sideB.root, { opacity: side, transform: tf3(0, -30, 0.74, 0, 0, 0) });
+  blocks.forEach(({ el, d }) => set(el, { transform: `translate(${-x * d * 0.5 - (s - 1) * 0 + ry * -3 * d}px, ${-y * d * 0.4}px) scale(${1 + (s - 1) * d * 0.3})` }));
+  // App switching inside the phone.
+  APPS.forEach(([app, from, to], i) => {
+    const enter = inOut(seg(t, from, from + 0.7)), leave = inOut(seg(t, to - 0.1, to + 0.5));
+    const first = i === 0 && t < from + 0.7;
+    set(app.root, { transform: `translateX(${first ? 0 : (1 - enter) * 310 - leave * 90}px)`, opacity: t < from - 0.1 || t > to + 0.6 ? 0 : 1 - leave * 0.6, zIndex: i });
+    app.update(t - from);
+  });
+  // Captions.
+  const sc = SCENES.find((c) => t >= c.from && t <= c.to + 0.2);
+  if (sc) {
+    capTitle.textContent = sc.title; capLine.textContent = sc.line;
+    const a = win(t, sc.from, sc.from + 0.6, sc.to - 0.4, sc.to), r = (1 - outQuart(seg(t, sc.from, sc.from + 0.8))) * 30;
+    set(caption, { opacity: a, transform: `translateY(${r}px)` });
+  } else set(caption, { opacity: 0 });
+  set(endCard, { opacity: win(t, 15.8, 16.6, 17.5, 17.95), transform: `translateY(${(1 - outQuart(seg(t, 15.8, 16.8))) * 20}px)` });
+  set(fade, { opacity: seg(t, 17.5, 17.99) });
+};
+window.MOTION = { FPS, DURATION };
+window.draw(new URLSearchParams(location.search).get("t") || 0);
+</script>
+</body>
+</html>
