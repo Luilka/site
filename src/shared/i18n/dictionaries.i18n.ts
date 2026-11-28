@@ -16,9 +16,9 @@ const dropdownBase: Record<MenuKey, { items: readonly DropdownBaseItem[] }> = {
   },
   products: {
     items: [
-      { href: "/products", image: "/dropdown-products-tala.svg" },
-      { href: "/products", image: "/dropdown-products-vuga.svg" },
-      { href: "/products", image: "/dropdown-products-pro.svg" },
+      { href: "/products", image: imageSource.products.tala.src },
+      { href: "/products", image: imageSource.products.vuga.src },
+      { href: "/products", image: imageSource.products.pro.src },
     ],
   },
 };

@@ -1,6 +1,7 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import { Header } from "@/components/layout.tsx";
+import images from "@/content/images.json";
 
 function renderHeader() {
   return render(<Header />);
@@ -21,6 +22,13 @@ describe("site header dropdown navigation", () => {
     expect(expanded(/Produits/)).toBe("true");
     fireEvent.mouseLeave(nav);
     expect(expanded(/Produits/)).toBe("false");
+  });
+
+  it("shows the same pictures for Tala, Vuga and Pro in the Produits panel as in the products section", () => {
+    renderHeader();
+    const panel = screen.getByRole("link", { name: /Produits/ }).parentElement?.querySelector("[id]");
+    const sources = Array.from(panel?.querySelectorAll("img") ?? [], (image) => image.getAttribute("src"));
+    expect(sources).toEqual([images.products.tala.src, images.products.vuga.src, images.products.pro.src]);
   });
 
   it("uses an animated panel that closes on Escape", () => {
