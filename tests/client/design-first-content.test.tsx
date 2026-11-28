@@ -123,7 +123,9 @@ describe("design-first home content", () => {
   it("names the stages of the Luilka process with keywords, in order, instead of icons", () => {
     const { container } = render(<ProcessBand />);
     const stages = Array.from(container.querySelectorAll("[data-part='stage']"), (stage) => stage.textContent);
-    expect(stages.slice(0, 6)).toEqual(["[01] Observer", "[02] Cadrer", "[03] Concevoir", "[04] Construire", "[05] Tester", "[06] Lancer"]);
+    expect(stages.slice(0, 4)).toEqual(["[01] Observer", "[02] Cadrer", "[03] Concevoir", "[04] Construire"]);
+    expect(stages).toHaveLength(8);
+    expect(container.textContent).not.toContain("Tester");
   });
 
   it("writes each stage number small, light and in a vivid yellow", () => {
