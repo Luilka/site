@@ -311,6 +311,11 @@ const fr: Dictionary = {
   reelPlay: "Reprendre la vidéo",
   soundOn: "Activer le son",
   processKeywords: ["Observer", "Cadrer", "Concevoir", "Construire", "Tester", "Lancer"],
+  meta: {
+    siteName: "Luilka",
+    homeTitle: "Studio de design centré sur l'utilisateur",
+    homeDescription: "Luilka conçoit, écrit et construit des produits, numériques ou physiques, à partir des personnes qui les utiliseront. De l'idée à l'application.",
+  },
   soundOff: "Couper le son",
   mobileNavigationLabel: "Navigation mobile",
   breadcrumb: { label: "Fil d'Ariane", home: "Accueil" },
@@ -554,6 +559,11 @@ const en: Dictionary = {
   reelPlay: "Resume the video",
   soundOn: "Turn the sound on",
   processKeywords: ["Observe", "Scope", "Design", "Build", "Test", "Launch"],
+  meta: {
+    siteName: "Luilka",
+    homeTitle: "A user-centric design studio",
+    homeDescription: "Luilka designs, writes and builds products, digital or physical, starting from the people who will use them. From idea to app.",
+  },
   soundOff: "Turn the sound off",
   mobileNavigationLabel: "Mobile navigation",
   breadcrumb: { label: "Breadcrumb", home: "Home" },

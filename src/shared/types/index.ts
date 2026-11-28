@@ -5,6 +5,7 @@ export type * from "./dictionaries.type.ts";
 export type * from "./hooks.type.ts";
 export type * from "./i18n.type.ts";
 export type * from "./layout.type.ts";
+export type * from "./meta.type.ts";
 export type * from "./patterns.type.ts";
 export type * from "./routes.type.ts";
 export type * from "./section-props.type.ts";
