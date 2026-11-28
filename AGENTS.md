@@ -34,7 +34,7 @@ Ordre de prévalence en cas de divergence : `docs/Product/decisions.md`, puis l'
 
 ## 3. Décisions opposables et questions ouvertes
 
-Décisions retenues : D-001 à D-026. Question ouverte : Q-001. Les questions Q-002, Q-003, Q-004 et Q-005 sont closes par D-013, D-024, D-026 et D-025.
+Décisions retenues : D-001 à D-027. Question ouverte : Q-001. Les questions Q-002, Q-003, Q-004 et Q-005 sont closes par D-013, D-024, D-026 et D-025.
 
 Aucune question ouverte n'entre dans le code avant son inscription au registre avec date, motif, propriétaire et source. Toute demande qui contredit une décision retenue impose une réouverture écrite : nouvelle preuve, date, décision remplacée, documents touchés. Aucune modification silencieuse.
 
