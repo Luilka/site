@@ -48,11 +48,13 @@ export type PageHeroProps = {
 
 export type ProcessStageListProps = {
   className: string;
+  reverse?: boolean;
 };
 
 export type ProcessStageProps = {
   label: string;
   last: boolean;
+  reverse?: boolean;
 };
 
 export type ReelVideoProps = {

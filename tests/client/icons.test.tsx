@@ -14,10 +14,18 @@ const detail: DetailModel = {
 };
 
 describe("icons", () => {
-  it("separates the process stages with a chevron", () => {
+  it("separates the process stages with a motorbike instead of a chevron", () => {
     const { container } = render(<ProcessBand />);
-    expect(container.querySelectorAll("svg.lucide-chevron-right")).toHaveLength(12);
+    expect(container.querySelectorAll("svg.lucide-motorbike")).toHaveLength(12);
+    expect(container.querySelectorAll("svg.lucide-chevron-right")).toHaveLength(0);
     expect(container.querySelectorAll("svg")).toHaveLength(24);
+  });
+
+  it("points the motorbikes the way the band scrolls", () => {
+    const forward = render(<ProcessBand />).container;
+    expect(forward.querySelector("svg.lucide-motorbike")?.getAttribute("class")).not.toContain("-scale-x-100");
+    const reversed = render(<ProcessBand reverse />).container;
+    expect(reversed.querySelector("svg.lucide-motorbike")?.getAttribute("class")).toContain("-scale-x-100");
   });
 
   it("shows a check icon with the valid newsletter message", () => {

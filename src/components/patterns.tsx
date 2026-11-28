@@ -1,4 +1,4 @@
-import { ArrowUpRight, ChevronRight, Pause, Play, Volume2, VolumeX, CalendarDays, Code, FlaskConical, Lightbulb, LayoutDashboard, PenTool, Rocket, type LucideIcon } from "lucide-react";
+import { ArrowUpRight, ChevronRight, Motorbike, Pause, Play, Volume2, VolumeX, CalendarDays, Code, FlaskConical, Lightbulb, LayoutDashboard, PenTool, Rocket, type LucideIcon } from "lucide-react";
 import { buttonClasses } from "@/shared/ui/buttons.tsx";
 import { Link, ErrorBoundary } from "@/shared/ui/links.tsx";
 import { Container } from "@/shared/ui/containers.tsx";
@@ -214,21 +214,21 @@ const STAGE_ICONS: Record<string, LucideIcon> = {
   Production: Rocket,
 };
 
-function ProcessStage({ label, last }: ProcessStageProps) {
+function ProcessStage({ label, last, reverse }: ProcessStageProps) {
   const Icon = STAGE_ICONS[label];
   return (
     <>
       <Icon size={30} strokeWidth={1.6} aria-hidden="true" />
-      <ChevronRight size={22} strokeWidth={1.5} aria-hidden="true" className={last ? CHEVRON_LAST : CHEVRON} />
+      <Motorbike size={26} strokeWidth={1.5} aria-hidden="true" className={`${last ? CHEVRON_LAST : CHEVRON} ${reverse ? "-scale-x-100" : ""}`} />
     </>
   );
 }
 
-function ProcessStageList({ className }: ProcessStageListProps) {
+function ProcessStageList({ className, reverse }: ProcessStageListProps) {
   const lastIndex = PROCESS_STAGES.length - 1;
   return (
     <div className={className}>
-      {PROCESS_STAGES.map((stage, index) => <ProcessStage key={stage} label={stage} last={index === lastIndex} />)}
+      {PROCESS_STAGES.map((stage, index) => <ProcessStage key={stage} label={stage} last={index === lastIndex} reverse={reverse} />)}
     </div>
   );
 }
@@ -237,8 +237,8 @@ function ProcessStages({ reverse }: ProcessBandProps) {
   return (
     <div className="relative z-2 overflow-x-clip bg-night text-gold py-7 font-medium">
       <div className={`${TRACK} ${reverse ? "animate-marquee" : "animate-marquee-right"}`}>
-        <ProcessStageList className={LIST} />
-        <ProcessStageList className={LIST_COPY} />
+        <ProcessStageList className={LIST} reverse={reverse} />
+        <ProcessStageList className={LIST_COPY} reverse={reverse} />
       </div>
     </div>
   );
