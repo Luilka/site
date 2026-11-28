@@ -103,11 +103,12 @@ describe("landing components", () => {
     expect(classes).toContain("max-[640px]:h-[380px]");
   });
 
-  it("lays a fine dot pattern on the contact section behind its card, not the header grid", () => {
+  it("lays fine dots on a white contact section behind its card, not the header grid", () => {
     const { container } = render(<ContactPanel />);
     const section = container.querySelector("section#contact");
     expect(section?.className).toContain("bg-dots");
-    expect(section?.className).toContain("bg-soft");
+    expect(section?.className).toContain("bg-paper");
+    expect(section?.className).not.toContain("bg-soft");
     expect(section?.className).not.toContain("bg-grid");
   });
 

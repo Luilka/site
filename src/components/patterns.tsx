@@ -35,7 +35,7 @@ function ContactCard() {
 
 export function ContactPanel({ id = "contact" }: ContactPanelProps) {
   return (
-    <section className="bg-soft bg-dots py-[90px] px-0 mt-[20px]" id={id}>
+    <section className="bg-paper bg-dots py-[90px] px-0 mt-[20px]" id={id}>
       <Container>
         <ContactCard />
       </Container>
