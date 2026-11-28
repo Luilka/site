@@ -11,7 +11,7 @@ Chaque mesure possède un identifiant, un nom, une formule, une source, un propr
 
 - Une cible est soit « À nommer », soit une valeur qui cite sa règle : une décision du [registre](decisions.md), un critère WCAG ou un seuil publié par web.dev. `scripts/check_kpi.py` refuse toute autre cible.
 - La disponibilité dit si la mesure existe déjà (`disponible`) ou si elle demande un outil qui n'est pas en place (`à instrumenter`).
-- Aucun événement d'usage n'est collecté tant que la question Q-004 du registre n'est pas tranchée. Aucun identifiant permanent de visiteur et aucun traceur tiers ne sont introduits sans décision écrite.
+- L'usage se mesure avec les outils de D-026 (Vercel Web Analytics, Vercel Speed Insights, Plausible, et Google Analytics 4 derrière l'accord du visiteur). Aucun autre traceur et aucun événement personnalisé ne sont introduits sans décision écrite.
 - Les mesures d'usage reprennent quatre événements canoniques : `quote_click` (clic sur le bouton de devis), `newsletter_valid` (adresse valide envoyée), `language_switch` (changement de langue) et `page_not_found` (affichage de la page 404).
 - Le propriétaire de chaque mesure est @Espoir-Loem à titre intérimaire.
 

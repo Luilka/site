@@ -13,7 +13,7 @@ Luilka est le site vitrine d'un studio de design. C'est un projet Nexy : routage
 - Le site sert une visite rapide, souvent sur téléphone. Il montre ce que Luilka dessine, des preuves, puis un contact.
 - Aucun élément d'interface n'est ajouté pour décorer. Chaque élément répond à un besoin de la visite ou à une exigence d'accessibilité. Sinon il est retiré.
 - Aucun chiffre n'est écrit sans source. Aucun lien n'est fictif.
-- Aucune cible de KPI n'est inventée : elle est « À nommer » ou cite sa règle. Aucune donnée d'usage n'est collectée avant la décision Q-004.
+- Aucune cible de KPI n'est inventée : elle est « À nommer » ou cite sa règle. L'usage se mesure avec les outils de D-026 et aucun autre : Google Analytics 4 seulement après l'accord du visiteur.
 
 ## 2. Sources de vérité
 
@@ -34,7 +34,7 @@ Ordre de prévalence en cas de divergence : `docs/Product/decisions.md`, puis l'
 
 ## 3. Décisions opposables et questions ouvertes
 
-Décisions retenues : D-001 à D-023. Questions ouvertes : Q-001, Q-003 et Q-004. La question Q-002 est close par D-013.
+Décisions retenues : D-001 à D-026. Question ouverte : Q-001. Les questions Q-002, Q-003, Q-004 et Q-005 sont closes par D-013, D-024, D-026 et D-025.
 
 Aucune question ouverte n'entre dans le code avant son inscription au registre avec date, motif, propriétaire et source. Toute demande qui contredit une décision retenue impose une réouverture écrite : nouvelle preuve, date, décision remplacée, documents touchés. Aucune modification silencieuse.
 

@@ -1,5 +1,8 @@
 import { ArrowUpRight, ChevronRight, Motorbike, Pause, Play, Volume2, VolumeX, CalendarDays } from "lucide-react";
 import { buttonClasses } from "@/shared/ui/buttons.tsx";
+import site from "@/content/site.json";
+import { useConsent } from "@/shared/hooks/use-consent.hook.ts";
+import { analyticsPlan } from "@/shared/utils/analytics-plan.util.ts";
 import { stageNumber } from "@/shared/utils/stage-number.util.ts";
 import { Link, ErrorBoundary } from "@/shared/ui/links.tsx";
 import { Container } from "@/shared/ui/containers.tsx";
@@ -7,11 +10,13 @@ import { useContent } from "@/shared/i18n";
 import type { HTMLAttributes } from "react";
 import { useRetry } from "@/shared/hooks/use-retry.hook.ts";
 import Errors from "@/routes/errors.tsx";
+import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/react";
 import { motion } from "motion/react";
 import { useVideoPlayback } from "@/shared/hooks/use-video-playback.hook.ts";
 import { Badge } from "@/shared/ui/badges.tsx";
 import { cn } from "@/shared/utils/cn.util.ts";
-import type { ActionLinkProps, BreadcrumbProps, ContactPanelProps, FeedbackBoundaryProps, PageFrameProps, PageHeroProps, PageHeroTextProps, PageLeadProps, PageTitleProps, ProcessBandProps, ReelSoundProps, ReelToggleProps, ReelVideoProps, ProcessStageListProps, ProcessStageProps, StageLabelProps, ContactButtonProps, RevealProps, StateCopyProps } from "@/shared/types";
+import type { ActionLinkProps, ConsentBannerProps, GoogleTagProps, ThirdPartyTagsProps, TrackersProps, BreadcrumbProps, ContactPanelProps, FeedbackBoundaryProps, PageFrameProps, PageHeroProps, PageHeroTextProps, PageLeadProps, PageTitleProps, ProcessBandProps, ReelSoundProps, ReelToggleProps, ReelVideoProps, ProcessStageListProps, ProcessStageProps, StageLabelProps, ContactButtonProps, RevealProps, StateCopyProps } from "@/shared/types";
 
 export function ActionLink({ action, className }: ActionLinkProps) {
   return (
@@ -285,5 +290,49 @@ export function StatePanel({ children, ...props }: HTMLAttributes<HTMLElement>) 
     <section className="flex flex-col items-center justify-center min-h-[26rem] text-center py-[clamp(3rem,8vw,6rem)] px-[1.5rem]" {...props}>
       <Container>{children}</Container>
     </section>
+  );
+}
+
+export function ConsentBanner({ onAccept, onRefuse }: ConsentBannerProps) {
+  const { consent } = useContent();
+  return (
+    <aside aria-label={consent.label} className="fixed inset-x-4 bottom-4 z-20 mx-auto flex max-w-xl flex-wrap items-center gap-3 rounded-[18px] border border-[var(--border-ui)] bg-paper p-4 shadow-[0_18px_40px_rgb(0_0_0/12%)]">
+      <p className="m-0 flex-1 text-(length:--text-sm) leading-[1.5]">{consent.text}</p>
+      <button type="button" className={buttonClasses("outline")} onClick={onRefuse}>{consent.refuse}</button>
+      <button type="button" className={buttonClasses("dark")} onClick={onAccept}>{consent.accept}</button>
+    </aside>
+  );
+}
+
+function GoogleTag({ id }: GoogleTagProps) {
+  const start = `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','${id}',{anonymize_ip:true});`;
+  return (
+    <>
+      <script async src={`https://www.googletagmanager.com/gtag/js?id=${id}`} />
+      <script dangerouslySetInnerHTML={{ __html: start }} />
+    </>
+  );
+}
+
+function ThirdPartyTags({ plan }: ThirdPartyTagsProps) {
+  return (
+    <>
+      {plan.vercel ? <Analytics /> : null}
+      {plan.speedInsights ? <SpeedInsights /> : null}
+      {plan.plausibleDomain ? <script defer data-domain={plan.plausibleDomain} src="https://plausible.io/js/script.js" /> : null}
+      {plan.googleId ? <GoogleTag id={plan.googleId} /> : null}
+    </>
+  );
+}
+
+/** Loads the measurement tools of D-026: the cookie free ones, and Google Analytics only after the visitor accepted. */
+export function Trackers({ settings = site.analytics }: TrackersProps) {
+  const { consent, accept, refuse } = useConsent();
+  const plan = analyticsPlan(settings, consent);
+  return (
+    <>
+      <ThirdPartyTags plan={plan} />
+      {plan.askConsent ? <ConsentBanner onAccept={accept} onRefuse={refuse} /> : null}
+    </>
   );
 }

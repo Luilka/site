@@ -24,7 +24,8 @@ def test_root_layout_declares_the_french_document() -> None:
     document = DOCUMENT.read_text(encoding="utf-8")
     assert "useUrlLanguage" in document
     assert "lang={language}" in document
-    assert "<title>Luilka | Design agency</title>" in document
+    assert "usePageMeta" in document
+    assert "<title>{meta.title}</title>" in document
     assert "family=Inter:wght@400;500;600;700&display=swap" in document
     assert "family=Space+Grotesk" in document
 
