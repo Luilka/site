@@ -76,7 +76,7 @@ La couverture occupe toute la carte (`absolute inset-0`, `object-cover`) et le t
 
 Nexy enveloppe chaque navigation du client dans `document.startViewTransition`, et la saute sous `prefers-reduced-motion`. Luilka n'ajoute aucune bibliothèque : `src/globale.css` règle le mouvement.
 
-- L'en-tête porte `view-transition-name: site-header` : il reste fixe pendant le changement de page.
+- Le contenu de l'en-tête porte `view-transition-name: site-header` : il reste fixe pendant le changement de page. Le nom n'est pas sur la balise `header` : un élément qui porte ce nom devient la racine du flou d'arrière-plan et le fond de l'en-tête ne verrait plus la page.
 - L'ancienne page s'efface en 160 ms, la nouvelle monte de 16 pixels en 320 ms (`page-out`, `page-in`).
 - La couverture d'une carte et celle de la page de détail portent le même nom, `cover-<type>-<slug>` (`src/shared/utils/cover-name.util.ts`). Le navigateur les relie : l'image de la carte devient l'image de la page, dans les deux sens.
 - Sous `prefers-reduced-motion`, aucune animation ne démarre.
