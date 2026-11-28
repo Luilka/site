@@ -16,9 +16,9 @@ const detail: DetailModel = {
 describe("icons", () => {
   it("separates the process stages with a motorbike instead of a chevron", () => {
     const { container } = render(<ProcessBand />);
-    expect(container.querySelectorAll("svg.lucide-motorbike")).toHaveLength(8);
+    expect(container.querySelectorAll("svg.lucide-motorbike")).toHaveLength(12);
     expect(container.querySelectorAll("svg.lucide-chevron-right")).toHaveLength(0);
-    expect(container.querySelectorAll("svg")).toHaveLength(8);
+    expect(container.querySelectorAll("svg")).toHaveLength(12);
   });
 
   it("points the motorbikes the way the band scrolls", () => {
