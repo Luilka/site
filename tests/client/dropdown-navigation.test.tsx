@@ -43,11 +43,27 @@ describe("site header dropdown navigation", () => {
     expect(surface?.className).toContain("backdrop-blur");
   });
 
-  it("keeps the page transition name off the header, because it would stop the blur from seeing the page", () => {
+  it("keeps every page transition name out of the ancestors of the dropdown panels, so their blur can see the page", () => {
     const { container } = renderHeader();
-    const header = container.querySelector("header");
-    expect(header?.className).not.toContain("view-transition-name");
-    expect(header?.querySelector("div.isolate")?.className).toContain("[view-transition-name:site-header]");
+    const named = (node: Element | null) => node?.className.toString().includes("view-transition-name") || (node as HTMLElement | null)?.style.viewTransitionName;
+    const panels = container.querySelectorAll("header [id]");
+    expect(panels.length).toBeGreaterThan(0);
+    for (const panel of panels) {
+      for (let node = panel.parentElement; node; node = node.parentElement) expect(named(node)).toBeFalsy();
+    }
+  });
+
+  it("still keeps the brand, the links and the actions in place during a page transition", () => {
+    const { container } = renderHeader();
+    const names = Array.from(container.querySelectorAll("header a, header [class*='view-transition-name']"), (node) => (node as HTMLElement).style.viewTransitionName || node.className.toString().match(/view-transition-name:([\w-]+)/)?.[1]);
+    expect(names.filter(Boolean).length).toBeGreaterThanOrEqual(5);
+    expect(new Set(names.filter(Boolean)).size).toBe(names.filter(Boolean).length);
+  });
+
+  it("gives the dropdown panel a backdrop blur", () => {
+    renderHeader();
+    const panel = screen.getByRole("link", { name: /Services/ }).parentElement?.querySelector("[id]");
+    expect(panel?.className).toContain("backdrop-blur-md");
   });
 
   it("draws a white grid on a clear blurred header surface", () => {

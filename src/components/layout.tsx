@@ -1,5 +1,6 @@
 import { buttonClasses } from "@/shared/ui/buttons.tsx";
 import { Link } from "@/shared/ui/links.tsx";
+import { navName } from "@/shared/utils/nav-name.util.ts";
 import { useContent, useLanguageSwitch, useNavigation } from "@/shared/i18n";
 import { Container } from "@/shared/ui/containers.tsx";
 import { Mail, Menu, X, ChevronDown, CalendarDays, ArrowUpRight, CircleAlert, CircleCheck } from "lucide-react";
@@ -21,7 +22,7 @@ const NAV_ITEM = "inline-flex items-center gap-1 rounded-lg min-h-[2.75rem] py-[
 const NEWS_FORM = "flex gap-1.5 border border-[var(--border-ui)] rounded-[13px] p-[4px]";
 const NEWS_INPUT = "min-w-0 flex-1 border-0 outline-0 [font-family:inherit] leading-[inherit] text-(length:--text-sm) py-0 px-[10px]";
 const NEWS_BUTTON = "flex items-center gap-1.5 bg-[var(--night)] text-paper border-0 rounded-[10px] py-[9px] px-[14px] text-(length:--text-sm) font-medium";
-const MEGA_PANEL = "fixed left-0 right-0 z-12 bg-white/80 backdrop-blur top-[4.4375rem] border-y border-y-[var(--border-ui)] shadow-[0_18px_40px_rgb(0_0_0/12%)] transition-[opacity,transform,visibility] duration-160 ease-[ease] motion-reduce:transition-none";
+const MEGA_PANEL = "fixed left-0 right-0 z-12 bg-white/80 backdrop-blur-md top-[4.4375rem] border-y border-y-[var(--border-ui)] shadow-[0_18px_40px_rgb(0_0_0/12%)] transition-[opacity,transform,visibility] duration-160 ease-[ease] motion-reduce:transition-none";
 const MEGA_CLOSED = "opacity-0 invisible [transform:translateY(-0.375rem)] pointer-events-none";
 const MEGA_OPEN = "opacity-100 visible [transform:translateY(0)] pointer-events-auto";
 const SOCIAL_LINK = "row-center justify-center size-11 rounded-full border border-[var(--border-ui)] hover:bg-soft hover:text-text";
@@ -35,7 +36,7 @@ const MOBILE_LINK = "flex min-h-[3rem] items-center px-6 text-(length:--text-lg)
 export function BrandMark() {
   const { homeLabel } = useContent();
   return (
-    <Link className="row-center gap-[6px] font-semibold text-(length:--text-lg)" href="/" aria-label={homeLabel}>
+    <Link className="row-center gap-[6px] font-semibold text-(length:--text-lg) [view-transition-name:site-brand]" href="/" aria-label={homeLabel}>
       <Logo className="size-6" />
       Luilka
     </Link>
@@ -190,7 +191,7 @@ function MainNavigation() {
 function ContactLink() {
   const { contactAction } = useContent();
   return (
-    <Link className={buttonClasses("outline", "bg-transparent! border-gray-400! max-[440px]:size-11 max-[440px]:justify-center max-[440px]:p-0")} href="/contact">
+    <Link className={buttonClasses("outline", "bg-transparent! border-gray-400! max-[440px]:size-11 max-[440px]:justify-center max-[440px]:p-0 [view-transition-name:site-contact]")} href="/contact">
       <span className="max-[440px]:sr-only">{contactAction}</span><CalendarDays size={14} strokeWidth={1.8} aria-hidden="true" />
     </Link>
   );
@@ -209,7 +210,7 @@ function FlagMark() {
 function LanguageToggle() {
   const { language, next, label, page } = useLanguageSwitch();
   return (
-    <Link className="row-center gap-[4px] text-(length:--text-sm) font-medium" href={page} language={next} aria-label={label}>
+    <Link className="row-center gap-[4px] text-(length:--text-sm) font-medium [view-transition-name:site-language]" href={page} language={next} aria-label={label}>
       <FlagMark />{language.toUpperCase()}<ChevronDown size={14} strokeWidth={2.5} aria-hidden="true" />
     </Link>
   );
@@ -307,7 +308,7 @@ export function Header() {
   return (
     <header className="sticky top-0 z-13 border-[0.04375rem] border-[var(--border-ui)]">
       <div className={HEADER_SURFACE} aria-hidden="true" />
-      <div className="isolate [view-transition-name:site-header] mx-auto flex h-17.75 w-full max-w-7xl flex-row items-center justify-between gap-3 px-6 min-[641px]:gap-8 lg:px-10">
+      <div className="isolate mx-auto flex h-17.75 w-full max-w-7xl flex-row items-center justify-between gap-3 px-6 min-[641px]:gap-8 lg:px-10">
         <BrandMark /><MainNavigation /><HeaderActions />
       </div>
     </header>
@@ -344,7 +345,7 @@ export function MegaGrid({ items, onClose }: MegaGridProps) {
 
 function NavTrigger({ item, id, open }: NavTriggerProps) {
   return (
-    <Link className={`${NAV_ITEM} [&_svg]:transition-transform aria-expanded:[&_svg]:[transform:rotate(180deg)]`} href={item.href} aria-haspopup="true" aria-expanded={open} aria-controls={id}>
+    <Link className={`${NAV_ITEM} [&_svg]:transition-transform aria-expanded:[&_svg]:[transform:rotate(180deg)]`} href={item.href} style={{ viewTransitionName: navName(item.href) }} aria-haspopup="true" aria-expanded={open} aria-controls={id}>
       {item.label}
       <ChevronDown size={16} strokeWidth={2.5} aria-hidden="true" />
     </Link>
@@ -403,7 +404,7 @@ function NavDropdown({ item, open, onOpen, onClose }: NavDropdownProps) {
 }
 
 export function NavEntry({ item, menu }: NavEntryProps) {
-  if (!item.menu) return <Link className={NAV_ITEM} href={item.href} onMouseEnter={menu.close}>{item.label}</Link>;
+  if (!item.menu) return <Link className={NAV_ITEM} href={item.href} style={{ viewTransitionName: navName(item.href) }} onMouseEnter={menu.close}>{item.label}</Link>;
   const key = item.menu;
   return <NavDropdown item={item} open={menu.current === key} onOpen={() => menu.open(key)} onClose={menu.close} />;
 }

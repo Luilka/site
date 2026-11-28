@@ -112,7 +112,10 @@ def test_page_transitions_stop_when_the_visitor_prefers_less_motion() -> None:
 
 def test_header_keeps_its_place_during_page_transitions() -> None:
     header = (SRC / "components" / "layout.tsx").read_text(encoding="utf-8")
-    assert "[view-transition-name:site-header]" in header
+    assert "[view-transition-name:site-brand]" in header
+    assert "[view-transition-name:site-language]" in header
+    assert "[view-transition-name:site-contact]" in header
+    assert "viewTransitionName" in header
 
 
 def test_cards_and_detail_pages_share_the_cover_transition_name() -> None:
