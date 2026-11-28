@@ -1,5 +1,6 @@
 import { ArrowUpRight, ChevronRight, Motorbike, Pause, Play, Volume2, VolumeX, CalendarDays } from "lucide-react";
 import { buttonClasses } from "@/shared/ui/buttons.tsx";
+import { stageNumber } from "@/shared/utils/stage-number.util.ts";
 import { Link, ErrorBoundary } from "@/shared/ui/links.tsx";
 import { Container } from "@/shared/ui/containers.tsx";
 import { useContent } from "@/shared/i18n";
@@ -204,10 +205,10 @@ const CHEVRON = "opacity-50 motion-reduce:max-[1000px]:hidden";
 const CHEVRON_LAST = `${CHEVRON} motion-reduce:hidden`;
 const TILT = "absolute inset-0 -left-0.5 -right-0.5 bg-gray animate-stripes motion-reduce:animate-none bg-[repeating-linear-gradient(45deg,transparent_0_8px,color-mix(in_srgb,var(--text)_18%,transparent)_8px_10px)] bg-size-[14.1421px_14.1421px]";
 
-function ProcessStage({ label, last, reverse }: ProcessStageProps) {
+function ProcessStage({ label, number, last, reverse }: ProcessStageProps) {
   return (
     <>
-      <span className="font-display text-(length:--text-xl) font-semibold uppercase tracking-[0.08em]">{label}</span>
+      <span className="font-display text-(length:--text-xl) font-semibold uppercase tracking-[0.08em]">{number} {label}</span>
       <Motorbike size={26} strokeWidth={1.5} aria-hidden="true" className={`${last ? CHEVRON_LAST : CHEVRON} ${reverse ? "-scale-x-100" : ""}`} />
     </>
   );
@@ -218,7 +219,7 @@ function ProcessStageList({ className, reverse }: ProcessStageListProps) {
   const lastIndex = processKeywords.length - 1;
   return (
     <div className={className}>
-      {processKeywords.map((keyword, index) => <ProcessStage key={keyword} label={keyword} last={index === lastIndex} reverse={reverse} />)}
+      {processKeywords.map((keyword, index) => <ProcessStage key={keyword} label={keyword} number={stageNumber(index)} last={index === lastIndex} reverse={reverse} />)}
     </div>
   );
 }

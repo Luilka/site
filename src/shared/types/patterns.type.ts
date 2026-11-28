@@ -53,6 +53,7 @@ export type ProcessStageListProps = {
 
 export type ProcessStageProps = {
   label: string;
+  number: string;
   last: boolean;
   reverse?: boolean;
 };
