@@ -112,6 +112,22 @@ describe("landing components", () => {
     expect(section?.className).not.toContain("bg-grid");
   });
 
+  it("fills the right of the contact card with decorative squares of different colours", () => {
+    const { container } = render(<ContactPanel />);
+    const mosaic = container.querySelector("[data-part='mosaic']");
+    const squares = Array.from(mosaic?.children ?? []);
+    const colours = new Set(squares.flatMap((square) => square.className.split(" ").filter((name) => name.startsWith("bg-"))));
+    expect(mosaic?.getAttribute("aria-hidden")).toBe("true");
+    expect(squares.length).toBeGreaterThanOrEqual(12);
+    expect(colours.size).toBeGreaterThanOrEqual(4);
+  });
+
+  it("keeps the contact text and button readable above the squares", () => {
+    render(<ContactPanel />);
+    expect(screen.getByRole("heading", { level: 2, name: "Donnons forme à votre prochaine idée." })).toBeTruthy();
+    expect(screen.getByRole("link", { name: /Nous contacter/ })).toBeTruthy();
+  });
+
   it("renders a service", () => {
     render(<ServiceCard slug="service" title="Design" description="Texte" />);
     expect(screen.getByText("Design")).toBeTruthy();

@@ -22,13 +22,36 @@ export function ActionLink({ action, className }: ActionLinkProps) {
   );
 }
 
-function ContactCard() {
+const MOSAIC: readonly string[] = [
+  "bg-gold", "bg-transparent", "bg-accent", "bg-gray", "bg-transparent", "bg-gold/60",
+  "bg-accent", "bg-paper", "bg-transparent", "bg-gold", "bg-accent", "bg-gray",
+  "bg-transparent", "bg-gold/60", "bg-paper", "bg-accent", "bg-gold", "bg-transparent",
+];
+
+function ContactMosaic() {
+  return (
+    <div data-part="mosaic" className="absolute inset-y-0 right-0 grid w-[46%] grid-cols-6 content-center gap-3 p-6 max-[900px]:hidden" aria-hidden="true">
+      {MOSAIC.map((colour, index) => <span key={index} className={`aspect-square rounded-[14px] ${colour}`} />)}
+    </div>
+  );
+}
+
+function ContactText() {
   const { contact } = useContent();
   return (
-    <div className="bg-night text-paper rounded-[22px] py-[70px] px-[60px] min-h-[300px]">
+    <div className="relative">
       <h2 className="text-(length:--text-2xl) font-semibold mb-[22px]">{contact.title}</h2>
       <p className="text-(length:--text-base) text-paper/70 max-w-[440px] mb-[26px] leading-[1.7]">{contact.description}</p>
       <ContactButton variant="light" />
+    </div>
+  );
+}
+
+function ContactCard() {
+  return (
+    <div className="relative overflow-hidden bg-night text-paper rounded-[22px] py-[70px] px-[60px] min-h-[300px]">
+      <ContactMosaic />
+      <ContactText />
     </div>
   );
 }
